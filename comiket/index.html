@@ -2,8 +2,17 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>CircleCheck v1.0.0</title>
-        <meta name="theme-color" content="#f06292">
+        <title>CircleCheck</title>
+        <meta name="theme-color" content="#ee6e73">
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-115436840-4"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-115436840-4');
+        </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
@@ -13,23 +22,49 @@
     </head>
 
     <body>
-        <nav class="nav-extended pink lighten-2">
+        <nav class="nav-extended">
             <div class="nav-wrapper">
-                <a class="brand-logo">CircleCheck</a>
+                <div class="container">
+                    <a class="brand-logo">CircleCheck</a>
+                </div>
+                
                 <ul id="slide-out" class="sidenav">
-                    <<li><a href="#!">First Sidebar Link</a></li>
+                    <div class="container grey-text text-darken-3">
+                        <h5>CircleCheck</h5>
+                        <h6>v1.0.0</h6>
+                    </div>
+                    <hr style="width: 90%">
+                    <li><a></a></li>
                 </ul>
                 <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
             </div>
 
             <!-- MainTab -->
-            <div class="nav-content">
+            <div class="nav-content container">
                 <ul class="tabs tabs-transparent">
-                    <li class="tab"><a class="active" href="#cc-map">マップ<i class="material-icons left">map</i></a></li>
-                    <li class="tab"><a href="#cc-list">サークル<i class="material-icons left">star</i></a></li>
+                    <li class="tab"><a class="active" href="#cc-top">トップ</a></li>
+                    <li class="tab"><a href="#cc-map">マップ</a></li>
+                    <li class="tab"><a href="#cc-list">サークル</a></li>
                 </ul>
             </div>
         </nav>
+
+        <!-- TopTab -->
+        <div id="cc-top" class="col s12 grey-text text-darken-2">
+            <div class="container">
+                <h4>できること</h4>
+                <hr>
+                <p>「CircleCheck」でできることは以下の通りです。</p>
+                <p>・お気に入りのサークルをリスト化</p>
+                <p>・ビックサイトのマップを閲覧する</p>
+                <h4>使い方</h4>
+                <hr>
+                <p>「マップ」タブでは、ビックサイトの西・南ホール、臨海展示場のマップを閲覧することが出来ます。</p>
+                <p class="red-text">※未実装です</p>
+                <p>「サークル」タブでは、お気に入りのサークルをリスト化してチェックリスト形式で表示することが出来ます。</p>
+                <p>「サークル」タブ→「お気に入り追加」からサークルの追加を行ってください。</p>
+            </div>
+        </div>        
 
         <!-- MapTab -->
         <div id="cc-map" class="col s12">
@@ -67,7 +102,7 @@
         <!-- ListTab -->
         <div id="cc-list" class="col s12">
             <ul class="tabs">
-                <li class="tab"><a href="#cc-list-circle">お気に入りリスト</a></li>
+                <li class="tab"><a class="active" href="#cc-list-circle">お気に入りリスト</a></li>
                 <li class="tab"><a href="#cc-list-add">お気に入り追加</a></li>
             </ul>
 
