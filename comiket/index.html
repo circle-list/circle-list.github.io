@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>CircleCheck v1.0.0</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <script src="scheck.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+
+    <body>
+        <nav class="nav-extended">
+            <div class="nav-wrapper">
+                <a class="brand-logo">CircleCheck</a>
+                <ul id="slide-out" class="sidenav">
+                    <<li><a href="#!">First Sidebar Link</a></li>
+                </ul>
+                <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            </div>
+
+            <!-- MainTab -->
+            <div class="nav-content">
+                <ul class="tabs tabs-transparent">
+                    <li class="tab"><a class="active" href="#cc-map">マップ<i class="material-icons left">map</i></a></li>
+                    <li class="tab"><a href="#cc-list">サークル<i class="material-icons left">star</i></a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- MapTab -->
+        <div id="cc-map" class="col s12">
+            <ul class="tabs">
+                <li class="tab"><a class="active" href="#cc-map-w1">西1・西2</a></li>
+                <li class="tab"><a href="#cc-map-w2">西3・西4</a></li>
+                <li class="tab"><a href="#cc-map-s1">南1・南2</a></li>
+                <li class="tab"><a href="#cc-map-s2">南3・南4</a></li>
+                <li class="tab"><a href="#cc-map-k">青海A・青海B</a></li>
+            </ul>
+
+            <!-- マップ一覧@w1 -->
+            <div id="cc-map-w1" class="col s12">
+                西1・西2
+            </div>
+            <!-- マップ一覧@w2 -->
+            <div id="cc-map-w2" class="col s12">
+                西3・西4
+            </div>
+            <!-- マップ一覧@s1 -->
+            <div id="cc-map-s1" class="col s12">
+                南1・南2
+            </div>
+            <!-- マップ一覧@s2 -->
+            <div id="cc-map-s2" class="col s12">
+                南3・南4
+            </div>
+            <!-- マップ一覧@k -->
+            <div id="cc-map-k" class="col s12">
+                青海A・青海B
+            </div>
+
+        </div>
+
+        <!-- ListTab -->
+        <div id="cc-list" class="col s12">
+            <ul class="tabs">
+                <li class="tab"><a href="#cc-list-circle">お気に入りリスト</a></li>
+                <li class="tab"><a href="#cc-list-add">お気に入り追加</a></li>
+            </ul>
+
+            <!-- サークル@一覧 -->
+            <div id="cc-list-circle" class="col s12">
+                リスト
+            </div>
+            <!-- サークル@追加 -->
+            <div id="cc-list-add" class="col s12">
+                追加
+            </div>
+        </div>
+    </body>
+</html>
