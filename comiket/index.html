@@ -15,9 +15,8 @@
         </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="style.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-        <script src="scheck.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
 
@@ -34,9 +33,9 @@
                         <h6>v1.0.0</h6>
                         <hr>
                     </div>
-                    <li><a class="waves-effect" href="https://www.comiket.co.jp/">コミックマーケット公式サイト</a></li>
-                    <li><a class="waves-effect" href="https://twitter.com/comiketofficial?lang=ja">コミックマーケット準備会 (Twitter)</a></li>
-                    <li><a class="waves-effect" href="https://webcatalog.circle.ms/">コミケWebカタログ</a></li>
+                    <li><a class="waves-effect" href="https://www.comiket.co.jp/" target="_blank">コミックマーケット公式サイト</a></li>
+                    <li><a class="waves-effect" href="https://twitter.com/comiketofficial?lang=ja" target="_blank">コミックマーケット準備会 (Twitter)</a></li>
+                    <li><a class="waves-effect" href="https://webcatalog.circle.ms/" target="_blank">コミケWebカタログ</a></li>
                 </ul>
                 <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
             </div>
@@ -118,8 +117,44 @@
             </div>
             <!-- サークル@追加 -->
             <div id="cc-list-add" class="col s12 container">
-                追加
+                <div class="row">
+                    <!-- サークル名 -->
+                    <form class="col s12">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input id="cc-list-add-circle_name" type="text" class="validate">
+                                <label for="cc-list-add-circle_name">サークル名</label>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- 場所 -->
+                    <div class="input-field col s3">
+                        <select id="cc-list-add-ck">
+                          <option value="" disabled selected>地区</option>
+                          <option value="1">西1・2</option>
+                          <option value="2">西3・西4</option>
+                          <option value="3">南1・南2</option>
+                          <option value="4">南3・南4</option>
+                        </select>
+                    </div>
+                    <div class="input-field col s2">
+                        <select id="cc-list-add-il">
+                            <option value="" disabled selected>選択</option>
+                        </select>
+                    </div>
+                    <!-- メモ -->
+                    <form class="col s12">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <textarea id="cc-list-add-memo" class="materialize-textarea"></textarea>
+                                <label for="cc-list-add-memo">メモ</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <script src="scheck.js"></script>
     </body>
 </html>
