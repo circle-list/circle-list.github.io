@@ -10,3 +10,27 @@
     border-radius: 10px;
     box-shadow: inset 0 0 0 2px #fff;
 }
+
+#cc-list-circle span {
+    margin: 0px 10px 0px 5px; 
+} 
+
+#cc-list-circle p {
+    display: block;
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    margin: 6px 0px 6px 0px;
+}
+
+#cc-list-circle .collapsible-body {
+    padding: 5px 15px 5px 15px;
+}
+
+#check-box {
+    color: #ee6e73;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}

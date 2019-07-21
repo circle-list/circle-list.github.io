@@ -21,7 +21,7 @@
     </head>
 
     <body>
-        <nav class="nav-extended">
+        <nav class="nav-extended" style="box-shadow: none; -webkit-box-shadow: none;">
             <div class="nav-wrapper">
                 <div class="container">
                     <a class="brand-logo">CircleCheck</a>
@@ -41,7 +41,7 @@
             </div>
 
             <!-- MainTab -->
-            <div class="nav-content container">
+            <div class="nav-content">
                 <ul class="tabs tabs-transparent">
                     <li class="tab"><a class="active" href="#cc-top">トップ</a></li>
                     <li class="tab"><a href="#cc-map">マップ</a></li>
@@ -112,39 +112,37 @@
             </ul>
 
             <!-- サークル@一覧 -->
-            <div id="cc-list-circle" class="col s12 container">
-                
+            <div id="cc-list-circle" class="col s12">
+                <ul id="cc-list-circle-wrapper" class="collapsible expandable" style="box-shadow: none; -webkit-box-shadow: none; margin: 0rem 0 1rem 0;"></ul>
             </div>
             <!-- サークル@追加 -->
             <div id="cc-list-add" class="col s12 container">
-                <div class="row">
+                <div class="row" style="margin-bottom: 0px;">
+                    <!-- 場所など -->
+                    <div class="input-field col s4">
+                        <select id="cc-list-add-day"></select>
+                    </div>
+                    <div class="input-field col s2">
+                        <select id="cc-list-add-il"></select>
+                    </div>
+                    <div class="input-field col s2">
+                        <select id="cc-list-add-sb"></select>
+                    </div>
+                    <div class="input-field col s2">
+                        <select id="cc-list-add-ab"></select>
+                    </div>
                     <!-- サークル名 -->
                     <form class="col s12">
-                        <div class="row">
+                        <div class="row" style="margin-bottom: 0px;">
                             <div class="input-field col s12">
                                 <input id="cc-list-add-circle_name" type="text" class="validate">
                                 <label for="cc-list-add-circle_name">サークル名</label>
                             </div>
                         </div>
                     </form>
-                    <!-- 場所 -->
-                    <div class="input-field col s3">
-                        <select id="cc-list-add-ck">
-                          <option value="" disabled selected>地区</option>
-                          <option value="1">西1・2</option>
-                          <option value="2">西3・西4</option>
-                          <option value="3">南1・南2</option>
-                          <option value="4">南3・南4</option>
-                        </select>
-                    </div>
-                    <div class="input-field col s2">
-                        <select id="cc-list-add-il">
-                            <option value="" disabled selected>選択</option>
-                        </select>
-                    </div>
                     <!-- メモ -->
                     <form class="col s12">
-                        <div class="row">
+                        <div class="row" style="margin-bottom: 0px;">
                             <div class="input-field col s12">
                                 <textarea id="cc-list-add-memo" class="materialize-textarea"></textarea>
                                 <label for="cc-list-add-memo">メモ</label>
@@ -152,6 +150,9 @@
                         </div>
                     </form>
                 </div>
+                <!-- 確定ボタン -->
+                <button class="btn waves-effect waves-light" type="submit" name="action" id="cc-list-add-submit">追加<i class="material-icons left">playlist_add</i></button>
+                <p>追加後「購入リスト」タブから購入予定のグッズを追加できます！</p>
             </div>
         </div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
