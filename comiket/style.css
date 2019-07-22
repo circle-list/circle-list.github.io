@@ -11,9 +11,11 @@
     box-shadow: inset 0 0 0 2px #fff;
 }
 
+/*
 #cc-list-circle span {
     margin: 0px 10px 0px 5px; 
 } 
+*/
 
 #cc-list-circle p {
     display: block;
@@ -45,4 +47,58 @@ body {
 .main-logo {
     height: 80%;
     margin: 6px 0px 0px 0px;
+}
+
+.memo {
+    -ms-user-select: text;
+    -webkit-user-select: text;
+    user-select: text;
+}
+
+.remove-button {
+    position: absolute !important;
+    right: 10px;
+    bottom: 5px;
+}
+
+.edit-button {
+    position: absolute !important;
+    right: 80px;
+    bottom: 5px;
+}
+
+.collapsible-header {
+    display: block !important;
+    height: 4em !important;
+    position: relative;
+}
+
+.collapsible-header span {
+    position: absolute;
+    top: 50%;
+    margin-top: -1.0rem;
+}
+
+.collapsible-body {
+    position: relative;
+}
+
+.cc-name {
+    left: 40%;
+}
+
+.cc-hall {
+    left: 15%;
+}
+
+.cc-place {
+    left: 25%;
+}
+
+.cc-day {
+    right: 10%;
+}
+
+.warning-text {
+    font-size: 20px;
 }

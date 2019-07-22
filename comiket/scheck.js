@@ -213,7 +213,7 @@ function updateList() {
     $('#cc-list-circle-wrapper').empty()
     var data = JSON.parse(localStorage.getItem('circles'))
     if(Object.keys(data).length === 0) {
-        $('#cc-list-circle-wrapper').append('<p class="center-align not-registed">まだお気に入りのサークルを登録していないようです</p>')
+        $('#cc-list-circle-wrapper').append('<p class="center-align not-registed">表示する内容がありません。<br>日付を変更するか、お気に入りを追加してみてください。</p>')
         return
     } else {
         data = objectSort(data)
@@ -224,22 +224,64 @@ function updateList() {
         hall = findHall(tmp.place.island, tmp.place.number)
         isBuy = isBuyF(tmp)
         buyList = []
-        memo = tmp.memo
+        if(tmp.memo === '') {
+            memo = '(メモはありません)'
+        } else {
+            memo = tmp.memo
+        }
         place = tmp.place.island + tmp.place.number + tmp.place.ab
-        $('#cc-list-circle-wrapper').append('<li><div class="collapsible-header"><i class="material-icons" id="check-box" data-id="' + tmp.id + '">' + isBuy + '</i><span>' + tmp.place.date + '日目</span><span>' + place + '</span><span>' + hall + '</span><span>' + tmp.name + '</span></div><div class="collapsible-body grey lighten-4"><p>' + memo + '</p><p>' + buyList + '</p></div></li>')
+        if(tmp.paid === false) {
+            color = 'light-blue-text text-darken-2'
+        } else {
+            color = 'grey-text text-lighten-1'
+        }
+        $('#cc-list-circle-wrapper').append('<li><div class="collapsible-header ' + color + '"><i class="material-icons" id="check-box" data-id="' + tmp.id + '">' + isBuy + '</i><span class="cc-day">' + tmp.place.date + '日目</span><span class="cc-place">' + place + '</span><span class="cc-hall">' + hall + '</span><span class="cc-name">' + tmp.name + '</span></div><div class="collapsible-body grey lighten-4"><p>【メモ】</p><p class="memo">' + memo + '</p>【購入リスト】<p>(未登録です)' + buyList + '</p><a id="remove-button" class="waves-effect waves-red btn-flat red-text remove-button" data-id="' + tmp.id + '">削除</a><a id="edit-button" class="waves-effect waves-blue btn-flat blue-text edit-button">編集</a></div></li>')
+        $('#cc-list-buy-circle').append('<option value="' + tmp.id + '">' + tmp.name + ' (' + place + ')</option>')
+        $('#cc-list-buy-circle').formSelect()
     }
+
+    //$('#cc-list-circle-wrapper').append('<li><div class="collapsible-header"><i class="material-icons" id="check-box" data-id=""></i><span>日目</span><span></span><span></span><span></span></div><div class="collapsible-body grey lighten-4"><p class="memo"></p><p></p></div></li>')
 }
 
-//CheckBox なんかうごかない
-$('#check-box').live('click', function() {
+//CheckBox
+$('#cc-list-circle-wrapper').on('click', '#check-box', function() {
     var id =  $(this).data('id')
     var data = JSON.parse(localStorage.getItem('circles'))
     if($(this).text() === 'check_box_outline_blank') {
         $(this).text('check_box')
         data[id].paid = true
+        M.toast({html: 'サークル「' + data[id].name + '」を購入済みに設定しました'})
     } else {
         $(this).text('check_box_outline_blank') 
         data[id].paid = false
+        M.toast({html: 'サークル「' + data[id].name + '」を未購入に設定しました'})
     }
     localStorage.setItem('circles', JSON.stringify(data))
+    updateList()
 })
+
+$('#cc-list-circle-wrapper').on('click', '#remove-button', function() {
+    var id =  $(this).data('id')
+    var data = JSON.parse(localStorage.getItem('circles'))
+    $('#remove-modal').append('<div class="modal"><div class="modal-content"><p class="red-text warning-text">本当に削除しますか？</p><p>サークル「' + data[id].name + '」を削除しようとしています。この操作は取り消せません。</p></div><div class="modal-footer"><a onclick="delete_modal_yes(\'' + id + '\')" class="modal-close waves-effect waves-red red-text btn-flat">消す</a><a onclick="delete_modal_no(\'' + id + '\')" class="modal-close waves-effect blue-text btn-flat">やめる</a></div></div>')
+    $('#remove-modal div').modal()
+    M.Modal.getInstance($('#remove-modal div')).open()
+})
+
+$('#cc-list-circle-wrapper').on('click', '#edit-button', function() {
+    M.toast({html: '実装予定です！しばしお待ちください！'})
+})
+
+function delete_modal_no(id) {
+    var data = JSON.parse(localStorage.getItem('circles'))
+    $('#remove-modal').empty()
+}
+
+function delete_modal_yes(id) {
+    var data = JSON.parse(localStorage.getItem('circles'))
+    M.toast({html: 'サークル「' + data[id].name + '」を削除しました'})
+    delete data[id]
+    localStorage.setItem('circles', JSON.stringify(data))
+    updateList()
+    $('#remove-modal').empty()
+}
