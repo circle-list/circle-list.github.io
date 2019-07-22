@@ -30,7 +30,19 @@
 
 #check-box {
     color: #ee6e73;
+}
+
+body {
     -ms-user-select: none;
     -webkit-user-select: none;
     user-select: none;
+}
+
+.not-registed {
+    margin: 25px 0px 0px 0px !important;
+}
+
+.main-logo {
+    height: 80%;
+    margin: 6px 0px 0px 0px;
 }

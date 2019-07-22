@@ -4,15 +4,14 @@
         <meta charset="UTF-8">
         <title>CircleCheck</title>
         <meta name="theme-color" content="#ee6e73">
-        <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-115436840-4"></script>
-        <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'UA-115436840-4');
-        </script>
+        <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'UA-115436840-4'); </script>
+        <meta property="og:url" content="https://hideki0403.github.io/comiket/" /> 
+        <meta property="og:title" content="CircleCheck" /> 
+        <meta property="og:image" content="https://hideki0403.github.io/comiket/icon.png" /> 
+        <meta property="og:description" content="CircleCheckは非公式のコミックマーケット用支援ツールです。お気に入りのサークルを登録して、チェックリストを作ることも可能です。" /> 
+        <meta name="twitter:card" content="summary"/> 
+        <meta name="twitter:site" content="@hideki_0403"/> 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link href="style.css" rel="stylesheet">
@@ -23,10 +22,9 @@
     <body>
         <nav class="nav-extended" style="box-shadow: none; -webkit-box-shadow: none;">
             <div class="nav-wrapper">
-                <div class="container">
-                    <a class="brand-logo">CircleCheck</a>
+                <div class="img-container">
+                    <img src="logo.png" class="brand-logo main-logo"></img>
                 </div>
-                
                 <ul id="slide-out" class="sidenav">
                     <div class="container grey-text text-darken-3" style="line-height: 12px;">
                         <h5>CircleCheck</h5>
@@ -113,6 +111,45 @@
 
             <!-- サークル@一覧 -->
             <div id="cc-list-circle" class="col s12">
+                <div class="fixed-action-btn">
+                    <a class="waves-effect waves-light btn red lighten-1 modal-trigger" href="#open-modal"><i class="material-icons left">today</i>日付変更</a>
+                </div>
+                <!-- Modal -->
+                <div id="open-modal" class="modal">
+                    <div class="modal-content">
+                        <p>表示する日付を選択してください（複数選択可）</p>
+                        <br>
+                        <form action="#">
+                            <p>
+                                <label>
+                                    <input type="checkbox" class="filled-in" checked="checked" />
+                                    <span>1日目</span>
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                    <input type="checkbox" class="filled-in" checked="checked" />
+                                    <span>2日目</span>
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                    <input type="checkbox" class="filled-in" checked="checked" />
+                                    <span>3日目</span>
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                    <input type="checkbox" class="filled-in" checked="checked" />
+                                    <span>4日目</span>
+                                </label>
+                            </p>
+                        </form>
+                    </div>
+                   <div class="modal-footer">
+                        <a href="#!" class="modal-close waves-effect waves-light red lighten-1 btn">決定</a>
+                    </div>
+                </div>                
                 <ul id="cc-list-circle-wrapper" class="collapsible expandable" style="box-shadow: none; -webkit-box-shadow: none; margin: 0rem 0 1rem 0;"></ul>
             </div>
             <!-- サークル@追加 -->
