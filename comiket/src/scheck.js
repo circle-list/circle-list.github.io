@@ -396,7 +396,7 @@ $('#cc-buy-add-button').on('click', function() {
                         'name': $('#cc-buy-add-goods').val(),
                         'price': $('#cc-buy-add-price').val(),
                         'buy': false,
-                        'id': data[$('#cc-list-buy-circle').val()].id + data[$('#cc-list-buy-circle').val()].buy.length
+                        'id': data[$('#cc-list-buy-circle').val()].id + data[$('#cc-list-buy-circle').val()].buy.length + (Math.random() * ( 5000 - 1000 ) + 1000)
                     }
                     data[$('#cc-list-buy-circle').val()].buy.push(tmp)
                     localStorage.setItem('circles', JSON.stringify(data))
@@ -429,7 +429,7 @@ function delete_item_modal_yes(id, item_id, name) {
     })
 
     M.toast({html: 'サークル「' + data[id].name + '」の「' + name + '」を削除しました'})
-    data.buy = newData
+    data[id].buy = newData
     localStorage.setItem('circles', JSON.stringify(data))
     updateList()
     $('#remove-item-modal').empty()
