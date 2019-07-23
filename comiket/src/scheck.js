@@ -1,3 +1,8 @@
+/*  ErrorHandler  */
+window.onerror = function(msg, url, line, col) {  
+    M.toast({html: '<b class="red-text text-accent-1" style="font-weight: bold;">' + msg + ' at line' + line + ' col' + col + '</b>'})
+};
+
 /*  MaterializeJS Loader */
 
 $(document).ready(function(){
@@ -10,9 +15,9 @@ $(document).ready(function(){
     M.Collapsible.init(elem, {
         accordion: false
     })
+    ConfigCheck()
     updateList()
     init()
-    ConfigCheck()
 })
 
 const island = {
@@ -30,9 +35,9 @@ function init() {
     $('#cc-list-add-ab').empty()
 
     $('#cc-list-add-day').append('<option value="" disabled selected>日付選択</option>')
-    $('#cc-list-add-il').append('<option value="" disabled selected>選択</option>')
-    $('#cc-list-add-sb').append('<option value="" disabled selected>選択</option>')
-    $('#cc-list-add-ab').append('<option value="" disabled selected>選択</option>')
+    $('#cc-list-add-il').append('<option value="" disabled selected>選択 (A)</option>')
+    $('#cc-list-add-sb').append('<option value="" disabled selected>選択 (01)</option>')
+    $('#cc-list-add-ab').append('<option value="" disabled selected>選択 (a)</option>')
 
     const num = ['01', '02', '03', '04', '05', '06', '07', '08', '09', 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99]
     const day = ['1日目 (金曜日)', '2日目 (土曜日)', '3日目 (日曜日)', '4日目 (月曜日)']
@@ -79,8 +84,8 @@ function ConfigCheck() {
     }
 
     var config = JSON.parse(localStorage.getItem('config'))
-    if(config.checkbox === undefined) {
-        config.checkbox = {
+    if(config['checkbox'] === undefined) {
+        config['checkbox'] = {
             'day1': true,
             'day2': true,
             'day3': true,
@@ -117,7 +122,7 @@ $('#cc-list-add-submit').click(function() {
             },
             name: $('#cc-list-add-circle_name').val(),
             memo: $('#cc-list-add-memo').val(),
-            buy: {},
+            buy: data[id].buy,
             paid: data[id].paid,
             id: id
         }
@@ -132,7 +137,7 @@ $('#cc-list-add-submit').click(function() {
             },
             name: $('#cc-list-add-circle_name').val(),
             memo: $('#cc-list-add-memo').val(),
-            buy: {},
+            buy: [],
             paid: false,
             id: id
         }
@@ -203,7 +208,7 @@ function findHall(e, n) {
 
 //購入済みか否か
 function isBuyF(d) {
-    if(d.paid === false) {
+    if(d === false) {
         return 'check_box_outline_blank'
     } else {
         return 'check_box'
@@ -245,10 +250,12 @@ function updateList() {
     StorageCheck()
     $('#cc-list-circle-wrapper').empty()
     $('#cc-list-buy-circle').empty()
+    $('#cc-buylist-wrapper').empty()
     var data = JSON.parse(localStorage.getItem('circles'))
     var config = JSON.parse(localStorage.getItem('config'))
     if(Object.keys(data).length === 0) {
-        $('#cc-list-circle-wrapper').append('<p class="center-align not-registed">お気に入りを追加してみてください！</p>')
+        $('#cc-list-circle-wrapper').append('<p class="center-align not-registed">お気に入りを追加してください！</p>')
+        $('#cc-buylist-wrapper').append('<p class="center-align not-registed">サークルが選択されていません。<br>まずはお気に入りのサークルを追加してください。</p>')
         return
     } else {
         data = objectSort(data)
@@ -256,27 +263,47 @@ function updateList() {
 
     for(var i = 0; Object.keys(data).length > i; i++) {
         tmp = data[Object.keys(data)[i]]
+        place = tmp.place.island + tmp.place.number + tmp.place.ab
         if(isChecked(config, tmp.place.date)) {
             hall = findHall(tmp.place.island, tmp.place.number)
-            isBuy = isBuyF(tmp)
+            isBuy = isBuyF(tmp.paid)
             buyList = []
             if(tmp.memo === '') {
                 memo = '(メモはありません)'
             } else {
                 memo = tmp.memo
             }
-            place = tmp.place.island + tmp.place.number + tmp.place.ab
             if(tmp.paid === false) {
                 color = 'light-blue-text text-darken-2'
             } else {
                 color = 'grey-text text-lighten-1'
             }
-            $('#cc-list-circle-wrapper').append('<li><div class="collapsible-header ' + color + '"><i class="material-icons" id="check-box" data-id="' + tmp.id + '">' + isBuy + '</i><span class="cc-day">' + tmp.place.date + '日目</span><span class="cc-place">' + place + '</span><span class="cc-hall">' + hall + '</span><span class="cc-name">' + tmp.name + '</span></div><div class="collapsible-body grey lighten-4"><p>【メモ】</p><p class="memo">' + memo + '</p>【購入リスト】<p>(未登録です)' + buyList + '</p><a id="remove-button" class="waves-effect waves-red btn-flat red-text remove-button" data-id="' + tmp.id + '">削除</a><a id="edit-button" class="waves-effect waves-blue btn-flat blue-text edit-button">編集</a></div></li>')
+            $('#cc-list-circle-wrapper').append('<li><div class="collapsible-header ' + color + '"><i class="material-icons" id="check-box" data-id="' + tmp.id + '">' + isBuy + '</i><span class="cc-day">' + tmp.place.date + '日目</span><span class="cc-place">' + place + '</span><span class="cc-hall">' + hall + '</span><span class="cc-name">' + tmp.name + '</span></div><div class="collapsible-body grey lighten-4"><p>【メモ】</p><p class="memo">' + memo + '</p>【購入リスト】<p>(未登録です)' + buyList + '</p><a id="remove-button" class="waves-effect waves-red btn-flat red-text remove-button" data-id="' + tmp.id + '">削除</a><a id="edit-button" class="waves-effect waves-blue btn-flat blue-text edit-button" data-id="' + tmp.id + '">編集</a></div></li>')
+
+            // ここから下購入リスト
+            if(tmp.buy.length !== 0) {
+                var tmp_box = []
+                for(var i = 0; tmp.buy.length > i; i++) {
+                    var _tmp = tmp.buy[i]
+                    tmp_box.push('<tr><td><i class="material-icons" id="check-box" data-id="' + tmp.id + '" data-item-id="' + _tmp.id + '">' + isBuyF(_tmp.buy) + '</i></td><td>' + _tmp.name + '</td><td>' + _tmp.price + '円</td><td class="del-button-wrapper"><a class="waves-effect waves-red btn-flat red-text buylist-delete" id="buy-delete-button" data-id="' + tmp.id + '" data-item-id="' + _tmp.id + '">削除</a></td></tr>')
+                }
+                $('#cc-buylist-wrapper').append('<li><div class="collapsible-header"><span>' + tmp.name + ' (' + place + ' / ' + tmp.place.date + '日目)</span></div><div class="collapsible-body grey lighten-4"><table class="highlight"><tbody>' + tmp_box.join('') + '</tbody></table></div></li>')
+            }
+
         }
 
         $('#cc-list-buy-circle').append('<option value="' + tmp.id + '">' + tmp.name + ' (' + place + ' / ' + tmp.place.date + '日目)</option>')
-        $('#cc-list-buy-circle').formSelect()
     }
+
+    if($('#cc-list-circle-wrapper li').length === 0) {
+        $('#cc-list-circle-wrapper').append('<p class="center-align not-registed">表示できるサークルがないようです...<br>表示する日付を変更するか、サークルを追加してみてください</p>')
+    }
+
+    if($('#cc-buylist-wrapper li').length === 0) {
+        $('#cc-buylist-wrapper').append('<p class="center-align not-registed">表示できるリストがないようです...<br>表示する日付を変更するか、購入するものを追加してみてください</p>')
+    }
+
+    $('#cc-list-buy-circle').formSelect()
 
     //$('#cc-list-circle-wrapper').append('<li><div class="collapsible-header"><i class="material-icons" id="check-box" data-id=""></i><span>日目</span><span></span><span></span><span></span></div><div class="collapsible-body grey lighten-4"><p class="memo"></p><p></p></div></li>')
 }
@@ -309,12 +336,30 @@ $('#cc-list-circle-wrapper').on('click', '#remove-button', function() {
 
 // 編集ボタン
 $('#cc-list-circle-wrapper').on('click', '#edit-button', function() {
-    M.toast({html: '実装予定です！しばしお待ちください！'})
+    var id =  $(this).data('id')
+    var data = JSON.parse(localStorage.getItem('circles'))[id]
+    $('#cc-list-add-sb').val(data.place.number)
+    $('#cc-list-add-il').val(data.place.island)
+    $('#cc-list-add-day').val(data.place.date)
+    $('#cc-list-add-ab').val(data.place.ab)
+
+    $('#cc-list-add-circle_name').val(data.name)
+    $('#cc-list-add-memo').val(data.memo)
+
+    $('#cc-list-add-sb').formSelect()
+    $('#cc-list-add-il').formSelect()
+    $('#cc-list-add-day').formSelect()
+    $('#cc-list-add-ab').formSelect()
+
+    $('#open-add-circle')[0].click()
+    $('#cc-list-add-circle_name')[0].focus()
+    $('#cc-list-add-memo')[0].focus()
 })
 
 // 削除 -> no
 function delete_modal_no(id) {
     $('#remove-modal').empty()
+    $('#remove-item-modal')
 }
 // 削除 -> yes
 function delete_modal_yes(id) {
@@ -329,7 +374,7 @@ function delete_modal_yes(id) {
 // 表示日付変更
 $('#date-change-submit').on('click', function() {
     var config = JSON.parse(localStorage.getItem('config'))
-    config.checkbox = {
+    config['checkbox'] = {
         'day1': $('#cc-changedate-1').prop('checked'),
         'day2': $('#cc-changedate-2').prop('checked'),
         'day3': $('#cc-changedate-3').prop('checked'),
@@ -337,4 +382,70 @@ $('#date-change-submit').on('click', function() {
     }
     localStorage.setItem('config', JSON.stringify(config))
     updateList()
+})
+
+// グッズ追加
+$('#cc-buy-add-button').on('click', function() {
+    $('#messageWrapper').empty()
+    if($('#cc-list-buy-circle').val() !== null) {
+        if($('#cc-buy-add-goods').val() !== '' ) {
+            if($('#cc-buy-add-price').val() !== '') {
+                if($('#cc-buy-add-price').val() > 0) {
+                    var data = JSON.parse(localStorage.getItem('circles'))
+                    var tmp = {
+                        'name': $('#cc-buy-add-goods').val(),
+                        'price': $('#cc-buy-add-price').val(),
+                        'buy': false,
+                        'id': data[$('#cc-list-buy-circle').val()].id + data[$('#cc-list-buy-circle').val()].buy.length
+                    }
+                    data[$('#cc-list-buy-circle').val()].buy.push(tmp)
+                    localStorage.setItem('circles', JSON.stringify(data))
+
+                    $('#cc-buy-add-goods').val('')
+                    $('#cc-buy-add-price').val('')
+
+                    M.toast({html: '追加しました<br>続けて追加することも可能です'})
+
+                    updateList()
+                } else {
+                    M.toast({html: '金額は0円以上で入力してください'})
+                }
+            } else {
+                M.toast({html: '金額が入力されていません'})
+            }
+        } else {
+            M.toast({html: 'グッズ名が入力されていません'})
+        }
+    } else {
+        M.toast({html: 'サークルが選択されていません。<br>まずはお気に入りのサークルを追加してください。'})
+    }
+})
+
+// グッズ削除 -> yes
+function delete_item_modal_yes(id, item_id, name) {
+    var data = JSON.parse(localStorage.getItem('circles'))
+    var newData = data[id].buy.filter(function(item, index){
+        if (item.id !== item_id) return true
+    })
+
+    M.toast({html: 'サークル「' + data[id].name + '」の「' + name + '」を削除しました'})
+    data.buy = newData
+    localStorage.setItem('circles', JSON.stringify(data))
+    updateList()
+    $('#remove-item-modal').empty()
+}
+
+// グッズ削除
+$('#cc-buylist-wrapper').on('click', '#buy-delete-button', function() {
+    var id =  $(this).data('id')
+    var item_id = $(this).data('item-id')
+    var data = JSON.parse(localStorage.getItem('circles'))
+
+    var item_object = data[id].buy.filter(function(item, index){
+        if (item.id === item_id) return true
+    })
+
+    $('#remove-item-modal').append('<div class="modal"><div class="modal-content"><p class="red-text warning-text">本当に削除しますか？</p><p>サークル「' + data[id].name + '」の「' + item_object[0].name + '」を削除しようとしています。<br>この操作は取り消せません。</p></div><div class="modal-footer"><a onclick="delete_item_modal_yes(\'' + id + '\', \'' + item_id + '\', \'' + item_object[0].name + '\')" class="modal-close waves-effect waves-red red-text btn-flat">消す</a><a onclick="delete_modal_no(\'' + id + '\')" class="modal-close waves-effect blue-text btn-flat">やめる</a></div></div>')
+    $('#remove-item-modal div').modal()
+    M.Modal.getInstance($('#remove-item-modal div')).open()
 })

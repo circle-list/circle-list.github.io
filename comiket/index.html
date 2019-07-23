@@ -54,7 +54,11 @@
 
         <!-- TopTab -->
         <div id="cc-top" class="col s12 grey-text text-darken-2">
-            <div class="container">
+            <ul class="tabs">
+                <li class="tab"><a class="active" href="#cc-top-about">はじめに</a></li>
+                <li class="tab"><a href="#cc-top-info">情報</a></li>
+            </ul>
+            <div id="cc-top-about" class="container">
                 <h5>CircleCheckとは？</h5>
                 <hr>
                 <p>CircleCheckは非公式のコミックマーケット用支援ツールです。</p>
@@ -70,6 +74,9 @@
                 <p class="red-text">※未実装です</p>
                 <p>「サークル」タブでは、お気に入りのサークルをリスト化してチェックリスト形式で表示することが出来ます。</p>
                 <p>「サークル」タブ→「お気に入り追加」からサークルの追加を行ってください。</p>
+            </div>
+            <div class="cc-top-info">
+
             </div>
         </div>        
 
@@ -109,97 +116,110 @@
         <!-- ListTab -->
         <div id="cc-list" class="col s12">
             <ul class="tabs">
-                <li class="tab"><a class="active" href="#cc-list-circle">お気に入りリスト</a></li>
-                <li class="tab"><a href="#cc-list-buy">購入リスト</a></li>
-                <li class="tab"><a href="#cc-list-add">お気に入り追加</a></li>
+                <li class="tab"><a id="cc-list-tab-1" class="active" href="#cc-list-circle">お気に入りリスト</a></li>
+                <li class="tab"><a id="cc-list-tab-2" href="#cc-list-buy">購入リスト</a></li>
             </ul>
+
+            <!-- MainModal -->
+            <div class="fixed-action-btn" style="left: 23px;">
+                <a class="waves-effect waves-light btn red lighten-1 modal-trigger" href="#open-modal"><i class="material-icons left">today</i>日付変更</a>
+            </div>
+            <!-- Modal -->
+            <div id="open-modal" class="modal">
+                <div class="modal-content">
+                    <p>表示する日付を選択してください（複数選択可）</p>
+                    <br>
+                    <form action="#">
+                        <p>
+                            <label>
+                                <input type="checkbox" class="filled-in" checked="checked" id="cc-changedate-1"/>
+                                <span>1日目</span>
+                            </label>
+                        </p>
+                        <p>
+                            <label>
+                                <input type="checkbox" class="filled-in" checked="checked" id="cc-changedate-2" />
+                                <span>2日目</span>
+                            </label>
+                        </p>
+                        <p>
+                            <label>
+                                <input type="checkbox" class="filled-in" checked="checked" id="cc-changedate-3" />
+                                <span>3日目</span>
+                            </label>
+                        </p>
+                        <p>
+                            <label>
+                                <input type="checkbox" class="filled-in" checked="checked" id="cc-changedate-4" />
+                                <span>4日目</span>
+                            </label>
+                        </p>
+                    </form>
+                </div>
+               <div class="modal-footer">
+                    <a href="#!" class="modal-close waves-effect waves-light red lighten-1 btn" id="date-change-submit">決定</a>
+                </div>
+            </div>                
 
             <!-- サークル@一覧 -->
             <div id="cc-list-circle" class="col s12">
-                <div class="fixed-action-btn">
-                    <a class="waves-effect waves-light btn red lighten-1 modal-trigger" href="#open-modal"><i class="material-icons left">today</i>日付変更</a>
-                </div>
-                <!-- Modal -->
-                <div id="open-modal" class="modal">
-                    <div class="modal-content">
-                        <p>表示する日付を選択してください（複数選択可）</p>
-                        <br>
-                        <form action="#">
-                            <p>
-                                <label>
-                                    <input type="checkbox" class="filled-in" checked="checked" id="cc-changedate-1"/>
-                                    <span>1日目</span>
-                                </label>
-                            </p>
-                            <p>
-                                <label>
-                                    <input type="checkbox" class="filled-in" checked="checked" id="cc-changedate-2" />
-                                    <span>2日目</span>
-                                </label>
-                            </p>
-                            <p>
-                                <label>
-                                    <input type="checkbox" class="filled-in" checked="checked" id="cc-changedate-3" />
-                                    <span>3日目</span>
-                                </label>
-                            </p>
-                            <p>
-                                <label>
-                                    <input type="checkbox" class="filled-in" checked="checked" id="cc-changedate-4" />
-                                    <span>4日目</span>
-                                </label>
-                            </p>
-                        </form>
-                    </div>
-                   <div class="modal-footer">
-                        <a href="#!" class="modal-close waves-effect waves-light red lighten-1 btn" id="date-change-submit">決定</a>
-                    </div>
-                </div>                
                 <ul id="cc-list-circle-wrapper" class="collapsible expandable" style="box-shadow: none; -webkit-box-shadow: none; margin: 0rem 0 1rem 0;"></ul>
                 <div id="remove-modal"></div>
-            </div>
-            <!-- サークル@追加 -->
-            <div id="cc-list-add" class="col s12 container">
-                <div class="row" style="margin-bottom: 0px;">
-                    <!-- 場所など -->
-                    <div class="input-field col s4">
-                        <select id="cc-list-add-day"></select>
-                    </div>
-                    <div class="input-field col s2">
-                        <select id="cc-list-add-il"></select>
-                    </div>
-                    <div class="input-field col s2">
-                        <select id="cc-list-add-sb"></select>
-                    </div>
-                    <div class="input-field col s2">
-                        <select id="cc-list-add-ab"></select>
-                    </div>
-                    <!-- サークル名 -->
-                    <form class="col s12">
-                        <div class="row" style="margin-bottom: 0px;">
-                            <div class="input-field col s12">
-                                <input id="cc-list-add-circle_name" type="text" class="validate">
-                                <label for="cc-list-add-circle_name">サークル名</label>
-                            </div>
-                        </div>
-                    </form>
-                    <!-- メモ -->
-                    <form class="col s12">
-                        <div class="row" style="margin-bottom: 0px;">
-                            <div class="input-field col s12">
-                                <textarea id="cc-list-add-memo" class="materialize-textarea"></textarea>
-                                <label for="cc-list-add-memo">メモ</label>
-                            </div>
-                        </div>
-                    </form>
+
+                <!-- サークル@追加 -->
+                <div class="fixed-action-btn">
+                    <a id="open-add-circle" class="waves-effect waves-light btn red lighten-1 modal-trigger" href="#cc-list-add"><i class="material-icons left">playlist_add</i>お気に入り追加</a>
                 </div>
-                <!-- 確定ボタン -->
-                <button class="btn waves-effect waves-light red lighten-1" type="submit" name="action" id="cc-list-add-submit">追加<i class="material-icons left">playlist_add</i></button>
-                <p>追加後「購入リスト」タブから購入予定のグッズを追加できます！</p>
+                <!-- Modal -->
+                <div id="cc-list-add" class="modal modal-fixed-footer">
+                    <div class="modal-content">
+                        <div class="row" style="margin-bottom: 0px;">
+                            <!-- 場所など -->
+                            <div class="input-field col s12">
+                                <select id="cc-list-add-day"></select>
+                            </div>
+                            <div class="input-field col s4">
+                                <select id="cc-list-add-il"></select>
+                            </div>
+                            <div class="input-field col s4">
+                                <select id="cc-list-add-sb"></select>
+                            </div>
+                            <div class="input-field col s4">
+                                <select id="cc-list-add-ab"></select>
+                            </div>
+                            <!-- サークル名 -->
+                            <form class="col s12">
+                                <div class="row" style="margin-bottom: 0px;">
+                                    <div class="input-field col s12">
+                                        <input id="cc-list-add-circle_name" type="text" class="validate">
+                                        <label for="cc-list-add-circle_name">サークル名</label>
+                                    </div>
+                                </div>
+                            </form>
+                            <!-- メモ -->
+                            <form class="col s12">
+                                <div class="row" style="margin-bottom: 0px;">
+                                    <div class="input-field col s12">
+                                        <textarea id="cc-list-add-memo" class="materialize-textarea"></textarea>
+                                        <label for="cc-list-add-memo">メモ</label>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- 確定ボタン -->
+                        <p>追加後「購入リスト」から購入予定のグッズを追加できます！</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn waves-effect waves-light blue lighten-1" type="submit" name="action" id="cc-list-add-submit">追加 (編集)</button>
+                        <a href="#!" class="modal-close waves-effect waves-light red lighten-1 btn">閉じる</a>
+                    </div>
+                </div>
             </div>
+
             <!-- 購入リスト -->
-            <div id="cc-list-buy" class="col s12 container">
-                    <p class="center-align not-registed">実装予定です！しばしお待ちください！</p>
+            <div id="cc-list-buy">
+                <div id="remove-item-modal"></div>
+                <ul id="cc-buylist-wrapper" class="collapsible expandable" style="box-shadow: none; -webkit-box-shadow: none; margin: 0rem 0 1rem 0;"></ul>  
                 <div class="row">
                     <div class="fixed-action-btn">
                         <a class="waves-effect waves-light btn red lighten-1 modal-trigger" href="#new-goods"><i class="material-icons left">playlist_add</i>追加</a>
@@ -207,14 +227,33 @@
                     <!-- Modal -->
                     <div id="new-goods" class="modal modal-fixed-footer">
                         <div class="modal-content">
-                            <p>追加するサークルを選択してください</p>
                             <div class="input-field col s12">
+                                <label style="position: static; font-size: 11px;">追加するサークルを選択してください</label>
                                 <select id="cc-list-buy-circle"></select>
                             </div>
-
+                            <form class="col s12">
+                                <div class="row" style="margin-bottom: 0px;">
+                                    <div class="input-field col s12">
+                                        <input id="cc-buy-add-goods" type="text" class="validate" placeholder="新刊">
+                                        <label for="cc-buy-add-goods">グッズ名</label>
+                                    </div>
+                                </div>
+                            </form>
+                            <form class="col s12">
+                                <div class="row" style="margin-bottom: 0px;">
+                                    <div class="col s5">
+                                        <div class="input-field inline">
+                                            <input id="cc-buy-add-price" type="number" class="validate" placeholder="500">
+                                            <label for="cc-buy-add-price">金額 (数字のみ)</label>
+                                        </div>
+                                    </div>
+                                    <span class="helper-text yen" data-error="wrong" data-success="right">円</span>
+                                </div>
+                            </form>
+                            <div id="messageWrapper"></div>
                         </div>
                         <div class="modal-footer">
-                            <a href="#!" class="waves-effect waves-light blue lighten-1 btn">追加</a>
+                            <a href="#!" class="waves-effect waves-light blue lighten-1 btn" id="cc-buy-add-button">追加</a>
                             <a href="#!" class="modal-close waves-effect waves-light red lighten-1 btn">閉じる</a>
                         </div>
                     </div>

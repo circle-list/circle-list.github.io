@@ -38,6 +38,7 @@ body {
     -ms-user-select: none;
     -webkit-user-select: none;
     user-select: none;
+    overflow-x: hidden;
 }
 
 .not-registed {
@@ -101,4 +102,31 @@ body {
 
 .warning-text {
     font-size: 20px;
+}
+
+.yen {
+    position: relative;
+    top: 27px;
+    left: 0px;
+}
+
+#cc-buylist-wrapper .collapsible-body {
+    padding: 0px 1% 0px;
+}
+
+#cc-buylist-wrapper .collapsible-body tr {
+    position: relative;
+}
+
+#cc-buylist-wrapper .collapsible-body tr .del-button-wrapper {
+    position: absolute;
+    right: 10px;
+    width: 80px;
+    height: 60px;
+}
+
+tr .buylist-delete {
+    position: absolute !important;
+    right: 20px;
+    top: 12px;
 }
