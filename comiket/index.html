@@ -4,6 +4,10 @@
         <meta charset="UTF-8">
         <title>CircleCheck</title>
         <meta name="theme-color" content="#ee6e73">
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+        <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon-180x180.png">
+        <link rel="icon" type="image/png" sizes="192×192" href="assets/android-chrome-192x192.png">
+        <link rel="manifest" href="src/manifest.json">
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-115436840-4"></script>
         <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'UA-115436840-4'); </script>
         <meta property="og:url" content="https://hideki0403.github.io/comiket/" /> 
@@ -14,7 +18,7 @@
         <meta name="twitter:site" content="@hideki_0403"/> 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link href="style.css" rel="stylesheet">
+        <link href="src/style.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
@@ -23,7 +27,7 @@
         <nav class="nav-extended" style="box-shadow: none; -webkit-box-shadow: none;">
             <div class="nav-wrapper">
                 <div class="img-container">
-                    <img src="logo.png" class="brand-logo main-logo"></img>
+                    <img src="assets/logo.png" class="brand-logo main-logo"></img>
                 </div>
                 <ul id="slide-out" class="sidenav">
                     <div class="container grey-text text-darken-3" style="line-height: 12px;">
@@ -123,32 +127,32 @@
                         <form action="#">
                             <p>
                                 <label>
-                                    <input type="checkbox" class="filled-in" checked="checked" />
+                                    <input type="checkbox" class="filled-in" checked="checked" id="cc-changedate-1"/>
                                     <span>1日目</span>
                                 </label>
                             </p>
                             <p>
                                 <label>
-                                    <input type="checkbox" class="filled-in" checked="checked" />
+                                    <input type="checkbox" class="filled-in" checked="checked" id="cc-changedate-2" />
                                     <span>2日目</span>
                                 </label>
                             </p>
                             <p>
                                 <label>
-                                    <input type="checkbox" class="filled-in" checked="checked" />
+                                    <input type="checkbox" class="filled-in" checked="checked" id="cc-changedate-3" />
                                     <span>3日目</span>
                                 </label>
                             </p>
                             <p>
                                 <label>
-                                    <input type="checkbox" class="filled-in" checked="checked" />
+                                    <input type="checkbox" class="filled-in" checked="checked" id="cc-changedate-4" />
                                     <span>4日目</span>
                                 </label>
                             </p>
                         </form>
                     </div>
                    <div class="modal-footer">
-                        <a href="#!" class="modal-close waves-effect waves-light red lighten-1 btn">決定</a>
+                        <a href="#!" class="modal-close waves-effect waves-light red lighten-1 btn" id="date-change-submit">決定</a>
                     </div>
                 </div>                
                 <ul id="cc-list-circle-wrapper" class="collapsible expandable" style="box-shadow: none; -webkit-box-shadow: none; margin: 0rem 0 1rem 0;"></ul>
@@ -190,7 +194,7 @@
                     </form>
                 </div>
                 <!-- 確定ボタン -->
-                <button class="btn waves-effect waves-light" type="submit" name="action" id="cc-list-add-submit">追加<i class="material-icons left">playlist_add</i></button>
+                <button class="btn waves-effect waves-light red lighten-1" type="submit" name="action" id="cc-list-add-submit">追加<i class="material-icons left">playlist_add</i></button>
                 <p>追加後「購入リスト」タブから購入予定のグッズを追加できます！</p>
             </div>
             <!-- 購入リスト -->
@@ -207,15 +211,17 @@
                             <div class="input-field col s12">
                                 <select id="cc-list-buy-circle"></select>
                             </div>
+
                         </div>
                         <div class="modal-footer">
-                            <a href="#!" class="modal-close waves-effect waves-light red lighten-1 btn">決定</a>
+                            <a href="#!" class="waves-effect waves-light blue lighten-1 btn">追加</a>
+                            <a href="#!" class="modal-close waves-effect waves-light red lighten-1 btn">閉じる</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-        <script src="scheck.js"></script>
+        <script src="src/scheck.js"></script>
     </body>
 </html>

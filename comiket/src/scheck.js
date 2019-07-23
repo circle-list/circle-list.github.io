@@ -12,6 +12,7 @@ $(document).ready(function(){
     })
     updateList()
     init()
+    ConfigCheck()
 })
 
 const island = {
@@ -71,6 +72,24 @@ function StorageCheck() {
     }
 }
 
+// ConfigCheck
+function ConfigCheck() {
+    if(localStorage.getItem('config') === null) {
+        localStorage.setItem('config', '{}')
+    }
+
+    var config = JSON.parse(localStorage.getItem('config'))
+    if(config.checkbox === undefined) {
+        config.checkbox = {
+            'day1': true,
+            'day2': true,
+            'day3': true,
+            'day4': true
+        }
+        localStorage.setItem('config', JSON.stringify(config))
+    }
+}
+
 // 保存
 $('#cc-list-add-submit').click(function() {
     StorageCheck()
@@ -85,7 +104,7 @@ $('#cc-list-add-submit').click(function() {
         return
     }
 
-    var id = $('#cc-list-add-il').val() + $('#cc-list-add-sb').val() + $('#cc-list-add-ab').val() + $('#cc-list-add-day').val()
+    var id = $('#cc-list-add-day').val() + $('#cc-list-add-il').val() + $('#cc-list-add-sb').val() + $('#cc-list-add-ab').val()
     var data = JSON.parse(localStorage.getItem('circles'))
 
     if(data[id] !== undefined) {
@@ -126,7 +145,7 @@ $('#cc-list-add-submit').click(function() {
     updateList()
 })
 
-//ホール検索
+// ホール検索
 function findHall(e, n) {
     if(e === 'あ') {
         return '西2壁'
@@ -207,13 +226,29 @@ function objectSort(object) {
     return sorted
 }
 
+// 日付チェック
+function isChecked(config, day) {
+    switch(day) {
+        case '1':
+            return config.checkbox.day1
+        case '2':
+            return config.checkbox.day2
+        case '3':
+            return config.checkbox.day3
+        case '4':
+            return config.checkbox.day4
+    }
+}
+
 //サークルリスト更新
 function updateList() {
     StorageCheck()
     $('#cc-list-circle-wrapper').empty()
+    $('#cc-list-buy-circle').empty()
     var data = JSON.parse(localStorage.getItem('circles'))
+    var config = JSON.parse(localStorage.getItem('config'))
     if(Object.keys(data).length === 0) {
-        $('#cc-list-circle-wrapper').append('<p class="center-align not-registed">表示する内容がありません。<br>日付を変更するか、お気に入りを追加してみてください。</p>')
+        $('#cc-list-circle-wrapper').append('<p class="center-align not-registed">お気に入りを追加してみてください！</p>')
         return
     } else {
         data = objectSort(data)
@@ -221,22 +256,25 @@ function updateList() {
 
     for(var i = 0; Object.keys(data).length > i; i++) {
         tmp = data[Object.keys(data)[i]]
-        hall = findHall(tmp.place.island, tmp.place.number)
-        isBuy = isBuyF(tmp)
-        buyList = []
-        if(tmp.memo === '') {
-            memo = '(メモはありません)'
-        } else {
-            memo = tmp.memo
+        if(isChecked(config, tmp.place.date)) {
+            hall = findHall(tmp.place.island, tmp.place.number)
+            isBuy = isBuyF(tmp)
+            buyList = []
+            if(tmp.memo === '') {
+                memo = '(メモはありません)'
+            } else {
+                memo = tmp.memo
+            }
+            place = tmp.place.island + tmp.place.number + tmp.place.ab
+            if(tmp.paid === false) {
+                color = 'light-blue-text text-darken-2'
+            } else {
+                color = 'grey-text text-lighten-1'
+            }
+            $('#cc-list-circle-wrapper').append('<li><div class="collapsible-header ' + color + '"><i class="material-icons" id="check-box" data-id="' + tmp.id + '">' + isBuy + '</i><span class="cc-day">' + tmp.place.date + '日目</span><span class="cc-place">' + place + '</span><span class="cc-hall">' + hall + '</span><span class="cc-name">' + tmp.name + '</span></div><div class="collapsible-body grey lighten-4"><p>【メモ】</p><p class="memo">' + memo + '</p>【購入リスト】<p>(未登録です)' + buyList + '</p><a id="remove-button" class="waves-effect waves-red btn-flat red-text remove-button" data-id="' + tmp.id + '">削除</a><a id="edit-button" class="waves-effect waves-blue btn-flat blue-text edit-button">編集</a></div></li>')
         }
-        place = tmp.place.island + tmp.place.number + tmp.place.ab
-        if(tmp.paid === false) {
-            color = 'light-blue-text text-darken-2'
-        } else {
-            color = 'grey-text text-lighten-1'
-        }
-        $('#cc-list-circle-wrapper').append('<li><div class="collapsible-header ' + color + '"><i class="material-icons" id="check-box" data-id="' + tmp.id + '">' + isBuy + '</i><span class="cc-day">' + tmp.place.date + '日目</span><span class="cc-place">' + place + '</span><span class="cc-hall">' + hall + '</span><span class="cc-name">' + tmp.name + '</span></div><div class="collapsible-body grey lighten-4"><p>【メモ】</p><p class="memo">' + memo + '</p>【購入リスト】<p>(未登録です)' + buyList + '</p><a id="remove-button" class="waves-effect waves-red btn-flat red-text remove-button" data-id="' + tmp.id + '">削除</a><a id="edit-button" class="waves-effect waves-blue btn-flat blue-text edit-button">編集</a></div></li>')
-        $('#cc-list-buy-circle').append('<option value="' + tmp.id + '">' + tmp.name + ' (' + place + ')</option>')
+
+        $('#cc-list-buy-circle').append('<option value="' + tmp.id + '">' + tmp.name + ' (' + place + ' / ' + tmp.place.date + '日目)</option>')
         $('#cc-list-buy-circle').formSelect()
     }
 
@@ -260,23 +298,25 @@ $('#cc-list-circle-wrapper').on('click', '#check-box', function() {
     updateList()
 })
 
+// サークル削除
 $('#cc-list-circle-wrapper').on('click', '#remove-button', function() {
     var id =  $(this).data('id')
     var data = JSON.parse(localStorage.getItem('circles'))
-    $('#remove-modal').append('<div class="modal"><div class="modal-content"><p class="red-text warning-text">本当に削除しますか？</p><p>サークル「' + data[id].name + '」を削除しようとしています。この操作は取り消せません。</p></div><div class="modal-footer"><a onclick="delete_modal_yes(\'' + id + '\')" class="modal-close waves-effect waves-red red-text btn-flat">消す</a><a onclick="delete_modal_no(\'' + id + '\')" class="modal-close waves-effect blue-text btn-flat">やめる</a></div></div>')
+    $('#remove-modal').append('<div class="modal"><div class="modal-content"><p class="red-text warning-text">本当に削除しますか？</p><p>サークル「' + data[id].name + '」を削除しようとしています。<br>この操作は取り消せません。</p></div><div class="modal-footer"><a onclick="delete_modal_yes(\'' + id + '\')" class="modal-close waves-effect waves-red red-text btn-flat">消す</a><a onclick="delete_modal_no(\'' + id + '\')" class="modal-close waves-effect blue-text btn-flat">やめる</a></div></div>')
     $('#remove-modal div').modal()
     M.Modal.getInstance($('#remove-modal div')).open()
 })
 
+// 編集ボタン
 $('#cc-list-circle-wrapper').on('click', '#edit-button', function() {
     M.toast({html: '実装予定です！しばしお待ちください！'})
 })
 
+// 削除 -> no
 function delete_modal_no(id) {
-    var data = JSON.parse(localStorage.getItem('circles'))
     $('#remove-modal').empty()
 }
-
+// 削除 -> yes
 function delete_modal_yes(id) {
     var data = JSON.parse(localStorage.getItem('circles'))
     M.toast({html: 'サークル「' + data[id].name + '」を削除しました'})
@@ -285,3 +325,16 @@ function delete_modal_yes(id) {
     updateList()
     $('#remove-modal').empty()
 }
+
+// 表示日付変更
+$('#date-change-submit').on('click', function() {
+    var config = JSON.parse(localStorage.getItem('config'))
+    config.checkbox = {
+        'day1': $('#cc-changedate-1').prop('checked'),
+        'day2': $('#cc-changedate-2').prop('checked'),
+        'day3': $('#cc-changedate-3').prop('checked'),
+        'day4': $('#cc-changedate-4').prop('checked')
+    }
+    localStorage.setItem('config', JSON.stringify(config))
+    updateList()
+})
