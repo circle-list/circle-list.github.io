@@ -1,0 +1,50 @@
+.map-frame {
+    overflow: auto;
+    height: 80%;
+    border: 3px solid #ee6e73;
+    border-radius: 10px;
+    margin: 3%;
+}
+
+.map-s1 {
+    position: relative;
+    width: 1240px;
+    height: 680px;
+}
+
+.map-parent div {
+    position: absolute;
+}
+
+.miniblock {
+    width: 20px;
+    height: 20px;
+}
+
+.block-9-2 {
+    outline: 1px solid #000;
+    width: 40px;
+    height: 180px;
+}
+
+.block-7-2 {
+    outline: 1px solid #000;
+    width: 40px;
+    height: 140px;
+}
+
+.grid {
+    display: grid;
+    grid-template-rows: repeat(auto-fill, 20px);
+    grid-template-columns: repeat(auto-fill, 20px);
+    grid-auto-flow: column;
+}
+
+.grid div {
+    position: static;
+    text-align: center;
+    line-height: 20px;
+    font-size: 12px;
+    border: 1px solid #000;
+    border-collapse: collapse;
+}

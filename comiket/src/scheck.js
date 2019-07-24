@@ -18,6 +18,7 @@ $(document).ready(function(){
     ConfigCheck()
     updateList()
     init()
+    drawMap()
 })
 
 const island = {
@@ -449,3 +450,38 @@ $('#cc-buylist-wrapper').on('click', '#buy-delete-button', function() {
     $('#remove-item-modal div').modal()
     M.Modal.getInstance($('#remove-item-modal div')).open()
 })
+
+// マップ描画関係
+var mapAssets = {
+    "s1": {
+        "x": [1120, 1060, 1000, 940, 880, 760, 700, 640, 580, 520, 460, 400, 340, 280, 160, 100, 40],
+        "y": [420, 240, 60],
+        "mark": ['イ', 'ウ', 'エ', 'オ', 'カ', 'ク', 'ケ', 'コ', 'サ', 'シ', 'ス', 'セ', 'ソ', 'タ', 'ツ', 'テ', 'ト']
+    }
+}
+
+function drawMap() {
+    for(var i = 0; Object.keys(mapAssets).length > i; i++) {
+        var tmp_assets = mapAssets[Object.keys(mapAssets)[i]]
+        var map_id = Object.keys(mapAssets)[i]
+        var map_island_box = []
+
+        // マップ分岐
+        if(map_id === 's1') {
+            // 大まかなdiv生成
+            for(var ii = 0; tmp_assets.x.length > ii; ii++) {
+                for(var iii = 0; tmp_assets.y.length > iii; iii++) {
+                    if(tmp_assets.y[iii] === 420) {
+                        map_class = 'block-9-2'
+                    } else {
+                        map_class = 'block-7-2'
+                    }
+                    map_island_box.push('<div id="s1' + tmp_assets.mark[ii] + '" class="' + map_class + ' grid" style="top: ' + tmp_assets.y[iii] +  'px; left: ' + tmp_assets.x[ii] + 'px;"></div>')
+                }
+            }
+            $('#cc-map-s1-inside').append(map_island_box.join(''))
+            // Div内にサークル生成
+        }
+
+    }
+}

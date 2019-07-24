@@ -19,6 +19,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link href="src/style.css" rel="stylesheet">
+        <link href="src/map.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
@@ -79,39 +80,6 @@
 
             </div>
         </div>        
-
-        <!-- MapTab -->
-        <div id="cc-map" class="col s12">
-            <ul class="tabs">
-                <li class="tab"><a class="active" href="#cc-map-w1">西1・西2</a></li>
-                <li class="tab"><a href="#cc-map-w2">西3・西4</a></li>
-                <li class="tab"><a href="#cc-map-s1">南1・南2</a></li>
-                <li class="tab"><a href="#cc-map-s2">南3・南4</a></li>
-                <li class="tab"><a href="#cc-map-k">青海A・青海B</a></li>
-            </ul>
-
-            <!-- マップ一覧@w1 -->
-            <div id="cc-map-w1" class="col s12 container">
-                西1・西2
-            </div>
-            <!-- マップ一覧@w2 -->
-            <div id="cc-map-w2" class="col s12 container">
-                西3・西4
-            </div>
-            <!-- マップ一覧@s1 -->
-            <div id="cc-map-s1" class="col s12 container">
-                南1・南2
-            </div>
-            <!-- マップ一覧@s2 -->
-            <div id="cc-map-s2" class="col s12 container">
-                南3・南4
-            </div>
-            <!-- マップ一覧@k -->
-            <div id="cc-map-k" class="col s12 container">
-                青海A・青海B
-            </div>
-
-        </div>
 
         <!-- ListTab -->
         <div id="cc-list" class="col s12">
@@ -260,6 +228,41 @@
                 </div>
             </div>
         </div>
+
+        <!-- MapTab -->
+        <div id="cc-map" class="col s12">
+            <ul class="tabs">
+                <li class="tab"><a class="active" href="#cc-map-w1">西1・西2</a></li>
+                <li class="tab"><a href="#cc-map-w2">西3・西4</a></li>
+                <li class="tab"><a href="#cc-map-s1">南1・南2</a></li>
+                <li class="tab"><a href="#cc-map-s2">南3・南4</a></li>
+                <li class="tab"><a href="#cc-map-k">青海A・青海B</a></li>
+            </ul>
+
+            <!-- マップ一覧@w1 -->
+            <div id="cc-map-w1" class="col s12 container">
+                
+            </div>
+            <!-- マップ一覧@w2 -->
+            <div id="cc-map-w2" class="col s12 container">
+                
+            </div>
+            <!-- マップ一覧@s1 -->
+            <div id="cc-map-s1" class="col s12 container">
+                <div class="map-frame">
+                    <div class="map-s1 map-parent" id="cc-map-s1-inside"></div>
+                </div>
+            </div>
+            <!-- マップ一覧@s2 -->
+            <div id="cc-map-s2" class="col s12 container">
+                南3・南4
+            </div>
+            <!-- マップ一覧@k -->
+            <div id="cc-map-k" class="col s12 container">
+                青海A・青海B
+            </div>
+        </div>
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
         <script src="src/scheck.js"></script>
     </body>
