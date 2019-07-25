@@ -6,7 +6,7 @@
     margin: 3%;
 }
 
-.map-s1 {
+.map-s12 {
     position: relative;
     width: 1240px;
     height: 680px;
@@ -16,9 +16,18 @@
     position: absolute;
 }
 
+.map-parent p {
+    position: absolute;
+    color: #ee6e73;
+}
+
 .miniblock {
     width: 20px;
     height: 20px;
+    border: 1px solid #000;
+    text-align: center;
+    line-height: 20px;
+    font-size: 12px;
 }
 
 .block-9 {

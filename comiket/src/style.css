@@ -130,3 +130,7 @@ tr .buylist-delete {
     right: 20px;
     top: 12px;
 }
+
+.tabs {
+    overflow-x: hidden !important;
+}
