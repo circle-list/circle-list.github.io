@@ -472,16 +472,61 @@ function drawMap() {
             for(var ii = 0; tmp_assets.x.length > ii; ii++) {
                 for(var iii = 0; tmp_assets.y.length > iii; iii++) {
                     if(tmp_assets.y[iii] === 420) {
-                        map_class = 'block-9-2'
+                        map_class = 'block-9'
                     } else {
-                        map_class = 'block-7-2'
+                        map_class = 'block-7'
                     }
-                    map_island_box.push('<div id="s1' + tmp_assets.mark[ii] + '" class="' + map_class + ' grid" style="top: ' + tmp_assets.y[iii] +  'px; left: ' + tmp_assets.x[ii] + 'px;"></div>')
+
+                    map_top_px = tmp_assets.y[iii]
+
+                    if(iii === 2) {
+                        if(tmp_assets.mark[ii].match(/[オカタ]/)) {
+                            map_class = 'block-5'
+                            map_top_px = tmp_assets.y[iii] + 40 
+                        }
+
+                        if(tmp_assets.mark[ii].match(/[クケソツテト]/)) {
+                            map_class = 'block-6'
+                            map_top_px = tmp_assets.y[iii] + 20
+                        }
+                    }
+
+                    map_island_box.push('<div id="s1' + tmp_assets.mark[ii] + '" class="' + map_class + ' grid" style="top: ' + map_top_px +  'px; left: ' + tmp_assets.x[ii] + 'px;"></div>')
                 }
             }
             $('#cc-map-s1-inside').append(map_island_box.join(''))
             // Div内にサークル生成
-        }
+            for(var ii = 0; tmp_assets.mark.length > ii; ii++) {
 
+                circle_num_box = ''
+
+                if(tmp_assets.mark[ii].match(/[オカタ]/)) {
+                    // オ,カ,タ
+                    circle_num_box = [['34', '35', '36', '37', '38', '39', '40', '41', '42', '09', '08', '07', '06', '05', '04', '03', '02', '01'], ['27', '28', '29', '30', '31', '32', '33', '16', '15', '14', '13', '12', '11', '10'], ['22', '23', '24', '25', '26', '21', '20', '19', '18', '17']]
+                }
+
+                if(tmp_assets.mark[ii].match(/[クケソツテト]/)) {
+                    // ク,ケ,ソ,ツ,テ,ト
+                    circle_num_box = [['36', '37', '38', '39', '40', '41', '42', '43', '44', '09', '08', '07', '06', '05', '04', '03', '02', '01'], ['29', '30', '31', '32', '33', '34', '35', '16', '15', '14', '13', '12', '11', '10'], ['23', '24', '25', '26', '27', '28', '22', '21', '20', '19', '18', '17']]
+                }
+
+                if(circle_num_box === '') {
+                    // それ以外
+                    circle_num_box = [['38', '39', '40', '41', '42', '43', '44', '45', '46', '09', '08', '07', '06', '05', '04', '03', '02', '01'], ['31', '32', '33', '34', '35', '36', '37', '16', '15', '14', '13', '12', '11', '10'], ['24', '25', '26', '27', '28', '29', '30', '23', '22', '21', '20', '19', '18', '17']]
+                }
+
+                var circle_list_tmp = $('#s1' + tmp_assets.mark[ii])
+                for(var iii = 0; circle_list_tmp.length > iii; iii++) { //ここで「アの上段」「中段」「下段」とかカとかキとか
+                    var cl_box = []
+                    for(var iiii = 0; circle_num_box[iii].length > iiii; iiii++) { // Divを詰める！！！！
+                        cl_box.push('<div id="map_' + tmp_assets.mark[ii] + circle_num_box[iii][iiii] + '">' + circle_num_box[iii][iiii] + '</div>')
+                    }
+
+                    $($('#s1' + tmp_assets.mark[ii])[iii]).append(cl_box.join(''))
+                }
+
+            }
+        }
+        // s1ここまで
     }
 }

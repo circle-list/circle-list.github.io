@@ -21,16 +21,28 @@
     height: 20px;
 }
 
-.block-9-2 {
+.block-9 {
     outline: 1px solid #000;
     width: 40px;
     height: 180px;
 }
 
-.block-7-2 {
+.block-7 {
     outline: 1px solid #000;
     width: 40px;
     height: 140px;
+}
+
+.block-6 {
+    outline: 1px solid #000;
+    width: 40px;
+    height: 120px;
+}
+
+.block-5 {
+    outline: 1px solid #000;
+    width: 40px;
+    height: 100px;
 }
 
 .grid {
