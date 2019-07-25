@@ -12,6 +12,22 @@
     height: 680px;
 }
 
+.map-k {
+    position: relative;
+    width: 1700px;
+    height: 900px;
+}
+
+.map-k div {
+    text-align: center;
+    word-break: break-all;
+    outline: 1px solid #616161;
+}
+
+.map-k div div {
+    line-height: 10px;
+}
+
 .map-parent div {
     position: absolute;
 }
@@ -24,34 +40,44 @@
 .miniblock {
     width: 20px;
     height: 20px;
-    border: 1px solid #000;
+    border: 1px solid #616161;
     text-align: center;
     line-height: 20px;
     font-size: 12px;
 }
 
 .block-9 {
-    outline: 1px solid #000;
+    outline: 1px solid #616161;
     width: 40px;
     height: 180px;
 }
 
 .block-7 {
-    outline: 1px solid #000;
+    outline: 1px solid #616161;
     width: 40px;
     height: 140px;
 }
 
 .block-6 {
-    outline: 1px solid #000;
+    outline: 1px solid #616161;
     width: 40px;
     height: 120px;
 }
 
 .block-5 {
-    outline: 1px solid #000;
+    outline: 1px solid #616161;
     width: 40px;
     height: 100px;
+}
+
+.grid-3-2 {
+    width: 40px;
+    height: 60px;
+}
+
+.grid-4-2 {
+    width: 40px;
+    height: 80px;
 }
 
 .grid {
@@ -66,6 +92,6 @@
     text-align: center;
     line-height: 20px;
     font-size: 12px;
-    border: 1px solid #000;
+    border: 1px solid #616161;
     border-collapse: collapse;
 }

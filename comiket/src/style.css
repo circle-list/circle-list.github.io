@@ -39,6 +39,7 @@ body {
     -webkit-user-select: none;
     user-select: none;
     overflow-x: hidden;
+    font-family: 'Noto Sans JP', sans-serif;
 }
 
 .not-registed {
