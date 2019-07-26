@@ -135,3 +135,8 @@ tr .buylist-delete {
 .tabs {
     overflow-x: hidden !important;
 }
+
+.collapsible {
+    border-right: none !important;
+    border-left: none !important;
+}

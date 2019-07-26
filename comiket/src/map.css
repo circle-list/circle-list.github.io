@@ -12,6 +12,34 @@
     height: 680px;
 }
 
+.map-w1 {
+    position: relative;
+    width: 1800px;
+    height: 1280px;
+}
+
+.map-w2 {
+    position: relative;
+    width: 1340px;
+    height: 1280px;
+}
+
+.upper-div {
+    position: absolute !important;
+    width: 20px;
+    height: 20px;
+    top: -20px;
+    left: 10px;
+}
+
+.lower-div {
+    position: absolute !important;
+    width: 20px;
+    height: 20px;
+    bottom: -20px;
+    left: 10px;
+}
+
 .map-k {
     position: relative;
     width: 1700px;
