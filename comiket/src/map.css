@@ -95,3 +95,16 @@
     border: 1px solid #616161;
     border-collapse: collapse;
 }
+
+.stripe {
+    width: 2px;
+    -webkit-background-size: 20px 20px;
+    -moz-background-size: 20px 20px;
+    background-size: 20px 20px;
+    background-color: #FFF;
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(.5, #ee6e73), color-stop(.5, transparent), to(transparent));
+    background-image: -moz-linear-gradient(#ee6e73 50%, transparent 50%, transparent);
+    background-image: -o-linear-gradient(#ee6e73 50%, transparent 50%, transparent);
+    background-image: linear-gradient(#ee6e73 50%, transparent 50%, transparent);
+    outline: none !important;
+}
