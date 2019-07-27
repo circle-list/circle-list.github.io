@@ -478,6 +478,98 @@ var mapAssets = {
                 { x: 1200, y: 60, s: 4 },
                 { x: 1140, y: 220, s: 5 },
                 { x: 1140, y: 60, s: 4 }
+            ],
+            C: [
+                { x: 1080, y: 220, s: 5 },
+                { x: 1080, y: 60, s: 4 },
+                { x: 1020, y: 220, s: 5 },
+                { x: 1020, y: 60, s: 4 },
+                { x: 960, y: 220, s: 4 },
+                { x: 960, y: 80, s: 3 }
+            ],
+            D: [
+                { x: 900, y: 220, s: 4 },
+                { x: 900, y: 80, s: 3 },
+                { x: 840, y: 220, s: 4 },
+                { x: 840, y: 80, s: 3 },
+                { x: 780, y: 220, s: 5 },
+                { x: 780, y: 60, s: 4 },
+                { x: 720, y: 220, s: 5 },
+                { x: 720, y: 60, s: 4 }
+            ],
+            E: [
+                { x: 660, y: 220, s: 5 },
+                { x: 660, y: 60, s: 4 },
+                { x: 600, y: 220, s: 5 },
+                { x: 600, y: 60, s: 4 }
+            ],
+            F: [
+                { x: 540, y: 220, s: 4 },
+                { x: 540, y: 80, s: 3 },
+                { x: 480, y: 220, s: 4 },
+                { x: 480, y: 80, s: 3 },
+                { x: 420, y: 220, s: 4 },
+                { x: 420, y: 80, s: 3 }
+            ],
+            G: [
+                { x: 360, y: 440, s: 6 },
+                { x: 360, y: 220, s: 6 },
+                { x: 360, y: 60, s: 4 }
+            ],
+            H: [
+                { x: 300, y: 420, s: 7 },
+                { x: 300, y: 220, s: 7 },
+                { x: 300, y: 60, s: 4 }
+            ],
+            I: [
+                { x: 240, y: 420, s: 7 },
+                { x: 240, y: 220, s: 7 },
+                { x: 240, y: 60, s: 4 }
+            ],
+            J: [
+                { x: 180, y: 420, s: 7 },
+                { x: 180, y: 220, s: 7 },
+                { x: 180, y: 60, s: 4 }
+            ],
+            K: [
+                { x: 120, y: 420, s: 7 },
+                { x: 120, y: 220, s: 7 },
+                { x: 120, y: 60, s: 4 }
+            ],
+            L: [
+                { x: 60, y: 420, s: 7 },
+                { x: 60, y: 220, s: 7 },
+                { x: 60, y: 60, s: 4 }
+            ],
+            M: [
+                { x: 360, y: 1060, s: 5 },
+                { x: 360, y: 860, s: 7 },
+                { x: 360, y: 640, s: 7 }
+            ],
+            N: [
+                { x: 300, y: 1060, s: 6 },
+                { x: 300, y: 860, s: 7 },
+                { x: 300, y: 640, s: 7 }
+            ],
+            O: [
+                { x: 240, y: 1060, s: 6 },
+                { x: 240, y: 860, s: 7 },
+                { x: 240, y: 640, s: 7 }
+            ],
+            P: [
+                { x: 180, y: 1060, s: 6 },
+                { x: 180, y: 860, s: 7 },
+                { x: 180, y: 640, s: 7 }
+            ],
+            Q: [
+                { x: 120, y: 1060, s: 6 },
+                { x: 120, y: 860, s: 7 },
+                { x: 120, y: 640, s: 7 }
+            ],
+            R: [
+                { x: 60, y: 1060, s: 6 },
+                { x: 60, y: 860, s: 7 },
+                { x: 60, y: 640, s: 7 }
             ]
         }
     }
@@ -491,26 +583,63 @@ function divCalc(d) {
         var box_tmp = []
         var box_tmp2 = []
 
-        if((i + 1) % 2 === 0) {
-            // 偶数時(上段)処理
-            for(var t = 0; d[i].s > t; t++) {
-                box_tmp.push(d[i].s + d[i - 1].s + 4 + num + t)
+        if(d.length === 3) {
+            switch(i + 1) {
+                case 1:
+                    for(var t = 0; d[i].s > t; t++) {
+                        box_tmp.push((d[i].s + (d[i + 1].s * 2) + 4) + (d[i + 2].s * 2) + 2 + 1 + t)
+                    }
+                    for(var t = 0; d[i].s > t; t++) {
+                        box_tmp.push(d[i].s + 1 - t)
+                    }
+                    div_upper_tmp = d[i].s + (d[i + 1].s * 2) + (d[i + 2].s * 2) + 6
+                    div_lower_tmp = 1
+                    break
+                
+                case 2:
+                    for(var t = 0; d[i].s > t; t++) {
+                        box_tmp.push(d[i - 1].s + d[i].s + (d[i + 1].s * 2) + 6 + t)
+                    }
+                    for(var t = 0; d[i].s > t; t++) {
+                        box_tmp.push(d[i - 1].s + d[i].s + 2 - t)
+                    }
+                    div_upper_tmp = d[i - 1].s + d[i].s + (d[i + 1].s * 2) + 5
+                    div_lower_tmp = d[i - 1].s + 2
+                    break
+
+                case 3:
+                    for(var t = 0; d[i].s > t; t++) {
+                        box_tmp.push(d[i - 2].s + d[i - 1].s + d[i].s + 4 + t + 1)
+                    }
+                    for(var t = 0; d[i].s > t; t++) {
+                        box_tmp.push(d[i - 2].s + d[i - 1].s + d[i].s + 3 - t)
+                    }
+                    div_upper_tmp = d[i - 2].s + d[i - 1].s + d[i].s + 4
+                    div_lower_tmp = d[i - 2].s + d[i - 1].s + 3
+                    break
             }
-            for(var t = 0; d[i].s > t; t++) {
-                box_tmp.push(d[i].s + d[i - 1].s + 2 + num - t)
-            }
-            div_upper_tmp = num + d[i].s + d[i - 1].s + 3
-            div_lower_tmp = d[i -1].s + 2 + num
         } else {
-            // 奇数時(下段)処理
-            for(var t = 0; d[i].s > t; t++) {
-                box_tmp.push((d[i].s + (d[i + 1].s * 2) + 4) + 1 + num + t)
-            }
-            for(var t = 0; d[i].s > t; t++) {
-                box_tmp.push(d[i].s + 1 + num - t)
-            }
-            div_upper_tmp = num + d[i].s + (d[i + 1].s * 2) + 4
-            div_lower_tmp = num + 1
+            if((i + 1) % 2 === 0) {
+                // 偶数時(上段)処理
+                for(var t = 0; d[i].s > t; t++) {
+                    box_tmp.push(d[i].s + d[i - 1].s + 4 + num + t)
+                }
+                for(var t = 0; d[i].s > t; t++) {
+                    box_tmp.push(d[i].s + d[i - 1].s + 2 + num - t)
+                }
+                div_upper_tmp = num + d[i].s + d[i - 1].s + 3
+                div_lower_tmp = d[i -1].s + 2 + num
+            } else {
+                // 奇数時(下段)処理
+                for(var t = 0; d[i].s > t; t++) {
+                    box_tmp.push((d[i].s + (d[i + 1].s * 2) + 4) + 1 + num + t)
+                }
+                for(var t = 0; d[i].s > t; t++) {
+                    box_tmp.push(d[i].s + 1 + num - t)
+                }
+                div_upper_tmp = num + d[i].s + (d[i + 1].s * 2) + 4
+                div_lower_tmp = num + 1
+            }   
         }
 
         for(var r = 0; box_tmp.length > r; r++) {
@@ -667,7 +796,6 @@ function drawMap() {
 
                 // mark-listの中に入るdiv数計算
                 var divList = divCalc(ma_div)
-                console.log(divList)
 
                 for(var j = 0; ma_div.length > j; j++) { // mark-listの中身生成
                     $('#w2' + ma_id).append('<div id="w2' + ma_id + '-' + (j + 1) + '" class="block-' + ma_div[j].s + ' grid" style="top: ' + ma_div[j].y + 'px; left: ' + ma_div[j].x + 'px;"></div>')

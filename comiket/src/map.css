@@ -24,6 +24,16 @@
     height: 1280px;
 }
 
+.map-w2 ._1 {
+    font-size: 20px;
+    top: 145px;
+}
+
+.map-w2 ._2 {
+    font-size: 20px;
+    top: 785px;
+}
+
 .upper-div {
     position: absolute !important;
     width: 20px;
@@ -102,6 +112,12 @@
     outline: 1px solid #616161;
     width: 40px;
     height: 80px;
+}
+
+.block-3 {
+    outline: 1px solid #616161;
+    width: 40px;
+    height: 60px;
 }
 
 .grid-3-2 {
