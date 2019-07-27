@@ -468,9 +468,67 @@ var mapAssets = {
     "w1": {
 
     },
+    // x: x軸, y: y軸, s: 縦方向サイズ
     "w2": {
-        
+        "mark-list": {
+            B: [
+                { x: 1260, y: 220, s: 5 },
+                { x: 1260, y: 60, s: 4 },
+                { x: 1200, y: 220, s: 5 },
+                { x: 1200, y: 60, s: 4 },
+                { x: 1140, y: 220, s: 5 },
+                { x: 1140, y: 60, s: 4 }
+            ]
+        }
     }
+}
+
+// div数計算
+function divCalc(d) {
+    var box = []
+    var num = 0
+    for(var i = 0; d.length > i; i++) {
+        var box_tmp = []
+        var box_tmp2 = []
+
+        if((i + 1) % 2 === 0) {
+            // 偶数時(上段)処理
+            for(var t = 0; d[i].s > t; t++) {
+                box_tmp.push(d[i].s + d[i - 1].s + 4 + num + t)
+            }
+            for(var t = 0; d[i].s > t; t++) {
+                box_tmp.push(d[i].s + d[i - 1].s + 2 + num - t)
+            }
+            div_upper_tmp = num + d[i].s + d[i - 1].s + 3
+            div_lower_tmp = d[i -1].s + 2 + num
+        } else {
+            // 奇数時(下段)処理
+            for(var t = 0; d[i].s > t; t++) {
+                box_tmp.push((d[i].s + (d[i + 1].s * 2) + 4) + 1 + num + t)
+            }
+            for(var t = 0; d[i].s > t; t++) {
+                box_tmp.push(d[i].s + 1 + num - t)
+            }
+            div_upper_tmp = num + d[i].s + (d[i + 1].s * 2) + 4
+            div_lower_tmp = num + 1
+        }
+
+        for(var r = 0; box_tmp.length > r; r++) {
+            box_tmp2.push(('0' + box_tmp[r]).slice(-2))
+        }
+
+        box.push({
+            id: i + 1,
+            div_list: box_tmp2,
+            div_lower: ('0' + div_lower_tmp).slice(-2),
+            div_upper: ('0' + div_upper_tmp).slice(-2)
+        })
+
+        if((i + 1) % 2 === 0) {
+            num = num + (d[i].s * 2) + (d[i - 1].s * 2) + 4
+        }
+    }
+    return box
 }
 
 function drawMap() {
@@ -600,5 +658,26 @@ function drawMap() {
             $('#cc-map-s2-inside').append(wall_tmp.join(''))
         }
         // s2ここまで
+        
+        if(map_id === 'w2') {
+            for(var ii = 0; Object.keys(tmp_assets['mark-list']).length > ii; ii++) { // mark-listのおまとめDivを作る
+                var ma_div = tmp_assets['mark-list'][Object.keys(tmp_assets['mark-list'])[ii]]
+                var ma_id = Object.keys(tmp_assets['mark-list'])[ii]
+                $('#cc-map-w2-inside').append('<div id="w2' + ma_id + '"></div>')
+
+                // mark-listの中に入るdiv数計算
+                var divList = divCalc(ma_div)
+                console.log(divList)
+
+                for(var j = 0; ma_div.length > j; j++) { // mark-listの中身生成
+                    $('#w2' + ma_id).append('<div id="w2' + ma_id + '-' + (j + 1) + '" class="block-' + ma_div[j].s + ' grid" style="top: ' + ma_div[j].y + 'px; left: ' + ma_div[j].x + 'px;"></div>')
+                    $('#w2' + ma_id + '-' + (j + 1)).append('<div class="upper-div" id="map_' +  ma_id + divList[j].div_upper + '">' +  divList[j].div_upper + '</div>')
+                    $('#w2' + ma_id + '-' + (j + 1)).append('<div class="lower-div" id="map_' +  ma_id + divList[j].div_lower + '">' +  divList[j].div_lower + '</div>')
+                    for(var f = 0; divList[j].div_list.length > f; f++) {
+                        $('#w2' + ma_id + '-' + (j + 1)).append('<div id="map_' + ma_id +  divList[j].div_list[f] + '">' +  divList[j].div_list[f] + '</div>')
+                    }
+                }
+            }
+        }
     }
 }

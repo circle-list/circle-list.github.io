@@ -98,6 +98,12 @@
     height: 100px;
 }
 
+.block-4 {
+    outline: 1px solid #616161;
+    width: 40px;
+    height: 80px;
+}
+
 .grid-3-2 {
     width: 40px;
     height: 60px;
