@@ -3,10 +3,10 @@ window.onerror = function(msg, url, line, col) {
     M.toast({html: '<b class="red-text text-accent-1" style="font-weight: bold;">' + msg + ' at line' + line + ' col' + col + '</b>'})
 };
 
-/* ServiceWorkerSetup */
+/*  ServiceWorkerSetup  */
 window.addEventListener('load', function() {
  if ('serviceWorker' in navigator) {
- navigator.serviceWorker.register("serviceWorker.js")
+ navigator.serviceWorker.register("/serviceWorker.js")
  .then(function(registration) {
  console.log("serviceWorker registed.");
  }).catch(function(error) {
