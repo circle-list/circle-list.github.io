@@ -1,9 +1,10 @@
 {
+    "lang": "ja",
     "name": "CircleCheck",
     "short_name": "CircleCheck",
     "background_color": "#fc980c",
     "display": "standalone",
-    "start_url": "/",
+    "start_url": "/?utm_source=home_screen&utm_medium=pwa",
     "icons": [
       {
         "src": "assets/android-chrome-36x36.png",
