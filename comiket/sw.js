@@ -13,7 +13,7 @@ self.addEventListener('install', function(event) {
         console.log('[Service Worker] Precaching App...');
         // 何でもキャッシュできる。cssとかの中で更にリクエストが発生する場合は、動的にキャッシュする必要がある（後述）
         cache.addAll([
-          '/comiket/'
+          '/comiket/*'
         ]);
       })
   );
