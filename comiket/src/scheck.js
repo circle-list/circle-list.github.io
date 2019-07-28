@@ -62,19 +62,22 @@ $('#cache-clear').on('click', function() {
     // キャッシュ削除
     caches.keys()
     .then(function(keyList) {
-    return Promise.all(keyList.map(function(key) {
-        return caches.delete(key);
-    }));
+        return Promise.all(keyList.map(function(key) {
+            return caches.delete(key);
+        }));
+    }).then(function() {
+        // ServiceWorkerをいったん解除
+        navigator.serviceWorker.getRegistrations()
+        .then(registrations => {
+            for (let registration of registrations) {
+            registration.unregister();
+            }
+        })
+        .then(function() {
+        // 再読み込み
+        location.reload()
+        })
     })
-    // ServiceWorkerをいったん解除
-    navigator.serviceWorker.getRegistrations()
-    .then(registrations => {
-        for (let registration of registrations) {
-        registration.unregister();
-        }
-    })
-    // 再読み込み
-    location.reload()
 })
 
 const island = {
