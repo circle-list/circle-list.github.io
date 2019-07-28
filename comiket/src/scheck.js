@@ -3,14 +3,6 @@ window.onerror = function(msg, url, line, col) {
     M.toast({html: '<b class="red-text text-accent-1" style="font-weight: bold;">' + msg + ' at line' + line + ' col' + col + '</b>'})
 };
 
-/*  ServiceWorkerSetup  */
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js', {scope: '../'})
-      .then(function() {
-        console.log('Service worker registered!');
-      });
-}
-
 /*  MaterializeJS Loader */
 
 $(document).ready(function(){
