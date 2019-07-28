@@ -38,9 +38,9 @@ $('#install_button').on('click', () => {
   
     installPromptEvent.userChoice.then((choice) => {
       if (choice.outcome === 'accepted') {
-        console.log('User accepted the A2HS prompt')
+        M.toast({html: 'CircleListがインストールされました。ホーム画面から起動できます。'})
       } else {
-        console.log('User dismissed the A2HS prompt')
+        M.toast({html: 'インストールはキャンセルされました'})
       }
 
       installPromptEvent = null
