@@ -1,5 +1,5 @@
 // キャッシュにバージョンを付けておくと、古いキャッシュを消す時に便利
-var CACHE_STATIC_VERSION = 'static-v1.9';
+var CACHE_STATIC_VERSION = 'static-v1.10';
 var CACHE_DYNAMIC_VERSION = 'dynamic-v1';
 
 // サービスワーカーのインストール
@@ -7,7 +7,7 @@ self.addEventListener('install', function(event) {
   console.log('[Service Worker] Installing Service Worker...');
 
   // キャッシュできるまで次の処理を待つ
-  event.waitUntil(function() {
+  event.waitUntil(
     caches.open(CACHE_STATIC_VERSION)
       .then(function(cache) {
         console.log('[Service Worker] Precaching App...');
@@ -20,10 +20,7 @@ self.addEventListener('install', function(event) {
           '/comiket/src/map.css',
           '/comiket/src/reg_sw.js'
         ]);
-      }).then(function() {
-        skipWaiting()
-      })
-  });
+      }).then(function() {skipWaiting()}))
   
 });
 
