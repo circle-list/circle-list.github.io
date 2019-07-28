@@ -4,7 +4,7 @@
     "short_name": "CircleList",
     "background_color": "#ee6e73",
     "display": "standalone",
-    "start_url": "/?utm_source=home_screen&utm_medium=pwa",
+    "start_url": "/comiket/?utm_source=home_screen&utm_medium=pwa",
     "icons": [
       {
         "src": "/comiket/assets/android-chrome-36x36.png",
