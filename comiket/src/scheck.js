@@ -5,7 +5,7 @@ window.onerror = function(msg, url, line, col) {
 
 /*  ServiceWorkerSetup  */
 if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js', {scope: '/comiket/'})
+    navigator.serviceWorker.register('/sw.js', {scope: '../'})
       .then(function() {
         console.log('Service worker registered!');
       });
