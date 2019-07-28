@@ -27,11 +27,11 @@ var installPromptEvent
 window.addEventListener('beforeinstallprompt', (event) => {
   event.preventDefault()
   installPromptEvent = event
-  $("#install_button").prop('disabled', false)
+  $("#install_button").attr('disabled', false)
 })
 
 $('#install_button').on('click', () => {
-    $("#install_button").prop('disabled', true)
+    $("#install_button").attr('disabled', true)
   
     installPromptEvent.prompt()
   
