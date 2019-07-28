@@ -7,7 +7,7 @@ self.addEventListener('install', function(event) {
   console.log('[Service Worker] Installing Service Worker...');
 
   // キャッシュできるまで次の処理を待つ
-  event.waitUntil(
+  event.waitUntil(function() {
     caches.open(CACHE_STATIC_VERSION)
       .then(function(cache) {
         console.log('[Service Worker] Precaching App...');
@@ -21,9 +21,10 @@ self.addEventListener('install', function(event) {
           '/comiket/src/reg_sw.js'
         ]);
       })
-  );
 
-  event.waitUntil(skipWaiting());
+    skipWaiting()
+    location.reload()
+  });
   
 });
 
