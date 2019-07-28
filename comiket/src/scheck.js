@@ -58,6 +58,26 @@ function cacheVers() {
     )})
 }
 
+// キャッシュクリア
+function cacheClear() {
+    // キャッシュ削除
+    caches.keys()
+    .then(function(keyList) {
+      return Promise.all(keyList.map(function(key) {
+        return caches.delete(key);
+      }));
+    })
+    // ServiceWorkerをいったん解除
+    navigator.serviceWorker.getRegistrations()
+    .then(registrations => {
+        for (let registration of registrations) {
+        registration.unregister();
+        }
+    })
+    // 再読み込み
+    location.reload()
+}
+
 const island = {
     '2': ['あ', 'い', 'う', 'え', 'お', 'か', 'き', 'く', 'け', 'こ', 'さ', 'し', 'す', 'せ', 'そ', 'た', 'ち', 'つ', 'て', 'と', 'ぬ', 'ね', 'の', 'は', 'ひ', 'ふ', 'へ', 'ほ', 'ま', 'み', 'む', 'め', 'ゆ', 'よ', 'ら', 'り', 'れ'],
     '1': ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R'],
