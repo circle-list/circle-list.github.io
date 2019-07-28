@@ -59,13 +59,13 @@ function cacheVers() {
 }
 
 // キャッシュクリア
-function cacheClear() {
+$('#cache-clear').on('click', function() {
     // キャッシュ削除
     caches.keys()
     .then(function(keyList) {
-      return Promise.all(keyList.map(function(key) {
+    return Promise.all(keyList.map(function(key) {
         return caches.delete(key);
-      }));
+    }));
     })
     // ServiceWorkerをいったん解除
     navigator.serviceWorker.getRegistrations()
@@ -76,7 +76,7 @@ function cacheClear() {
     })
     // 再読み込み
     location.reload()
-}
+})
 
 const island = {
     '2': ['あ', 'い', 'う', 'え', 'お', 'か', 'き', 'く', 'け', 'こ', 'さ', 'し', 'す', 'せ', 'そ', 'た', 'ち', 'つ', 'て', 'と', 'ぬ', 'ね', 'の', 'は', 'ひ', 'ふ', 'へ', 'ほ', 'ま', 'み', 'む', 'め', 'ゆ', 'よ', 'ら', 'り', 'れ'],
