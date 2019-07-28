@@ -20,7 +20,12 @@ $(document).ready(function(){
     init()
     drawMap()
     cacheVers()
+    $('#loading-div').addClass('load-end')
 })
+
+/*  ====== メモ ======
+    ・バックアップデータインポート作りかけ
+    ================== */
 
 // PWA
 var installPromptEvent
@@ -78,6 +83,18 @@ $('#cache-clear').on('click', function() {
         location.reload()
         })
     })
+})
+
+// バックアップデータ生成
+$('#cc-info-export').on('click', function() {
+    StorageCheck()
+    var blob = new Blob([localStorage.getItem('circles')], { type : 'application/json' });
+
+    if (window.navigator.msSaveBlob) { 
+        window.navigator.msSaveBlob(blob, 'circlelist.db')
+    } else {
+        $('#cc-info-export').attr('href', window.URL.createObjectURL(blob))
+    }
 })
 
 const island = {

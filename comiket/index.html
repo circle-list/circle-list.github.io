@@ -33,6 +33,22 @@
     </head>
 
     <body>
+        <div id="loading-div" class="loading">
+            <div class="loading-container">
+                <div class="preloader-wrapper big active">
+                    <div class="spinner-layer spinner-red-only">
+                        <div class="circle-clipper left">
+                        <div class="circle"></div>
+                        </div><div class="gap-patch">
+                        <div class="circle"></div>
+                        </div><div class="circle-clipper right">
+                        <div class="circle"></div>
+                        </div>
+                    </div>
+                </div>
+                <p class="red-text text-lighten-1">CircleListを読み込んでいます</p>
+            </div>
+        </div>
         <nav class="nav-extended" style="box-shadow: none; -webkit-box-shadow: none;">
             <div class="nav-wrapper">
                 <div class="img-container">
@@ -66,7 +82,7 @@
         <div id="cc-top" class="col s12">
             <ul class="tabs">
                 <li class="tab"><a class="active" href="#cc-top-about">はじめに</a></li>
-                <li class="tab"><a href="#cc-top-info">情報</a></li>
+                <li class="tab"><a href="#cc-top-info">設定</a></li>
             </ul>
             <div id="cc-top-about" class="container  grey-text text-darken-2">
                 <h5>CircleListとは？</h5>
@@ -89,17 +105,41 @@
             <div id="cc-top-info" class="container">
                 <h5>設定</h5>
                 <hr>
-                <h6>CircleListをインストールする (Android限定)</h6>
-                <a class="waves-effect waves-light btn" disabled id="install_button"><i class="material-icons left">file_download</i>インストール</a>
+                <h6>CircleListをインストールする (Android/PC限定)</h6>
+                <a class="waves-effect waves-light btn red lighten-1" disabled id="install_button"><i class="material-icons left">file_download</i>インストール</a>
                 <p>(上のボタンが押せない場合はインストールすることが出来ませんが、時間を置いて再度アクセスするとインストールできるようになるかもしれません。)</p>
                 <hr>
-                <h6>データバックアップ</h6>
+                <h6>サークルデータダウンロード/インポート</h6>
+                <a class="waves-effect waves-light btn red lighten-1" id="cc-info-export" download="circlelist.db"><i class="material-icons left">cloud_download</i>ダウンロード</a>
+                <p>現在登録されているサークルリストと購入リストをすべて書き出します。ほかの端末でインポートを行うことでデータを引き継げます。</p>
+                <a class="waves-effect waves-light btn red lighten-1 modal-trigger" id="cc-info-import" href="#import-modal"><i class="material-icons left">cloud_upload</i>インポート</a>
+                <p>書き出したサークルリストと購入リストを取り込みます。現在登録されているサークルリストと購入リストはすべて削除されます。</p>
                 <hr>
                 <h6>キャッシュ</h6>
-                <a class="waves-effect waves-light btn" id="cache-clear"><i class="material-icons left">delete</i>キャッシュクリア</a>
-                <p>キャッシュを再取得します。正しく動作しない場合や、バージョンが新しくならない場合に使用してみてください。</p>
+                <a class="waves-effect waves-light btn red lighten-1" id="cache-clear"><i class="material-icons left">delete</i>キャッシュクリア</a>
+                <p>キャッシュを削除してサーバーからデータを再取得します。正しく動作しない場合や、バージョンが新しくならない場合に使用してみてください。</p>
                 <div id="cc-info-cache_vers"></div>
             </div>
+            <div id="import-modal" class="modal">
+                    <div class="modal-content">
+                        <p>取り込むデータを選択してください</p>
+                        <form action="#" id="import-file">
+                            <div class="file-field input-field">
+                                <div class="btn">
+                                <span>選択</span>
+                                <input type="file" accept=".db">
+                                </div>
+                                <div class="file-path-wrapper">
+                                <input class="file-path validate" type="text">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                   <div class="modal-footer">
+                        <a href="#!" class="modal-close waves-effect waves-light blue lighten-1 btn">キャンセル</a>
+                        <a href="#!" class="modal-close waves-effect waves-light red lighten-1 btn" id="import-submit">インポート</a>
+                    </div>
+                </div>
         </div>        
 
         <!-- ListTab -->
