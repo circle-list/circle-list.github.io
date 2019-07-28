@@ -1,5 +1,6 @@
 // キャッシュにバージョンを付けておくと、古いキャッシュを消す時に便利
-var CACHE_STATIC_VERSION = 'static-v1.1';
+var CACHE_STATIC_VERSION = 'static-v1.0';
+var CACHE_DYNAMIC_VERSION = 'dynamic-v1';
 
 // サービスワーカーのインストール
 self.addEventListener('install', function(event) {
@@ -17,8 +18,6 @@ self.addEventListener('install', function(event) {
       })
   );
 });
-
-var CACHE_DYNAMIC_VERSION = 'dynamic-v1';
 
 self.addEventListener('fetch', function(event) {
   console.log('[Service Worker] Fetching something ...');
