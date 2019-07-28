@@ -19,6 +19,7 @@ $(document).ready(function(){
     updateList()
     init()
     drawMap()
+    cacheVers()
 })
 
 // PWA
@@ -46,6 +47,18 @@ $('#install_button').on('click', () => {
       installPromptEvent = null
     })
 })
+
+// CacheStorageのkey表示
+function cacheVers() {
+    t_c_box = []
+    caches.keys()
+    .then(function(keyList) {
+        return Promise.all(keyList.map(function(key) {
+            t_c_box.push(key)
+        })
+    )})
+    $('#cc-info-cache_vers').text(t_c_box.join('<br>'))
+}
 
 const island = {
     '2': ['あ', 'い', 'う', 'え', 'お', 'か', 'き', 'く', 'け', 'こ', 'さ', 'し', 'す', 'せ', 'そ', 'た', 'ち', 'つ', 'て', 'と', 'ぬ', 'ね', 'の', 'は', 'ひ', 'ふ', 'へ', 'ほ', 'ま', 'み', 'む', 'め', 'ゆ', 'よ', 'ら', 'り', 'れ'],
