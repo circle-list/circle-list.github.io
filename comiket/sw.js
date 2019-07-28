@@ -22,6 +22,9 @@ self.addEventListener('install', function(event) {
         ]);
       })
   );
+
+  event.waitUntil(skipWaiting());
+  
 });
 
 self.addEventListener('fetch', function(event) {

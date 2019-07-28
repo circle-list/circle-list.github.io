@@ -50,14 +50,12 @@ $('#install_button').on('click', () => {
 
 // CacheStorageのkey表示
 function cacheVers() {
-    t_c_box = []
     caches.keys()
     .then(function(keyList) {
         return Promise.all(keyList.map(function(key) {
-            t_c_box.push(key)
+            $('#cc-info-cache_vers').append('<p>・' + key + '</p>')
         })
     )})
-    $('#cc-info-cache_vers').text(t_c_box.join('<br>'))
 }
 
 const island = {
