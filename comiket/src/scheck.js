@@ -21,6 +21,31 @@ $(document).ready(function(){
     drawMap()
 })
 
+// PWA
+var installPromptEvent
+
+window.addEventListener('beforeinstallprompt', (event) => {
+  event.preventDefault()
+  installPromptEvent = event
+  $("#install_button").prop('disabled', false)
+})
+
+$('#install_button').on('click', () => {
+    $("#install_button").prop('disabled', true)
+  
+    installPromptEvent.prompt()
+  
+    installPromptEvent.userChoice.then((choice) => {
+      if (choice.outcome === 'accepted') {
+        console.log('User accepted the A2HS prompt')
+      } else {
+        console.log('User dismissed the A2HS prompt')
+      }
+
+      installPromptEvent = null
+    })
+})
+
 const island = {
     '2': ['あ', 'い', 'う', 'え', 'お', 'か', 'き', 'く', 'け', 'こ', 'さ', 'し', 'す', 'せ', 'そ', 'た', 'ち', 'つ', 'て', 'と', 'ぬ', 'ね', 'の', 'は', 'ひ', 'ふ', 'へ', 'ほ', 'ま', 'み', 'む', 'め', 'ゆ', 'よ', 'ら', 'り', 'れ'],
     '1': ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R'],
