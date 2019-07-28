@@ -29,7 +29,6 @@ window.addEventListener('beforeinstallprompt', (event) => {
   event.preventDefault()
   installPromptEvent = event
   $("#install_button").attr('disabled', false)
-  console.log(event)
 })
 
 $('#install_button').on('click', () => {

@@ -22,8 +22,6 @@ self.addEventListener('install', function(event) {
         ]);
       }).then(function() {
         skipWaiting()
-      }).then(function() {
-        location.reload()
       })
   });
   
