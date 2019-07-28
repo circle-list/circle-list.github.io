@@ -20,10 +20,10 @@ self.addEventListener('install', function(event) {
           '/comiket/src/map.css',
           '/comiket/src/reg_sw.js'
         ]);
+      }).then(function() {
+        skipWaiting()
+        location.reload()
       })
-
-    skipWaiting()
-    location.reload()
   });
   
 });
