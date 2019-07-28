@@ -132,8 +132,8 @@ tr .buylist-delete {
     top: 12px;
 }
 
-.tabs {
-    overflow-x: hidden !important;
+.tabs::-webkit-scrollbar {
+  display: none;
 }
 
 .collapsible {
