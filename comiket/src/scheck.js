@@ -25,10 +25,6 @@ $(document).ready(function(){
     }, 500)
 })
 
-/*  ====== メモ ======
-    ・バックアップデータインポート作りかけ
-    ================== */
-
 // PWA
 var installPromptEvent
 
