@@ -106,16 +106,19 @@
                 <h5>設定</h5>
                 <hr>
                 <h6>CircleListをインストールする (Android/PC限定)</h6>
+                <br>
                 <a class="waves-effect waves-light btn red lighten-1" disabled id="install_button"><i class="material-icons left">file_download</i>インストール</a>
                 <p>(上のボタンが押せない場合はインストールすることが出来ませんが、時間を置いて再度アクセスするとインストールできるようになるかもしれません。)</p>
                 <hr>
                 <h6>サークルデータダウンロード/インポート</h6>
+                <br>
                 <a class="waves-effect waves-light btn red lighten-1" id="cc-info-export" download="circlelist.db"><i class="material-icons left">cloud_download</i>ダウンロード</a>
                 <p>現在登録されているサークルリストと購入リストをすべて書き出します。ほかの端末でインポートを行うことでデータを引き継げます。</p>
                 <a class="waves-effect waves-light btn red lighten-1 modal-trigger" id="cc-info-import" href="#import-modal"><i class="material-icons left">cloud_upload</i>インポート</a>
                 <p>書き出したサークルリストと購入リストを取り込みます。現在登録されているサークルリストと購入リストはすべて削除されます。</p>
                 <hr>
                 <h6>キャッシュ</h6>
+                <br>
                 <a class="waves-effect waves-light btn red lighten-1" id="cache-clear"><i class="material-icons left">delete</i>キャッシュクリア</a>
                 <p>キャッシュを削除してサーバーからデータを再取得します。正しく動作しない場合や、バージョンが新しくならない場合に使用してみてください。</p>
                 <div id="cc-info-cache_vers"></div>
@@ -123,17 +126,19 @@
             <div id="import-modal" class="modal">
                     <div class="modal-content">
                         <p>取り込むデータを選択してください</p>
-                        <form action="#" id="import-file">
+                        <form action="#">
                             <div class="file-field input-field">
                                 <div class="btn">
                                 <span>選択</span>
-                                <input type="file" accept=".db">
+                                <input type="file" accept=".db" id="import-file">
                                 </div>
                                 <div class="file-path-wrapper">
                                 <input class="file-path validate" type="text">
                                 </div>
                             </div>
                         </form>
+                        <p id="import-create-date" class="blue-text"></p>
+                        <p class="red-text">注意: インポートを実行すると、現在登録されているサークルリストと購入リストがすべて上書き（削除）されます。</p>
                     </div>
                    <div class="modal-footer">
                         <a href="#!" class="modal-close waves-effect waves-light blue lighten-1 btn">キャンセル</a>

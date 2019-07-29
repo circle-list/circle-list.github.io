@@ -99,6 +99,35 @@ $('#cc-info-export').on('click', function() {
     }
 })
 
+// バックアップデータ読み込み
+backupdata = ''
+
+$('#import-file').on('change', function(event) {
+    var result = event.target.files[0]
+    var reader = new FileReader()
+    reader.readAsText(result)
+    reader.addEventListener( 'load', function() {
+        try {
+            backupdata = JSON.parse(reader.result)
+            $('#import-create-date').text('作成日時: ' + result.lastModifiedDate)
+          } catch (e) {
+            M.toast({html: 'エラー: ファイルが壊れているか、正しいファイルを選択していない可能性があります。'})
+          }
+        
+    })
+ 
+})
+
+$('#import-submit').on('click', function() {
+    if(backupdata !== '') {
+        localStorage.setItem('circles', JSON.stringify(backupdata))
+        M.toast({html: 'バックアップデータをインポートしました。'})
+        updateList()
+    } else {
+        M.toast({html: 'ファイルを選択してください'})
+    }
+})
+
 const island = {
     '2': ['あ', 'い', 'う', 'え', 'お', 'か', 'き', 'く', 'け', 'こ', 'さ', 'し', 'す', 'せ', 'そ', 'た', 'ち', 'つ', 'て', 'と', 'ぬ', 'ね', 'の', 'は', 'ひ', 'ふ', 'へ', 'ほ', 'ま', 'み', 'む', 'め', 'ゆ', 'よ', 'ら', 'り', 'れ'],
     '1': ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R'],
