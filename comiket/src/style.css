@@ -40,6 +40,7 @@ body {
     user-select: none;
     overflow-x: hidden;
     font-family: 'Noto Sans JP', sans-serif;
+    font-weight: lighter;
 }
 
 .not-registed {
