@@ -20,7 +20,9 @@ $(document).ready(function(){
     init()
     drawMap()
     cacheVers()
-    $('#loading-div').addClass('load-end')
+    setTimeout(function() {
+        $('#loading-div').addClass('load-end')
+    }, 500)
 })
 
 /*  ====== メモ ======
