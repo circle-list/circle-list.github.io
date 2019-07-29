@@ -350,6 +350,7 @@ function isChecked(config, day) {
 }
 
 //サークルリスト更新
+color_change_box = []
 function updateList() {
     StorageCheck()
     $('#cc-list-circle-wrapper').empty()
@@ -393,6 +394,10 @@ function updateList() {
                 }
                 $('#cc-buylist-wrapper').append('<li><div class="collapsible-header"><span>' + tmp.name + ' (' + place + ' / ' + tmp.place.date + '日目)</span></div><div class="collapsible-body grey lighten-4"><table class="highlight"><tbody>' + tmp_box.join('') + '</tbody></table></div></li>')
             }
+
+            // ここから下マップに色付けるやつ
+            // 気が向いたら購入済みのはグレーにする機能つける
+            color_change_box.push('#map_' + tmp.place.island + tmp.place.number)
 
         }
 
@@ -570,8 +575,8 @@ var mapAssets = {
     },
     // x: x軸, y: y軸, s: 縦方向サイズ
     "w1": {
-        "wall-1": [],
-        "wall-2": [],
+        "wall-1": [{x: 360, y: 1220}, {x: 340, y: 1220}, {x: 320, y: 1220}, {x: 300, y: 1220}, {x: 280, y: 1220}, {x: 260, y: 1220}, {x: 240, y: 1220}, {x: 220, y: 1220}, {x: 200, y: 1220}, {x: 180, y: 1220}, {x: 160, y: 1220}, {x: 140, y: 1220}, {x: 120, y: 1220}, {x: 100, y: 1220}, {x: 80, y: 1220}, {x: 0, y: 1120}, {x: 0, y: 1100}, {x: 0, y: 1080}, {x: 0, y: 1040}, {x: 0, y: 1000}, {x: 0, y: 960}, {x: 0, y: 940}, {x: 0, y: 920}, {x: 0, y: 700}, {x: 0, y: 680}, {x: 0, y: 660}, {x: 0, y: 500}, {x: 0, y: 480}, {x: 0, y: 460}, {x: 0, y: 320}, {x: 0, y: 300}, {x: 0, y: 280}, {x: 0, y: 260}, {x: 0, y: 200}, {x: 0, y: 160}, {x: 0, y: 100}, {x: 0, y: 80}, {x: 0, y: 60}, {x: 0, y: 40}, {x: 110, y: 0}, {x: 130, y: 0}, {x: 150, y: 0}, {x: 200, y: 0}, {x: 240, y: 0}, {x: 310, y: 0}, {x: 330, y: 0}, {x: 350, y: 0}, {x: 570, y: 0}, {x: 590, y: 0}, {x: 610, y: 0}, {x: 680, y: 0}, {x: 720, y: 0}, {x: 790, y: 0}, {x: 810, y: 0}, {x: 830, y: 0}, {x: 600, y: 380}, {x: 580, y: 380}, {x: 560, y: 380}, {x: 540, y: 380}, {x: 420, y: 460}, {x: 420, y: 480}, {x: 420, y: 500}, {x: 420, y: 520}, {x: 420, y: 880}, {x: 420, y: 900}, {x: 420, y: 920}, {x: 420, y: 940}, {x: 420, y: 1080}, {x: 420, y: 1100}, {x: 420, y: 1120}, {x: 420, y: 1140}, {x: 420, y: 1160}],
+        "wall-2": [{x: 1420, y: 1220}, {x: 1440, y: 1220}, {x: 1460, y: 1220}, {x: 1480, y: 1220}, {x: 1500, y: 1220}, {x: 1520, y: 1220}, {x: 1540, y: 1220}, {x: 1560, y: 1220}, {x: 1580, y: 1220}, {x: 1600, y: 1220}, {x: 1620, y: 1220}, {x: 1640, y: 1220}, {x: 1660, y: 1220}, {x: 1680, y: 1220}, {x: 1700, y: 1220}, {x: -20, y: -20}, {x: -20, y: -20}, {x: -20, y: -20}, {x: -20, y: -20}, {x: -20, y: -20}, {x: 1780, y: 960}, {x: 1780, y: 940}, {x: 1780, y: 920}, {x: 1780, y: 700}, {x: 1780, y: 680}, {x: 1780, y: 660}, {x: 1780, y: 500}, {x: 1780, y: 480}, {x: 1780, y: 460}, {x: 1780, y: 320}, {x: 1780, y: 300}, {x: 1780, y: 280}, {x: 1780, y: 260}, {x: -20, y: -20}, {x: -20, y: -20}, {x: 1780, y: 100}, {x: 1780, y: 80}, {x: 1780, y: 60}, {x: 1780, y: 40}, {x: 1670, y: 0}, {x: 1650, y: 0}, {x: 1630, y: 0}, {x: 1580, y: 0}, {x: 1540, y: 0}, {x: 1470, y: 0}, {x: 1450, y: 0}, {x: 1430, y: 0}, {x: 1210, y: 0}, {x: 1190, y: 0}, {x: 1170, y: 0}, {x: 1100, y: 0}, {x: 1060, y: 0}, {x: 990, y: 0}, {x: 970, y: 0}, {x: 950, y: 0}, {x: 1180, y: 380}, {x: 1200, y: 380}, {x: 1220, y: 380}, {x: 1240, y: 380}, {x: 1360, y: 460}, {x: 1360, y: 480}, {x: 1360, y: 500}, {x: 1360, y: 520}, {x: 1360, y: 860}, {x: 1360, y: 880}, {x: 1360, y: 900}, {x: 1360, y: 920}, {x: 1360, y: 1080}, {x: 1360, y: 1100}, {x: 1360, y: 1120}, {x: 1360, y: 1140}, {x: 1360, y: 1160}],
         "mark-list": {
             "い": [
                 {x: 1700, y: 1060, s: 5},
@@ -1093,10 +1098,10 @@ function drawMap() {
             // 壁サークル生成
             var wall_tmp = []
             for(var ii = 0; tmp_assets['wall-1'].length > ii; ii++) {
-                wall_tmp.push('<div id="map_れ' + ('0' + (ii + 1)).slice(-2) + '" class="miniblock" style="top: ' + tmp_assets.wall[ii].y + 'px; left: ' + tmp_assets.wall[ii].x + 'px;">' + ('0' + (ii + 1)).slice(-2) + '</div>')
+                wall_tmp.push('<div id="map_れ' + ('0' + (ii + 1)).slice(-2) + '" class="miniblock" style="top: ' +  tmp_assets['wall-1'][ii].y + 'px; left: ' + tmp_assets['wall-1'][ii].x + 'px;">' + ('0' + (ii + 1)).slice(-2) + '</div>')
             }
             for(var ii = 0; tmp_assets['wall-2'].length > ii; ii++) {
-                wall_tmp.push('<div id="map_あ' + ('0' + (ii + 1)).slice(-2) + '" class="miniblock" style="top: ' + tmp_assets.wall[ii].y + 'px; left: ' + tmp_assets.wall[ii].x + 'px;">' + ('0' + (ii + 1)).slice(-2) + '</div>')
+                wall_tmp.push('<div id="map_あ' + ('0' + (ii + 1)).slice(-2) + '" class="miniblock" style="top: ' +  tmp_assets['wall-2'][ii].y + 'px; left: ' + tmp_assets['wall-2'][ii].x + 'px;">' + ('0' + (ii + 1)).slice(-2) + '</div>')
             }
             $('#cc-map-w1-inside').append(wall_tmp.join(''))
         }
@@ -1129,5 +1134,10 @@ function drawMap() {
             $('#cc-map-w2-inside').append(wall_tmp.join(''))
         }
         // w2ここまで
+
+        // 登録してあるサークルに色を付ける
+        for(var l = 0; color_change_box.length > l; l++) {
+            $(color_change_box[l]).addClass('blue white-text')
+        }
     }
 }
