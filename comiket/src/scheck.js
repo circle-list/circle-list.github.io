@@ -55,7 +55,7 @@ function cacheVers() {
     caches.keys()
     .then(function(keyList) {
         return Promise.all(keyList.map(function(key) {
-            $('#cc-info-cache_vers').append('<p>・' + key + '</p>')
+            $('#cc-info-cache_vers').append('<p>・' + key.replace('-', ' ') + '</p>')
         })
     )})
 }
