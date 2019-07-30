@@ -172,9 +172,6 @@ function init() {
     $('#cc-list-add-day').formSelect()
     $('#cc-list-add-ab').formSelect()
 
-    $('#cc-list-add-circle_name').val('')
-    $('#cc-list-add-memo').val('')
-
     $('#cc-setting-disableReset').prop('checked', config['disableReset'])
 }
 
@@ -266,6 +263,10 @@ $('#cc-list-add-submit').click(function() {
     if(config['disableReset']) {
         init()
     }
+
+    $('#cc-list-add-circle_name').val('')
+    $('#cc-list-add-memo').val('')
+
     updateList()
 })
 
@@ -1170,7 +1171,6 @@ function drawColor() {
         $('#map_' + tmp.place.island + tmp.place.number).addClass(day_color + ' tooltipped')
         $('#map_' + tmp.place.island + tmp.place.number).attr('data-position', 'top')
         $('#map_' + tmp.place.island + tmp.place.number).attr('data-tooltip', tmp.name + ' (' + tmp.place.date + '日目)')
-        console.log(tmp)
     }
     $('.tooltipped').tooltip();
 }
