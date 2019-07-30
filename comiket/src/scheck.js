@@ -133,6 +133,8 @@ const island = {
 
 // 初期化処理
 function init() {
+    var config = JSON.parse(localStorage.getItem('config'))
+
     $('#cc-list-add-day').empty()
     $('#cc-list-add-il').empty()
     $('#cc-list-add-sb').empty()
@@ -172,6 +174,8 @@ function init() {
 
     $('#cc-list-add-circle_name').val('')
     $('#cc-list-add-memo').val('')
+
+    $('#cc-setting-disableReset').prop('checked', config['disableReset'])
 }
 
 // StorageCheck
@@ -197,10 +201,19 @@ function ConfigCheck() {
         }
         localStorage.setItem('config', JSON.stringify(config))
     }
+    if(config['disableReset'] === undefined) {
+        config['disableReset'] = false
+        localStorage.setItem('config', JSON.stringify(config))
+    }
+}
+
+function getConfig(d) {
+    return localStorage.getItem(config[d])
 }
 
 // 保存
 $('#cc-list-add-submit').click(function() {
+    var config = JSON.parse(localStorage.getItem('config'))
     StorageCheck()
 
     if($('#cc-list-add-day').val() === null || $('#cc-list-add-il').val() === null || $('#cc-list-add-sb').val() === null || $('#cc-list-add-ab').val() === null) {
@@ -250,7 +263,9 @@ $('#cc-list-add-submit').click(function() {
    
     localStorage.setItem('circles', JSON.stringify(data))
 
-    init()
+    if(config['disableReset']) {
+        init()
+    }
     updateList()
 })
 
@@ -1159,3 +1174,11 @@ function drawColor() {
     }
     $('.tooltipped').tooltip();
 }
+
+// フォーム初期化ON/OFF
+$('#cc-setting-disableReset').on('click', function() {
+    console.log($('#cc-setting-disableReset').prop('checked'))
+    var config = JSON.parse(localStorage.getItem('config'))
+    config['disableReset'] = $('#cc-setting-disableReset').prop('checked')
+    localStorage.setItem('config', JSON.stringify(config))
+})

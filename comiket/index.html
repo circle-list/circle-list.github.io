@@ -17,7 +17,7 @@
         <meta name="twitter:card" content="summary"/> 
         <meta name="twitter:site" content="@hideki_0403"/>
         <meta name="mobile-web-app-capable" content="yes">
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+        <meta name="apple-mobile-web-app-status-bar-style" content="white">
         <meta name="apple-mobile-web-app-title" content="CircleList">
         <link rel="apple-touch-icon" href="assets/apple-touch-icon-72x72.png" sizes="72x72">
         <link rel="apple-touch-icon" href="assets/apple-touch-icon-114x114.png" sizes="114x114">
@@ -96,7 +96,7 @@
                 <p>・お気に入りのサークルをリスト化</p>
                 <p>・購入する予定のグッズをリスト化</p>
                 <p>・サークルマップを閲覧</p>
-                <p>・サークルマップのお気に入りのサークルのマスに色をつける</p>
+                <p>・サークルマップのお気に入りのサークルのマスに自動的に色をつける</p>
                 <h5>使い方</h5>
                 <hr>
                 <p>「マップ」タブでは、ビックサイトの西12、34ホール・南12、34ホール・青海展示場のマップを閲覧することが出来ます。</p>
@@ -105,6 +105,14 @@
             </div>
             <div id="cc-top-info" class="container">
                 <h5>設定</h5>
+                <hr>
+                <h6>サークル登録時に項目がリセットされるようにする</h6>
+                <br>
+                <label>
+                    <input type="checkbox" class="filled-in" id="cc-setting-disableReset"/>
+                    <span>初期設定: OFF</span>
+                </label>
+                <br>
                 <hr>
                 <h6>CircleListをインストールする (Android/PC限定)</h6>
                 <br>
@@ -151,9 +159,9 @@
                 <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdkgT-jcUEoNhyx2J9FkfXwrIsotbGemv3pS4VXngqqXRtrgw/viewform?embedded=true" width="100%" height="1000px" frameborder="0" marginheight="0" marginwidth="0">読み込んでいます…</iframe>
             </div>
         </div>        
-
-        <!-- 日付変更ボタン用にDivをつけてる。意味なかった。 -->
-        <div>
+            
+        <!-- ListTab -->
+        <div id="cc-list" class="col s12">
             <!-- Modal -->
             <div id="open-modal" class="modal">
                 <div class="modal-content">
@@ -186,531 +194,528 @@
                         </p>
                     </form>
                 </div>
-            <div class="modal-footer">
+                <div class="modal-footer">
                     <a href="#!" class="modal-close waves-effect waves-light red lighten-1 btn" id="date-change-submit">決定</a>
                 </div>
-            </div>    
-                
-            <!-- ListTab -->
-            <div id="cc-list" class="col s12">
-                <!-- MainModal -->
-                <div class="fixed-action-btn" style="left: 23px;">
-                        <a class="waves-effect waves-light btn red lighten-1 modal-trigger" href="#open-modal"><i class="material-icons left">today</i>日付変更</a>
+            </div>
+            <!-- MainModal -->
+            <div class="fixed-action-btn" style="left: 23px;">
+                    <a class="waves-effect waves-light btn red lighten-1 modal-trigger" href="#open-modal"><i class="material-icons left">today</i>日付変更</a>
+            </div>
+            <ul class="tabs">
+                <li class="tab"><a id="cc-list-tab-1" class="active" href="#cc-list-circle">お気に入りリスト</a></li>
+                <li class="tab"><a id="cc-list-tab-2" href="#cc-list-buy">購入リスト</a></li>
+            </ul>            
+
+            <!-- サークル@一覧 -->
+            <div id="cc-list-circle" class="col s12">
+                <ul id="cc-list-circle-wrapper" class="collapsible expandable" style="box-shadow: none; -webkit-box-shadow: none; margin: 0rem 0 1rem 0;"></ul>
+                <div id="remove-modal"></div>
+
+                <!-- サークル@追加 -->
+                <div class="fixed-action-btn">
+                    <a id="open-add-circle" class="waves-effect waves-light btn red lighten-1 modal-trigger" href="#cc-list-add"><i class="material-icons left">playlist_add</i>お気に入り追加</a>
                 </div>
-                <ul class="tabs">
-                    <li class="tab"><a id="cc-list-tab-1" class="active" href="#cc-list-circle">お気に入りリスト</a></li>
-                    <li class="tab"><a id="cc-list-tab-2" href="#cc-list-buy">購入リスト</a></li>
-                </ul>            
-
-                <!-- サークル@一覧 -->
-                <div id="cc-list-circle" class="col s12">
-                    <ul id="cc-list-circle-wrapper" class="collapsible expandable" style="box-shadow: none; -webkit-box-shadow: none; margin: 0rem 0 1rem 0;"></ul>
-                    <div id="remove-modal"></div>
-
-                    <!-- サークル@追加 -->
-                    <div class="fixed-action-btn">
-                        <a id="open-add-circle" class="waves-effect waves-light btn red lighten-1 modal-trigger" href="#cc-list-add"><i class="material-icons left">playlist_add</i>お気に入り追加</a>
+                <!-- Modal -->
+                <div id="cc-list-add" class="modal modal-fixed-footer">
+                    <div class="modal-content">
+                        <div class="row" style="margin-bottom: 0px;">
+                            <!-- 場所など -->
+                            <div class="input-field col s12">
+                                <select id="cc-list-add-day"></select>
+                            </div>
+                            <div class="input-field col s4">
+                                <select id="cc-list-add-il"></select>
+                            </div>
+                            <div class="input-field col s4">
+                                <select id="cc-list-add-sb"></select>
+                            </div>
+                            <div class="input-field col s4">
+                                <select id="cc-list-add-ab"></select>
+                            </div>
+                            <!-- サークル名 -->
+                            <form class="col s12">
+                                <div class="row" style="margin-bottom: 0px;">
+                                    <div class="input-field col s12">
+                                        <input id="cc-list-add-circle_name" type="text" class="validate">
+                                        <label for="cc-list-add-circle_name">サークル名</label>
+                                    </div>
+                                </div>
+                            </form>
+                            <!-- メモ -->
+                            <form class="col s12">
+                                <div class="row" style="margin-bottom: 0px;">
+                                    <div class="input-field col s12">
+                                        <textarea id="cc-list-add-memo" class="materialize-textarea"></textarea>
+                                        <label for="cc-list-add-memo">メモ</label>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- 確定ボタン -->
+                        <p>追加後「購入リスト」から購入予定のグッズを追加できます！</p>
+                        <p>また、マップに色がつくのは再読み込み後になります</p>
                     </div>
-                    <!-- Modal -->
-                    <div id="cc-list-add" class="modal modal-fixed-footer">
-                        <div class="modal-content">
-                            <div class="row" style="margin-bottom: 0px;">
-                                <!-- 場所など -->
-                                <div class="input-field col s12">
-                                    <select id="cc-list-add-day"></select>
-                                </div>
-                                <div class="input-field col s4">
-                                    <select id="cc-list-add-il"></select>
-                                </div>
-                                <div class="input-field col s4">
-                                    <select id="cc-list-add-sb"></select>
-                                </div>
-                                <div class="input-field col s4">
-                                    <select id="cc-list-add-ab"></select>
-                                </div>
-                                <!-- サークル名 -->
-                                <form class="col s12">
-                                    <div class="row" style="margin-bottom: 0px;">
-                                        <div class="input-field col s12">
-                                            <input id="cc-list-add-circle_name" type="text" class="validate">
-                                            <label for="cc-list-add-circle_name">サークル名</label>
-                                        </div>
-                                    </div>
-                                </form>
-                                <!-- メモ -->
-                                <form class="col s12">
-                                    <div class="row" style="margin-bottom: 0px;">
-                                        <div class="input-field col s12">
-                                            <textarea id="cc-list-add-memo" class="materialize-textarea"></textarea>
-                                            <label for="cc-list-add-memo">メモ</label>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <!-- 確定ボタン -->
-                            <p>追加後「購入リスト」から購入予定のグッズを追加できます！</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button class="btn waves-effect waves-light blue lighten-1" type="submit" name="action" id="cc-list-add-submit">追加 (編集)</button>
-                            <a href="#!" class="modal-close waves-effect waves-light red lighten-1 btn">閉じる</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 購入リスト -->
-                <div id="cc-list-buy">
-                    <div id="remove-item-modal"></div>
-                    <ul id="cc-buylist-wrapper" class="collapsible expandable" style="box-shadow: none; -webkit-box-shadow: none; margin: 0rem 0 1rem 0;"></ul>  
-                    <div class="row">
-                        <div class="fixed-action-btn">
-                            <a class="waves-effect waves-light btn red lighten-1 modal-trigger" href="#new-goods"><i class="material-icons left">playlist_add</i>追加</a>
-                        </div>
-                        <!-- Modal -->
-                        <div id="new-goods" class="modal modal-fixed-footer">
-                            <div class="modal-content">
-                                <div class="input-field col s12">
-                                    <label style="position: static; font-size: 11px;">追加するサークルを選択してください</label>
-                                    <select id="cc-list-buy-circle"></select>
-                                </div>
-                                <form class="col s12">
-                                    <div class="row" style="margin-bottom: 0px;">
-                                        <div class="input-field col s12">
-                                            <input id="cc-buy-add-goods" type="text" class="validate" placeholder="新刊">
-                                            <label for="cc-buy-add-goods">グッズ名</label>
-                                        </div>
-                                    </div>
-                                </form>
-                                <form class="col s12">
-                                    <div class="row" style="margin-bottom: 0px;">
-                                        <div class="col s5">
-                                            <div class="input-field inline">
-                                                <input id="cc-buy-add-price" type="number" class="validate" placeholder="500">
-                                                <label for="cc-buy-add-price">金額 (数字のみ)</label>
-                                            </div>
-                                        </div>
-                                        <span class="helper-text yen" data-error="wrong" data-success="right">円</span>
-                                    </div>
-                                </form>
-                                <div id="messageWrapper"></div>
-                            </div>
-                            <div class="modal-footer">
-                                <a href="#!" class="waves-effect waves-light blue lighten-1 btn" id="cc-buy-add-button">追加</a>
-                                <a href="#!" class="modal-close waves-effect waves-light red lighten-1 btn">閉じる</a>
-                            </div>
-                        </div>
+                    <div class="modal-footer">
+                        <button class="btn waves-effect waves-light blue lighten-1" type="submit" name="action" id="cc-list-add-submit">追加 (編集)</button>
+                        <a href="#!" class="modal-close waves-effect waves-light red lighten-1 btn">閉じる</a>
                     </div>
                 </div>
             </div>
 
-            <!-- MapTab -->
-            <div id="cc-map" class="col s12">
-                <!-- MainModal -->
-                <div class="fixed-action-btn" style="left: 23px;">
-                    <a class="waves-effect waves-light btn red lighten-1 modal-trigger" href="#open-modal"><i class="material-icons left">today</i>日付変更</a>
+            <!-- 購入リスト -->
+            <div id="cc-list-buy">
+                <div id="remove-item-modal"></div>
+                <ul id="cc-buylist-wrapper" class="collapsible expandable" style="box-shadow: none; -webkit-box-shadow: none; margin: 0rem 0 1rem 0;"></ul>  
+                <div class="row">
+                    <div class="fixed-action-btn">
+                        <a class="waves-effect waves-light btn red lighten-1 modal-trigger" href="#new-goods"><i class="material-icons left">playlist_add</i>追加</a>
+                    </div>
+                    <!-- Modal -->
+                    <div id="new-goods" class="modal modal-fixed-footer">
+                        <div class="modal-content">
+                            <div class="input-field col s12">
+                                <label style="position: static; font-size: 11px;">追加するサークルを選択してください</label>
+                                <select id="cc-list-buy-circle"></select>
+                            </div>
+                            <form class="col s12">
+                                <div class="row" style="margin-bottom: 0px;">
+                                    <div class="input-field col s12">
+                                        <input id="cc-buy-add-goods" type="text" class="validate" placeholder="新刊">
+                                        <label for="cc-buy-add-goods">グッズ名</label>
+                                    </div>
+                                </div>
+                            </form>
+                            <form class="col s12">
+                                <div class="row" style="margin-bottom: 0px;">
+                                    <div class="col s5">
+                                        <div class="input-field inline">
+                                            <input id="cc-buy-add-price" type="number" class="validate" placeholder="500">
+                                            <label for="cc-buy-add-price">金額 (数字のみ)</label>
+                                        </div>
+                                    </div>
+                                    <span class="helper-text yen" data-error="wrong" data-success="right">円</span>
+                                </div>
+                            </form>
+                            <div id="messageWrapper"></div>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#!" class="waves-effect waves-light blue lighten-1 btn" id="cc-buy-add-button">追加</a>
+                            <a href="#!" class="modal-close waves-effect waves-light red lighten-1 btn">閉じる</a>
+                        </div>
+                    </div>
                 </div>
-                <ul class="tabs">
-                    <li class="tab"><a class="active" href="#cc-map-w1">西1・西2</a></li>
-                    <li class="tab"><a href="#cc-map-w2">西3・西4</a></li>
-                    <li class="tab"><a href="#cc-map-s1">南1・南2</a></li>
-                    <li class="tab"><a href="#cc-map-s2">南3・南4</a></li>
-                    <li class="tab"><a href="#cc-map-k">青海A・青海B</a></li>
-                </ul>
+            </div>
+        </div>
 
-                <!-- マップ一覧@w1 -->
-                <div id="cc-map-w1" class="col s12 container">
-                    <div class="map-frame">
-                        <div class="map-w1 map-parent" id="cc-map-w1-inside">
-                            <div style="left: 900px;top: 10px;height: 435px;" class="stripe"></div>
-                            <div style="top: 450px;left: 500px;outline: 1px solid #616161;width: 800px;height: 750px;">
-                                <p style="line-height: 700px; text-align: center; position: relative; font-size: 50px;">西1・西2</p>
-                            </div>
-                            <p style="top: 1195px;left: 1755px;font-size: 20px;">あ</p>
-                            <p style="top: -15px;left: 1755px;font-size: 20px;">あ</p>
-                            <p style="top: 355px;left: 1315px;font-size: 20px;">あ</p>
-                            <p style="top: -15px;left: 15px;font-size: 20px;">れ</p>
-                            <p style="top: 355px;left: 455px;font-size: 20px;">れ</p>
-                            <p style="top: 1195px;left: 20px;font-size: 20px;">れ</p>
-                            <p class="_2" style="left: 1710px;">い</p>
-                            <p class="_2" style="left: 1650px;">う</p>
-                            <p class="_2" style="left: 1590px;">え</p>
-                            <p class="_2" style="left: 1530px;">お</p>
-                            <p class="_2" style="left: 1470px;">か</p>
-                            <p class="_2" style="left: 1410px;">き</p>
-                            <p class="_1" style="left: 1710px;">く</p>
-                            <p class="_1" style="left: 1650px;">け</p>
-                            <p class="_1" style="left: 1590px;">こ</p>
-                            <p class="_1" style="left: 1530px;">さ</p>
-                            <p class="_1" style="left: 1470px;">し</p>
-                            <p class="_1" style="left: 1410px;">す</p>
-                            <p class="_1" style="left: 1350px;">せ</p>
-                            <p class="_1" style="left: 1290px;">そ</p>
-                            <p class="_1" style="left: 1230px;">た</p>
-                            <p class="_1" style="left: 1170px;">ち</p>
-                            <p class="_1" style="left: 1110px;">つ</p>
-                            <p class="_1" style="left: 1050px;">て</p>
-                            <p class="_1" style="left: 990px;">と</p>
-                            <p class="_1" style="left: 790px;">ぬ</p>
-                            <p class="_1" style="left: 730px;">ね</p>
-                            <p class="_1" style="left: 670px;">の</p>
-                            <p class="_1" style="left: 610px;">は</p>
-                            <p class="_1" style="left: 550px;">ひ</p>
-                            <p class="_1" style="left: 490px;">ふ</p>
-                            <p class="_1" style="left: 430px;">へ</p>
-                            <p class="_1" style="left: 370px;">ほ</p>
-                            <p class="_1" style="left: 310px;">ま</p>
-                            <p class="_1" style="left: 250px;">み</p>
-                            <p class="_1" style="left: 190px;">む</p>
-                            <p class="_1" style="left: 130px;">め</p>
-                            <p class="_1" style="left: 70px;">も</p>
-                            <p class="_2" style="left: 370px;">や</p>
-                            <p class="_2" style="left: 310px;">ゆ</p>
-                            <p class="_2" style="left: 250px;">よ</p>
-                            <p class="_2" style="left: 190px;">ら</p>
-                            <p class="_2" style="left: 130px;">り</p>
-                            <p class="_2" style="left: 70px;">る</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- マップ一覧@w2 -->
-                <div id="cc-map-w2" class="col s12 container">
-                    <div class="map-frame">
-                        <div class="map-w2 map-parent" id="cc-map-w2-inside">
-                            <div style="top: 400px; left: 500px; outline: 1px solid #616161; width: 800px; height: 800px;">
-                                    <p style="line-height: 700px; text-align: center; position: relative; font-size: 50px;">西4F</p>
-                            </div>
-                            <p style="top: 355px;left: 1315px;font-size: 20px;">A</p>
-                            <p style="top: -15px;left: 1315px;font-size: 20px;">A</p>
-                            <p style="top: 1200px;left: 20px;font-size: 20px;">A</p>
-                            <p style="top: -15px;left: 10px;font-size: 20px;">A</p>
-                            <p class="_1" style="left: 1215px;">B</p>
-                            <p class="_1" style="left: 1035px;">C</p>
-                            <p class="_1" style="left: 825px;">D</p>
-                            <p class="_1" style="left: 645px;">E</p>
-                            <p class="_1" style="left: 495px;">F</p>
-                            <p class="_1" style="left: 375px;">G</p>
-                            <p class="_1" style="left: 315px;">H</p>
-                            <p class="_1" style="left: 255px;">I</p>
-                            <p class="_1" style="left: 195px;">J</p>
-                            <p class="_1" style="left: 135px;">K</p>
-                            <p class="_1" style="left: 75px;">L</p>
-                            <p class="_2" style="left: 375px;">M</p>
-                            <p class="_2" style="left: 315px;">N</p>
-                            <p class="_2" style="left: 255px;">O</p>
-                            <p class="_2" style="left: 195px;">P</p>
-                            <p class="_2" style="left: 135px;">Q</p>
-                            <p class="_2" style="left: 75px;">R</p>
+        <!-- MapTab -->
+        <div id="cc-map" class="col s12">
+            <!-- MainModal -->
+            <div class="fixed-action-btn" style="left: 23px;">
+                <a class="waves-effect waves-light btn red lighten-1 modal-trigger" href="#open-modal"><i class="material-icons left">today</i>日付変更</a>
+            </div>
+            <ul class="tabs">
+                <li class="tab"><a class="active" href="#cc-map-w1">西1・西2</a></li>
+                <li class="tab"><a href="#cc-map-w2">西3・西4</a></li>
+                <li class="tab"><a href="#cc-map-s1">南1・南2</a></li>
+                <li class="tab"><a href="#cc-map-s2">南3・南4</a></li>
+                <li class="tab"><a href="#cc-map-k">青海A・青海B</a></li>
+            </ul>
 
+            <!-- マップ一覧@w1 -->
+            <div id="cc-map-w1" class="col s12 container">
+                <div class="map-frame">
+                    <div class="map-w1 map-parent" id="cc-map-w1-inside">
+                        <div style="left: 900px;top: 10px;height: 435px;" class="stripe"></div>
+                        <div style="top: 450px;left: 500px;outline: 1px solid #616161;width: 800px;height: 750px;">
+                            <p style="line-height: 700px; text-align: center; position: relative; font-size: 50px;">西1・西2</p>
                         </div>
+                        <p style="top: 1195px;left: 1755px;font-size: 20px;">あ</p>
+                        <p style="top: -15px;left: 1755px;font-size: 20px;">あ</p>
+                        <p style="top: 355px;left: 1315px;font-size: 20px;">あ</p>
+                        <p style="top: -15px;left: 15px;font-size: 20px;">れ</p>
+                        <p style="top: 355px;left: 455px;font-size: 20px;">れ</p>
+                        <p style="top: 1195px;left: 20px;font-size: 20px;">れ</p>
+                        <p class="_2" style="left: 1710px;">い</p>
+                        <p class="_2" style="left: 1650px;">う</p>
+                        <p class="_2" style="left: 1590px;">え</p>
+                        <p class="_2" style="left: 1530px;">お</p>
+                        <p class="_2" style="left: 1470px;">か</p>
+                        <p class="_2" style="left: 1410px;">き</p>
+                        <p class="_1" style="left: 1710px;">く</p>
+                        <p class="_1" style="left: 1650px;">け</p>
+                        <p class="_1" style="left: 1590px;">こ</p>
+                        <p class="_1" style="left: 1530px;">さ</p>
+                        <p class="_1" style="left: 1470px;">し</p>
+                        <p class="_1" style="left: 1410px;">す</p>
+                        <p class="_1" style="left: 1350px;">せ</p>
+                        <p class="_1" style="left: 1290px;">そ</p>
+                        <p class="_1" style="left: 1230px;">た</p>
+                        <p class="_1" style="left: 1170px;">ち</p>
+                        <p class="_1" style="left: 1110px;">つ</p>
+                        <p class="_1" style="left: 1050px;">て</p>
+                        <p class="_1" style="left: 990px;">と</p>
+                        <p class="_1" style="left: 790px;">ぬ</p>
+                        <p class="_1" style="left: 730px;">ね</p>
+                        <p class="_1" style="left: 670px;">の</p>
+                        <p class="_1" style="left: 610px;">は</p>
+                        <p class="_1" style="left: 550px;">ひ</p>
+                        <p class="_1" style="left: 490px;">ふ</p>
+                        <p class="_1" style="left: 430px;">へ</p>
+                        <p class="_1" style="left: 370px;">ほ</p>
+                        <p class="_1" style="left: 310px;">ま</p>
+                        <p class="_1" style="left: 250px;">み</p>
+                        <p class="_1" style="left: 190px;">む</p>
+                        <p class="_1" style="left: 130px;">め</p>
+                        <p class="_1" style="left: 70px;">も</p>
+                        <p class="_2" style="left: 370px;">や</p>
+                        <p class="_2" style="left: 310px;">ゆ</p>
+                        <p class="_2" style="left: 250px;">よ</p>
+                        <p class="_2" style="left: 190px;">ら</p>
+                        <p class="_2" style="left: 130px;">り</p>
+                        <p class="_2" style="left: 70px;">る</p>
                     </div>
                 </div>
-                <!-- マップ一覧@s1 -->
-                <div id="cc-map-s1" class="col s12 container">
-                    <div class="map-frame">
-                        <div class="map-s12 map-parent" id="cc-map-s1-inside">
-                            <p style="top: 595px;left: 1200px;font-size: 20px;">ア</p>
-                            <p style="top: 0px;left: 1200px;font-size: 20px;">ア</p>
-                            <p style="top: 595px;left: 30px;font-size: 20px;">ア</p>
-                            <p style="top: 25px;left: 10px;font-size: 20px;">ア</p>
-                            <p style="top: 365px;left: 1130px;font-size: 20px;">イ</p>
-                            <p style="top: 185px;left: 1130px;font-size: 20px;">イ</p>
-                            <p style="top: 365px;left: 1070px;font-size: 20px;">ウ</p>
-                            <p style="top: 185px;left: 1070px;font-size: 20px;">ウ</p>
-                            <p style="top: 365px;left: 1010px;font-size: 20px;">エ</p>
-                            <p style="top: 185px;left: 1010px;font-size: 20px;">エ</p>
-                            <p style="top: 365px;left: 950px;font-size: 20px;">オ</p>
-                            <p style="top: 185px;left: 950px;font-size: 20px;">オ</p>
-                            <p style="top: 365px;left: 890px;font-size: 20px;">カ</p>
-                            <p style="top: 185px;left: 890px;font-size: 20px;">カ</p>
-                            <p style="top: 365px;left: 830px;font-size: 20px;">キ</p>
-                            <p style="top: 185px;left: 830px;font-size: 20px;">キ</p>
-                            <p style="top: 365px;left: 770px;font-size: 20px;">ク</p>
-                            <p style="top: 185px;left: 770px;font-size: 20px;">ク</p>
-                            <p style="top: 365px;left: 710px;font-size: 20px;">ケ</p>
-                            <p style="top: 185px;left: 710px;font-size: 20px;">ケ</p>
-                            <p style="top: 365px;left: 650px;font-size: 20px;">コ</p>
-                            <p style="top: 185px;left: 650px;font-size: 20px;">コ</p>
-                            <p style="top: 365px;left: 590px;font-size: 20px;">サ</p>
-                            <p style="top: 185px;left: 590px;font-size: 20px;">サ</p>
-                            <p style="top: 365px;left: 530px;font-size: 20px;">シ</p>
-                            <p style="top: 185px;left: 530px;font-size: 20px;">シ</p>
-                            <p style="top: 365px;left: 470px;font-size: 20px;">ス</p>
-                            <p style="top: 185px;left: 470px;font-size: 20px;">ス</p>
-                            <p style="top: 365px;left: 410px;font-size: 20px;">セ</p>
-                            <p style="top: 185px;left: 410px;font-size: 20px;">セ</p>
-                            <p style="top: 365px;left: 350px;font-size: 20px;">ソ</p>
-                            <p style="top: 185px;left: 350px;font-size: 20px;">ソ</p>
-                            <p style="top: 365px;left: 290px;font-size: 20px;">タ</p>
-                            <p style="top: 185px;left: 290px;font-size: 20px;">タ</p>
-                            <p style="top: 365px;left: 230px;font-size: 20px;">チ</p>
-                            <p style="top: 185px;left: 230px;font-size: 20px;">チ</p>
-                            <p style="top: 365px;left: 170px;font-size: 20px;">ツ</p>
-                            <p style="top: 185px;left: 170px;font-size: 20px;">ツ</p>
-                            <p style="top: 365px;left: 110px;font-size: 20px;">テ</p>
-                            <p style="top: 185px;left: 110px;font-size: 20px;">テ</p>
-                            <p style="top: 365px;left: 50px;font-size: 20px;">ト</p>
-                            <p style="top: 185px;left: 50px;font-size: 20px;">ト</p>
+            </div>
+            <!-- マップ一覧@w2 -->
+            <div id="cc-map-w2" class="col s12 container">
+                <div class="map-frame">
+                    <div class="map-w2 map-parent" id="cc-map-w2-inside">
+                        <div style="top: 400px; left: 500px; outline: 1px solid #616161; width: 800px; height: 800px;">
+                                <p style="line-height: 700px; text-align: center; position: relative; font-size: 50px;">西4F</p>
                         </div>
+                        <p style="top: 355px;left: 1315px;font-size: 20px;">A</p>
+                        <p style="top: -15px;left: 1315px;font-size: 20px;">A</p>
+                        <p style="top: 1200px;left: 20px;font-size: 20px;">A</p>
+                        <p style="top: -15px;left: 10px;font-size: 20px;">A</p>
+                        <p class="_1" style="left: 1215px;">B</p>
+                        <p class="_1" style="left: 1035px;">C</p>
+                        <p class="_1" style="left: 825px;">D</p>
+                        <p class="_1" style="left: 645px;">E</p>
+                        <p class="_1" style="left: 495px;">F</p>
+                        <p class="_1" style="left: 375px;">G</p>
+                        <p class="_1" style="left: 315px;">H</p>
+                        <p class="_1" style="left: 255px;">I</p>
+                        <p class="_1" style="left: 195px;">J</p>
+                        <p class="_1" style="left: 135px;">K</p>
+                        <p class="_1" style="left: 75px;">L</p>
+                        <p class="_2" style="left: 375px;">M</p>
+                        <p class="_2" style="left: 315px;">N</p>
+                        <p class="_2" style="left: 255px;">O</p>
+                        <p class="_2" style="left: 195px;">P</p>
+                        <p class="_2" style="left: 135px;">Q</p>
+                        <p class="_2" style="left: 75px;">R</p>
+
                     </div>
                 </div>
-                <!-- マップ一覧@s2 -->
-                <div id="cc-map-s2" class="col s12 container">
-                    <div class="map-frame">
-                        <div class="map-s12 map-parent" id="cc-map-s2-inside">
-                            <p style="top: 595px;left: 900px;font-size: 20px;">ナ</p>
-                            <p style="top: 0px;left: 1200px;font-size: 20px;">ナ</p>
-                            <p style="top: 595px;left: 300px;font-size: 20px;">ナ</p>
-                            <p style="top: 0px;left: 90px;font-size: 20px;">ナ</p>
-                            <p style="top: 365px;left: 1130px;font-size: 20px;">ニ</p>
-                            <p style="top: 185px;left: 1130px;font-size: 20px;">ニ</p>
-                            <p style="top: 365px;left: 1070px;font-size: 20px;">ヌ</p>
-                            <p style="top: 185px;left: 1070px;font-size: 20px;">ヌ</p>
-                            <p style="top: 365px;left: 1010px;font-size: 20px;">ネ</p>
-                            <p style="top: 185px;left: 1010px;font-size: 20px;">ネ</p>
-                            <p style="top: 365px;left: 950px;font-size: 20px;">ノ</p>
-                            <p style="top: 185px;left: 950px;font-size: 20px;">ノ</p>
-                            <p style="top: 365px;left: 890px;font-size: 20px;">ハ</p>
-                            <p style="top: 185px;left: 890px;font-size: 20px;">ハ</p>
-                            <p style="top: 365px;left: 830px;font-size: 20px;">ヒ</p>
-                            <p style="top: 185px;left: 830px;font-size: 20px;">ヒ</p>
-                            <p style="top: 365px;left: 770px;font-size: 20px;">フ</p>
-                            <p style="top: 185px;left: 770px;font-size: 20px;">フ</p>
-                            <p style="top: 365px;left: 710px;font-size: 20px;">ヘ</p>
-                            <p style="top: 185px;left: 710px;font-size: 20px;">ヘ</p>
-                            <p style="top: 365px;left: 650px;font-size: 20px;">ホ</p>
-                            <p style="top: 185px;left: 650px;font-size: 20px;">ホ</p>
-                            <p style="top: 365px;left: 590px;font-size: 20px;">マ</p>
-                            <p style="top: 185px;left: 590px;font-size: 20px;">マ</p>
-                            <p style="top: 365px;left: 530px;font-size: 20px;">ミ</p>
-                            <p style="top: 185px;left: 530px;font-size: 20px;">ミ</p>
-                            <p style="top: 365px;left: 470px;font-size: 20px;">ム</p>
-                            <p style="top: 185px;left: 470px;font-size: 20px;">ム</p>
-                            <p style="top: 365px;left: 410px;font-size: 20px;">メ</p>
-                            <p style="top: 185px;left: 410px;font-size: 20px;">メ</p>
-                            <p style="top: 365px;left: 350px;font-size: 20px;">モ</p>
-                            <p style="top: 185px;left: 350px;font-size: 20px;">モ</p>
-                            <p style="top: 365px;left: 290px;font-size: 20px;">ヤ</p>
-                            <p style="top: 185px;left: 290px;font-size: 20px;">ヤ</p>
-                            <p style="top: 365px;left: 230px;font-size: 20px;">ユ</p>
-                            <p style="top: 185px;left: 230px;font-size: 20px;">ユ</p>
-                            <p style="top: 365px;left: 170px;font-size: 20px;">ヨ</p>
-                            <p style="top: 185px;left: 170px;font-size: 20px;">ヨ</p>
-                            <p style="top: 365px;left: 110px;font-size: 20px;">ラ</p>
-                            <p style="top: 185px;left: 110px;font-size: 20px;">ラ</p>
-                            <p style="top: 365px;left: 50px;font-size: 20px;">リ</p>
-                            <p style="top: 185px;left: 50px;font-size: 20px;">リ</p>
-                        </div>
+            </div>
+            <!-- マップ一覧@s1 -->
+            <div id="cc-map-s1" class="col s12 container">
+                <div class="map-frame">
+                    <div class="map-s12 map-parent" id="cc-map-s1-inside">
+                        <p style="top: 595px;left: 1200px;font-size: 20px;">ア</p>
+                        <p style="top: 0px;left: 1200px;font-size: 20px;">ア</p>
+                        <p style="top: 595px;left: 30px;font-size: 20px;">ア</p>
+                        <p style="top: 25px;left: 10px;font-size: 20px;">ア</p>
+                        <p style="top: 365px;left: 1130px;font-size: 20px;">イ</p>
+                        <p style="top: 185px;left: 1130px;font-size: 20px;">イ</p>
+                        <p style="top: 365px;left: 1070px;font-size: 20px;">ウ</p>
+                        <p style="top: 185px;left: 1070px;font-size: 20px;">ウ</p>
+                        <p style="top: 365px;left: 1010px;font-size: 20px;">エ</p>
+                        <p style="top: 185px;left: 1010px;font-size: 20px;">エ</p>
+                        <p style="top: 365px;left: 950px;font-size: 20px;">オ</p>
+                        <p style="top: 185px;left: 950px;font-size: 20px;">オ</p>
+                        <p style="top: 365px;left: 890px;font-size: 20px;">カ</p>
+                        <p style="top: 185px;left: 890px;font-size: 20px;">カ</p>
+                        <p style="top: 365px;left: 830px;font-size: 20px;">キ</p>
+                        <p style="top: 185px;left: 830px;font-size: 20px;">キ</p>
+                        <p style="top: 365px;left: 770px;font-size: 20px;">ク</p>
+                        <p style="top: 185px;left: 770px;font-size: 20px;">ク</p>
+                        <p style="top: 365px;left: 710px;font-size: 20px;">ケ</p>
+                        <p style="top: 185px;left: 710px;font-size: 20px;">ケ</p>
+                        <p style="top: 365px;left: 650px;font-size: 20px;">コ</p>
+                        <p style="top: 185px;left: 650px;font-size: 20px;">コ</p>
+                        <p style="top: 365px;left: 590px;font-size: 20px;">サ</p>
+                        <p style="top: 185px;left: 590px;font-size: 20px;">サ</p>
+                        <p style="top: 365px;left: 530px;font-size: 20px;">シ</p>
+                        <p style="top: 185px;left: 530px;font-size: 20px;">シ</p>
+                        <p style="top: 365px;left: 470px;font-size: 20px;">ス</p>
+                        <p style="top: 185px;left: 470px;font-size: 20px;">ス</p>
+                        <p style="top: 365px;left: 410px;font-size: 20px;">セ</p>
+                        <p style="top: 185px;left: 410px;font-size: 20px;">セ</p>
+                        <p style="top: 365px;left: 350px;font-size: 20px;">ソ</p>
+                        <p style="top: 185px;left: 350px;font-size: 20px;">ソ</p>
+                        <p style="top: 365px;left: 290px;font-size: 20px;">タ</p>
+                        <p style="top: 185px;left: 290px;font-size: 20px;">タ</p>
+                        <p style="top: 365px;left: 230px;font-size: 20px;">チ</p>
+                        <p style="top: 185px;left: 230px;font-size: 20px;">チ</p>
+                        <p style="top: 365px;left: 170px;font-size: 20px;">ツ</p>
+                        <p style="top: 185px;left: 170px;font-size: 20px;">ツ</p>
+                        <p style="top: 365px;left: 110px;font-size: 20px;">テ</p>
+                        <p style="top: 185px;left: 110px;font-size: 20px;">テ</p>
+                        <p style="top: 365px;left: 50px;font-size: 20px;">ト</p>
+                        <p style="top: 185px;left: 50px;font-size: 20px;">ト</p>
                     </div>
                 </div>
-                <!-- マップ一覧@k -->
-                <div id="cc-map-k" class="col s12 container">
-                    <div class="map-frame">
-                        <div class="map-k map-parent" id="cc-map-k-inside">
-                            <!-- ストライプ -->
-                            <div style="left: 850px; top: 60px; height: 800px;" class="stripe"></div>
-                            <!-- 青海A -->
-                            <div style="top: 60px; left: 160px; width: 100px; height: 20px;" class="grid">
-                                <div id="map_1911">1911</div>
-                                <div id="map_1912">1912</div>
-                                <div id="map_1913">1913</div>
-                                <div id="map_1914">1914</div>
-                                <div id="map_1915">1915</div>
-                            </div>
-                            <div style="top: 120px; left: 80px; width: 20px; height: 40px; border: 1px solid #616161;">
-                                <div id="map_1111" style="height: 100%;">1111</div>
-                            </div>
-                            <div style="top: 780px; left: 200px; width: 80px; height: 20px; border: 1px solid #616161; font-size: 12px;">
-                                <div id="map_1421" style="height: 100%; width: 20px;">1421</div>
-                                <div id="map_1422" style="height: 100%; width: 20px; left:20px;">1422</div>
-                                <div id="map_1423" style="height: 100%; width: 40px; left:40px;">1423</div>
-                            </div>
-                            <div style="top: 800px; left: 400px; width: 80px; height: 20px; border: 1px solid #616161; font-size: 12px;">
-                                <div id="map_1431" style="height: 100%; width: 40px; left:0px;">1431</div>
-                                <div id="map_1432" style="height: 100%; width: 40px; left:40px;">1432</div>
-                            </div>
-                            <div style="top: 800px; left: 640px; width: 80px; height: 20px; border: 1px solid #616161; font-size: 12px;">
-                                <div id="map_1451" style="height: 100%; width: 80px;">1431</div>
-                            </div>
-                            <!-- 一列目 -->
-                            <div style="top: 140px; left: 340px;" class="grid grid-3-2">
-                                <div id="map_1131" style="grid-column: 1 / 2; grid-row: 1 / 4;">1131</div>
-                                <div id="map_1132" style="grid-column: 2 / 3; grid-row: 1 / 4;">1132</div>
-                            </div>
-                            <div style="top: 140px; left: 480px;" class="grid grid-3-2">
-                                <div id="map_1141" style="grid-column: 1 / 2; grid-row: 1 / 3;">1141</div>
-                                <div id="map_1142" style="grid-column: 1 / 2; grid-row: 3 / 4;">1142</div>
-                                <div id="map_1143" style="grid-column: 2 / 3; grid-row: 1 / 4;">1143</div>
-                            </div>
-                            <div style="top: 140px; left: 620px; width: 40px; height: 60px;">
-                                <div id="map_1151" style="width: 100%;height: 100%; border: 1px solid #616161;">1151</div>
-                            </div>
-                            <!-- 二列目 -->
-                            <div style="top: 300px; left: 60px;" class="grid grid-4-2">
-                                <div id="map_1211" style="grid-column: 1 / 3; grid-row: 1 / 2;">1211</div>
-                                <div id="map_1212">1212</div>
-                                <div id="map_1213">1213</div>
-                                <div id="map_1214">1214</div>
-                                <div id="map_1217">1217</div>
-                                <div id="map_1216">1216</div>
-                                <div id="map_1215">1215</div>
-                            </div>
-                            <div style="top: 300px; left: 200px;" class="grid grid-4-2">
-                                <div id="map_1221" style="grid-column: 1 / 2; grid-row: 1 / 3;">1221</div>
-                                <div id="map_1222" style="grid-column: 1 / 2; grid-row: 3 / 5;">1222</div>
-                                <div id="map_1225" style="grid-column: 2 / 3; grid-row: 1 / 3;">1225</div>
-                                <div id="map_1224">1224</div>
-                                <div id="map_1223">1223</div>
-                            </div>
-                            <div style="top: 300px; left: 340px;" class="grid grid-4-2">
-                                <div id="map_1231" style="grid-column: 1 / 2; grid-row: 1 / 3;">1231</div>
-                                <div id="map_1232" style="grid-column: 1 / 2; grid-row: 3 / 5;">1232</div>
-                                <div id="map_1235" style="grid-column: 2 / 3; grid-row: 1 / 3;">1235</div>
-                                <div id="map_1234">1234</div>
-                                <div id="map_1233">1233</div>
-                            </div>
-                            <div style="top: 300px; left: 480px;" class="grid grid-4-2">
-                                <div id="map_1241">1241</div>
-                                <div id="map_1242">1242</div>
-                                <div id="map_1243">1243</div>
-                                <div id="map_1244">1244</div>
-                                <div id="map_1248">1248</div>
-                                <div id="map_1247">1247</div>
-                                <div id="map_1246">1246</div>
-                                <div id="map_1245">1245</div>
-                            </div>
-                            <div style="top: 300px; left: 620px;" class="grid grid-4-2">
-                                <div id="map_1251" style="grid-column: 1 / 3; grid-row: 1 / 4;">1251</div>
-                                <div id="map_1252">1252</div>
-                                <div id="map_1253">1253</div>
-                            </div>
-                            <!-- 三列目 -->
-                            <div style="top: 500px; left: 60px;" class="grid grid-4-2">
-                                <div id="map_1311">1311</div>
-                                <div id="map_1312" style="grid-column: 1 / 2; grid-row: 2 / 5;">1312</div>
-                                <div id="map_1313" style="grid-column: 2 / 3; grid-row: 1 / 3;">1313</div>
-                                <div id="map_1314" style="grid-column: 2 / 3; grid-row: 3 / 5;">1314</div>
-                            </div>
-                            <div style="top: 500px; left: 200px;" class="grid grid-4-2">
-                                <div id="map_1321">1321</div>
-                                <div id="map_1322">1322</div>
-                                <div id="map_1323" style="grid-column: 1 / 2; grid-row: 3 / 5;">1323</div>
-                                <div id="map_1324" style="grid-column: 2 / 3; grid-row: 1 / 5;">1324</div>
-                            </div>
-                            <div style="top: 500px; left: 340px;" class="grid grid-4-2">
-                                <div id="map_1331">1331</div>
-                                <div id="map_1332" style="grid-column: 1 / 2; grid-row: 2 / 4;">1332</div>
-                                <div id="map_1333">1333</div>
-                                <div id="map_1335">1335</div>
-                                <div id="map_1334" style="grid-column: 2 / 3; grid-row: 2 / 5;">1334</div>
-                            </div>
-                            <div style="top: 500px; left: 480px;" class="grid grid-4-2">
-                                <div id="map_1341">1341</div>
-                                <div id="map_1342">1342</div>
-                                <div id="map_1343">1343</div>
-                                <div id="map_1344">1344</div>
-                                <div id="map_1348">1348</div>
-                                <div id="map_1347">1347</div>
-                                <div id="map_1346">1346</div>
-                                <div id="map_1345">1345</div>
-                            </div>
-                            <div style="top: 500px; left: 620px;" class="grid grid-4-2">
-                                <div id="map_1351" style="grid-column: 1 / 2; grid-row: 1 / 3;">1351</div>
-                                <div id="map_1352" style="grid-column: 1 / 2; grid-row: 3 / 5;">1352</div>
-                                <div id="map_1354" style="grid-column: 2 / 3; grid-row: 1 / 3;">1354</div>
-                                <div id="map_1353" style="grid-column: 2 / 3; grid-row: 3 / 5;">1353</div>
-                            </div>
-                            <!-- 青海B -->
-                            <div style="top: 60px; left: 1420px; width: 200px; height: 20px;" class="grid">
-                                <div id="map_2911">2911</div>
-                                <div id="map_2912">2912</div>
-                                <div id="map_2913">2913</div>
-                                <div id="map_2914">2914</div>
-                                <div id="map_2915">2915</div>
-                                <div id="map_2921">2921</div>
-                                <div id="map_2922">2922</div>
-                                <div id="map_2923">2923</div>
-                                <div id="map_2924">2924</div>
-                                <div id="map_2925">2925</div>
-                            </div>
-                            <div style="top: 760px; left: 1280px;" class="grid grid-4-2">
-                                <div id="map_2431" style="grid-column: 1 / 3; grid-row: 1 / 5;">2431</div>
-                            </div>
-                            <div style="top: 800px; left: 1420px; width: 80px; height: 20px; border: 1px solid #616161; font-size: 12px;">
-                                <div id="map_1441" style="height: 100%; width: 60px; left:0px;">1441</div>
-                                <div id="map_1442" style="height: 100%; width: 20px; left:60px;">1442</div>
-                            </div>
-                            <!-- 一列目 -->
-                            <div style="top: 140px; left: 1040px; width: 40px; height: 60px;">
-                                <div id="map_2111" style="width: 100%;height: 100%; border: 1px solid #616161;">2111</div>
-                            </div>
-                            <div style="top: 140px; left: 1180px;" class="grid grid-3-2">
-                                <div id="map_2121" style="grid-column: 1 / 2; grid-row: 1 / 4;">2121</div>
-                                <div id="map_2122" style="grid-column: 2 / 3; grid-row: 1 / 4;">2122</div>
-                            </div>
-                            <div style="top: 140px; left: 1320px;" class="grid grid-3-2">
-                                <div id="map_2131" style="grid-column: 1 / 2; grid-row: 1 / 3;">2131</div>
-                                <div id="map_2132" style="grid-column: 1 / 3; grid-row: 3 / 4;">2132</div>
-                                <div id="map_2133" style="grid-column: 2 / 3; grid-row: 1 / 3;">2133</div>
-                            </div>
-                            <!-- 二列目 -->
-                            <div style="top: 300px; left: 1040px;" class="grid grid-4-2">
-                                <div id="map_2211" style="grid-column: 1 / 3; grid-row: 1 / 5;">2211</div>
-                            </div>
-                            <div style="top: 300px; left: 1180px;" class="grid grid-4-2">
-                                <div id="map_2223" style="grid-column: 1 / 2; grid-row: 3 / 5;">2223</div>
-                                <div id="map_2221">2221</div>
-                                <div id="map_2222">2222</div>
-                                <div id="map_2227">2227</div>
-                                <div id="map_2226">2226</div>
-                                <div id="map_2225">2225</div>
-                                <div id="map_2224">2224</div>
-                            </div>
-                            <div style="top: 300px; left: 1320px;" class="grid grid-4-2">
-                                <div id="map_2231" style="grid-column: 1 / 2; grid-row: 1 / 3;">2231</div>
-                                <div id="map_2232" style="grid-column: 1 / 2; grid-row: 3 / 5;">2232</div>
-                                <div id="map_2234" style="grid-column: 2 / 3; grid-row: 1 / 3;">2234</div>
-                                <div id="map_2233" style="grid-column: 2 / 3; grid-row: 3 / 5;">2233</div>
-                            </div>
-                            <div style="top: 300px; left: 1460px;" class="grid grid-4-2">
-                                <div id="map_2241" style="grid-column: 1 / 2; grid-row: 1 / 4;">2241</div>
-                                <div id="map_2242">2242</div>
-                                <div id="map_2244" style="grid-column: 2 / 3; grid-row: 1 / 3;">2244</div>
-                                <div id="map_2243" style="grid-column: 2 / 3; grid-row: 3 / 5;">2243</div>
-                            </div>
-                            <div style="top: 300px; left: 1600px;" class="grid grid-4-2">
-                                <div id="map_2251" style="grid-column: 1 / 2; grid-row: 1 / 3;">2251</div>
-                                <div id="map_2252" style="grid-column: 1 / 2; grid-row: 3 / 5;">2252</div>
-                                <div id="map_2253" style="grid-column: 2 / 3; grid-row: 1 / 5;">2253</div>
-                            </div>
-                            <!-- 三列目 -->
-                            <div style="top: 500px; left: 1040px;" class="grid grid-4-2">
-                                <div id="map_2311" style="grid-column: 1 / 2; grid-row: 1 / 5;">2311</div>
-                                <div id="map_2312" style="grid-column: 2 / 3; grid-row: 1 / 5;">2312</div>
-                            </div>
-                            <div style="top: 500px; left: 1180px;" class="grid grid-4-2">
-                                <div id="map_2321" style="grid-column: 1 / 2; grid-row: 1 / 3;">2321</div>
-                                <div id="map_2326" style="grid-column: 2 / 3; grid-row: 1 / 3;">2326</div>
-                                <div id="map_2322">2322</div>
-                                <div id="map_2323">2323</div>
-                                <div id="map_2325">2325</div>
-                                <div id="map_2324">2324</div>
-                            </div>
-                            <div style="top: 500px; left: 1320px;" class="grid grid-4-2">
-                                <div id="map_2331">2331</div>
-                                <div id="map_2332">2332</div>
-                                <div id="map_2335">2335</div>
-                                <div id="map_2333" style="grid-column: 1 / 2; grid-row: 3 / 5;">2333</div>
-                                <div id="map_2334" style="grid-column: 2 / 3; grid-row: 2 / 5;">2334</div>
-                            </div>
-                            <div style="top: 500px; left: 1460px;" class="grid grid-4-2">
-                                <div id="map_2341" style="grid-column: 1 / 2; grid-row: 1 / 3;">2341</div>
-                                <div id="map_2342" style="grid-column: 1 / 2; grid-row: 3 / 5;">2342</div>
-                                <div id="map_2344" style="grid-column: 2 / 3; grid-row: 1 / 3;">2344</div>
-                                <div id="map_2343" style="grid-column: 2 / 3; grid-row: 3 / 5;">2343</div>
-                            </div>
-                            <div style="top: 500px; left: 1600px;" class="grid grid-4-2">
-                                <div id="map_2351" style="grid-column: 1 / 2; grid-row: 1 / 5;">2351</div>
-                                <div id="map_2352" style="grid-column: 2 / 3; grid-row: 1 / 5;">2352</div>
-                            </div>
+            </div>
+            <!-- マップ一覧@s2 -->
+            <div id="cc-map-s2" class="col s12 container">
+                <div class="map-frame">
+                    <div class="map-s12 map-parent" id="cc-map-s2-inside">
+                        <p style="top: 595px;left: 900px;font-size: 20px;">ナ</p>
+                        <p style="top: 0px;left: 1200px;font-size: 20px;">ナ</p>
+                        <p style="top: 595px;left: 300px;font-size: 20px;">ナ</p>
+                        <p style="top: 0px;left: 90px;font-size: 20px;">ナ</p>
+                        <p style="top: 365px;left: 1130px;font-size: 20px;">ニ</p>
+                        <p style="top: 185px;left: 1130px;font-size: 20px;">ニ</p>
+                        <p style="top: 365px;left: 1070px;font-size: 20px;">ヌ</p>
+                        <p style="top: 185px;left: 1070px;font-size: 20px;">ヌ</p>
+                        <p style="top: 365px;left: 1010px;font-size: 20px;">ネ</p>
+                        <p style="top: 185px;left: 1010px;font-size: 20px;">ネ</p>
+                        <p style="top: 365px;left: 950px;font-size: 20px;">ノ</p>
+                        <p style="top: 185px;left: 950px;font-size: 20px;">ノ</p>
+                        <p style="top: 365px;left: 890px;font-size: 20px;">ハ</p>
+                        <p style="top: 185px;left: 890px;font-size: 20px;">ハ</p>
+                        <p style="top: 365px;left: 830px;font-size: 20px;">ヒ</p>
+                        <p style="top: 185px;left: 830px;font-size: 20px;">ヒ</p>
+                        <p style="top: 365px;left: 770px;font-size: 20px;">フ</p>
+                        <p style="top: 185px;left: 770px;font-size: 20px;">フ</p>
+                        <p style="top: 365px;left: 710px;font-size: 20px;">ヘ</p>
+                        <p style="top: 185px;left: 710px;font-size: 20px;">ヘ</p>
+                        <p style="top: 365px;left: 650px;font-size: 20px;">ホ</p>
+                        <p style="top: 185px;left: 650px;font-size: 20px;">ホ</p>
+                        <p style="top: 365px;left: 590px;font-size: 20px;">マ</p>
+                        <p style="top: 185px;left: 590px;font-size: 20px;">マ</p>
+                        <p style="top: 365px;left: 530px;font-size: 20px;">ミ</p>
+                        <p style="top: 185px;left: 530px;font-size: 20px;">ミ</p>
+                        <p style="top: 365px;left: 470px;font-size: 20px;">ム</p>
+                        <p style="top: 185px;left: 470px;font-size: 20px;">ム</p>
+                        <p style="top: 365px;left: 410px;font-size: 20px;">メ</p>
+                        <p style="top: 185px;left: 410px;font-size: 20px;">メ</p>
+                        <p style="top: 365px;left: 350px;font-size: 20px;">モ</p>
+                        <p style="top: 185px;left: 350px;font-size: 20px;">モ</p>
+                        <p style="top: 365px;left: 290px;font-size: 20px;">ヤ</p>
+                        <p style="top: 185px;left: 290px;font-size: 20px;">ヤ</p>
+                        <p style="top: 365px;left: 230px;font-size: 20px;">ユ</p>
+                        <p style="top: 185px;left: 230px;font-size: 20px;">ユ</p>
+                        <p style="top: 365px;left: 170px;font-size: 20px;">ヨ</p>
+                        <p style="top: 185px;left: 170px;font-size: 20px;">ヨ</p>
+                        <p style="top: 365px;left: 110px;font-size: 20px;">ラ</p>
+                        <p style="top: 185px;left: 110px;font-size: 20px;">ラ</p>
+                        <p style="top: 365px;left: 50px;font-size: 20px;">リ</p>
+                        <p style="top: 185px;left: 50px;font-size: 20px;">リ</p>
+                    </div>
+                </div>
+            </div>
+            <!-- マップ一覧@k -->
+            <div id="cc-map-k" class="col s12 container">
+                <div class="map-frame">
+                    <div class="map-k map-parent" id="cc-map-k-inside">
+                        <!-- ストライプ -->
+                        <div style="left: 850px; top: 60px; height: 800px;" class="stripe"></div>
+                        <!-- 青海A -->
+                        <div style="top: 60px; left: 160px; width: 100px; height: 20px;" class="grid">
+                            <div id="map_1911">1911</div>
+                            <div id="map_1912">1912</div>
+                            <div id="map_1913">1913</div>
+                            <div id="map_1914">1914</div>
+                            <div id="map_1915">1915</div>
+                        </div>
+                        <div style="top: 120px; left: 80px; width: 20px; height: 40px; border: 1px solid #616161;">
+                            <div id="map_1111" style="height: 100%;">1111</div>
+                        </div>
+                        <div style="top: 780px; left: 200px; width: 80px; height: 20px; border: 1px solid #616161; font-size: 12px;">
+                            <div id="map_1421" style="height: 100%; width: 20px;">1421</div>
+                            <div id="map_1422" style="height: 100%; width: 20px; left:20px;">1422</div>
+                            <div id="map_1423" style="height: 100%; width: 40px; left:40px;">1423</div>
+                        </div>
+                        <div style="top: 800px; left: 400px; width: 80px; height: 20px; border: 1px solid #616161; font-size: 12px;">
+                            <div id="map_1431" style="height: 100%; width: 40px; left:0px;">1431</div>
+                            <div id="map_1432" style="height: 100%; width: 40px; left:40px;">1432</div>
+                        </div>
+                        <div style="top: 800px; left: 640px; width: 80px; height: 20px; border: 1px solid #616161; font-size: 12px;">
+                            <div id="map_1451" style="height: 100%; width: 80px;">1431</div>
+                        </div>
+                        <!-- 一列目 -->
+                        <div style="top: 140px; left: 340px;" class="grid grid-3-2">
+                            <div id="map_1131" style="grid-column: 1 / 2; grid-row: 1 / 4;">1131</div>
+                            <div id="map_1132" style="grid-column: 2 / 3; grid-row: 1 / 4;">1132</div>
+                        </div>
+                        <div style="top: 140px; left: 480px;" class="grid grid-3-2">
+                            <div id="map_1141" style="grid-column: 1 / 2; grid-row: 1 / 3;">1141</div>
+                            <div id="map_1142" style="grid-column: 1 / 2; grid-row: 3 / 4;">1142</div>
+                            <div id="map_1143" style="grid-column: 2 / 3; grid-row: 1 / 4;">1143</div>
+                        </div>
+                        <div style="top: 140px; left: 620px; width: 40px; height: 60px;">
+                            <div id="map_1151" style="width: 100%;height: 100%; border: 1px solid #616161;">1151</div>
+                        </div>
+                        <!-- 二列目 -->
+                        <div style="top: 300px; left: 60px;" class="grid grid-4-2">
+                            <div id="map_1211" style="grid-column: 1 / 3; grid-row: 1 / 2;">1211</div>
+                            <div id="map_1212">1212</div>
+                            <div id="map_1213">1213</div>
+                            <div id="map_1214">1214</div>
+                            <div id="map_1217">1217</div>
+                            <div id="map_1216">1216</div>
+                            <div id="map_1215">1215</div>
+                        </div>
+                        <div style="top: 300px; left: 200px;" class="grid grid-4-2">
+                            <div id="map_1221" style="grid-column: 1 / 2; grid-row: 1 / 3;">1221</div>
+                            <div id="map_1222" style="grid-column: 1 / 2; grid-row: 3 / 5;">1222</div>
+                            <div id="map_1225" style="grid-column: 2 / 3; grid-row: 1 / 3;">1225</div>
+                            <div id="map_1224">1224</div>
+                            <div id="map_1223">1223</div>
+                        </div>
+                        <div style="top: 300px; left: 340px;" class="grid grid-4-2">
+                            <div id="map_1231" style="grid-column: 1 / 2; grid-row: 1 / 3;">1231</div>
+                            <div id="map_1232" style="grid-column: 1 / 2; grid-row: 3 / 5;">1232</div>
+                            <div id="map_1235" style="grid-column: 2 / 3; grid-row: 1 / 3;">1235</div>
+                            <div id="map_1234">1234</div>
+                            <div id="map_1233">1233</div>
+                        </div>
+                        <div style="top: 300px; left: 480px;" class="grid grid-4-2">
+                            <div id="map_1241">1241</div>
+                            <div id="map_1242">1242</div>
+                            <div id="map_1243">1243</div>
+                            <div id="map_1244">1244</div>
+                            <div id="map_1248">1248</div>
+                            <div id="map_1247">1247</div>
+                            <div id="map_1246">1246</div>
+                            <div id="map_1245">1245</div>
+                        </div>
+                        <div style="top: 300px; left: 620px;" class="grid grid-4-2">
+                            <div id="map_1251" style="grid-column: 1 / 3; grid-row: 1 / 4;">1251</div>
+                            <div id="map_1252">1252</div>
+                            <div id="map_1253">1253</div>
+                        </div>
+                        <!-- 三列目 -->
+                        <div style="top: 500px; left: 60px;" class="grid grid-4-2">
+                            <div id="map_1311">1311</div>
+                            <div id="map_1312" style="grid-column: 1 / 2; grid-row: 2 / 5;">1312</div>
+                            <div id="map_1313" style="grid-column: 2 / 3; grid-row: 1 / 3;">1313</div>
+                            <div id="map_1314" style="grid-column: 2 / 3; grid-row: 3 / 5;">1314</div>
+                        </div>
+                        <div style="top: 500px; left: 200px;" class="grid grid-4-2">
+                            <div id="map_1321">1321</div>
+                            <div id="map_1322">1322</div>
+                            <div id="map_1323" style="grid-column: 1 / 2; grid-row: 3 / 5;">1323</div>
+                            <div id="map_1324" style="grid-column: 2 / 3; grid-row: 1 / 5;">1324</div>
+                        </div>
+                        <div style="top: 500px; left: 340px;" class="grid grid-4-2">
+                            <div id="map_1331">1331</div>
+                            <div id="map_1332" style="grid-column: 1 / 2; grid-row: 2 / 4;">1332</div>
+                            <div id="map_1333">1333</div>
+                            <div id="map_1335">1335</div>
+                            <div id="map_1334" style="grid-column: 2 / 3; grid-row: 2 / 5;">1334</div>
+                        </div>
+                        <div style="top: 500px; left: 480px;" class="grid grid-4-2">
+                            <div id="map_1341">1341</div>
+                            <div id="map_1342">1342</div>
+                            <div id="map_1343">1343</div>
+                            <div id="map_1344">1344</div>
+                            <div id="map_1348">1348</div>
+                            <div id="map_1347">1347</div>
+                            <div id="map_1346">1346</div>
+                            <div id="map_1345">1345</div>
+                        </div>
+                        <div style="top: 500px; left: 620px;" class="grid grid-4-2">
+                            <div id="map_1351" style="grid-column: 1 / 2; grid-row: 1 / 3;">1351</div>
+                            <div id="map_1352" style="grid-column: 1 / 2; grid-row: 3 / 5;">1352</div>
+                            <div id="map_1354" style="grid-column: 2 / 3; grid-row: 1 / 3;">1354</div>
+                            <div id="map_1353" style="grid-column: 2 / 3; grid-row: 3 / 5;">1353</div>
+                        </div>
+                        <!-- 青海B -->
+                        <div style="top: 60px; left: 1420px; width: 200px; height: 20px;" class="grid">
+                            <div id="map_2911">2911</div>
+                            <div id="map_2912">2912</div>
+                            <div id="map_2913">2913</div>
+                            <div id="map_2914">2914</div>
+                            <div id="map_2915">2915</div>
+                            <div id="map_2921">2921</div>
+                            <div id="map_2922">2922</div>
+                            <div id="map_2923">2923</div>
+                            <div id="map_2924">2924</div>
+                            <div id="map_2925">2925</div>
+                        </div>
+                        <div style="top: 760px; left: 1280px;" class="grid grid-4-2">
+                            <div id="map_2431" style="grid-column: 1 / 3; grid-row: 1 / 5;">2431</div>
+                        </div>
+                        <div style="top: 800px; left: 1420px; width: 80px; height: 20px; border: 1px solid #616161; font-size: 12px;">
+                            <div id="map_1441" style="height: 100%; width: 60px; left:0px;">1441</div>
+                            <div id="map_1442" style="height: 100%; width: 20px; left:60px;">1442</div>
+                        </div>
+                        <!-- 一列目 -->
+                        <div style="top: 140px; left: 1040px; width: 40px; height: 60px;">
+                            <div id="map_2111" style="width: 100%;height: 100%; border: 1px solid #616161;">2111</div>
+                        </div>
+                        <div style="top: 140px; left: 1180px;" class="grid grid-3-2">
+                            <div id="map_2121" style="grid-column: 1 / 2; grid-row: 1 / 4;">2121</div>
+                            <div id="map_2122" style="grid-column: 2 / 3; grid-row: 1 / 4;">2122</div>
+                        </div>
+                        <div style="top: 140px; left: 1320px;" class="grid grid-3-2">
+                            <div id="map_2131" style="grid-column: 1 / 2; grid-row: 1 / 3;">2131</div>
+                            <div id="map_2132" style="grid-column: 1 / 3; grid-row: 3 / 4;">2132</div>
+                            <div id="map_2133" style="grid-column: 2 / 3; grid-row: 1 / 3;">2133</div>
+                        </div>
+                        <!-- 二列目 -->
+                        <div style="top: 300px; left: 1040px;" class="grid grid-4-2">
+                            <div id="map_2211" style="grid-column: 1 / 3; grid-row: 1 / 5;">2211</div>
+                        </div>
+                        <div style="top: 300px; left: 1180px;" class="grid grid-4-2">
+                            <div id="map_2223" style="grid-column: 1 / 2; grid-row: 3 / 5;">2223</div>
+                            <div id="map_2221">2221</div>
+                            <div id="map_2222">2222</div>
+                            <div id="map_2227">2227</div>
+                            <div id="map_2226">2226</div>
+                            <div id="map_2225">2225</div>
+                            <div id="map_2224">2224</div>
+                        </div>
+                        <div style="top: 300px; left: 1320px;" class="grid grid-4-2">
+                            <div id="map_2231" style="grid-column: 1 / 2; grid-row: 1 / 3;">2231</div>
+                            <div id="map_2232" style="grid-column: 1 / 2; grid-row: 3 / 5;">2232</div>
+                            <div id="map_2234" style="grid-column: 2 / 3; grid-row: 1 / 3;">2234</div>
+                            <div id="map_2233" style="grid-column: 2 / 3; grid-row: 3 / 5;">2233</div>
+                        </div>
+                        <div style="top: 300px; left: 1460px;" class="grid grid-4-2">
+                            <div id="map_2241" style="grid-column: 1 / 2; grid-row: 1 / 4;">2241</div>
+                            <div id="map_2242">2242</div>
+                            <div id="map_2244" style="grid-column: 2 / 3; grid-row: 1 / 3;">2244</div>
+                            <div id="map_2243" style="grid-column: 2 / 3; grid-row: 3 / 5;">2243</div>
+                        </div>
+                        <div style="top: 300px; left: 1600px;" class="grid grid-4-2">
+                            <div id="map_2251" style="grid-column: 1 / 2; grid-row: 1 / 3;">2251</div>
+                            <div id="map_2252" style="grid-column: 1 / 2; grid-row: 3 / 5;">2252</div>
+                            <div id="map_2253" style="grid-column: 2 / 3; grid-row: 1 / 5;">2253</div>
+                        </div>
+                        <!-- 三列目 -->
+                        <div style="top: 500px; left: 1040px;" class="grid grid-4-2">
+                            <div id="map_2311" style="grid-column: 1 / 2; grid-row: 1 / 5;">2311</div>
+                            <div id="map_2312" style="grid-column: 2 / 3; grid-row: 1 / 5;">2312</div>
+                        </div>
+                        <div style="top: 500px; left: 1180px;" class="grid grid-4-2">
+                            <div id="map_2321" style="grid-column: 1 / 2; grid-row: 1 / 3;">2321</div>
+                            <div id="map_2326" style="grid-column: 2 / 3; grid-row: 1 / 3;">2326</div>
+                            <div id="map_2322">2322</div>
+                            <div id="map_2323">2323</div>
+                            <div id="map_2325">2325</div>
+                            <div id="map_2324">2324</div>
+                        </div>
+                        <div style="top: 500px; left: 1320px;" class="grid grid-4-2">
+                            <div id="map_2331">2331</div>
+                            <div id="map_2332">2332</div>
+                            <div id="map_2335">2335</div>
+                            <div id="map_2333" style="grid-column: 1 / 2; grid-row: 3 / 5;">2333</div>
+                            <div id="map_2334" style="grid-column: 2 / 3; grid-row: 2 / 5;">2334</div>
+                        </div>
+                        <div style="top: 500px; left: 1460px;" class="grid grid-4-2">
+                            <div id="map_2341" style="grid-column: 1 / 2; grid-row: 1 / 3;">2341</div>
+                            <div id="map_2342" style="grid-column: 1 / 2; grid-row: 3 / 5;">2342</div>
+                            <div id="map_2344" style="grid-column: 2 / 3; grid-row: 1 / 3;">2344</div>
+                            <div id="map_2343" style="grid-column: 2 / 3; grid-row: 3 / 5;">2343</div>
+                        </div>
+                        <div style="top: 500px; left: 1600px;" class="grid grid-4-2">
+                            <div id="map_2351" style="grid-column: 1 / 2; grid-row: 1 / 5;">2351</div>
+                            <div id="map_2352" style="grid-column: 2 / 3; grid-row: 1 / 5;">2352</div>
                         </div>
                     </div>
                 </div>
