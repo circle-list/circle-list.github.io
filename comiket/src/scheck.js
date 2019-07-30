@@ -1,6 +1,6 @@
 /*  ErrorHandler  */
 window.onerror = function(msg, url, line, col) {  
-    M.toast({html: '<b class="red-text text-accent-1" style="font-weight: bold;">' + msg + ' at line' + line + ' col' + col + '</b>'})
+    M.toast({html: '<b class="red-text text-accent-1" style="font-weight: bold;">' + msg + ' at line' + line + ', col' + col + '</b>'})
 };
 
 /*  MaterializeJS Loader */
@@ -369,6 +369,7 @@ function updateList() {
     for(var i = 0; Object.keys(data).length > i; i++) {
         tmp = data[Object.keys(data)[i]]
         place = tmp.place.island + tmp.place.number + tmp.place.ab
+        color_change_box.push(tmp)
         if(isChecked(config, tmp.place.date)) {
             hall = findHall(tmp.place.island, tmp.place.number)
             isBuy = isBuyF(tmp.paid)
@@ -394,11 +395,6 @@ function updateList() {
                 }
                 $('#cc-buylist-wrapper').append('<li><div class="collapsible-header"><span>' + tmp.name + ' (' + place + ' / ' + tmp.place.date + '日目)</span></div><div class="collapsible-body grey lighten-4"><table class="highlight"><tbody>' + tmp_box.join('') + '</tbody></table></div></li>')
             }
-
-            // ここから下マップに色付けるやつ
-            // 気が向いたら購入済みのはグレーにする機能つける
-            color_change_box.push('#map_' + tmp.place.island + tmp.place.number)
-
         }
 
         $('#cc-list-buy-circle').append('<option value="' + tmp.id + '">' + tmp.name + ' (' + place + ' / ' + tmp.place.date + '日目)</option>')
@@ -505,7 +501,7 @@ $('#cc-buy-add-button').on('click', function() {
                         'name': $('#cc-buy-add-goods').val(),
                         'price': $('#cc-buy-add-price').val(),
                         'buy': false,
-                        'id': data[$('#cc-list-buy-circle').val()].id + data[$('#cc-list-buy-circle').val()].buy.length + (Math.random() * ( 5000 - 1000 ) + 1000)
+                        'id': data[$('#cc-list-buy-circle').val()].id + data[$('#cc-list-buy-circle').val()].buy.length
                     }
                     data[$('#cc-list-buy-circle').val()].buy.push(tmp)
                     localStorage.setItem('circles', JSON.stringify(data))
@@ -1134,10 +1130,32 @@ function drawMap() {
             $('#cc-map-w2-inside').append(wall_tmp.join(''))
         }
         // w2ここまで
-
-        // 登録してあるサークルに色を付ける
-        for(var l = 0; color_change_box.length > l; l++) {
-            $(color_change_box[l]).addClass('blue white-text')
-        }
     }
+    drawColor()
+}
+
+// 色付けるやつ
+function drawColor() {
+    for(var l = 0; color_change_box.length > l; l++) {
+        tmp = color_change_box[l]
+        switch(tmp.place.date) {
+            case '1':
+                day_color = 'green white-text'
+                break
+            case '2':
+                day_color = 'blue white-text'
+                break
+            case '3':
+                day_color = 'pink white-text'
+                break
+            case '4':
+                day_color = 'yellow darken-3 white-text'
+                break
+        }
+        $('#map_' + tmp.place.island + tmp.place.number).addClass(day_color + ' tooltipped')
+        $('#map_' + tmp.place.island + tmp.place.number).attr('data-position', 'top')
+        $('#map_' + tmp.place.island + tmp.place.number).attr('data-tooltip', tmp.name + ' (' + tmp.place.date + '日目)')
+        console.log(tmp)
+    }
+    $('.tooltipped').tooltip();
 }
