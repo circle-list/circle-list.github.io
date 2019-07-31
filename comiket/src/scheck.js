@@ -29,7 +29,7 @@ $(document).ready(function(){
 var installPromptEvent
 
 window.addEventListener('beforeinstallprompt', (event) => {
-  //event.preventDefault()
+  event.preventDefault()
   installPromptEvent = event
   $("#install_button").attr('disabled', false)
 })
