@@ -57,7 +57,7 @@
                 <ul id="slide-out" class="sidenav">
                     <div class="container grey-text text-darken-3" style="line-height: 12px;">
                         <h5>CircleList</h5>
-                        <h6>β版 v0.0.1</h6>
+                        <h6>2019 C96対応版</h6>
                         <hr>
                         <!-- <a class="waves-effect waves-light btn red" onclick="localStorage.clear()">localStorage初期化</a> -->
                     </div>
@@ -85,23 +85,44 @@
                 <li class="tab"><a href="#cc-top-info">設定</a></li>
                 <li class="tab"><a href="#cc-top-bug">バグ報告</a></li>
             </ul>
-            <div id="cc-top-about" class="container  grey-text text-darken-2">
+            <div id="cc-top-about" class="container  grey-text text-darken-2" style="margin-bottom: 80px;">
+                <br>
+                <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-size="large" data-text="コミケのサークルをリスト化できるサービス「CircleList」" data-url="https://hideki0403.github.io/comiket/" data-via="circle_list" data-hashtags="CircleList" data-related="circle_list,hideki_0403" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                <div class="line-it-button" data-lang="ja" data-type="share-a" data-ver="3" data-url="https://hideki0403.github.io/comiket/" data-color="default" data-size="large" data-count="true" style="display: none;"></div>
                 <h5>CircleListとは？</h5>
                 <hr>
                 <p>CircleListは非公式のコミックマーケット用支援ツールです。</p>
                 <p>公式のカタログと合わせて使用することを想定して作られていますが、カタログが無くても無料で使用することができます。</p>
                 <h5>できること</h5>
                 <hr>
-                <p>「CircleList」でできることは以下の通りです。</p>
                 <p>・お気に入りのサークルをリスト化</p>
                 <p>・購入する予定のグッズをリスト化</p>
                 <p>・サークルマップを閲覧</p>
                 <p>・サークルマップのお気に入りのサークルのマスに自動的に色をつける</p>
+                <p>・オフラインでも使用可能</p>
+                <p>・登録したデータをほかの端末にコピー</p>
+                <p>などなど...</p>
                 <h5>使い方</h5>
                 <hr>
+                <p>「サークル」タブに移動して右下にある「お気に入り追加」を押すことでサークルをリスト化することが可能です。</p>
+                <p>また、購入リストはサークルを追加したのちに作成可能です。先にサークル追加を行うようにしてください。</p>
                 <p>「マップ」タブでは、ビックサイトの西12、34ホール・南12、34ホール・青海展示場のマップを閲覧することが出来ます。</p>
-                <p>「サークル」タブでは、お気に入りのサークルをリスト化してチェックリスト形式で表示することが出来ます。</p>
-                <p>「サークル」タブ→「お気に入り追加」からサークルの追加を行ってください。</p>
+                <p>お気に入りのサークルの場所（マス目）に自動的に色がつくようになっていますが、色が付かないor消えない場合は再読み込みをしてみてください。</p>
+                <h5>CircleListをインストールする (PWA)</h5>
+                <hr>
+                <p>例年、コミケではインターネットに繋がらない(または回線が極端に遅い)という声が多く上がっているため、CircleListはオフラインで使用できるように設計されています。</p>
+                <p>ブラウザからCircleListにアクセスしてもオフラインで利用することができますが、AndroidやiOS端末(iPhone)にインストールすることでより快適に利用できるようになります。</p>
+                <h6>・インストール方法 (Android)</h6>
+                <p>「設定」タブに移動して、「CircleListをインストールする」の項目のインストールボタンを押すことでインストールが可能です。</p>
+                <p>インストール後はホームのアプリ一覧に追加されているはずです。</p>
+                <p>ボタンが押せない(グレーアウトしている)場合は時間をあけて再アクセスしてみるといいかもしれません（Chromeの仕様）</p>
+                <h6>・インストール方法 (iOS)</h6>
+                <p>画面の下にある「共有」アイコン（四角いアイコン）を押して、「ホーム画面に追加」を押すことでインストールすることが可能です。</p>
+                <h5>動作確認済みのブラウザ</h5>
+                <hr>
+                <p>・GoogleChrome</p>
+                <p>・Safari</p>
+                <p>(上記以外のブラウザでも使用できると思いますが、レイアウトが崩れたり正常に動かない場合があると思います。)</p>
             </div>
             <div id="cc-top-info" class="container">
                 <h5>設定</h5>
@@ -208,7 +229,7 @@
             </ul>            
 
             <!-- サークル@一覧 -->
-            <div id="cc-list-circle" class="col s12">
+            <div id="cc-list-circle" class="col s12" style="margin-bottom: 80px;">
                 <ul id="cc-list-circle-wrapper" class="collapsible expandable" style="box-shadow: none; -webkit-box-shadow: none; margin: 0rem 0 1rem 0;"></ul>
                 <div id="remove-modal"></div>
 
@@ -310,10 +331,6 @@
 
         <!-- MapTab -->
         <div id="cc-map" class="col s12">
-            <!-- MainModal -->
-            <div class="fixed-action-btn" style="left: 23px;">
-                <a class="waves-effect waves-light btn red lighten-1 modal-trigger" href="#open-modal"><i class="material-icons left">today</i>日付変更</a>
-            </div>
             <ul class="tabs">
                 <li class="tab"><a class="active" href="#cc-map-w1">西1・西2</a></li>
                 <li class="tab"><a href="#cc-map-w2">西3・西4</a></li>
@@ -723,6 +740,7 @@
         </div>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <script src="https://d.line-scdn.net/r/web/social-plugin/js/thirdparty/loader.min.js" async="async" defer="defer"></script>
         <script src="src/scheck.js"></script>
         <script src="src/reg_sw.js"></script>
     </body>

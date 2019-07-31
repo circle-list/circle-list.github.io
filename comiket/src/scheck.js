@@ -29,7 +29,7 @@ $(document).ready(function(){
 var installPromptEvent
 
 window.addEventListener('beforeinstallprompt', (event) => {
-  event.preventDefault()
+  //event.preventDefault()
   installPromptEvent = event
   $("#install_button").attr('disabled', false)
 })
@@ -55,7 +55,7 @@ function cacheVers() {
     caches.keys()
     .then(function(keyList) {
         return Promise.all(keyList.map(function(key) {
-            $('#cc-info-cache_vers').append('<p>・' + key.replace('-', ' ') + '</p>')
+            $('#cc-info-cache_vers').append('<p>・' + key.replace('-', ': ') + '</p>')
         })
     )})
 }
@@ -367,11 +367,18 @@ function isChecked(config, day) {
 
 //サークルリスト更新
 color_change_box = []
-function updateList() {
+function updateList(dc) {
+    if(dc === undefined) {
+        disableClear = false
+    } else {
+        disableClear = true
+    }
     StorageCheck()
     $('#cc-list-circle-wrapper').empty()
     $('#cc-list-buy-circle').empty()
-    $('#cc-buylist-wrapper').empty()
+    if(!disableClear) {
+        $('#cc-buylist-wrapper').empty()
+    }
     var data = JSON.parse(localStorage.getItem('circles'))
     var config = JSON.parse(localStorage.getItem('config'))
     if(Object.keys(data).length === 0) {
@@ -390,6 +397,19 @@ function updateList() {
             hall = findHall(tmp.place.island, tmp.place.number)
             isBuy = isBuyF(tmp.paid)
             buyList = []
+            if(tmp.buy.length === 0) {
+                buyList.push('(未登録です)')
+            } else {
+                for(var e = 0; tmp.buy.length > e; e++) {
+                    if(tmp.buy[e].buy) {
+                        buy_flag = '購入済み'
+                    } else {
+                        buy_flag = '未購入'
+                    }
+                    buyList.push(tmp.buy[e].name + ' (' + tmp.buy[e].price + '円 / ' + buy_flag + ')')
+                }
+            }
+            
             if(tmp.memo === '') {
                 memo = '(メモはありません)'
             } else {
@@ -400,10 +420,10 @@ function updateList() {
             } else {
                 color = 'grey-text text-lighten-1'
             }
-            $('#cc-list-circle-wrapper').append('<li><div class="collapsible-header ' + color + '"><i class="material-icons" id="check-box" data-id="' + tmp.id + '">' + isBuy + '</i><span class="cc-day">' + tmp.place.date + '日目</span><span class="cc-place">' + place + '</span><span class="cc-hall">' + hall + '</span><span class="cc-name">' + tmp.name + '</span></div><div class="collapsible-body grey lighten-4"><p>【メモ】</p><p class="memo">' + memo + '</p>【購入リスト】<p>(未登録です)' + buyList + '</p><a id="remove-button" class="waves-effect waves-red btn-flat red-text remove-button" data-id="' + tmp.id + '">削除</a><a id="edit-button" class="waves-effect waves-blue btn-flat blue-text edit-button" data-id="' + tmp.id + '">編集</a></div></li>')
+            $('#cc-list-circle-wrapper').append('<li><div class="collapsible-header ' + color + '"><i class="material-icons" id="check-box" data-id="' + tmp.id + '">' + isBuy + '</i><span class="cc-day">' + tmp.place.date + '日目</span><span class="cc-place">' + place + '</span><span class="cc-hall">' + hall + '</span><span class="cc-name">' + tmp.name + '</span></div><div class="collapsible-body grey lighten-4"><p>【メモ】</p><p class="memo">' + memo + '</p>【購入リスト】<p>' + buyList.join('<br>') + '</p><a id="remove-button" class="waves-effect waves-red btn-flat red-text remove-button" data-id="' + tmp.id + '">削除</a><a id="edit-button" class="waves-effect waves-blue btn-flat blue-text edit-button" data-id="' + tmp.id + '">編集</a></div></li>')
 
             // ここから下購入リスト
-            if(tmp.buy.length !== 0) {
+            if(tmp.buy.length !== 0 && disableClear === false) {
                 var tmp_box = []
                 for(var i = 0; tmp.buy.length > i; i++) {
                     var _tmp = tmp.buy[i]
@@ -429,7 +449,7 @@ function updateList() {
     //$('#cc-list-circle-wrapper').append('<li><div class="collapsible-header"><i class="material-icons" id="check-box" data-id=""></i><span>日目</span><span></span><span></span><span></span></div><div class="collapsible-body grey lighten-4"><p class="memo"></p><p></p></div></li>')
 }
 
-//CheckBox
+// CheckBox (サークルの方)
 $('#cc-list-circle-wrapper').on('click', '#check-box', function() {
     var id =  $(this).data('id')
     var data = JSON.parse(localStorage.getItem('circles'))
@@ -444,6 +464,32 @@ $('#cc-list-circle-wrapper').on('click', '#check-box', function() {
     }
     localStorage.setItem('circles', JSON.stringify(data))
     updateList()
+})
+
+// CheckBox (グッズの方)
+$('#cc-buylist-wrapper').on('click', '#check-box', function() {
+    var id =  $(this).data('id')
+    var item_id = $(this).data('item-id')
+    var data = JSON.parse(localStorage.getItem('circles'))
+    if($(this).text() === 'check_box_outline_blank') {
+        $(this).text('check_box')
+        for(var i = 0; data[id].buy.length > i; i++) {
+            if(data[id].buy[i].id === item_id) {
+                data[id].buy[i].buy = true
+                M.toast({html: 'サークル「' + data[id].name + '」の「' + data[id].buy[i].name + '」を購入済みに設定しました'})
+            }
+        }
+    } else {
+        $(this).text('check_box_outline_blank') 
+        for(var i = 0; data[id].buy.length > i; i++) {
+            if(data[id].buy[i].id === item_id) {
+                data[id].buy[i].buy = false
+                M.toast({html: 'サークル「' + data[id].name + '」の「' + data[id].buy[i].name + '」を未購入に設定しました'})
+            }
+        }
+    }
+    localStorage.setItem('circles', JSON.stringify(data))
+    updateList('dummy')
 })
 
 // サークル削除
@@ -1152,9 +1198,24 @@ function drawMap() {
 
 // 色付けるやつ
 function drawColor() {
+    var c_tmp = {}
     for(var l = 0; color_change_box.length > l; l++) {
         tmp = color_change_box[l]
-        switch(tmp.place.date) {
+        id = tmp.place.island + tmp.place.number
+        if(c_tmp[id] === undefined) {
+            c_tmp[id] = []
+        }
+        c_tmp[id].push(tmp)
+    }
+    
+    for(var i = 0; Object.keys(c_tmp).length > i; i++) {
+        var hako = []
+        var map_id = Object.keys(c_tmp)[i]
+        for(var l = 0; c_tmp[Object.keys(c_tmp)[i]].length > l; l++) {
+            tmp = c_tmp[Object.keys(c_tmp)[i]][l]
+            hako.push('<span style="font-size: 15px; line-height: 18px;">' + tmp.name + ' (' + tmp.place.ab + ' / ' + tmp.place.date + '日目)</span>')
+        }
+        switch(c_tmp[Object.keys(c_tmp)[i]][0].place.date) {
             case '1':
                 day_color = 'green white-text'
                 break
@@ -1168,11 +1229,11 @@ function drawColor() {
                 day_color = 'yellow darken-3 white-text'
                 break
         }
-        $('#map_' + tmp.place.island + tmp.place.number).addClass(day_color + ' tooltipped')
-        $('#map_' + tmp.place.island + tmp.place.number).attr('data-position', 'top')
-        $('#map_' + tmp.place.island + tmp.place.number).attr('data-tooltip', tmp.name + ' (' + tmp.place.date + '日目)')
+        $('#map_' + map_id).addClass(day_color + ' tooltipped')
+        $('#map_' + map_id).attr('data-position', 'top')
+        $('#map_' + map_id).attr('data-tooltip', hako.join('<br>'))
     }
-    $('.tooltipped').tooltip();
+    M.Tooltip.init($('.tooltipped'), {html: true})
 }
 
 // フォーム初期化ON/OFF
