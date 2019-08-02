@@ -82,6 +82,8 @@
         <div id="cc-top" class="col s12">
             <ul class="tabs">
                 <li class="tab"><a class="active" href="#cc-top-about">はじめに</a></li>
+                <li class="tab"><a href="#cc-top-memo">メモ</a></li>
+                <li class="tab"><a href="#cc-top-stat">情報</a></li>
                 <li class="tab"><a href="#cc-top-info">設定</a></li>
                 <li class="tab"><a href="#cc-top-bug">バグ報告</a></li>
             </ul>
@@ -130,6 +132,27 @@
                 <p>お問い合わせなどはTwitterのDM、またはメンションにてお願いします。</p>
                 <p>また、このサイトのソースコードはGithubですべて公開しています。以下のリポジトリにある"comiket"ディレクトリ内がこのサイトのソースコードです。</p>
                 <a class="github-button" href="https://github.com/hideki0403/hideki0403.github.io" data-show-count="true" aria-label="Star hideki0403/hideki0403.github.io on GitHub">Star</a>
+            </div>
+            <div id="cc-top-memo" class="container">
+                <h5>メモ</h5>
+                <p class="green-text" id="cc-memo-savetime">メモエリア以外の場所を押すと自動保存します</p>
+                <hr>
+                <div class="row">
+                    <form class="col s12">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <textarea id="cc-memo-area" class="materialize-textarea" placeholder="ここをタップしてメモを入力（改行に対応しています）"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div id="cc-top-stat" class="container">
+                <h5>情報</h5>
+                <hr>
+                <span>登録してあるサークル数: </span><span id="cc-stat-circles"></span><br>
+                <span>登録してあるグッズ数: </span><span id="cc-stat-goods"></span><br>
+                <span>グッズの合計金額: </span><span id="cc-stat-prices"></span>
             </div>
             <div id="cc-top-info" class="container">
                 <h5>設定</h5>

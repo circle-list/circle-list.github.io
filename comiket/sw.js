@@ -1,17 +1,19 @@
-// キャッシュにバージョンを付けておくと、古いキャッシュを消す時に便利
-var CACHE_STATIC_VERSION = 'static-v1.25';
-var CACHE_DYNAMIC_VERSION = 'dynamic-v1.5';
+// メインはこっちを変える
+// サービスに直接的に関わる変更など
+var CACHE_STATIC_VERSION = 'static-v1.26'
 
-// サービスワーカーのインストール
+// こっちはassets系統のアプデ時のみ使用
+// フォント変更やmaterialize,jQueryなどの外部ライブラリ更新時のみ変更
+var CACHE_DYNAMIC_VERSION = 'dynamic-v1.5'
+
+
+// 以下メイン処理
 self.addEventListener('install', function(event) {
-  console.log('[Service Worker] Installing Service Worker...');
-
-  // キャッシュできるまで次の処理を待つ
+  console.log('[Service Worker] Installing Service Worker...')
   event.waitUntil(
     caches.open(CACHE_STATIC_VERSION)
       .then(function(cache) {
-        console.log('[Service Worker] Precaching App...');
-        // 何でもキャッシュできる。cssとかの中で更にリクエストが発生する場合は、動的にキャッシュする必要がある（後述）
+        console.log('[Service Worker] Precaching App...')
         cache.addAll([
           '/comiket/',
           '/comiket/manifest.json',
@@ -19,50 +21,46 @@ self.addEventListener('install', function(event) {
           '/comiket/src/scheck.js',
           '/comiket/src/map.css',
           '/comiket/src/reg_sw.js'
-        ]);
+        ])
       }).then(function() {skipWaiting()}))
   
-});
+})
 
 self.addEventListener('fetch', function(event) {
-  console.log('[Service Worker] Fetching something ...');
+  console.log('[Service Worker] Fetching something ...')
   event.respondWith(
-    // キャッシュの存在チェック
     caches.match(event.request)
       .then(function(response) {
         if (response) {
-          return response;
+          return response
         } else {
-          // キャッシュがなければリクエストを投げて、レスポンスをキャッシュに入れる
           return fetch(event.request)
             .then(function(res) {
               return caches.open(CACHE_DYNAMIC_VERSION)
                 .then(function(cache) {
-                  // 最後に res を返せるように、ここでは clone() する必要がある
-                  cache.put(event.request.url, res.clone());
-                  return res;
+                  cache.put(event.request.url, res.clone())
+                  return res
                 })
             })
             .catch(function() {
-              // エラーが発生しても何もしない
-            });
+            })
         }
       })
-  );
-});
+  )
+})
 
 self.addEventListener('activate', function(event) {
-    console.log('[Service Worker] Activating Service Worker...');
+    console.log('[Service Worker] Activating Service Worker...')
     event.waitUntil(
       caches.keys()
         .then(function(keyList) {
           return Promise.all(keyList.map(function(key) {
             if (key !== CACHE_STATIC_VERSION && key !== CACHE_DYNAMIC_VERSION) {
-              console.log('[Service Worker] Removing old cache...');
-              return caches.delete(key);
+              console.log('[Service Worker] Removing old cache...')
+              return caches.delete(key)
             }
-          }));
+          }))
         })
-    );
-    return self.clients.claim();
-  });
+    )
+    return self.clients.claim()
+  })

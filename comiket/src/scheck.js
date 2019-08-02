@@ -124,6 +124,23 @@ $('#import-submit').on('click', function() {
     }
 })
 
+// 統計だすやつ
+function stats() {
+    var circles = JSON.parse(localStorage.getItem('circles'))
+    var prices = 0
+    var goods = 0
+    $('#cc-stat-circles').text(Object.keys(circles).length)
+    for(var i = 0; Object.keys(circles).length > i; i++) {
+        var circle = circles[Object.keys(circles)[i]]
+        for(var ii = 0; circle.buy.length > ii; ii++) {
+            goods++
+            prices += (circle.buy[ii].price * 1)
+        }
+    }
+    $('#cc-stat-goods').text(goods)
+    $('#cc-stat-prices').text(prices + '円')
+}
+
 const island = {
     '2': ['あ', 'い', 'う', 'え', 'お', 'か', 'き', 'く', 'け', 'こ', 'さ', 'し', 'す', 'せ', 'そ', 'た', 'ち', 'つ', 'て', 'と', 'ぬ', 'ね', 'の', 'は', 'ひ', 'ふ', 'へ', 'ほ', 'ま', 'み', 'む', 'め', 'ゆ', 'よ', 'ら', 'り', 'れ'],
     '1': ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R'],
@@ -187,6 +204,12 @@ function ConfigCheck() {
     if(localStorage.getItem('config') === null) {
         localStorage.setItem('config', '{}')
     }
+
+    if(localStorage.getItem('memo') === null) {
+        localStorage.setItem('memo', '')
+    }
+
+    $('#cc-memo-area').val(localStorage.getItem('memo'))
 
     var config = JSON.parse(localStorage.getItem('config'))
     if(config['checkbox'] === undefined) {
@@ -374,6 +397,7 @@ function updateList(dc) {
         disableClear = true
     }
     StorageCheck()
+    stats()
     $('#cc-list-circle-wrapper').empty()
     $('#cc-list-buy-circle').empty()
     if(!disableClear) {
@@ -1242,4 +1266,14 @@ $('#cc-setting-disableReset').on('click', function() {
     var config = JSON.parse(localStorage.getItem('config'))
     config['disableReset'] = $('#cc-setting-disableReset').prop('checked')
     localStorage.setItem('config', JSON.stringify(config))
+})
+
+// メモエリア
+$('#cc-memo-area').on('change', function() {
+    localStorage.setItem('memo', $(this).val())
+    DD = new Date();
+    Hours = DD.getHours();
+    Minutes = DD.getMinutes();
+    Seconds = DD.getSeconds();
+    $('#cc-memo-savetime').text('保存しました (保存日時: ' + Hours + "時" + Minutes + "分" + Seconds + "秒" + ')')
 })
