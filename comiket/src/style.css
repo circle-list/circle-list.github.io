@@ -41,6 +41,8 @@ body {
     overflow-x: hidden;
     font-family: 'Noto Sans JP', sans-serif;
     font-weight: lighter;
+    /* P2R無効化 */
+    overscroll-behavior-y: none;
 }
 
 .not-registed {
