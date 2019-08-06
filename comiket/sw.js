@@ -7,6 +7,7 @@ var CACHE_STATIC_VERSION = 'static-v1.30'
 var CACHE_DYNAMIC_VERSION = 'dynamic-v1.7'
 
 function notice_update() {
+  /*
   try {
     setTimeout(function() {
       M.toast({html: '更新が完了しました。再読み込みをしてください。<button class="btn-flat toast-action" onclick="location.reload();">再読み込み</button>', displayLength: 'stay'})
@@ -15,6 +16,7 @@ function notice_update() {
   } catch(error) {
     console.log('[Service Worker Notice] Error: ' + error)
   }
+  */
 }
 
 // 以下メイン処理
