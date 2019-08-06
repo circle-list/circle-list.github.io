@@ -25,11 +25,6 @@ $(document).ready(function(){
     }, 500)
 })
 
-// 更新通知
-function app_updated() {
-    console.log('ok')
-}
-
 // PWA
 var installPromptEvent
 

@@ -24,7 +24,6 @@ self.addEventListener('install', function(event) {
         ])
       }).then(function() {
         skipWaiting()
-        app_updated()
       }))
   
 })
