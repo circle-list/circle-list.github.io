@@ -22,7 +22,10 @@ self.addEventListener('install', function(event) {
           '/comiket/src/map.css',
           '/comiket/src/reg_sw.js'
         ])
-      }).then(function() {skipWaiting()}))
+      }).then(function() {
+        skipWaiting()
+        app_updated()
+      }))
   
 })
 
