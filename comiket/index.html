@@ -69,6 +69,7 @@
                     <li><a class="waves-effect" href="https://www.comiket.co.jp/" target="_blank">コミックマーケット公式サイト</a></li>
                     <li><a class="waves-effect" href="https://twitter.com/comiketofficial?lang=ja" target="_blank">コミックマーケット準備会 (Twitter)</a></li>
                     <li><a class="waves-effect" href="https://webcatalog.circle.ms/" target="_blank">コミケWebカタログ</a></li>
+                    <li><a class="waves-effect red-text" href="#" onclick="$('#all_clear').attr('disabled', false); M.toast({html: '<span class=\'red-text\'>初期化ロックを解除しました</span>'})">初期化ロックを解除</a></li>
                 </ul>
                 <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
             </div>
@@ -192,7 +193,8 @@
                 <h6>全データ削除</h6>
                 <hr>
                 <p class="red-text">悪用厳禁。この機能を使用して何か問題が発生したとしても開発者は責任を負いかねます。</p>
-                <a class="waves-effect waves-light btn small-btn red" onclick="localStorage.clear()">初期化</a>
+                <p>初期化ロックを解除しなければ初期化できません。</p>
+                <a id="all_clear" class="waves-effect waves-light btn small-btn red" disabled onclick="localStorage.clear()">初期化</a>
             </div>
             <div id="import-modal" class="modal">
                 <div class="modal-content">
