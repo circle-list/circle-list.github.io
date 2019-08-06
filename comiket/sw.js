@@ -1,6 +1,6 @@
 // メインはこっちを変える
 // サービスに直接的に関わる変更など
-var CACHE_STATIC_VERSION = 'static-v1.29'
+var CACHE_STATIC_VERSION = 'static-v1.30'
 
 // こっちはassets系統のアプデ時のみ使用
 // フォント変更やmaterialize,jQueryなどの外部ライブラリ更新時のみ変更
@@ -8,7 +8,10 @@ var CACHE_DYNAMIC_VERSION = 'dynamic-v1.7'
 
 function notice_update() {
   try {
-    M.toast({html: '更新が完了しました。再読み込みをしてください。<button class="btn-flat toast-action" onclick="location.reload();">再読み込み</button>', displayLength: 'stay'})
+    setTimeout(function() {
+      M.toast({html: '更新が完了しました。再読み込みをしてください。<button class="btn-flat toast-action" onclick="location.reload();">再読み込み</button>', displayLength: 'stay'})
+      console.log('[Service Worker Notice] Successfull.')
+    }, 10000)
   } catch(error) {
     console.log('[Service Worker Notice] Error: ' + error)
   }
@@ -31,6 +34,7 @@ self.addEventListener('install', function(event) {
         ])
       }).then(function() {
         skipWaiting()
+        notice_update()
       }))
   
 })
