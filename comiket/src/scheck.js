@@ -209,7 +209,9 @@ function ConfigCheck() {
         localStorage.setItem('memo', '')
     }
 
+    // メモエリア初期化
     $('#cc-memo-area').val(localStorage.getItem('memo'))
+    M.textareaAutoResize($('#cc-memo-area'))
 
     var config = JSON.parse(localStorage.getItem('config'))
     if(config['checkbox'] === undefined) {
