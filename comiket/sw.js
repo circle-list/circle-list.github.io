@@ -1,10 +1,10 @@
 // メインはこっちを変える
 // サービスに直接的に関わる変更など
-var CACHE_STATIC_VERSION = 'static-v1.31'
+var CACHE_STATIC_VERSION = 'static-v1.32'
 
 // こっちはassets系統のアプデ時のみ使用
 // フォント変更やmaterialize,jQueryなどの外部ライブラリ更新時のみ変更
-var CACHE_DYNAMIC_VERSION = 'dynamic-v1.8'
+var CACHE_DYNAMIC_VERSION = 'dynamic-v1.9'
 
 function notice_update() {
   /*
