@@ -449,16 +449,16 @@ function updateList(dc) {
             $('#cc-list-circle-wrapper').append('<li><div class="collapsible-header ' + color + '"><i class="material-icons" id="check-box" data-id="' + tmp.id + '">' + isBuy + '</i><span class="cc-day">' + tmp.place.date + '日目</span><span class="cc-place">' + place + '</span><span class="cc-hall">' + hall + '</span><span class="cc-name">' + tmp.name + '</span></div><div class="collapsible-body grey lighten-4"><p>【メモ】</p><p class="memo">' + memo + '</p>【購入リスト】<p>' + buyList.join('<br>') + '</p><a id="remove-button" class="waves-effect waves-red btn-flat red-text remove-button" data-id="' + tmp.id + '">削除</a><a id="edit-button" class="waves-effect waves-blue btn-flat blue-text edit-button" data-id="' + tmp.id + '">編集</a></div></li>')
 
             // ここから下購入リスト
-            /*
             if(tmp.buy.length !== 0 && disableClear === false) {
                 var tmp_box = []
-                for(var i = 0; tmp.buy.length > i; i++) {
-                    var _tmp = tmp.buy[i]
+                
+                for(var f = 0; tmp.buy.length > f; f++) {
+                    var _tmp = tmp.buy[f]
                     tmp_box.push('<tr><td><i class="material-icons" id="check-box" data-id="' + tmp.id + '" data-item-id="' + _tmp.id + '">' + isBuyF(_tmp.buy) + '</i></td><td>' + _tmp.name + '</td><td>' + _tmp.price + '円</td><td class="del-button-wrapper"><a class="waves-effect waves-red btn-flat red-text buylist-delete" id="buy-delete-button" data-id="' + tmp.id + '" data-item-id="' + _tmp.id + '">削除</a></td></tr>')
                 }
+
                 $('#cc-buylist-wrapper').append('<li><div class="collapsible-header"><span>' + tmp.name + ' (' + place + ' / ' + tmp.place.date + '日目)</span></div><div class="collapsible-body grey lighten-4"><table class="highlight"><tbody>' + tmp_box.join('') + '</tbody></table></div></li>')
             }
-            */
         }
 
         $('#cc-list-buy-circle').append('<option value="' + tmp.id + '">' + tmp.name + ' (' + place + ' / ' + tmp.place.date + '日目)</option>')
@@ -469,8 +469,8 @@ function updateList(dc) {
     }
 
     if($('#cc-buylist-wrapper li').length === 0) {
-        //$('#cc-buylist-wrapper').append('<p class="center-align not-registed">表示できるリストがないようです...<br>表示する日付を変更するか、購入するものを追加してみてください</p>')
-        $('#cc-buylist-wrapper').append('<p class="center-align not-registed">現在、ブラウザがフリースするバグが発生しているためこの機能は無効化されています。ご迷惑をおかけしますが、修正をお待ちください。</p>')
+        $('#cc-buylist-wrapper').append('<p class="center-align not-registed">表示できるリストがないようです...<br>表示する日付を変更するか、購入するものを追加してみてください</p>')
+        //$('#cc-buylist-wrapper').append('<p class="center-align not-registed">現在、ブラウザがフリースするバグが発生しているためこの機能は無効化されています。ご迷惑をおかけしますが、修正をお待ちください。</p>')
     }
 
     $('#cc-list-buy-circle').formSelect()
