@@ -586,7 +586,7 @@ $('#cc-buy-add-button').on('click', function() {
     if($('#cc-list-buy-circle').val() !== null) {
         if($('#cc-buy-add-goods').val() !== '' ) {
             if($('#cc-buy-add-price').val() !== '') {
-                if($('#cc-buy-add-price').val() > 0) {
+                if($('#cc-buy-add-price').val() >= 0) {
                     var data = JSON.parse(localStorage.getItem('circles'))
                     var tmp = {
                         'name': $('#cc-buy-add-goods').val(),
