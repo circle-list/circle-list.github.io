@@ -1,7 +1,12 @@
+/* ====メモ====
+・データの書き出し処理変更
+
+=============*/
+
 /* 設定項目一覧 */
 
 // 時期移行時に必ず変更すること！！
-const comiketName = '2019_winter'
+const comiketName = '2019_summer'
 
 const comiketList = {
     '2019_summer': '2019年 夏コミ (C96)',
@@ -266,7 +271,7 @@ function old_data() {
     var old = JSON.parse(localStorage.getItem('old_version'))
     if(localStorage.getItem('circles') !== '{}') {
         // C96用処理
-        if(old.length === 0) {
+        if(old.length === 0 && config['version'] !== comiketName) {
             localStorage.setItem('old_version', '{"2019_summer": ' + localStorage.getItem('circles') + '}')
             localStorage.setItem('circles', '{}')
             M.toast({html: '2019年 夏コミ (C96)のデータを「過去のコミケ」に引き継ぎました！「トップ」→「情報」から閲覧可能です。'})
