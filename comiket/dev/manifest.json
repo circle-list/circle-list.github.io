@@ -2,7 +2,8 @@
     "lang": "ja",
     "name": "CircleList DebugVersion",
     "short_name": "CircleList Dev",
-    "background_color": "#ee6e73",
+    "background_color": "#c99987",
+    "theme_color": "#c99987",
     "display": "standalone",
     "start_url": "/comiket/dev/?utm_source=home_screen&utm_medium=pwa",
     "icons": [
