@@ -1,0 +1,248 @@
+/*
+    CircleList用テーマカラー
+
+    C96: #ee6e73
+    C97: #c99987
+*/
+
+.theme-color {
+    background: #c99987 !important;
+}
+
+.theme-color-text {
+    color: #FFF !important;
+}
+
+.tabs.tabs-transparent .tab a:hover, .tabs.tabs-transparent .tab a.active {
+    color: #fff !important;
+}
+
+.tabs.tabs-transparent .tab a{
+    color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.tabs .tab a{
+    color:#c99987 !important;
+}
+
+.tabs .tab a:hover {
+    color:#af7f6d !important;
+}
+
+.tabs .tab a.active {
+    color:#af7f6d !important;
+}
+
+.tabs .indicator {
+    background-color:#d3b4a9 !important;
+}
+
+.tabs .tab a:focus, .tabs .tab a:focus.active {
+    background-color: rgba( 242,206,188 , 0.5) !important;
+    outline: none;
+}
+
+.spinner-custom {
+    border-color: #fff !important;
+}
+
+.warning-color {
+    background: #ff8686 !important;
+}
+
+.info-color {
+    background: #66bfff !important;
+}
+
+/* テーマカラーここまで */
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track{
+    background: #fff;
+    border-left: solid 1px #ececec;
+}
+::-webkit-scrollbar-thumb{
+    background: #c99987;
+    border-radius: 10px;
+    box-shadow: inset 0 0 0 2px #fff;
+}
+
+/*
+#cc-list-circle span {
+    margin: 0px 10px 0px 5px; 
+} 
+*/
+
+#cc-list-circle p {
+    display: block;
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    margin: 6px 0px 6px 0px;
+}
+
+#cc-list-circle .collapsible-body {
+    padding: 5px 15px 5px 15px;
+}
+
+#check-box {
+    color: #c99987;
+}
+
+#cc-list-buy {
+    overflow-x: hidden;
+}
+
+body {
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    overflow-x: hidden;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: lighter;
+    /* P2R無効化 */
+    overscroll-behavior-y: none;
+}
+
+.not-registed {
+    margin: 25px 0px 0px 0px !important;
+}
+
+.main-logo {
+    height: 80%;
+    margin: 6px 0px 0px 0px;
+}
+
+.memo {
+    -ms-user-select: text;
+    -webkit-user-select: text;
+    user-select: text;
+}
+
+.remove-button {
+    position: absolute !important;
+    right: 10px;
+    bottom: 5px;
+}
+
+.edit-button {
+    position: absolute !important;
+    right: 80px;
+    bottom: 5px;
+}
+
+.collapsible-header {
+    display: block !important;
+    height: 4em !important;
+    position: relative;
+}
+
+.collapsible-header span {
+    position: absolute;
+    top: 50%;
+    margin-top: -1.0rem;
+}
+
+.collapsible-body {
+    position: relative;
+}
+
+.cc-name {
+    left: 40%;
+}
+
+.cc-hall {
+    left: 15%;
+}
+
+.cc-place {
+    left: 25%;
+}
+
+.cc-day {
+    right: 10%;
+}
+
+.warning-text {
+    font-size: 20px;
+}
+
+.yen {
+    position: relative;
+    top: 27px;
+    left: 0px;
+}
+
+#cc-buylist-wrapper .collapsible-body {
+    padding: 0px 1% 0px;
+}
+
+#cc-buylist-wrapper .collapsible-body tr {
+    position: relative;
+}
+
+#cc-buylist-wrapper .collapsible-body tr .del-button-wrapper {
+    position: absolute;
+    right: 10px;
+    width: 80px;
+    height: 60px;
+}
+
+tr .buylist-delete {
+    position: absolute !important;
+    right: 20px;
+    top: 12px;
+}
+
+.tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.collapsible {
+    border-right: none !important;
+    border-left: none !important;
+}
+
+hr {
+    margin-bottom: 25px;
+}
+
+.loading {
+    display: block;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    background: #FFF;
+    z-index: 1000;
+    -webkit-transition: all 1s ease;
+    -moz-transition: all 1s ease;
+    -o-transition: all 1s ease;
+    transition: all  1s ease;
+    opacity: 1;
+    pointer-events: none;
+}
+
+.loading-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 200px;
+    height: 200px;
+    margin-top: -100px;
+    margin-left: -100px;
+    text-align: center;
+    color: #fff;
+}
+
+.load-end {
+    opacity: 0 !important;
+}
+
+h5 {
+    margin-top: 30px !important;
+}

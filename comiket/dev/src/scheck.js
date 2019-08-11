@@ -1,5 +1,7 @@
 /* 設定項目一覧 */
-const comiketName = '2019_summer'
+
+// 時期移行時に必ず変更すること！！
+const comiketName = '2019_winter'
 
 const comiketList = {
     '2019_summer': '2019年 夏コミ (C96)',
@@ -8,6 +10,11 @@ const comiketList = {
     '2020_winter': '2020年 冬コミ (C99)',
     '2021_summer': '2021年 夏コミ (C100)',
     '2021_winter': '2021年 冬コミ (C101)'
+}
+
+// console.log
+function c(t) {
+    console.log(t)
 }
 
 /*  ErrorHandler  */
@@ -32,6 +39,7 @@ $(document).ready(function(){
     init()
     drawMap()
     cacheVers()
+    old_data()
     setTimeout(function() {
         $('#loading-div').addClass('load-end')
     }, 500)
@@ -221,6 +229,10 @@ function ConfigCheck() {
         localStorage.setItem('memo', '')
     }
 
+    if(localStorage.getItem('old_version') === null) {
+        localStorage.setItem('old_version', '[]')
+    }
+
     // メモエリア初期化
     $('#cc-memo-area').val(localStorage.getItem('memo'))
     M.textareaAutoResize($('#cc-memo-area'))
@@ -233,24 +245,47 @@ function ConfigCheck() {
             'day3': true,
             'day4': true
         }
-        localStorage.setItem('config', JSON.stringify(config))
+        
     }
     if(config['disableReset'] === undefined) {
         config['disableReset'] = false
-        localStorage.setItem('config', JSON.stringify(config))
     }
     if(config['version'] === undefined) {
         config['version'] = comiketName
-        localStorage.setItem('config', JSON.stringify(config))
     }
-    if(config['old_version'] === undefined) {
-        config['old_version'] = []
-        localStorage.setItem('config', JSON.stringify(config))
-    }
+    localStorage.setItem('config', JSON.stringify(config))
 }
 
 function getConfig(d) {
     return localStorage.getItem(config[d])
+}
+
+// 前バージョン引き継ぎ処理
+function old_data() {
+    var config = JSON.parse(localStorage.getItem('config'))
+    var old = JSON.parse(localStorage.getItem('old_version'))
+    if(localStorage.getItem('circles') !== '{}') {
+        // C96用処理
+        if(old.length === 0) {
+            localStorage.setItem('old_version', '{"2019_summer": ' + localStorage.getItem('circles') + '}')
+            localStorage.setItem('circles', '{}')
+            M.toast({html: '2019年 夏コミ (C96)のデータを「過去のコミケ」に引き継ぎました！「トップ」→「情報」から閲覧可能です。'})
+            config['version'] = comiketName
+            localStorage.setItem('config', JSON.stringify(config))
+            return
+        }
+        // C97~用処理
+        if(config['version'] !== comiketName) {
+            c('ok')
+            old[config['version']] =  localStorage.getItem('circles')
+            localStorage.setItem('old_version', JSON.stringify(old))
+            localStorage.setItem('circles', '{}')
+            M.toast({html: comiketList[config['version']] + 'のデータを「過去のコミケ」に引き継ぎました！「トップ」→「情報」から閲覧可能です。'})
+            config['version'] = comiketName
+            localStorage.setItem('config', JSON.stringify(config))
+            return
+        }
+    }
 }
 
 // 保存
