@@ -54,6 +54,10 @@
     background: #66bfff !important;
 }
 
+.custom-sidenav {
+    background: #ffe7d5 !important;
+}
+
 /* テーマカラーここまで */
 
 ::-webkit-scrollbar {
@@ -114,6 +118,10 @@ body {
 .main-logo {
     height: 80%;
     margin: 6px 0px 0px 0px;
+}
+
+.sub-logo {
+    width: 70%;
 }
 
 .memo {
