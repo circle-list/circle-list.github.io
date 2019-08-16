@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title>CircleList</title>
-        <meta name="theme-color" content="#ee6e73">
+        <meta name="theme-color" content="#c99987">
         <link rel="manifest" href="manifest.json">
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
         <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon-180x180.png">
@@ -13,11 +13,11 @@
         <meta property="og:url" content="https://hideki0403.github.io/comiket/" /> 
         <meta property="og:title" content="CircleList" /> 
         <meta property="og:site_name" content="CircleList">
-        <meta property="og:image" content="https://hideki0403.github.io/comiket/assets/icon.png" /> 
-        <meta property="og:description" content="CircleListは非公式のコミックマーケット用支援ツールです。お気に入りのサークルを登録して、チェックリストを作ることも可能です。" /> 
-        <meta name="twitter:card" content="summary"/> 
+        <meta property="og:image" content="https://hideki0403.github.io/comiket/assets/card.png" /> 
+        <meta property="og:description" content="CircleListはコミックマーケット用の非公式ツールです。お気に入りのサークルを登録してチェックリストを作成することが出来ます。" /> 
+        <meta name="twitter:card" content="summary_large_image"/> 
         <meta name="twitter:site" content="@hideki_0403"/>
-        <meta name="keywords" content="CircleList,circlelist,コミケ,c96,コミケマップ,コミックマーケット">
+        <meta name="keywords" content="CircleList,circlelist,コミケ,c96,c97,コミケマップ,コミックマーケット">
         <meta name="mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="white">
         <meta name="apple-mobile-web-app-title" content="CircleList">
@@ -35,10 +35,10 @@
     </head>
 
     <body>
-        <div id="loading-div" class="loading">
+        <div id="loading-div" class="loading" style="background: #c99987;">
             <div class="loading-container">
                 <div class="preloader-wrapper big active">
-                    <div class="spinner-layer spinner-red-only">
+                    <div class="spinner-layer spinner-custom">
                         <div class="circle-clipper left">
                         <div class="circle"></div>
                         </div><div class="gap-patch">
@@ -48,10 +48,10 @@
                         </div>
                     </div>
                 </div>
-                <p class="red-text text-lighten-1">CircleListを読み込んでいます</p>
+                <p class="theme-color-text">CircleListを読み込んでいます</p>
             </div>
         </div>
-        <nav class="nav-extended" style="box-shadow: none; -webkit-box-shadow: none;">
+        <nav class="nav-extended theme-color" style="box-shadow: none; -webkit-box-shadow: none;">
             <div class="nav-wrapper">
                 <div class="img-container">
                     <img src="assets/logo.png" class="brand-logo main-logo"></img>
@@ -60,9 +60,10 @@
                     <li><a href="#" onclick="location.reload();"><i class="material-icons">refresh</i></a></li>
                   </ul>
                 <ul id="slide-out" class="sidenav">
-                    <div class="container grey-text text-darken-3" style="line-height: 12px;">
-                        <h5>CircleList</h5>
-                        <h6>2019 C96対応版</h6>
+                    <div class="container black-text" style="line-height: 12px;">
+                        <br>
+                        <img src="assets/logo.png" class="sub-logo"></img>
+                        <h6>2019 C96・97対応版</h6>
                         <br>
                         <hr>
                     </div>
@@ -75,7 +76,7 @@
             </div>
 
             <!-- MainTab -->
-            <div class="nav-content">
+            <div class="nav-content" style="color: white !important;">
                 <ul class="tabs tabs-transparent">
                     <li class="tab"><a class="active" href="#cc-top">トップ</a></li>
                     <li class="tab"><a href="#cc-list">サークル</a></li>
@@ -93,13 +94,15 @@
                 <li class="tab"><a href="#cc-top-info">設定</a></li>
                 <li class="tab"><a href="#cc-top-bug">バグ報告</a></li>
             </ul>
-            <div id="cc-top-about" class="container  grey-text text-darken-2" style="margin-bottom: 80px;">
+            <div id="cc-top-about" class="container brown-text" style="margin-bottom: 80px;">
                 <br>
-                <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-size="large" data-text="コミケで行きたいサークルをリスト化できるサービス「CircleList」" data-url="https://hideki0403.github.io/comiket/" data-via="circle_list" data-hashtags="CircleList" data-related="circle_list,hideki_0403" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-                <div class="line-it-button" data-lang="ja" data-type="share-a" data-ver="3" data-url="https://hideki0403.github.io/comiket/" data-color="default" data-size="large" data-count="true" style="display: none;"></div>
+                <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-text="コミケで行きたいサークルをリスト化できるサービス CircleList" data-url="https://hideki0403.github.io/comiket/" data-via="circle_list" data-hashtags="CircleList" data-related="circle_list,hideki_0403" data-show-count="true">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                <a href="https://twitter.com/circle_list?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="true" data-show-screen-name="false">Follow</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                <div class="line-it-button" data-lang="ja" data-type="share-a" data-ver="3" data-url="https://hideki0403.github.io/comiket/" data-color="default" data-count="true" style="display: none;"></div>
+                <!-- <h6 class="red-text">注意: これはデバッグ用のバージョンです。<a href="../index.html">安定版をお使いください。</a></h6> -->
                 <h5>CircleListとは？</h5>
                 <hr>
-                <p>CircleListは非公式のコミックマーケット用支援ツールです。</p>
+                <p>CircleListはコミックマーケット用の非公式ツールです。</p>
                 <p>公式のカタログと合わせて使用することを想定して作られていますが、カタログが無くても無料で使用することができます。</p>
                 <h5>できること</h5>
                 <hr>
@@ -150,7 +153,7 @@
                 CircleListのコンテンツ・情報につきまして、可能な限り正確な情報を掲載するよう努めておりますが、誤情報が入り込んだり、情報が古くなっていることもございます。
                 CircleListに掲載された内容によって生じた損害等の一切の責任を負いかねますのでご了承ください。
             </div>
-            <div id="cc-top-memo" class="container">
+            <div id="cc-top-memo" class="container brown-text">
                 <h5>メモ</h5>
                 <p class="green-text" id="cc-memo-savetime">メモエリア以外の場所を押すと自動保存します</p>
                 <hr style="margin-bottom: 0px;">
@@ -164,14 +167,27 @@
                     </form>
                 </div>
             </div>
-            <div id="cc-top-stat" class="container">
+            <div id="cc-top-stat" class="container brown-text">
                 <h5>情報</h5>
                 <hr>
                 <span>登録してあるサークル数: </span><span id="cc-stat-circles"></span><br>
                 <span>登録してあるグッズ数: </span><span id="cc-stat-goods"></span><br>
                 <span>グッズの合計金額: </span><span id="cc-stat-prices"></span>
+                <h5>過去のコミケ</h5>
+                <hr>
+                <p>サークルなどの詳細情報を閲覧する機能は後日実装予定です！</p>
+                <table class="highlight">
+                    <thead>
+                        <tr>
+                            <th>名称</th>
+                            <th>登録してあるサークル数</th>
+                        </tr>
+                    </thead>
+            
+                    <tbody id="cc-top-stat-old"></tbody>
+                  </table>
             </div>
-            <div id="cc-top-info" class="container" style="margin-bottom: 80px;">
+            <div id="cc-top-info" class="container brown-text" style="margin-bottom: 80px;">
                 <h5>設定</h5>
                 <hr>
                 <h6>サークル登録時に項目がリセットされるようにする</h6>
@@ -224,8 +240,8 @@
                     <p class="red-text">注意: インポートを実行すると、現在登録されているサークルリストと購入リストがすべて上書き（削除）されます。</p>
                 </div>
                 <div class="modal-footer">
-                    <a href="#!" class="modal-close waves-effect waves-light blue lighten-1 btn">キャンセル</a>
-                    <a href="#!" class="modal-close waves-effect waves-light red lighten-1 btn" id="import-submit">インポート</a>
+                    <a href="#!" class="modal-close waves-effect waves-light info-color btn">キャンセル</a>
+                    <a href="#!" class="modal-close waves-effect waves-light warning-color btn" id="import-submit">インポート</a>
                 </div>
             </div>
             <div id="cc-top-bug" class="container">
@@ -269,12 +285,12 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <a href="#!" class="modal-close waves-effect waves-light red lighten-1 btn" id="date-change-submit">決定</a>
+                    <a href="#!" class="modal-close waves-effect waves-light info-color btn" id="date-change-submit">決定</a>
                 </div>
             </div>
             <!-- MainModal -->
             <div class="fixed-action-btn" style="left: 23px;">
-                    <a class="waves-effect waves-light btn red lighten-1 modal-trigger" href="#open-modal"><i class="material-icons left">today</i>日付変更</a>
+                    <a class="waves-effect waves-light btn theme-color modal-trigger" href="#open-modal"><i class="material-icons left">today</i>日付変更</a>
             </div>
             <ul class="tabs">
                 <li class="tab"><a id="cc-list-tab-1" class="active" href="#cc-list-circle">お気に入りリスト</a></li>
@@ -288,7 +304,7 @@
 
                 <!-- サークル@追加 -->
                 <div class="fixed-action-btn">
-                    <a id="open-add-circle" class="waves-effect waves-light btn red lighten-1 modal-trigger" href="#cc-list-add"><i class="material-icons left">playlist_add</i>お気に入り追加</a>
+                    <a id="open-add-circle" class="waves-effect waves-light btn theme-color modal-trigger" href="#cc-list-add"><i class="material-icons left">playlist_add</i>お気に入り追加</a>
                 </div>
                 <!-- Modal -->
                 <div id="cc-list-add" class="modal modal-fixed-footer">
@@ -332,8 +348,8 @@
                         <p>右上の再読み込みボタンを押すことで再読み込みが可能です。</p>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn waves-effect waves-light blue lighten-1" type="submit" name="action" id="cc-list-add-submit">追加 (編集)</button>
-                        <a href="#!" class="modal-close waves-effect waves-light red lighten-1 btn">閉じる</a>
+                        <button class="btn waves-effect waves-light info-color" type="submit" name="action" id="cc-list-add-submit">追加 (編集)</button>
+                        <a href="#!" class="modal-close waves-effect waves-light warning-color btn">閉じる</a>
                     </div>
                 </div>
             </div>
@@ -344,7 +360,7 @@
                 <ul id="cc-buylist-wrapper" class="collapsible expandable" style="box-shadow: none; -webkit-box-shadow: none; margin: 0rem 0 1rem 0;"></ul>  
                 <div class="row">
                     <div class="fixed-action-btn">
-                        <a class="waves-effect waves-light btn red lighten-1 modal-trigger" href="#new-goods"><i class="material-icons left">playlist_add</i>追加</a>
+                        <a class="waves-effect waves-light btn theme-color modal-trigger" href="#new-goods"><i class="material-icons left">playlist_add</i>追加</a>
                     </div>
                     <!-- Modal -->
                     <div id="new-goods" class="modal modal-fixed-footer">
@@ -375,8 +391,8 @@
                             <div id="messageWrapper"></div>
                         </div>
                         <div class="modal-footer">
-                            <a href="#!" class="waves-effect waves-light blue lighten-1 btn" id="cc-buy-add-button">追加</a>
-                            <a href="#!" class="modal-close waves-effect waves-light red lighten-1 btn">閉じる</a>
+                            <a href="#!" class="waves-effect waves-light info-color btn" id="cc-buy-add-button">追加</a>
+                            <a href="#!" class="modal-close waves-effect waves-light warning-color btn">閉じる</a>
                         </div>
                     </div>
                 </div>

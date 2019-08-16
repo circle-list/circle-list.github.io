@@ -14,10 +14,10 @@
         <meta property="og:title" content="CircleList" /> 
         <meta property="og:site_name" content="CircleList">
         <meta property="og:image" content="https://hideki0403.github.io/comiket/assets/card.png" /> 
-        <meta property="og:description" content="CircleListは非公式のコミックマーケット用支援ツールです。また、お気に入りのサークルを登録してチェックリストを作ることも可能です。" /> 
+        <meta property="og:description" content="CircleListはコミックマーケット用の非公式ツールです。お気に入りのサークルを登録してチェックリストを作成することが出来ます。" /> 
         <meta name="twitter:card" content="summary_large_image"/> 
         <meta name="twitter:site" content="@hideki_0403"/>
-        <meta name="keywords" content="CircleList,circlelist,コミケ,c96,コミケマップ,コミックマーケット">
+        <meta name="keywords" content="CircleList,circlelist,コミケ,c96,c97,コミケマップ,コミックマーケット">
         <meta name="mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="white">
         <meta name="apple-mobile-web-app-title" content="CircleList">
@@ -59,7 +59,7 @@
                 <ul class="right">
                     <li><a href="#" onclick="location.reload();"><i class="material-icons">refresh</i></a></li>
                   </ul>
-                <ul id="slide-out" class="sidenav custom-sidenav">
+                <ul id="slide-out" class="sidenav">
                     <div class="container black-text" style="line-height: 12px;">
                         <br>
                         <img src="assets/logo.png" class="sub-logo"></img>
@@ -99,10 +99,10 @@
                 <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-text="コミケで行きたいサークルをリスト化できるサービス CircleList" data-url="https://hideki0403.github.io/comiket/" data-via="circle_list" data-hashtags="CircleList" data-related="circle_list,hideki_0403" data-show-count="true">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
                 <a href="https://twitter.com/circle_list?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="true" data-show-screen-name="false">Follow</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
                 <div class="line-it-button" data-lang="ja" data-type="share-a" data-ver="3" data-url="https://hideki0403.github.io/comiket/" data-color="default" data-count="true" style="display: none;"></div>
-                <h6 class="red-text">注意: これはデバッグ用のバージョンです。<a href="../index.html">安定版をお使いください。</a></h6>
+                <!-- <h6 class="red-text">注意: これはデバッグ用のバージョンです。<a href="../index.html">安定版をお使いください。</a></h6> -->
                 <h5>CircleListとは？</h5>
                 <hr>
-                <p>CircleListは非公式のコミックマーケット用支援ツールです。</p>
+                <p>CircleListはコミックマーケット用の非公式ツールです。</p>
                 <p>公式のカタログと合わせて使用することを想定して作られていますが、カタログが無くても無料で使用することができます。</p>
                 <h5>できること</h5>
                 <hr>
@@ -173,6 +173,19 @@
                 <span>登録してあるサークル数: </span><span id="cc-stat-circles"></span><br>
                 <span>登録してあるグッズ数: </span><span id="cc-stat-goods"></span><br>
                 <span>グッズの合計金額: </span><span id="cc-stat-prices"></span>
+                <h5>過去のコミケ</h5>
+                <hr>
+                <p>サークルなどの詳細情報を閲覧する機能は後日実装予定です！</p>
+                <table class="highlight">
+                    <thead>
+                        <tr>
+                            <th>名称</th>
+                            <th>登録してあるサークル数</th>
+                        </tr>
+                    </thead>
+            
+                    <tbody id="cc-top-stat-old"></tbody>
+                  </table>
             </div>
             <div id="cc-top-info" class="container brown-text" style="margin-bottom: 80px;">
                 <h5>設定</h5>

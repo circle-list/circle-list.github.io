@@ -1,7 +1,7 @@
 .map-frame {
     overflow: auto;
     height: 80%;
-    border: 3px solid #ee6e73;
+    border: 3px solid #c99987;
     border-radius: 10px;
     margin: 3%;
 }
@@ -72,7 +72,7 @@
 
 .map-parent p {
     position: absolute;
-    color: #ee6e73;
+    color: #c99987;
 }
 
 .miniblock {
@@ -152,9 +152,9 @@
     -moz-background-size: 20px 20px;
     background-size: 20px 20px;
     background-color: #FFF;
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(.5, #ee6e73), color-stop(.5, transparent), to(transparent));
-    background-image: -moz-linear-gradient(#ee6e73 50%, transparent 50%, transparent);
-    background-image: -o-linear-gradient(#ee6e73 50%, transparent 50%, transparent);
-    background-image: linear-gradient(#ee6e73 50%, transparent 50%, transparent);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(.5, #c99987), color-stop(.5, transparent), to(transparent));
+    background-image: -moz-linear-gradient(#c99987 50%, transparent 50%, transparent);
+    background-image: -o-linear-gradient(#c99987 50%, transparent 50%, transparent);
+    background-image: linear-gradient(#c99987 50%, transparent 50%, transparent);
     outline: none !important;
 }

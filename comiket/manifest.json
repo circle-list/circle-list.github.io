@@ -2,7 +2,8 @@
     "lang": "ja",
     "name": "CircleList",
     "short_name": "CircleList",
-    "background_color": "#ee6e73",
+    "background_color": "#c99987",
+    "theme_color": "#c99987",
     "display": "standalone",
     "start_url": "/comiket/?utm_source=home_screen&utm_medium=pwa",
     "icons": [

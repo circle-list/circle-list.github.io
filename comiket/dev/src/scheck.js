@@ -5,8 +5,8 @@
 
 /* 設定項目一覧 */
 
-// 時期移行時に必ず変更すること！！
-const comiketName = '2019_summer'
+// マスターアップ時に必ず変更すること！！
+const comiketName = '2019_winter'
 
 const comiketList = {
     '2019_summer': '2019年 夏コミ (C96)',
@@ -17,7 +17,7 @@ const comiketList = {
     '2021_winter': '2021年 冬コミ (C101)'
 }
 
-// console.log
+// console.log @ デバッグ用
 function c(t) {
     console.log(t)
 }
@@ -44,9 +44,12 @@ $(document).ready(function(){
     init()
     drawMap()
     cacheVers()
-    old_data()
+    old_data_list()
     setTimeout(function() {
         $('#loading-div').addClass('load-end')
+        setTimeout(function() {
+            find_old_data()
+        }, 3000)
     }, 500)
 })
 
@@ -68,7 +71,7 @@ $('#install_button').on('click', () => {
       if (choice.outcome === 'accepted') {
         M.toast({html: 'CircleListがインストールされました。ホーム画面から起動できます。'})
       } else {
-        M.toast({html: 'インストールはキャンセルされました'})
+        M.toast({html: 'インストールをキャンセルしました'})
       }
 
       installPromptEvent = null
@@ -111,7 +114,13 @@ $('#cache-clear').on('click', function() {
 // バックアップデータ生成
 $('#cc-info-export').on('click', function() {
     StorageCheck()
-    var blob = new Blob([localStorage.getItem('circles')], { type : 'application/json' });
+    var data = {
+        circles: localStorage.getItem('circles'),
+        config: localStorage.getItem('config'),
+        old_version: localStorage.getItem('old_version'),
+        memo: localStorage.getItem('memo')
+    }
+    var blob = new Blob([JSON.stringify(data)], { type : 'application/json' });
 
     if (window.navigator.msSaveBlob) { 
         window.navigator.msSaveBlob(blob, 'circlelist.db')
@@ -120,7 +129,7 @@ $('#cc-info-export').on('click', function() {
     }
 })
 
-// バックアップデータ読み込み
+// バックアップデータ読み込みダイアログ
 backupdata = ''
 
 $('#import-file').on('change', function(event) {
@@ -139,11 +148,21 @@ $('#import-file').on('change', function(event) {
  
 })
 
+// 取り込み処理
 $('#import-submit').on('click', function() {
     if(backupdata !== '') {
-        localStorage.setItem('circles', JSON.stringify(backupdata))
-        M.toast({html: 'バックアップデータをインポートしました。'})
-        updateList()
+        if(backupdata.config === undefined) {
+            localStorage.setItem('circles', JSON.stringify(backupdata))
+            M.toast({html: '旧バックアップデータをインポートしました。'})
+            updateList()
+        } else {
+            localStorage.setItem('circles', backupdata.circles)
+            localStorage.setItem('config', backupdata.config)
+            localStorage.setItem('memo', backupdata.memo)
+            localStorage.setItem('old_version', backupdata.old_version)
+            M.toast({html: 'バックアップデータをインポートしました。'})
+            updateList()
+        }
     } else {
         M.toast({html: 'ファイルを選択してください'})
     }
@@ -164,6 +183,16 @@ function stats() {
     }
     $('#cc-stat-goods').text(goods)
     $('#cc-stat-prices').text(prices + '円')
+}
+
+// 過去のコミケ
+function old_data_list() {
+    var vers = JSON.parse(localStorage.getItem('old_version'))
+    for(var i = 0; Object.keys(vers).length > i; i++) {
+        var v_name = comiketList[Object.keys(vers)[i]]
+        var v_length = Object.keys(vers[Object.keys(vers)[i]]).length
+        $('#cc-top-stat-old').append('<tr><th>' + v_name + '</th><th>' + v_length + '</th></tr>')
+    }
 }
 
 const island = {
@@ -265,18 +294,51 @@ function getConfig(d) {
     return localStorage.getItem(config[d])
 }
 
+// 前バージョンデータ検出処理
+
+comiket_v = ''
+
+function find_old_data() {
+    var config = JSON.parse(localStorage.getItem('config'))
+    var old = JSON.parse(localStorage.getItem('old_version'))
+    if(localStorage.getItem('circles') !== '{}') {
+        // C96用処理
+        if(old.length === 0 && config['version'] === '2019_winter' && config['newUser'] === undefined) {
+            comiket_v = '2019年 夏コミ (C96)'
+        }
+        // C97~用処理
+        if(config['version'] !== comiketName) {
+            comiket_v = comiketList[config['version']]
+        }
+
+        // modal追加処理
+        if(comiket_v !== '') {
+            $('body').append('<div id="move-confirm" class="modal"><div class="modal-content"><p>以前のコミケ( ' + comiket_v + ' )のデータが残っているようです。「過去のコミケ」へデータを移動させますか？</p><p>いいえを選択した場合は現在のデータが保持されますが、次回アクセス時にこの確認画面が再度表示されます。</p><br><p>※「過去のコミケ」にデータを移動させることで、以前のデータを残しつつも初めから新しくサークルを登録することができるようになります。</p><p>過去のデータは「トップ」→「情報」よりいつでも閲覧可能です。</p></div><div class="modal-footer"><a href="#!" class="modal-close waves-effect waves-light info-color btn">いいえ</a><a href="#!" class="modal-close waves-effect waves-light warning-color btn" onclick="old_data();">はい</a></div></div>')
+            $('.modal').modal()
+            M.Modal.getInstance($('#move-confirm')).open()
+        }
+
+    } else {
+        if(config['newUser'] === undefined) {
+            config['newUser'] = true
+            localStorage.setItem('config', JSON.stringify(config))
+        }
+    }
+}
+
 // 前バージョン引き継ぎ処理
 function old_data() {
     var config = JSON.parse(localStorage.getItem('config'))
     var old = JSON.parse(localStorage.getItem('old_version'))
     if(localStorage.getItem('circles') !== '{}') {
         // C96用処理
-        if(old.length === 0 && config['version'] !== comiketName) {
+        if(old.length === 0 && config['version'] === '2019_winter' && config['newUser'] === undefined) {
             localStorage.setItem('old_version', '{"2019_summer": ' + localStorage.getItem('circles') + '}')
             localStorage.setItem('circles', '{}')
-            M.toast({html: '2019年 夏コミ (C96)のデータを「過去のコミケ」に引き継ぎました！「トップ」→「情報」から閲覧可能です。'})
+            M.toast({html: '2019年 夏コミ (C96)のデータを「過去のコミケ」に引き継ぎました！「トップ」→「情報」から閲覧可能です。', displayLength: 15000})
             config['version'] = comiketName
             localStorage.setItem('config', JSON.stringify(config))
+            old_data_list()
             return
         }
         // C97~用処理
@@ -285,9 +347,10 @@ function old_data() {
             old[config['version']] =  localStorage.getItem('circles')
             localStorage.setItem('old_version', JSON.stringify(old))
             localStorage.setItem('circles', '{}')
-            M.toast({html: comiketList[config['version']] + 'のデータを「過去のコミケ」に引き継ぎました！「トップ」→「情報」から閲覧可能です。'})
+            M.toast({html: comiketList[config['version']] + 'のデータを「過去のコミケ」に引き継ぎました！「トップ」→「情報」から閲覧可能です。', displayLength: 15000})
             config['version'] = comiketName
             localStorage.setItem('config', JSON.stringify(config))
+            old_data_list()
             return
         }
     }

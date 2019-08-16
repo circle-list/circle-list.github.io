@@ -1,3 +1,65 @@
+/*
+    CircleList用テーマカラー
+
+    C96: #ee6e73
+    C97: #c99987
+*/
+
+.theme-color {
+    background: #c99987 !important;
+}
+
+.theme-color-text {
+    color: #FFF !important;
+}
+
+.tabs.tabs-transparent .tab a:hover, .tabs.tabs-transparent .tab a.active {
+    color: #fff !important;
+}
+
+.tabs.tabs-transparent .tab a{
+    color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.tabs .tab a{
+    color:#c99987 !important;
+}
+
+.tabs .tab a:hover {
+    color:#af7f6d !important;
+}
+
+.tabs .tab a.active {
+    color:#af7f6d !important;
+}
+
+.tabs .indicator {
+    background-color:#d3b4a9 !important;
+}
+
+.tabs .tab a:focus, .tabs .tab a:focus.active {
+    background-color: rgba( 242,206,188 , 0.5) !important;
+    outline: none;
+}
+
+.spinner-custom {
+    border-color: #fff !important;
+}
+
+.warning-color {
+    background: #ff8686 !important;
+}
+
+.info-color {
+    background: #66bfff !important;
+}
+
+.custom-sidenav {
+    background: #ffe7d5 !important;
+}
+
+/* テーマカラーここまで */
+
 ::-webkit-scrollbar {
     width: 10px;
 }
@@ -6,7 +68,7 @@
     border-left: solid 1px #ececec;
 }
 ::-webkit-scrollbar-thumb{
-    background: #ee6e73;
+    background: #c99987;
     border-radius: 10px;
     box-shadow: inset 0 0 0 2px #fff;
 }
@@ -31,7 +93,7 @@
 }
 
 #check-box {
-    color: #ee6e73;
+    color: #c99987;
 }
 
 #cc-list-buy {
@@ -56,6 +118,10 @@ body {
 .main-logo {
     height: 80%;
     margin: 6px 0px 0px 0px;
+}
+
+.sub-logo {
+    width: 70%;
 }
 
 .memo {
