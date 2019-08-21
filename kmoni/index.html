@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="manifest" href="manifest.json"/>
+    <title></title>
+</head>
+<body>
+    通知を許可することで地震情報を受け取ることができます
+</body>
+<script type="text/javascript">
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('serviceworker.js');
+
+        navigator.serviceWorker.ready
+            .then(function (registration) {
+                return registration.pushManager.subscribe({ userVisibleOnly: true });
+            })
+            .then(function (subscription) {
+                console.log('GCM EndPoint is:' + subscription.endpoint);
+                var auth = subscription.getKey('auth') ? btoa(String.fromCharCode.apply(null, new Uint8Array(subscription.getKey('auth')))) : '';
+                console.log('User Auth is:' + auth);
+                var publicKey = subscription.getKey('p256dh') ? btoa(String.fromCharCode.apply(null, new Uint8Array(subscription.getKey('p256dh')))) : '';
+                console.log('User PublicKey is:' + publicKey);
+            })
+            .catch(console.error.bind(console));
+    }
+</script>
+</html>

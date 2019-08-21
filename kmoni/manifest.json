@@ -1,0 +1,13 @@
+{
+    "lang": "ja",
+    "name": "強震モニタWA",
+    "short_name": "強震モニタ WebApp",
+    "display": "standalone",
+    "start_url": "/kmoni/?utm_source=home_screen&utm_medium=pwa",
+    "icons": [{
+        "src": "/kmoni/assets/icon.png",
+        "sizes": "256x256",
+        "type": "image/png"
+    }],
+    "gcm_sender_id": "1052266158860"
+  }
