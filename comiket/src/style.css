@@ -58,6 +58,11 @@
     background: #ffe7d5 !important;
 }
 
+.page-404 {
+    background: #FFF;
+    color: #c99987
+}
+
 /* テーマカラーここまで */
 
 ::-webkit-scrollbar {
@@ -72,6 +77,14 @@
     border-radius: 10px;
     box-shadow: inset 0 0 0 2px #fff;
 }
+
+hr {
+    display:block;
+    width: 100%;
+    height: 2px;
+    border: 0;
+    border-top: 1px dashed #c99987;
+  }
 
 /*
 #cc-list-circle span {
