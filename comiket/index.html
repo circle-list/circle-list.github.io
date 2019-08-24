@@ -142,6 +142,11 @@
                 <p>お問い合わせなどはTwitterのDM、またはメンションにてお願いします。</p>
                 <p>また、このサイトのソースコードはGithubですべて公開しています。以下のリポジトリにある"comiket"ディレクトリ内がこのサイトのソースコードです。</p>
                 <a class="github-button" href="https://github.com/hideki0403/hideki0403.github.io" data-show-count="true" aria-label="Star hideki0403/hideki0403.github.io on GitHub">Star</a>
+                <br>
+                <h6>使用ライブラリ</h6>
+                <hr>
+                <p>・materialize</p>
+                <p>・html2canvas</p>
                 <h5>プライバシーポリシー</h5>
                 <hr>
                 <h6>アクセス解析ツールについて</h6>
@@ -185,7 +190,8 @@
                     </thead>
             
                     <tbody id="cc-top-stat-old"></tbody>
-                  </table>
+                </table>
+                <img id="result">
             </div>
             <div id="cc-top-info" class="container brown-text" style="margin-bottom: 80px;">
                 <h5>設定</h5>
@@ -409,8 +415,27 @@
                 <li class="tab"><a href="#cc-map-k">青海A・青海B</a></li>
             </ul>
 
+            <!-- 画像生成進捗どうですか -->
+            <div id="map2img_prg" class="modal">
+                <div class="modal-content">
+                    <p id="progress_message"></p>
+                    <div class="progress">
+                        <div class="indeterminate"></div>
+                    </div>
+                    <br>
+                    <a class="waves-effect waves-light btn-small theme-color" id="dl_m_img" disabled><i class="material-icons left">cloud_download</i>ダウンロード</a>
+                    <br>
+                    <img width="100%" id="output_img">
+                </div>
+                <div class="modal-footer">
+                    <a href="#!" class="modal-close waves-effect waves-light warning-color btn">この画面を閉じる</a>
+                </div>
+            </div>
+
             <!-- マップ一覧@w1 -->
             <div id="cc-map-w1" class="col s12 container">
+                <br>
+                <a class="waves-effect waves-light btn-small theme-color map_download_button modal-trigger" href="#map2img_prg" onclick="map2img('w1')"><i class="material-icons left">cloud_download</i>このマップをダウンロード</a>
                 <div class="map-frame">
                     <div class="map-w1 map-parent" id="cc-map-w1-inside">
                         <div style="left: 900px;top: 10px;height: 435px;" class="stripe"></div>
@@ -466,6 +491,8 @@
             </div>
             <!-- マップ一覧@w2 -->
             <div id="cc-map-w2" class="col s12 container">
+                <br>
+                <a class="waves-effect waves-light btn-small theme-color map_download_button modal-trigger" href="#map2img_prg" onclick="map2img('w2')"><i class="material-icons left">cloud_download</i>このマップをダウンロード</a>
                 <div class="map-frame">
                     <div class="map-w2 map-parent" id="cc-map-w2-inside">
                         <div style="top: 400px; left: 500px; outline: 1px solid #616161; width: 800px; height: 800px;">
@@ -498,6 +525,8 @@
             </div>
             <!-- マップ一覧@s1 -->
             <div id="cc-map-s1" class="col s12 container">
+                <br>
+                <a class="waves-effect waves-light btn-small theme-color map_download_button modal-trigger" href="#map2img_prg" onclick="map2img('s1')"><i class="material-icons left">cloud_download</i>このマップをダウンロード</a>    
                 <div class="map-frame">
                     <div class="map-s12 map-parent" id="cc-map-s1-inside">
                         <p style="top: 595px;left: 1200px;font-size: 20px;">ア</p>
@@ -547,6 +576,8 @@
             </div>
             <!-- マップ一覧@s2 -->
             <div id="cc-map-s2" class="col s12 container">
+                <br>
+                <a class="waves-effect waves-light btn-small theme-color map_download_button modal-trigger" href="#map2img_prg" onclick="map2img('s2')"><i class="material-icons left">cloud_download</i>このマップをダウンロード</a>
                 <div class="map-frame">
                     <div class="map-s12 map-parent" id="cc-map-s2-inside">
                         <p style="top: 595px;left: 900px;font-size: 20px;">ナ</p>
@@ -596,6 +627,8 @@
             </div>
             <!-- マップ一覧@k -->
             <div id="cc-map-k" class="col s12 container">
+                <br>
+                <a class="waves-effect waves-light btn-small theme-color map_download_button modal-trigger" href="#map2img_prg" onclick="map2img('k')"><i class="material-icons left">cloud_download</i>このマップをダウンロード</a>
                 <div class="map-frame">
                     <div class="map-k map-parent" id="cc-map-k-inside">
                         <!-- ストライプ -->
@@ -811,6 +844,7 @@
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
         <script src="https://d.line-scdn.net/r/web/social-plugin/js/thirdparty/loader.min.js" async="async" defer="defer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.js" integrity="sha256-EzjZPP7sOCQ+ugF/U8x2VH3PEvg3NFjis/dpwogN3T0=" crossorigin="anonymous"></script>
         <script async defer src="https://buttons.github.io/buttons.js"></script>
         <script src="src/scheck.js"></script>
         <script src="src/reg_sw.js"></script>

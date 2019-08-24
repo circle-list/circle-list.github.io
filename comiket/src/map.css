@@ -66,6 +66,10 @@
     line-height: 10px;
 }
 
+.map-parent {
+    background: #FFF;
+}
+
 .map-parent div {
     position: absolute;
 }
@@ -157,4 +161,13 @@
     background-image: -o-linear-gradient(#c99987 50%, transparent 50%, transparent);
     background-image: linear-gradient(#c99987 50%, transparent 50%, transparent);
     outline: none !important;
+}
+
+.html2canvas-container {
+    width: 3000px !important;
+    height: 3000px !important;
+}
+
+.map_download_button {
+    margin-left: 3%;
 }
