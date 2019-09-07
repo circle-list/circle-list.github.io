@@ -4,20 +4,20 @@ $('body').append('<div class="modal fade" data-backdrop="static" id="star" tabin
 
 $('#star').modal()
 
+const swiper = $('.swiper-container')[0].swiper
+
 function console_log(text) {
     $('#star-log').prepend(text + '\n')
 }
 
 window.addEventListener('error', function (e) {
-    var error = e.error
-    console_log(error)
+    console_log(e)
 })
 
 function run() {
 
     const images = []
     const location = window.location.pathname.replace('spviewer', 'image') + '/'
-    const swiper = $('.swiper-container')[0].swiper
 
     $('.star-button').prop('disabled', true)
 
