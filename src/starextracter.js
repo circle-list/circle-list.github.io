@@ -11,6 +11,8 @@ function console_log(text) {
     $('#star-log').prepend(text + '\n')
 }
 
+console_log('Ready...')
+
 window.onerror = function(msg, url, line, col) {  
     console_log(msg + ' at line' + line + ', col' + col)
 }
@@ -22,8 +24,6 @@ function run() {
     $('.star-button').prop('disabled', true)
 
     swiper.slideTo(0)
-
-    console_log('Ready...')
 
     genImg()
     
