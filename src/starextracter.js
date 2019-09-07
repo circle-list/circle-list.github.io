@@ -1,6 +1,6 @@
 $('#star').remove()
 
-$('body').append('<div class="modal fade" data-backdrop="static" id="star" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true"> <div class="modal-dialog modal-lg" role="document"> <div class="modal-content"> <div class="modal-header"> <h5 class="modal-title">Star URL Extracter</h5> <h6>Version 1.0.0</h6> </div><div class="modal-body"> <textarea id="star-log" class="form-control" disabled type="text" style="height: 180px;" placeholder="NowLoading..."></textarea> <div class="progress"> <div id="star-progress" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%;"></div></div><br><a href="#" id="star-download" class="btn disabled" download="imglist.json">Download</a> </div><div class="modal-footer"> <button type="button" id="star-close" class="star-button btn btn-outline-danger" data-dismiss="modal">Close</button> <button type="button" class="star-button btn btn-outline-primary" onclick="run()">Start</button> </div></div></div></div>')
+$('body').append('<div class="modal fade" data-backdrop="static" id="star" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true"> <div class="modal-dialog modal-lg" role="document"> <div class="modal-content"> <div class="modal-header"> <h3 class="modal-title">Star URL Extracter</h3> <h5>Version 1.0.8</h5> </div><div class="modal-body"> <textarea id="star-log" class="form-control" disabled type="text" style="height: 180px;" placeholder="NowLoading..."></textarea> <div class="progress"> <div id="star-progress" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%;"></div></div><br><a href="#" id="star-download" class="btn btn-secondary disabled" download="">Download</a> </div><div class="modal-footer"> <button type="button" id="star-close" class="star-button btn btn-danger" data-dismiss="modal">Close</button> <button type="button" class="star-button btn btn-primary" onclick="run()">Start</button> </div></div></div></div>')
 
 $('#star').modal()
 
@@ -41,6 +41,7 @@ function genImg() {
         if(src !== undefined) {
             if(swiper.isEnd === true) {
                 console_log('Generating image list Finished')
+                percent(swiper.activeIndex, swiper.slides.length)
                 success()
             } else {
                 images.push(src)
