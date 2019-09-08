@@ -1,4 +1,5 @@
 <!--
+    
 ________   ___   ________   ________   ___        _______    ___        ___   ________   _________   
 |\   ____\ |\  \ |\   __  \ |\   ____\ |\  \      |\  ___ \  |\  \      |\  \ |\   ____\ |\___   ___\ 
 \ \  \___| \ \  \\ \  \|\  \\ \  \___| \ \  \     \ \   __/| \ \  \     \ \  \\ \  \___|_\|___ \  \_| 
@@ -47,19 +48,24 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
 
     <body>
         <div id="loading-div" class="loading" style="background: #c99987;">
+            <div class="logo_animation_container">
+                <canvas id="logo_animation" class="logo_animation"></canvas>
+            </div>
             <div class="loading-container">
-                <div class="preloader-wrapper big active">
-                    <div class="spinner-layer spinner-custom">
-                        <div class="circle-clipper left">
-                        <div class="circle"></div>
-                        </div><div class="gap-patch">
-                        <div class="circle"></div>
-                        </div><div class="circle-clipper right">
-                        <div class="circle"></div>
+                <div id="loading-div-cover">
+                    <div class="preloader-wrapper big active">
+                        <div class="spinner-layer spinner-custom">
+                            <div class="circle-clipper left">
+                            <div class="circle"></div>
+                            </div><div class="gap-patch">
+                            <div class="circle"></div>
+                            </div><div class="circle-clipper right">
+                            <div class="circle"></div>
+                            </div>
                         </div>
                     </div>
+                    <p class="theme-color-text">CircleListを読み込んでいます</p>
                 </div>
-                <p class="theme-color-text">CircleListを読み込んでいます</p>
             </div>
         </div>
         <nav class="nav-extended theme-color" style="box-shadow: none; -webkit-box-shadow: none;">
@@ -857,6 +863,8 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
         <script src="https://d.line-scdn.net/r/web/social-plugin/js/thirdparty/loader.min.js" async="async" defer="defer"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.js" integrity="sha256-EzjZPP7sOCQ+ugF/U8x2VH3PEvg3NFjis/dpwogN3T0=" crossorigin="anonymous"></script>
         <script async defer src="https://buttons.github.io/buttons.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
+        <script src="src/leon.js"></script>
         <script src="src/scheck.js"></script>
         <script src="src/reg_sw.js"></script>
     </body>

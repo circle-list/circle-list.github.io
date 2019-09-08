@@ -48,12 +48,18 @@ $(document).ready(function(){
     drawMap()
     cacheVers()
     old_data_list()
+    leon_init()
+
     setTimeout(function() {
         $('#loading-div').addClass('load-end')
         setTimeout(function() {
-            find_old_data()
-        }, 3000)
-    }, 500)
+            $('#loading-div').remove()
+        }, 2000)
+    }, 2500)
+
+    setTimeout(function() {
+        find_old_data()
+    }, 3500)
 })
 
 // PWA
@@ -1458,4 +1464,56 @@ function map2img(map_id) {
             }
         }
     })
+}
+
+// ロード時のロゴアニメーション
+
+let leon, canvas, ctx
+const sw = $('.logo_animation_container').width()
+const sh = $('.logo_animation_container').height()
+const pixelRatio = 1
+
+console.log(sh + ', ' + sw)
+
+function leon_init() {
+    canvas = $('#logo_animation')[0]
+    ctx = canvas.getContext("2d")
+
+    canvas.width = sw * pixelRatio
+    canvas.height = sh * pixelRatio
+    canvas.style.width = sw + 'px'
+    canvas.style.height = sh + 'px'
+    ctx.scale(pixelRatio, pixelRatio)
+
+    leon = new LeonSans({
+        text: 'CircleList',
+        color: ['#FFFFFF'],
+        size: 80 + ((sw - 340) * 0.1),
+        weight: 150,
+        align: "center"
+    });
+
+    requestAnimationFrame(animate)
+    let i, total = leon.drawing.length
+    for (i = 0; i < total; i++) {
+        TweenMax.fromTo(leon.drawing[i], 1.6, {
+            value: 0
+        }, {
+            delay: i * 0.05,
+            value: 1,
+            ease: Power4.easeOut
+        })
+    }
+}
+
+function animate() {
+    requestAnimationFrame(animate)
+
+    ctx.clearRect(0, 0, sw, sh)
+
+    const x = (sw - leon.rect.w) / 2
+    const y = (sh - leon.rect.h) / 2
+    leon.position(x, y)
+
+    leon.draw(ctx)
 }

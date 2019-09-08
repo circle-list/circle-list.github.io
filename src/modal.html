@@ -1,0 +1,32 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<div class="modal fade"  data-backdrop="static" id="star" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Star URL Extracter</h3>
+                <h5>Version 1.0.10</h5>
+            </div>
+            <div class="modal-body">
+                <textarea id="star-log" class="form-control" disabled type="text" style="height: 180px; resize: none;" placeholder="NowLoading..."></textarea>
+                <div class="progress">
+                    <div id="star-progress" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%;"></div>
+                </div>
+                <form>
+                    <div class="form-group">
+                        <label for="star-title">Title</label>
+                        <input type="text" class="form-control" id="star-title">
+                    </div>
+                </form>
+                <a href="#" id="star-download" class="btn btn-info disabled" download="">Download</a>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="star-close" class="star-button btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" class="star-button btn btn-primary" onclick="run()">Start</button>
+            </div>
+        </div>
+    </div>
+</div>
