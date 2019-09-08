@@ -53,18 +53,13 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
             </div>
             <div class="loading-container">
                 <div id="loading-div-cover">
-                    <div class="preloader-wrapper big active">
-                        <div class="spinner-layer spinner-custom">
-                            <div class="circle-clipper left">
-                            <div class="circle"></div>
-                            </div><div class="gap-patch">
-                            <div class="circle"></div>
-                            </div><div class="circle-clipper right">
-                            <div class="circle"></div>
-                            </div>
-                        </div>
+                    <div class="scaling-squares-spinner" :style="spinnerStyle">
+                        <div class="square"></div>
+                        <div class="square"></div>
+                        <div class="square"></div>
+                        <div class="square"></div>
                     </div>
-                    <p class="theme-color-text">CircleListを読み込んでいます</p>
+                    <p class="white-text" style="margin-top: 70px;">Loading...</p>
                 </div>
             </div>
         </div>

@@ -1471,7 +1471,7 @@ function map2img(map_id) {
 let leon, canvas, ctx
 const sw = $('.logo_animation_container').width()
 const sh = $('.logo_animation_container').height()
-const pixelRatio = 1
+const pixelRatio = 2
 
 console.log(sh + ', ' + sw)
 
@@ -1499,7 +1499,7 @@ function leon_init() {
         TweenMax.fromTo(leon.drawing[i], 1.6, {
             value: 0
         }, {
-            delay: i * 0.05,
+            delay: i * 0.1,
             value: 1,
             ease: Power4.easeOut
         })
