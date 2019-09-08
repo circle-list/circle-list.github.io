@@ -35,6 +35,7 @@ function run() {
 function percent(a, b) {
     val = Math.round((a / b) * 100)
     $('#star-progress').css('width', val + '%')
+    $('#star-progress').text(val + '%')
 }
 
 function genImg() {
