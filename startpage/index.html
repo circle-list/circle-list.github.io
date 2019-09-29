@@ -8,18 +8,27 @@
         <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP&display=swap" rel="stylesheet">
         <script src="https://kit.fontawesome.com/272bcde36d.js" crossorigin="anonymous"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
     </head>
     <body>
         <div class="inner">
             <div class=contents>
-                <p>StartPageへようこそ！</p>
-                <hr>
-                <i class="fas fa-cloud"></i><span>これからの天気</span>
-                <div id="weather-container"></div>
-                <hr>
-                <i class="fas fa-newspaper"></i><span>ニュース</span>
-                <ul id="newsfeed"></ul>
-                <p style="font-size: 5px;">Powered by GoogleNews</p>
+                <div>
+                    <p class="ct-message" style="font-size: 2vh !important;" id="ct-message">読み込み中です...</p>
+                    <hr>
+                    <i class="fas fa-cloud"></i><span>これからの天気</span>
+                    <a class="btn">天気詳細</a>
+                    <a class="btn" id="wtr-update">更新</a>
+                    <div id="weather-container">
+                        <p style="margin: 10px;">「更新」ボタンを押すことで、現在位置の天気を表示することができます。その際、位置情報を取得するかどうかの確認ボタンが表示されますので「許可」を押してください。</p>
+                    </div>
+                    <hr>
+                    <i class="fas fa-newspaper"></i><span>ニュースピックアップ</span>
+                    <a class="btn">ニュース一覧</a>
+                </div>
+                <div class="flw">
+                    <ul id="newsfeed"></ul>
+                </div>
             </div>
             <div class="clock">
                 <div class="dates">
@@ -94,16 +103,41 @@
                 <section class="clock__indicator"></section>
                 <section class="clock__indicator"></section>
             </div>
+
+            <div>
+                <p class="version">beta 0.0.2</p>
+                <i class="fas fa-cog setting-icon" id="toggle-setting"></i>
+            </div>
         </div>
         
-          <div id="weather-popup">
+        <div id="weather-popup" class="dn">
+            <p>テスト</p>
+        </div>
 
-          </div>
+        <div id="news-popup" class="dn">
+            <p>テスト</p>
+        </div>
 
-          <!-- すくりぷと -->
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.2.0/js/uikit.min.js"></script>
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.2.0/js/uikit-icons.min.js"></script>
-          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-          <script src="src/script.js"></script>
+        <div id="settings-popup" class="dn">
+            <h3>Settings</h3>
+            <i class="fas fa-times" id="toggle-setting"></i>
+            <hr>
+            <h5>・ユーザーネーム</h5>
+            <input class="uk-input" type="text" placeholder="名前を入力してください" id="settings-name">
+            <p>この名前はトップページで使用されます</p>
+            <h5>・位置情報</h5>
+            <p>現在の天気情報に設定されている地域: <span id="settings-location"></span></p>
+            <p>※位置情報はGPSを使用して取得しています。また、位置データはこの端末内に保存されているため、移動したりした場合には以前の場所の天気が表示される場合があります。</p>
+            <p>その場合は、再度「更新」ボタンを押しなおしてください。</p>
+        </div>
+
+        <!-- すくりぷと -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.2.0/js/uikit.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.2.0/js/uikit-icons.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+        <script src="https://unpkg.com/popper.js@1"></script>
+        <script src="https://unpkg.com/tippy.js@5"></script>
+        <script src="src/script.js"></script>
     </body>
 </html>
