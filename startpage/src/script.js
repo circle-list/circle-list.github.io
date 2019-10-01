@@ -75,40 +75,47 @@ init()
 
 // ニュースフィード
 $.ajax({
-    url: 'https://api.rss2json.com/v1/api.json',
-    method: 'GET',
-    dataType: 'json',
-    data: {
-        rss_url: 'https://news.google.com/rss?topic=ir&hl=ja&gl=JP&ceid=JP:ja'
-    }
+    url: 'https://sp-wtr-api.gq/api/v1/news?type=pickup',
+    dataType: 'json'
 }).done(function (response) {
-    if(response.status != 'ok'){ throw response.message; }
-    for(var i = 0; 6 > i; i++) {
-        $('#newsfeed').append('<li><a href="' + response.items[i].link +  '" target="_blank">' + response.items[i].title + '</a></li>')
+    console.log(response)
+    var r = response
+
+    for(var i = 0; r.length > i; i++) {
+        $('#newsfeed').append('<li id="ns-' + i + '"><a href="' + r[i].link +  '" target="_blank">' + r[i].title + '</a></li>')
+
+        var n_time = new Date(r[i].pubDate)
+        var pubTime = n_time.getFullYear() + '年' + align(n_time.getMonth() + 1) + '月' + n_time.getDate() + '日　' + n_time.getHours() + '時' + align(n_time.getMinutes()) + '分'
+
+        tippy('#ns-' + i, {
+            followCursor: 'horizontal',
+            theme: 'light',
+            content: pubTime
+        })
     }
 })
 
 // お天気
 
 const weatherList = {
-    '01d': {weather: '快晴', icon: 'http://openweathermap.org/img/wn/01d@2x.png'},
-    '02d': {weather: '晴れ', icon: 'http://openweathermap.org/img/wn/02d@2x.png'},
-    '03d': {weather: 'くもり', icon: 'http://openweathermap.org/img/wn/03d@2x.png'},
-    '04d': {weather: 'くもり', icon: 'http://openweathermap.org/img/wn/04d@2x.png'},
-    '09d': {weather: '小雨', icon: 'http://openweathermap.org/img/wn/09d@2x.png'},
-    '10d': {weather: '雨', icon: 'http://openweathermap.org/img/wn/10d@2x.png'},
-    '11d': {weather: '雷雨', icon: 'http://openweathermap.org/img/wn/11d@2x.png'},
-    '13d': {weather: '雪', icon: 'http://openweathermap.org/img/wn/13d@2x.png'},
-    '50d': {weather: '霧', icon: 'http://openweathermap.org/img/wn/50d@2x.png'},
-    '01n': {weather: '快晴', icon: 'http://openweathermap.org/img/wn/01n@2x.png'},
-    '02n': {weather: '晴れ', icon: 'http://openweathermap.org/img/wn/02n@2x.png'},
-    '03n': {weather: 'くもり', icon: 'http://openweathermap.org/img/wn/03n@2x.png'},
-    '04n': {weather: 'くもり', icon: 'http://openweathermap.org/img/wn/04n@2x.png'},
-    '09n': {weather: '小雨', icon: 'http://openweathermap.org/img/wn/09n@2x.png'},
-    '10n': {weather: '雨', icon: 'http://openweathermap.org/img/wn/10n@2x.png'},
-    '11n': {weather: '雷雨', icon: 'http://openweathermap.org/img/wn/11n@2x.png'},
-    '13n': {weather: '雪', icon: 'http://openweathermap.org/img/wn/13n@2x.png'},
-    '50n': {weather: '霧', icon: 'http://openweathermap.org/img/wn/50n@2x.png'}
+    '01d': {weather: '快晴', icon: 'https://openweathermap.org/img/wn/01d@2x.png'},
+    '02d': {weather: '晴れ', icon: 'https://openweathermap.org/img/wn/02d@2x.png'},
+    '03d': {weather: 'くもり', icon: 'https://openweathermap.org/img/wn/03d@2x.png'},
+    '04d': {weather: 'くもり', icon: 'https://openweathermap.org/img/wn/04d@2x.png'},
+    '09d': {weather: '小雨', icon: 'https://openweathermap.org/img/wn/09d@2x.png'},
+    '10d': {weather: '雨', icon: 'https://openweathermap.org/img/wn/10d@2x.png'},
+    '11d': {weather: '雷雨', icon: 'https://openweathermap.org/img/wn/11d@2x.png'},
+    '13d': {weather: '雪', icon: 'https://openweathermap.org/img/wn/13d@2x.png'},
+    '50d': {weather: '霧', icon: 'https://openweathermap.org/img/wn/50d@2x.png'},
+    '01n': {weather: '快晴', icon: 'https://openweathermap.org/img/wn/01n@2x.png'},
+    '02n': {weather: '晴れ', icon: 'https://openweathermap.org/img/wn/02n@2x.png'},
+    '03n': {weather: 'くもり', icon: 'https://openweathermap.org/img/wn/03n@2x.png'},
+    '04n': {weather: 'くもり', icon: 'https://openweathermap.org/img/wn/04n@2x.png'},
+    '09n': {weather: '小雨', icon: 'https://openweathermap.org/img/wn/09n@2x.png'},
+    '10n': {weather: '雨', icon: 'https://openweathermap.org/img/wn/10n@2x.png'},
+    '11n': {weather: '雷雨', icon: 'https://openweathermap.org/img/wn/11n@2x.png'},
+    '13n': {weather: '雪', icon: 'https://openweathermap.org/img/wn/13n@2x.png'},
+    '50n': {weather: '霧', icon: 'https://openweathermap.org/img/wn/50n@2x.png'}
 }
 
 function appendWeather(res) {
@@ -133,24 +140,24 @@ function appendWeather(res) {
 なぜか昼と夜の画像が入れ替わるバグ <- UTC時間のせいだった
 
 const weatherList = {
-    '01n': {weather: '快晴', icon: 'http://openweathermap.org/img/wn/01d@2x.png'},
-    '02n': {weather: '晴れ', icon: 'http://openweathermap.org/img/wn/02d@2x.png'},
-    '03n': {weather: 'くもり', icon: 'http://openweathermap.org/img/wn/03d@2x.png'},
-    '04n': {weather: 'くもり', icon: 'http://openweathermap.org/img/wn/04d@2x.png'},
-    '09n': {weather: '小雨', icon: 'http://openweathermap.org/img/wn/09d@2x.png'},
-    '10n': {weather: '雨', icon: 'http://openweathermap.org/img/wn/10d@2x.png'},
-    '11n': {weather: '雷雨', icon: 'http://openweathermap.org/img/wn/11d@2x.png'},
-    '13n': {weather: '雪', icon: 'http://openweathermap.org/img/wn/13d@2x.png'},
-    '50n': {weather: '霧', icon: 'http://openweathermap.org/img/wn/50d@2x.png'},
-    '01d': {weather: '快晴', icon: 'http://openweathermap.org/img/wn/01n@2x.png'},
-    '02d': {weather: '晴れ', icon: 'http://openweathermap.org/img/wn/02n@2x.png'},
-    '03d': {weather: 'くもり', icon: 'http://openweathermap.org/img/wn/03n@2x.png'},
-    '04d': {weather: 'くもり', icon: 'http://openweathermap.org/img/wn/04n@2x.png'},
-    '09d': {weather: '小雨', icon: 'http://openweathermap.org/img/wn/09n@2x.png'},
-    '10d': {weather: '雨', icon: 'http://openweathermap.org/img/wn/10n@2x.png'},
-    '11d': {weather: '雷雨', icon: 'http://openweathermap.org/img/wn/11n@2x.png'},
-    '13d': {weather: '雪', icon: 'http://openweathermap.org/img/wn/13n@2x.png'},
-    '50d': {weather: '霧', icon: 'http://openweathermap.org/img/wn/50n@2x.png'}
+    '01n': {weather: '快晴', icon: 'https://openweathermap.org/img/wn/01d@2x.png'},
+    '02n': {weather: '晴れ', icon: 'https://openweathermap.org/img/wn/02d@2x.png'},
+    '03n': {weather: 'くもり', icon: 'https://openweathermap.org/img/wn/03d@2x.png'},
+    '04n': {weather: 'くもり', icon: 'https://openweathermap.org/img/wn/04d@2x.png'},
+    '09n': {weather: '小雨', icon: 'https://openweathermap.org/img/wn/09d@2x.png'},
+    '10n': {weather: '雨', icon: 'https://openweathermap.org/img/wn/10d@2x.png'},
+    '11n': {weather: '雷雨', icon: 'https://openweathermap.org/img/wn/11d@2x.png'},
+    '13n': {weather: '雪', icon: 'https://openweathermap.org/img/wn/13d@2x.png'},
+    '50n': {weather: '霧', icon: 'https://openweathermap.org/img/wn/50d@2x.png'},
+    '01d': {weather: '快晴', icon: 'https://openweathermap.org/img/wn/01n@2x.png'},
+    '02d': {weather: '晴れ', icon: 'https://openweathermap.org/img/wn/02n@2x.png'},
+    '03d': {weather: 'くもり', icon: 'https://openweathermap.org/img/wn/03n@2x.png'},
+    '04d': {weather: 'くもり', icon: 'https://openweathermap.org/img/wn/04n@2x.png'},
+    '09d': {weather: '小雨', icon: 'https://openweathermap.org/img/wn/09n@2x.png'},
+    '10d': {weather: '雨', icon: 'https://openweathermap.org/img/wn/10n@2x.png'},
+    '11d': {weather: '雷雨', icon: 'https://openweathermap.org/img/wn/11n@2x.png'},
+    '13d': {weather: '雪', icon: 'https://openweathermap.org/img/wn/13n@2x.png'},
+    '50d': {weather: '霧', icon: 'https://openweathermap.org/img/wn/50n@2x.png'}
 }
 
 */
@@ -272,4 +279,12 @@ $('#settings-name').on('change', function() {
     setStr('sp-username', $('#settings-name').val())
     toastr['success']('名前を変更しました')
     messages()
+})
+
+// 検索ボタンクリック
+$('#search-button').on('click', function() {
+    $('body').addClass('page-mv')
+    setTimeout(function() {
+        window.location.href = 'https://www.google.com/search?q=' + $('#search-input').val()
+    }, 500)
 })

@@ -9,7 +9,6 @@
         <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP&display=swap" rel="stylesheet">
         <script src="https://kit.fontawesome.com/272bcde36d.js" crossorigin="anonymous"></script>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
-        <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-115436840-5"></script>
         <script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'UA-115436840-5');</script>
     </head>
@@ -17,7 +16,7 @@
         <div class="inner">
             <div class=contents>
                 <div>
-                    <p class="ct-message" style="font-size: 2vh !important;" id="ct-message">読み込み中です...</p>
+                    <p class="ct-message" style="font-size: 20px !important;" id="ct-message">読み込み中です...</p>
                     <hr>
                     <i class="fas fa-cloud"></i><span>これからの天気</span>
                     <a class="btn">天気詳細</a>
@@ -108,7 +107,11 @@
             </div>
 
             <div>
-                <p class="version">beta 0.0.2</p>
+                <form id="search-form">
+                    <input id="search-input" type="text" placeholder="Googleで検索" />
+                    <a id="search-button"><i class="fas fa-search"></i></a>
+                </form>
+                <a class="version" href="https://github.com/hideki0403/hideki0403.github.io/tree/master/startpage">beta 0.0.3</a>
                 <i class="fas fa-cog setting-icon" id="toggle-setting"></i>
             </div>
         </div>
