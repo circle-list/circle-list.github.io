@@ -216,6 +216,7 @@ function updateWeather() {
         appendWeather(res)
         toastr["success"](res.city.name + ', ' + res.city.country, "最新の天気を取得しました！")
         $('#settings-location').text(res.city.name + ', ' + res.city.country)
+        $('#location-name').text(res.city.name + ', ' + res.city.country)
     })
 }
 
@@ -290,3 +291,20 @@ $('#search-button').on('click', function() {
         }, 500)
     }
 })
+
+//Sortable
+
+Sortable.create($('.contents')[0], {
+    animation: 150,
+    group: 'sp-sortable-contents',
+	store: {
+		get: function (sortable) {
+			var order = localStorage.getItem(sortable.options.group.name)
+			return order ? order.split('|') : []
+		},
+		set: function (sortable) {
+			var order = sortable.toArray()
+			localStorage.setItem(sortable.options.group.name, order.join('|'))
+		}
+	}
+  })

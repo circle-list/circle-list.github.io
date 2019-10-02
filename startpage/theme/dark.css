@@ -1,7 +1,9 @@
 :root {
     --main-color: rgb(40, 44, 55);
-    --sub-color: rgba(255, 255, 255, 0.05);
+    --sub-color: rgba(255, 255, 255, 0.1);
     --text: rgb(214, 218, 224);
+    --text-sub: rgba(214, 218, 224, 0.4);
+    --text-title: rgba(214, 218, 224, 0.65);
     --btn: #333741;
     --btn-icon: rgba(255,255,255,0.5);
     --popup: rgba(40, 44, 55, 0.85);

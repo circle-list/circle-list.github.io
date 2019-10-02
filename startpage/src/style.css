@@ -57,8 +57,8 @@ i {
 }
 
 .ct-message {
-  font-size: 2vh !important;
-  margin: 0px !important;
+  font-size: 17px !important;
+  margin: 10px 0px 0px 0px;
 }
 
 .dates {
@@ -188,10 +188,6 @@ i {
 
 .blue {
     color: var(--blue)
-}
-
-.contents p {
-  font-size: 85% !important;
 }
 
 .blur {
@@ -402,6 +398,17 @@ i {
   margin-right: 20px;
   height: auto;
   width: 45%;
+}
+
+.box-minitext {
+  font-size: 12px;
+  text-align: right;
+  color: var(--text-sub)
+}
+
+.box-title {
+  color: var(--text-title);
+  display: inline-block;
 }
 
 section:nth-of-type(1) {

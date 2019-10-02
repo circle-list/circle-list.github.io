@@ -16,24 +16,26 @@
     <body>
         <div class="inner">
             <div class=contents>
-                <div class="box">
-                    <p class="ct-message" style="font-size: 20px !important;" id="ct-message">読み込み中です...</p>
+                <div class="box" data-id="1">
+                    <div class="box-title"><i class="fas fa-comment-dots"></i><span>メッセージ</span></div>
+                    <p class="ct-message" id="ct-message">読み込み中です...</p>
                 </div>
-                <div class="box">
-                    <i class="fas fa-cloud"></i><span>これからの天気</span>
+                <div class="box" data-id="2">
+                    <div class="box-title"><i class="fas fa-cloud"></i><span>これからの天気</span></div>
                     <a class="btn">詳細</a>
                     <a class="btn" id="wtr-update">更新</a>
                     <div id="weather-container">
                         <p style="margin: 10px;">「更新」ボタンを押すことで、現在位置の天気を表示することができます。その際、位置情報を取得するかどうかの確認ボタンが表示されますので「許可」を押してください。</p>
                     </div>
+                    <div class="box-minitext"><i class="fas fa-map-marker-alt"></i><span id="location-name">未取得</span></div>
                 </div>
-                <div class="flw box">
-                    <i class="fas fa-newspaper"></i><span>ニュースピックアップ</span>
+                <div class="flw box" data-id="3">
+                    <div class="box-title"><i class="fas fa-newspaper"></i><span>ニュースピックアップ</span></div>
                     <a class="btn">一覧</a>
                     <ul id="newsfeed"></ul>
                 </div>
-                <div class="box">
-                    <i class="fas fa-calendar-day"></i><span>カレンダー</span>
+                <div class="box" data-id="4">
+                    <div class="box-title"><i class="fas fa-calendar-day"></i><span>カレンダー</span></div>
                     <p>実装予定</p>
                 </div>
 
@@ -117,7 +119,7 @@
                     <input id="search-input" type="text" placeholder="Googleで検索" />
                     <a id="search-button"><i class="fas fa-search"></i></a>
                 </form>
-                <a class="version" href="https://github.com/hideki0403/hideki0403.github.io/tree/master/startpage">beta 0.0.4</a>
+                <a class="version" href="https://github.com/hideki0403/hideki0403.github.io/tree/master/startpage">beta 0.0.5</a>
                 <i class="fas fa-cog setting-icon" id="toggle-setting"></i>
             </div>
         </div>
@@ -152,6 +154,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
         <script src="https://unpkg.com/popper.js@1"></script>
         <script src="https://unpkg.com/tippy.js@5"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.10.0/Sortable.js"></script>
         <script src="src/script.js"></script>
     </body>
 </html>
