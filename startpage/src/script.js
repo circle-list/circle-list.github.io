@@ -283,8 +283,10 @@ $('#settings-name').on('change', function() {
 
 // 検索ボタンクリック
 $('#search-button').on('click', function() {
-    $('body').addClass('page-mv')
-    setTimeout(function() {
-        window.location.href = 'https://www.google.com/search?q=' + $('#search-input').val()
-    }, 500)
+    if($('#search-input').val() !== '') {
+        $('body').addClass('page-mv')
+        setTimeout(function() {
+            window.location.href = 'https://www.google.com/search?q=' + $('#search-input').val()
+        }, 500)
+    }
 })
