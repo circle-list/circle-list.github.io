@@ -90,7 +90,8 @@ $.ajax({
         tippy('#ns-' + i, {
             followCursor: 'horizontal',
             theme: 'light',
-            content: pubTime
+            content: pubTime,
+            placement: 'left'
         })
     }
 })
@@ -132,6 +133,11 @@ function appendWeather(res) {
             theme: 'light',
             content: '最高気温: ' + data.main.temp_max + '℃<br>最低気温: ' + data.main.temp_min + '℃<br>湿度: ' + data.main.humidity +'%'
         })
+
+        // ゆき降らせる
+        if(data.weather[0].icon.match(/13/)) {
+            $(document).snowfall()
+        }
     }
 }
 
@@ -188,7 +194,7 @@ $('#wtr-update').on('click', function() {
                 toastr['error'](error, 'エラー')
             } else {
                 setStr('location', {latitude: data.coords.latitude, longitude: data.coords.longitude})
-                toastr['info']('位置情報を更新しました')
+                // toastr['info']('位置情報を更新しました')
                 updateWeather()
             }
         })

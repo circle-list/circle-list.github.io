@@ -173,13 +173,13 @@ i {
 }
 
 .clock__axis {
-  background: none;
-  width: 15px;
-  height: 15px;
-  border-radius: 10px;
+  background: var(--main-color);
   position: absolute;
-  z-index: 4;
-  top: 250px;
+  top: -10%;
+  height: 120%;
+  width: 120%;
+  z-index: 0;
+  border-radius: 500px;
 }
 
 .red {
@@ -280,7 +280,6 @@ i {
 }
 
 .btn {
-  margin-right: 10px;
   display: block;
   position: relative;
   padding: 0px 15px 0px 15px;
@@ -346,6 +345,7 @@ i {
   font-family: 'Noto Sans JP', sans-serif;
 }
 
+/*
 #search-input {
   height: 40px;
   padding: 0px 20px;
@@ -359,22 +359,40 @@ i {
   color: #FFF;
   border: none;
 }
+*/
+
+.input-wrapper {
+  margin-top: 25px;
+  display: block;
+}
+
+#search-input {
+  height: 40px;
+  padding: 0px 20px;
+  width: 80%;
+  border-radius: 30px;
+  outline: 0;
+  background: var(--sub-color);
+  color: #FFF;
+  border: none;
+}
 
 #search-button {
   height: 40px;
   width: 50px;
-  position: absolute;
-  left: 20vw;
-  top: 0;
+  top: -40px;
   color: #fff;
   border: none;
   border-radius: 0 30px 30px 0;
   background: var(--btn);
+  float: right;
+  position: relative;
+  margin-bottom: -30px;
 }
 
 #search-button .fa-search{
   font-size:20px;	
-  position:absolute;
+  position:relative;
   top: 50%;
   left: 45%;
   transform: translate(-50%, -50%);
@@ -409,6 +427,18 @@ i {
 .box-title {
   color: var(--text-title);
   display: inline-block;
+}
+
+.location-update {
+  transition: all 0.2s ease 0s;
+}
+
+.location-update:hover {
+  color: #FFF;
+}
+
+.snowfall-flakes {
+  z-index: 0 !important;
 }
 
 section:nth-of-type(1) {
