@@ -15,8 +15,10 @@
     </head>
     <body>
         <div class="inner">
+            <!-- ここから下メインコンテンツ -->
             <div class=contents>
                 <div class="box" data-id="0">
+                    <i id="edit-button" class="fas fa-times remove-item dn"></i>
                     <div class="box-title"><i class="fas fa-search"></i><span>検索</span></div>
                     <div class="input-wrapper">
                         <input id="search-input" type="text" placeholder="Googleで検索" />
@@ -24,10 +26,12 @@
                     </div>
                 </div>
                 <div class="box" data-id="1">
+                    <i id="edit-button" class="fas fa-times remove-item dn"></i>
                     <div class="box-title"><i class="fas fa-comment-dots"></i><span>メッセージ</span></div>
                     <p class="ct-message" id="ct-message">読み込み中です...</p>
                 </div>
                 <div class="box" data-id="2">
+                    <i id="edit-button" class="fas fa-times remove-item dn"></i>
                     <div class="box-title"><i class="fas fa-cloud"></i><span>これからの天気</span></div>
                     <a class="btn">詳細</a>
                     <div id="weather-container">
@@ -35,12 +39,14 @@
                     </div>
                     <div class="box-minitext location-update" id="wtr-update"><i class="fas fa-map-marker-alt"></i><span id="location-name">未取得</span></div>
                 </div>
-                <div class="flw box" data-id="3">
+                <div class="box" data-id="3">
+                    <i id="edit-button" class="fas fa-times remove-item dn"></i>
                     <div class="box-title"><i class="fas fa-newspaper"></i><span>ニュースピックアップ</span></div>
                     <a class="btn">一覧</a>
                     <ul id="newsfeed"></ul>
                 </div>
                 <div class="box" data-id="4">
+                    <i id="edit-button" class="fas fa-times remove-item dn"></i>
                     <div class="box-title"><i class="fas fa-calendar-day"></i><span>カレンダー</span></div>
                     <p>実装予定</p>
                 </div>
@@ -125,17 +131,18 @@
                     <input id="search-input" type="text" placeholder="Googleで検索" />
                     <a id="search-button"><i class="fas fa-search"></i></a>
                 </form>
-                <a class="version" href="https://github.com/hideki0403/hideki0403.github.io/tree/master/startpage">beta 0.0.6</a>
+                <a class="version" href="https://github.com/hideki0403/hideki0403.github.io/tree/master/startpage">beta 0.0.7</a>
                 <i class="fas fa-cog setting-icon" id="toggle-setting"></i>
+                <i class="fas fa-list list-icon" id="toggle-list"></i>
             </div>
         </div>
         
         <div id="weather-popup" class="dn">
-            <p>テスト</p>
+            <p>WeatherContainer</p>
         </div>
 
         <div id="news-popup" class="dn">
-            <p>テスト</p>
+            <p>NewsContainer</p>
         </div>
 
         <div id="settings-popup" class="dn">

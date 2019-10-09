@@ -300,9 +300,10 @@ $('#search-button').on('click', function() {
 
 //Sortable
 
-Sortable.create($('.contents')[0], {
+sortable = Sortable.create($('.contents')[0], {
     animation: 150,
     group: 'sp-sortable-contents',
+    disabled: true,
 	store: {
 		get: function (sortable) {
 			var order = localStorage.getItem(sortable.options.group.name)
@@ -313,4 +314,73 @@ Sortable.create($('.contents')[0], {
 			localStorage.setItem(sortable.options.group.name, order.join('|'))
 		}
 	}
-  })
+})
+
+// 機能追加/削除トグル
+$('[id=edit-button]').on('click', function() {
+    var parent_id = $(this).parent().data('id')
+    var edit_cnt_list = getStr('sp-hidden-contents')
+    if(edit_cnt_list[parent_id] === undefined) {
+        edit_cnt_list[parent_id] = false
+    }
+
+    edit_cnt_list[parent_id] = !edit_cnt_list[parent_id]
+
+    if(edit_cnt_list[parent_id] === true) {
+        $(this).removeClass('remove-item')
+        $(this).addClass('add-item')
+    } else {
+        $(this).removeClass('add-item')
+        $(this).addClass('remove-item')
+    }
+
+    setStr('sp-hidden-contents', edit_cnt_list)
+})
+
+// 非表示に設定されている項目を非表示に
+function hiddenItem() {
+    var hidden_items = getStr('sp-hidden-contents')
+    var hidden_items_keys = Object.keys(hidden_items)
+    for(var i = 0; hidden_items_keys.length > i; i++) {
+        if(hidden_items[hidden_items_keys[i]] === true) {
+            var itm = $('[data-id="' + hidden_items_keys[i] + '"]')
+            itm.addClass('dn')
+            itm.children('#edit-button').addClass('add-item')
+            itm.children('#edit-button').removeClass('remove-item')
+        }
+    }
+}
+
+hiddenItem()
+
+list_toggle = false
+
+$('#toggle-list').on('click', function() {
+    if(list_toggle === false) {
+        list_toggle = true
+        $('.box').removeClass('dn')
+        $('[id=edit-button]').removeClass('dn')
+        sortable.option('disabled', false)
+        toastr['info']('項目をドラックすることで並び替えが可能です')
+        setTimeout(function() {
+            toastr['info']('もう一度並び替えボタンをクリックすることで編集を終了できます')
+        }, 3000)
+    } else {
+        list_toggle = false
+        hiddenItem()
+        $('[id=edit-button]').addClass('dn')
+        sortable.option('disabled', true)
+        toastr['success']('設定を保存しました')
+    }
+})
+
+/* Tippy */
+tippy('#toggle-setting', {
+    theme: 'light',
+    content: '設定'
+})
+
+tippy('#toggle-list', {
+    theme: 'light',
+    content: '並び替え'
+})

@@ -275,7 +275,7 @@ i {
   margin-top: 25px;
 }
 
-.dn {
+html .dn {
   display: none;
 }
 
@@ -323,6 +323,21 @@ i {
   opacity: 1;
   font-size: 200%;
   transform: rotateZ(90deg);
+}
+
+.list-icon {
+  margin: 20px;
+  opacity: 0.3;
+  font-size: 200%;
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  position: absolute;
+  bottom: 0px;
+  left: 70px;
+}
+
+.list-icon:hover {
+  opacity: 1;
 }
 
 #weather-container {
@@ -416,6 +431,37 @@ i {
   margin-right: 20px;
   height: auto;
   width: 45%;
+  position: relative;
+}
+
+.remove-item {
+  position: absolute;
+  left: -20px;
+  top: -15px;
+  background: rgba(255,255,255,0.3);
+  font-size: 20px;
+  padding: 10px 13px;
+  border-radius: 50px;
+  transition: all 0.2s ease 0s;
+  cursor: pointer;
+}
+
+.remove-item:hover {
+  color: var(--red)
+}
+
+.add-item {
+  position: absolute;
+  left: -20px;
+  top: -15px;
+  background: rgba(255,255,255,0.3);
+  color: var(--blue);
+  font-size: 20px;
+  padding: 10px 13px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.2s ease 0s;
+  transform: rotateZ(45deg);
 }
 
 .box-minitext {
