@@ -57,19 +57,22 @@ function init() {
 
 var week = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 
-setInterval(function() {
-    var now = new Date()
-    var main_clk = now.getHours() + ':' + align(now.getMinutes())
-    var sub_clk = ':' + align(now.getSeconds())
-    $('#main_clock').text(main_clk)
-    $('#sub_clock').text(sub_clk)
-
-    $('#set-second').css('transform', 'rotateZ(' + (now.getSeconds() * 6)  + 'deg)')
-
-    if(main_clk + sub_clk === '0:00:00') {
-        init()
-    }
-}, 1000)
+// ミリ秒を取得してタイミングを合わせる
+setTimeout(function() {
+    setInterval(function() {
+        var now = new Date()
+        var main_clk = now.getHours() + ':' + align(now.getMinutes())
+        var sub_clk = ':' + align(now.getSeconds())
+        $('#main_clock').text(main_clk)
+        $('#sub_clock').text(sub_clk)
+    
+        $('#set-second').css('transform', 'rotateZ(' + (now.getSeconds() * 6)  + 'deg)')
+    
+        if(main_clk + sub_clk === '0:00:00') {
+            init()
+        }
+    }, 1000)
+}, (1000 - (new Date()).getMilliseconds()))
 
 init()
 
@@ -383,4 +386,61 @@ tippy('#toggle-setting', {
 tippy('#toggle-list', {
     theme: 'light',
     content: '並び替え'
+})
+
+cld_month = 0
+
+var month_eng = ['January','February','March','April','May','June','July','Augest','September','October','November','December']
+
+// カレンダー
+function calender() {
+    $('#calender-frame').empty()
+    $('#calender-frame').append(' <p class="red">Sun</p><p>Mon</p><p>Tue</p><p>Wed</p><p>Thu</p><p>Fri</p><p class="blue">Sat</p>')
+
+    var d = new Date()
+    
+    d.setMonth(d.getMonth() + cld_month)
+
+    var date = new Date(d.getFullYear() + '/' + (d.getMonth() + 1) + '/1')
+    var last = new Date(d.getFullYear(), (d.getMonth() + 1), 0)
+    
+    for(var i = 0; date.getDay() > i; i++) {
+        $('#calender-frame').append('<p></p>')
+    }
+
+    for(var i = 0; last.getDate() > i; i++) {
+        var css = []
+
+        if(i + 1 === d.getDate() && cld_month === 0) {
+            css.push('today')
+        }
+
+        if((i + date.getDay()) % 7 === 0) {
+            css.push('red')
+        }
+
+        if((i + date.getDay() + 1) % 7 === 0) {
+            css.push('blue')
+        }
+
+        if(css.length === 0) {
+            css.push('cld-normal')
+        }
+
+        $('#calender-frame').append('<p class="' + css.join(' ') + '">' + (i + 1) + '</p>')
+    }
+
+    $('#cld-month').text(month_eng[d.getMonth()] + ' ' + d.getFullYear())
+}
+
+calender()
+
+$('#cld-next').on('click', function() {
+    cld_month++
+    calender()
+})
+
+$('#cld-prev').on('click', function() {
+    cld_month--
+    calender()
 })
