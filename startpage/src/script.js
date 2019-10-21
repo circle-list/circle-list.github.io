@@ -1,3 +1,7 @@
+VERSION = 'beta 0.0.9'
+
+$('#sp-version').text(VERSION)
+
 function getStr(d) {
     if(localStorage.getItem(d) === null) {
         localStorage.setItem(d, '{}')
@@ -58,23 +62,25 @@ function init() {
 var week = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 
 // ミリ秒を取得してタイミングを合わせる
-setTimeout(function() {
-    setInterval(function() {
-        var now = new Date()
-        var main_clk = now.getHours() + ':' + align(now.getMinutes())
-        var sub_clk = ':' + align(now.getSeconds())
-        $('#main_clock').text(main_clk)
-        $('#sub_clock').text(sub_clk)
+$(document).ready(function() {
+    setTimeout(function() {
+        setInterval(function() {
+            var now = new Date()
+            var main_clk = now.getHours() + ':' + align(now.getMinutes())
+            var sub_clk = ':' + align(now.getSeconds())
+            $('#main_clock').text(main_clk)
+            $('#sub_clock').text(sub_clk)
+        
+            $('#set-second').css('transform', 'rotateZ(' + (now.getSeconds() * 6)  + 'deg)')
+        
+            if(main_clk + sub_clk === '0:00:00') {
+                init()
+            }
+        }, 1000)
+    }, (1000 - (new Date()).getMilliseconds()))
     
-        $('#set-second').css('transform', 'rotateZ(' + (now.getSeconds() * 6)  + 'deg)')
-    
-        if(main_clk + sub_clk === '0:00:00') {
-            init()
-        }
-    }, 1000)
-}, (1000 - (new Date()).getMilliseconds()))
-
-init()
+    init()
+})
 
 // ニュースフィード
 $.ajax({
@@ -378,7 +384,7 @@ $('#toggle-list').on('click', function() {
 })
 
 /* Tippy */
-tippy('#toggle-setting', {
+tippy('.setting-tip', {
     theme: 'light',
     content: '設定'
 })

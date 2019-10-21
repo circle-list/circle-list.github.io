@@ -33,7 +33,7 @@
                 <div class="box" data-id="2">
                     <i id="edit-button" class="fas fa-times remove-item dn"></i>
                     <div class="box-title"><i class="fas fa-cloud"></i><span>これからの天気</span></div>
-                    <a class="btn">詳細</a>
+                    <!-- <a class="btn">詳細</a> -->
                     <div id="weather-container">
                         <p style="margin: 10px;">このメッセージの下の「<i class="fas fa-map-marker-alt"></i><span>未取得</span>」を押すことで、現在位置の天気を表示することができます。その際、位置情報を取得するかどうかの確認ボタンが表示されますので「許可」を押してください。</p>
                     </div>
@@ -42,14 +42,16 @@
                 <div class="box" data-id="3">
                     <i id="edit-button" class="fas fa-times remove-item dn"></i>
                     <div class="box-title"><i class="fas fa-newspaper"></i><span>ニュースピックアップ</span></div>
-                    <a class="btn">一覧</a>
+                    <!-- <a class="btn">一覧</a> -->
                     <ul id="newsfeed"></ul>
                 </div>
                 <div class="box" data-id="4">
                     <i id="edit-button" class="fas fa-times remove-item dn"></i>
                     <div class="box-title"><i class="fas fa-calendar-day"></i><span>カレンダー</span></div>
-                    <a class="btn" id="cld-next">来月</a>
-                    <a class="btn" id="cld-prev">先月</a>
+                    <i class="far fa-arrow-alt-circle-right btn" id="cld-next"></i>
+                    <i class="far fa-arrow-alt-circle-left btn" id="cld-prev"></i>
+                    <!-- <a class="btn" id="cld-next">来月</a>
+                    <a class="btn" id="cld-prev">先月</a> -->
                     <div id="calender-control" class="calender-control">
                         <p class="calender-month" id="cld-month">2019/10</p>
                     </div>
@@ -136,8 +138,8 @@
                     <input id="search-input" type="text" placeholder="Googleで検索" />
                     <a id="search-button"><i class="fas fa-search"></i></a>
                 </form>
-                <a class="version" href="https://github.com/hideki0403/hideki0403.github.io/tree/master/startpage">beta 0.0.8</a>
-                <i class="fas fa-cog setting-icon" id="toggle-setting"></i>
+                <a class="version" id="sp-version" href="https://github.com/hideki0403/hideki0403.github.io/tree/master/startpage"></a>
+                <i class="fas fa-cog setting-icon setting-tip" id="toggle-setting"></i>
                 <i class="fas fa-list list-icon" id="toggle-list"></i>
             </div>
         </div>

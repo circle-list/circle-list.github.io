@@ -282,19 +282,22 @@ html .dn {
 .btn {
   display: block;
   position: relative;
-  padding: 0px 15px 0px 15px;
+  /* padding: 0px 15px 0px 15px; */
   text-align: center;
   text-decoration: none;
   color: var(--text);
-  background: var(--sub-color);
+  /* background: var(--sub-color); */
   border-radius: 30px;
   float: right;
   transition: all 0.3s ease 0s;
   margin-left: 10px;
+  font-size: 20px;
+  color: var(--btn-icon);
+  cursor: pointer;
 }
 
 .btn:hover {
-  background: rgb(49, 49, 49);
+  /*background: rgb(49, 49, 49);*/
   color:  #FFF;
   text-decoration: none;
 }
