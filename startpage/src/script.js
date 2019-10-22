@@ -1,4 +1,4 @@
-VERSION = 'beta 0.0.9'
+VERSION = 'beta 0.0.10'
 
 $('#sp-version').text(VERSION)
 
@@ -72,6 +72,9 @@ $(document).ready(function() {
             $('#sub_clock').text(sub_clk)
         
             $('#set-second').css('transform', 'rotateZ(' + (now.getSeconds() * 6)  + 'deg)')
+
+            // ページタイトルも変更する
+            $('title').text(main_clk + sub_clk + ' - ' + now.getFullYear() + '/' + align(now.getMonth() + 1) + '/' + now.getDate())
         
             if(main_clk + sub_clk === '0:00:00') {
                 init()
@@ -401,7 +404,7 @@ var month_eng = ['January','February','March','April','May','June','July','Auges
 // カレンダー
 function calender() {
     $('#calender-frame').empty()
-    $('#calender-frame').append(' <p class="red">Sun</p><p>Mon</p><p>Tue</p><p>Wed</p><p>Thu</p><p>Fri</p><p class="blue">Sat</p>')
+    $('#calender-frame').append('<p class="red">Sun</p><p>Mon</p><p>Tue</p><p>Wed</p><p>Thu</p><p>Fri</p><p class="blue">Sat</p>')
 
     var d = new Date()
     
