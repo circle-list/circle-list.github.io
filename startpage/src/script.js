@@ -1,4 +1,4 @@
-VERSION = 'beta 0.0.10'
+VERSION = 'beta 0.0.11'
 
 $('#sp-version').text(VERSION)
 
@@ -232,7 +232,7 @@ function updateWeather() {
         var res = JSON.parse(response)
         console.log(res)
         appendWeather(res)
-        toastr["success"](res.city.name + ', ' + res.city.country, "最新の天気を取得しました！")
+        toastr["success"]("最新の天気を取得しました！")
         $('#settings-location').text(res.city.name + ', ' + res.city.country)
         $('#location-name').text(res.city.name + ', ' + res.city.country)
     })

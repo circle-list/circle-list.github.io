@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>ぴっぴ化するやつ | hideki0403.github.io</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.2.0/css/uikit.min.css" />
+        <link rel="stylesheet" href="src/style.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.2.0/js/uikit.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.2.0/js/uikit-icons.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <!-- Navbar -->
+        <nav class="uk-navbar-container" uk-navbar style="background: rgb(226, 191, 162);">
+            <div class="uk-navbar-left">
+                <a class="uk-navbar-item uk-logo" href="#" style="color: #FFF">ぴっぴ化するやつ</a>
+            </div>
+            <div class="uk-navbar-right">
+                <ul class="uk-navbar-nav">
+                    <li><a class="uk-navbar-item" style="color: #FFF;" onclick="tweet('「し」を「ぴっぴ」に置き換えられるツールです。 https://hideki0403.github.io/pippi/');">シェアする</a></li>
+                    <li><a style="color: #FFF;" href="https://hideki0403.github.io/">ホームに戻る</a></li>
+                </ul>
+            </div>
+        </nav>
+        <!-- MainContents-->
+        <div class="uk-container" style="margin-top: 50px; margin-bottom: 100px;">
+
+            <div class="uk-margin">
+                <input id="text-input" class="uk-input" type="text" placeholder="ぴっぴ化したい文章を打ち込んでね">
+                <button id="run" class="uk-button uk-button-default">ぴっぴ化</button>
+            </div>
+
+            <!-- Updates
+            <h2>更新履歴</h2>
+            <hr>
+            <h4>Version 1.0.0</h4>
+            <p>公開しました。 (2019/9/17)</p>
+
+            <hr>
+            <h5>このサイトについて</h5>
+            <p>このサイトは<a href="https://twitter.com/hideki_0403">ゆきねこ</a>が制作・管理しています。ボタンの追加希望とかあったら気軽にDM投げてね</p>
+            -->
+        </div>
+        <script src="script.js"></script>
+    </body>
+</html>
