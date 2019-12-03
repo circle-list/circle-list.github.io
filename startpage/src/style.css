@@ -346,6 +346,7 @@ html .dn {
 
 #weather-container {
   margin-top: 20px;
+  color: var(--text);
 }
 
 .flw {
@@ -517,6 +518,7 @@ html .dn {
   margin: 5px;
   font-size: 15px;
   margin: 10px 0px;
+  color: var(--text)
 }
 
 section:nth-of-type(1) {

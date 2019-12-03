@@ -226,7 +226,7 @@ function init() {
     $('#cc-list-add-ab').append('<option value="" disabled selected>選択 (a)</option>')
 
     const num = ['01', '02', '03', '04', '05', '06', '07', '08', '09', 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99]
-    const day = ['1日目 (金曜日)', '2日目 (土曜日)', '3日目 (日曜日)', '4日目 (月曜日)']
+    const day = ['1日目 (土曜日)', '2日目 (日曜日)', '3日目 (月曜日)', '4日目 (火曜日)']
     const table = ['a', 'b', 'ab']
 
     for(var ii = 0; Object.keys(island).length > ii; ii++) {
@@ -610,8 +610,6 @@ function updateList(dc) {
     //$('#cc-list-circle-wrapper').append('<li><div class="collapsible-header"><i class="material-icons" id="check-box" data-id=""></i><span>日目</span><span></span><span></span><span></span></div><div class="collapsible-body grey lighten-4"><p class="memo"></p><p></p></div></li>')
 }
 
-_ank = "KT44Gn44GE44KL44Go44GE44GG44GT44Go44Gv44CB44GN44Gj44Go5oqA6KGT44KS5oyB44Gj44Gm44GE44KL44Go44GE44GG44GT44Go44Gg44KN44GG44GL44KJ5pyA5b"
-
 // CheckBox (サークルの方)
 $('#cc-list-circle-wrapper').on('click', '#check-box', function() {
     var id =  $(this).data('id')
@@ -779,8 +777,6 @@ $('#cc-buylist-wrapper').on('click', '#buy-delete-button', function() {
     $('#remove-item-modal div').modal()
     M.Modal.getInstance($('#remove-item-modal div')).open()
 })
-
-_this = "L44Gg44GR44Gf44GP44GV44KT44Gu5Lq644Gr5L2/44Gj44Gm44KC44KJ44GE44Gf44GE44CC44GT44KT44Gq44GX44KH44GG44KC44Gq44GE44KI44GG44Gq44GK6aGY44GE44Gg44GR4"
 
 // マップ描画関係
 var mapAssets = {
@@ -1171,10 +1167,6 @@ function divCalc(d) {
     return box
 }
 
-function output() {
-    console.log(decodeURIComponent(escape(atob(_th + _ank + _you + _use + _this + _svc))))
-}
-
 function drawMap() {
     for(var i = 0; Object.keys(mapAssets).length > i; i++) {
         var tmp_assets = mapAssets[Object.keys(mapAssets)[i]]
@@ -1365,8 +1357,6 @@ function drawMap() {
     drawColor()
 }
 
-_svc = "4Gp44CB44Gp44GG44GL44KI44KN44GX44GP44GK6aGY44GE44GX44G+44GZ44CC"
-
 // 色付けるやつ
 function drawColor() {
     var c_tmp = {}
@@ -1517,3 +1507,19 @@ function animate() {
 
     leon.draw(ctx)
 }
+
+// シェアボタン
+$('[id=social-share]').on('click', function() {
+    if(navigator.share) {
+        navigator.share({
+          title: 'CircleList',
+          text: 'コミケで行きたいサークルをリスト化できるサービス CircleList',
+          url: 'https://hideki0403.github.io/comiket/',
+        })
+        .then(() => {
+          console.log('Successful share')
+        })
+    } else {
+        alert('お使いのブラウザは非対応です。')
+    }
+})

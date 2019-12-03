@@ -101,7 +101,7 @@ $.ajax({
 
         tippy('#ns-' + i, {
             followCursor: 'horizontal',
-            theme: 'light',
+            theme: 'dark',
             content: pubTime,
             placement: 'left'
         })
@@ -142,8 +142,8 @@ function appendWeather(res) {
         var w_icon = tmp.icon
         $('#weather-container').append('<div class="weather-box" id="wb-' + i + '"><p>' + w_time + '</p><img src="' + w_icon + '"><p>' + w_temp + '</p></div>')
         tippy('#wb-' + i, {
-            theme: 'light',
-            content: '最高気温: ' + data.main.temp_max + '℃<br>最低気温: ' + data.main.temp_min + '℃<br>湿度: ' + data.main.humidity +'%'
+            theme: 'dark',
+            content: '天気: ' + tmp.weather + '<br>最高気温: ' + data.main.temp_max + '℃<br>最低気温: ' + data.main.temp_min + '℃<br>湿度: ' + data.main.humidity +'%'
         })
 
         // ゆき降らせる
@@ -217,16 +217,20 @@ $('#wtr-update').on('click', function() {
 
 function updateWeather() {
     toastr['info']('天気情報を取得中')
-    const positionData = getStr('location')
-    const lat = positionData.latitude
-    const lon = positionData.longitude
-
-    console.log(lat + lon)
+    if(getStr('sp-cityid') === '{}') {
+        const positionData = getStr('location')
+        const lat = positionData.latitude
+        const lon = positionData.longitude
+        urlQuery = 'lat=' + lat + '&lon=' + lon
+        console.log(lat + ' / ' + lon)
+    } else {
+        urlQuery = 'id=' + getStr('sp-cityid')
+    }
 
     $.ajax({
         url: 'https://sp-wtr-api.gq/api/v1/weather',
         dataType: 'json',
-        data: 'lat=' + lat + '&lon=' + lon,
+        data: urlQuery,
     }).done(function (response) {
         $('#weather-container').empty()
         var res = JSON.parse(response)
@@ -388,12 +392,12 @@ $('#toggle-list').on('click', function() {
 
 /* Tippy */
 tippy('.setting-tip', {
-    theme: 'light',
+    theme: 'dark',
     content: '設定'
 })
 
 tippy('#toggle-list', {
-    theme: 'light',
+    theme: 'dark',
     content: '並び替え'
 })
 
@@ -404,7 +408,7 @@ var month_eng = ['January','February','March','April','May','June','July','Auges
 // カレンダー
 function calender() {
     $('#calender-frame').empty()
-    $('#calender-frame').append('<p class="red">Sun</p><p>Mon</p><p>Tue</p><p>Wed</p><p>Thu</p><p>Fri</p><p class="blue">Sat</p>')
+    $('#calender-frame').append('<p class="red">Sun</p><p class="cld-normal">Mon</p><p class="cld-normal">Tue</p><p class="cld-normal">Wed</p><p class="cld-normal">Thu</p><p class="cld-normal">Fri</p><p class="blue">Sat</p>')
 
     var d = new Date()
     

@@ -1,0 +1,17 @@
+:root {
+    --main-color: rgb(255, 255, 255);
+    --sub-color: rgb(221, 217, 209);
+    --text: rgb(149, 143, 139);
+    --text-sub: rgba(149, 143, 139, 0.7);
+    --text-title: rgb(144, 138, 134);
+    --btn: rgb(149, 143, 139);
+    --btn-icon: rgb(149, 143, 139);
+    --popup: rgba(40, 44, 55, 0.85);
+    --background: rgb(221, 217, 209);
+    --scrollbarTrack: rgb(29, 32, 40);
+    --scrollbarHandle: rgb(51, 56, 70);
+    --scrollbarHandleHover: rgb(61, 68, 84);
+    --red: #ff6262;
+    --blue: #62b7ff;
+    --link: rgb(234, 154, 82);
+}

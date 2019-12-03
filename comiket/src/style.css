@@ -359,3 +359,13 @@ h5 {
       transform: translate(150%,-150%) scale(2,2);
     }
   }
+
+.share-btn {
+    height: 20px !important;
+    margin-top: -12px !important;
+    line-height: 20px !important;
+}
+
+.share-btn i {
+    font-size: 20px !important;
+}
