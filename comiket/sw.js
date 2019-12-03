@@ -6,18 +6,7 @@ var CACHE_STATIC_VERSION = 'static-v2.5'
 // フォント変更やmaterialize,jQueryなどの外部ライブラリ更新時のみ変更
 var CACHE_DYNAMIC_VERSION = 'dynamic-v3'
 
-function notice_update() {
-  /*
-  try {
-    setTimeout(function() {
-      M.toast({html: '更新が完了しました。再読み込みをしてください。<button class="btn-flat toast-action" onclick="location.reload();">再読み込み</button>', displayLength: 'stay'})
-      console.log('[Service Worker Notice] Successfull.')
-    }, 10000)
-  } catch(error) {
-    console.log('[Service Worker Notice] Error: ' + error)
-  }
-  */
-}
+importScripts("https://unpkg.com/service-worker-updatefound-refresh-dialog@1.1.0/dist/service-worker-updatefound-refresh-dialog.umd.js");
 
 // 以下メイン処理
 self.addEventListener('install', function(event) {
