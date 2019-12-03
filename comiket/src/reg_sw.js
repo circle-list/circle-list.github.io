@@ -5,7 +5,7 @@ if ('serviceWorker' in navigator) {
         registraion.update();
         serviceWorkerUpdatefoundRefreshDialog.register(registraion, {
           message: '更新があります。ページを再読み込みしてください。<br>ここをクリックするとページを再読み込みします。',
-          onClick: location.reload()
+          //onClick: location.reload()
       })
     })
 }
