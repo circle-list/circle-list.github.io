@@ -217,7 +217,7 @@ $('#wtr-update').on('click', function() {
 
 function updateWeather() {
     toastr['info']('天気情報を取得中')
-    if(getStr('sp-cityid') === '{}') {
+    if(getStr('sp-cityid') !== '{}') {
         const positionData = getStr('location')
         const lat = positionData.latitude
         const lon = positionData.longitude
