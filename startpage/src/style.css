@@ -22,6 +22,7 @@ body {
   color: white;
   position: relative;
   user-select: none;
+  transition: 1s;
 }
 
 body::-webkit-scrollbar {
