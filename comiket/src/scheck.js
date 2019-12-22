@@ -25,10 +25,89 @@ function c(t) {
     console.log(t)
 }
 
+function getConfig(d) {
+    var c = JSON.parse(localStorage.getItem('config'))
+    if(c !== null) {
+        return (c)[d]
+    } else {
+        return undefined
+    }
+}
+
 /*  ErrorHandler  */
-window.onerror = function(msg, url, line, col) {  
-    M.toast({html: '<b class="red-text text-accent-1" style="font-weight: bold;">' + msg + ' at line' + line + ', col' + col + '</b>'})
-};
+window.onerror = function(msg, url, line, col) {
+    M.toast({html: '<b class="red-text text-accent-1" style="font-weight: bold;">エラーが発生しました</b>'})
+    if(getConfig('errorReport') !== false) {
+
+        var cache_version = []
+        caches.keys()
+        .then(function(keyList) {
+            return Promise.all(keyList.map(function(key) {
+                cache_version.push(key.replace('-', ': '))
+            })
+        )})
+
+        var errorReport = {
+            report: {
+                time: new Date(),
+                info: {
+                    vendor: window.navigator.vendor,
+                    userAgent: window.navigator.userAgent,
+                    language: window.navigator.language
+                },
+                connection: {
+                    type: window.navigator.connection.type,
+                    effectiveType: window.navigator.connection.effectiveType,
+                    downlink: window.navigator.connection.downlink
+                },
+                cache: cache_version
+            },
+            error: {
+                errorMessage: msg,
+                line: line,
+                col: col,
+                url: url
+            }
+        }
+
+        if(window.navigator.onLine) {
+            $.ajax({
+                url:'https://sp-wtr-api.gq/api/v1/circlelist/error',
+                type:'POST',
+                data: errorReport
+            })
+            .done(data => {
+                console.log(data)
+            })
+            .fail(data => {
+                console.log(data)
+                console.log(errorReport)
+                M.toast({html: '<b class="red-text text-accent-1" style="font-weight: bold;">エラー情報の送信に失敗しました</b>'})
+            })
+
+            // バグが発生するキャッシュが原因で起動しなくなる可能性もあるのでキャッシュを削除する
+            caches.keys()
+            .then(function(keyList) {
+                return Promise.all(keyList.map(function(key) {
+                    return caches.delete(key)
+                }));
+            }).then(function() {
+                // ServiceWorkerをいったん解除
+                navigator.serviceWorker.getRegistrations()
+                .then(registrations => {
+                    for (let registration of registrations) {
+                    registration.unregister()
+                    }
+                })
+            })
+
+        } else {
+            // オフラインだった場合はlocalStorageに保存して次回起動時に投げる
+            localStorage.setItem('errorStack', JSON.stringify(errorReport))
+        }
+    }
+
+}
 
 /*  MaterializeJS Loader */
 
@@ -253,6 +332,7 @@ function init() {
     $('#cc-list-add-ab').formSelect()
 
     $('#cc-setting-disableReset').prop('checked', config['disableReset'])
+    $('#cc-setting-errorReport').prop('checked', config['errorReport'])
 }
 
 // StorageCheck
@@ -276,6 +356,22 @@ function ConfigCheck() {
         localStorage.setItem('old_version', '[]')
     }
 
+    if(localStorage.getItem('errorStack') !== null) {
+        $.ajax({
+            url:'https://sp-wtr-api.gq/api/v1/circlelist/error',
+            type:'POST',
+            data: JSON.parse(localStorage.getItem('errorStack'))
+        })
+        .done(data => {
+            console.log(data)
+            localStorage.setItem('errorStack', null)
+        })
+        .fail(data => {
+            console.log(data)
+            console.log(errorReport)
+        })
+    }
+
     // メモエリア初期化
     $('#cc-memo-area').val(localStorage.getItem('memo'))
     M.textareaAutoResize($('#cc-memo-area'))
@@ -296,11 +392,10 @@ function ConfigCheck() {
     if(config['version'] === undefined) {
         config['version'] = comiketName
     }
+    if(config['errorReport'] === undefined) {
+        config['errorReport'] = true
+    }
     localStorage.setItem('config', JSON.stringify(config))
-}
-
-function getConfig(d) {
-    return localStorage.getItem(config[d])
 }
 
 // 前バージョンデータ検出処理
@@ -1402,6 +1497,14 @@ $('#cc-setting-disableReset').on('click', function() {
     console.log($('#cc-setting-disableReset').prop('checked'))
     var config = JSON.parse(localStorage.getItem('config'))
     config['disableReset'] = $('#cc-setting-disableReset').prop('checked')
+    localStorage.setItem('config', JSON.stringify(config))
+})
+
+// 自動バグレポート機能ON/OFF
+$('#cc-setting-errorReport').on('click', function() {
+    console.log($('#cc-setting-errorReport').prop('checked'))
+    var config = JSON.parse(localStorage.getItem('config'))
+    config['errorReport'] = $('#cc-setting-errorReport').prop('checked')
     localStorage.setItem('config', JSON.stringify(config))
 })
 

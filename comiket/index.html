@@ -14,7 +14,7 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>CircleList</title>
+        <title>CircleList - C97対応版</title>
         <meta name="theme-color" content="#c99987">
         <link rel="manifest" href="manifest.json">
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
@@ -214,10 +214,14 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
                 <hr>
                 <h6>サークル登録時に項目がリセットされるようにする</h6>
                 <br>
-                <label>
-                    <input type="checkbox" class="filled-in" id="cc-setting-disableReset"/>
-                    <span>初期設定: OFF</span>
-                </label>
+                <div class="switch">
+                    <label>
+                    OFF
+                    <input type="checkbox" id="cc-setting-disableReset">
+                    <span class="lever"></span>
+                    ON
+                    </label>
+                </div>
                 <br>
                 <hr>
                 <h6>CircleListをインストールする (Android/PC限定)</h6>
@@ -237,12 +241,25 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
                 <a class="waves-effect waves-light btn yellow darken-3" id="cache-clear"><i class="material-icons left">delete</i>キャッシュクリア</a>
                 <p>キャッシュを削除してサーバーからデータを再取得します。正しく動作しない場合や、バージョンが新しくならない場合に使用してみてください。</p>
                 <div id="cc-info-cache_vers"></div>
-                <br>
-                <h6>全データ削除</h6>
                 <hr>
-                <p class="red-text">悪用厳禁。この機能を使用して何か問題が発生したとしても開発者は責任を負いかねます。</p>
-                <p>初期化ロックを解除しなければ初期化できません。</p>
+                <h6>全データ削除</h6>
+                <p class="red-text">この機能を使用して、何か問題が発生したとしても開発者は責任を負いかねます。</p>
+                <p>画面左上のメニュー内にある「初期化ロック」をタップすることで下のボタンが押せるようになります。</p>
                 <a id="all_clear" class="waves-effect waves-light btn small-btn red" disabled onclick="localStorage.clear()">初期化</a>
+                <hr>
+                <h6>エラー情報送信</h6>
+                <p>エラーが発生した際に、自動的にエラーの内容を開発元のサーバーへ送信します。</p>
+                <p>送信されるデータには個人を特定できるものは含まれていません。</p>
+                <p>このデータはバグの修正やシステムの安定化のために使用します。</p>
+                <div class="switch">
+                    <label>
+                    OFF
+                    <input type="checkbox" id="cc-setting-errorReport">
+                    <span class="lever"></span>
+                    ON
+                    </label>
+                </div>
+
             </div>
             <div id="import-modal" class="modal">
                 <div class="modal-content">
