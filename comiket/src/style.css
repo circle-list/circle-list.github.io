@@ -6,11 +6,27 @@
 */
 
 .theme-color {
-    background: #c99987 !important;
+    background: var(--theme-color) !important;
 }
 
 .theme-color-text {
-    color: #FFF !important;
+    color: var(--text-color) !important;
+}
+
+.text-color {
+    color: var(--text-color);
+}
+
+.normal-text {
+    color: var(--normal-text) !important;
+}
+
+.tabs.tabs-transparent .tab {
+    background: var(--tabs);
+}
+
+.tabs .tab {
+    background: var(--tab);
 }
 
 .tabs.tabs-transparent .tab a:hover, .tabs.tabs-transparent .tab a.active {
@@ -22,24 +38,82 @@
 }
 
 .tabs .tab a{
-    color:#c99987 !important;
+    color: var(--tab-a) !important;
 }
 
 .tabs .tab a:hover {
-    color:#af7f6d !important;
+    color: var(--tab-a-active) !important;
 }
 
 .tabs .tab a.active {
-    color:#af7f6d !important;
+    color: var(--tab-a-active) !important;
 }
 
 .tabs .indicator {
-    background-color:#d3b4a9 !important;
+    background-color: var(--indicator) !important;
 }
 
 .tabs .tab a:focus, .tabs .tab a:focus.active {
-    background-color: rgba( 242,206,188 , 0.5) !important;
+    background-color: var(--tab-focus) !important;
     outline: none;
+}
+
+.nav-wrapper {
+    background: var(--nav);
+}
+
+.tabs-transparent {
+    background-color: var(--tabs) !important;
+}
+
+.tabs {
+    background: var(--tabs) !important;
+}
+
+.tab2 {
+    background: var(--tab) !important;
+}
+
+.modal-content, .modal-footer {
+    background: var(--background);
+    color: var(--text-color);
+    background-color: var(--background) !important;
+}
+
+.collapsible-header {
+    background-color: var(--background) !important;
+    border-bottom: 1px solid var(--border) !important;
+}
+
+.collapsible-body {
+    border-bottom: var(--border) !important;
+    background: var(--second) !important;
+    color: var(--text-color);
+}
+
+.collapsible {
+    border-top: var(--border) !important
+}
+
+.sidenav {
+    background-color: var(--background) !important;
+}
+
+.select-wrapper {
+    border-bottom: 1px solid none !important;
+    color: var(--normal-text) !important;
+}
+
+textarea, input[type=text] {
+    color: var(--normal-text) !important;
+}
+
+.caret {
+    fill: var(--normal-text) !important;
+}
+
+.dropdown-content {
+    background-color: var();
 }
 
 .spinner-custom {
@@ -83,7 +157,7 @@ hr {
     width: 100%;
     height: 2px;
     border: 0;
-    border-top: 1px dashed #c99987;
+    border-top: 1px dashed var(--hr);
   }
 
 /*
@@ -122,10 +196,13 @@ body {
     font-weight: lighter;
     /* P2R無効化 */
     overscroll-behavior-y: none;
+    background: var(--background);
+    transition: all  1s ease;
 }
 
 .not-registed {
     margin: 25px 0px 0px 0px !important;
+    color: var(--text-color)
 }
 
 .main-logo {

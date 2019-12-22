@@ -1,0 +1,18 @@
+:root {
+    --theme-color: #c99987;
+    --background: #202124;
+    --text-color: #D6D6D7;
+    --tabs: #323639;
+    --tab: #282C2F;
+    --tab-focus: rgba(214, 214, 215, 0.3);
+    --tab-a-active: #D6D6D7;
+    --nav: #323639;
+    --border: #323639;
+    --normal-text: #D6D6D7;
+    --first: #323639;
+    --second: #282C2F;
+    --third: #202124;
+    --indicator: rgba(214, 214, 215, 0.3);
+    --tab-a: rgba(214, 214, 215, 0.3);
+    --hr: rgba(214, 214, 215, 0.3);
+}

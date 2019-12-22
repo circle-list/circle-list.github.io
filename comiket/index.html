@@ -42,6 +42,7 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link href="src/style.css" rel="stylesheet">
         <link href="src/map.css" rel="stylesheet">
+        <link href="src/theme/light.css" rel="stylesheet" id="site-theme">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
@@ -69,21 +70,22 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
                     <img src="assets/logo.png" class="brand-logo main-logo"></img>
                 </div>
                 <ul class="right">
+                    <li><a href="#" id="toggle-theme"><i class="material-icons" id="theme-icon">brightness_3</i></a></li>
                     <li><a href="#" onclick="location.reload();"><i class="material-icons">refresh</i></a></li>
-                  </ul>
+                </ul>
                 <ul id="slide-out" class="sidenav">
                     <div class="container black-text" style="line-height: 12px;">
                         <br>
                         <img src="assets/logo.png" class="sub-logo"></img>
-                        <h6>2019@C97対応版</h6>
-                        <p>2019/12/28 ~ 31</p>
+                        <h6 class="theme-color-text">2019@C97対応版</h6>
+                        <p class="theme-color-text">2019/12/28 ~ 31</p>
                         <br>
                         <hr>
                     </div>
                     <li><a id="social-share" class="blue-text">このサイトをシェア</a></li>
-                    <li><a class="waves-effect" href="https://www.comiket.co.jp/" target="_blank">コミックマーケット公式サイト</a></li>
-                    <li><a class="waves-effect" href="https://twitter.com/comiketofficial?lang=ja" target="_blank">コミックマーケット準備会 (Twitter)</a></li>
-                    <li><a class="waves-effect" href="https://webcatalog.circle.ms/" target="_blank">コミケWebカタログ</a></li>
+                    <li><a class="waves-effect normal-text" href="https://www.comiket.co.jp/" target="_blank">コミックマーケット公式サイト</a></li>
+                    <li><a class="waves-effect normal-text" href="https://twitter.com/comiketofficial?lang=ja" target="_blank">コミックマーケット準備会 (Twitter)</a></li>
+                    <li><a class="waves-effect normal-text" href="https://webcatalog.circle.ms/" target="_blank">コミケWebカタログ</a></li>
                     <li><a class="waves-effect red-text" href="#" onclick="$('#all_clear').attr('disabled', false); M.toast({html: '<span class=\'red-text\'>初期化ロックを解除しました</span>'})">初期化ロックを解除</a></li>
                 </ul>
                 <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
@@ -101,14 +103,14 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
 
         <!-- TopTab -->
         <div id="cc-top" class="col s12">
-            <ul class="tabs">
+            <ul class="tabs tab2">
                 <li class="tab"><a class="active" href="#cc-top-about">はじめに</a></li>
                 <li class="tab"><a href="#cc-top-memo">メモ</a></li>
                 <li class="tab"><a href="#cc-top-stat">情報</a></li>
                 <li class="tab"><a href="#cc-top-info">設定</a></li>
                 <li class="tab"><a href="#cc-top-bug">バグ報告</a></li>
             </ul>
-            <div id="cc-top-about" class="container brown-text" style="margin-bottom: 80px;">
+            <div id="cc-top-about" class="container text-color" style="margin-bottom: 80px;">
                 <br>
                 <a class="waves-effect waves-light btn-small grey share-btn" id="social-share"><i class="material-icons left">share</i>share</a>
                 <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-text="コミケで行きたいサークルをリスト化できるサービス CircleList" data-url="https://hideki0403.github.io/comiket/" data-via="circle_list" data-hashtags="CircleList" data-related="circle_list,hideki_0403" data-show-count="true">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
@@ -174,7 +176,7 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
                 CircleListのコンテンツ・情報につきまして、可能な限り正確な情報を掲載するよう努めておりますが、誤情報が入り込んだり、情報が古くなっていることもございます。
                 CircleListに掲載された内容によって生じた損害等の一切の責任を負いかねますのでご了承ください。
             </div>
-            <div id="cc-top-memo" class="container brown-text">
+            <div id="cc-top-memo" class="container text-color">
                 <h5>メモ</h5>
                 <p class="green-text" id="cc-memo-savetime">メモエリア以外の場所を押すと自動保存します</p>
                 <hr style="margin-bottom: 0px;">
@@ -188,7 +190,7 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
                     </form>
                 </div>
             </div>
-            <div id="cc-top-stat" class="container brown-text">
+            <div id="cc-top-stat" class="container text-color">
                 <h5>情報</h5>
                 <hr>
                 <span>登録してあるサークル数: </span><span id="cc-stat-circles"></span><br>
@@ -209,7 +211,7 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
                 </table>
                 <img id="result">
             </div>
-            <div id="cc-top-info" class="container brown-text" style="margin-bottom: 80px;">
+            <div id="cc-top-info" class="container text-color" style="margin-bottom: 80px;">
                 <h5>設定</h5>
                 <hr>
                 <h6>サークル登録時に項目がリセットされるようにする</h6>
@@ -331,7 +333,7 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
             <div class="fixed-action-btn" style="left: 23px;">
                     <a class="waves-effect waves-light btn theme-color modal-trigger" href="#open-modal"><i class="material-icons left">today</i>日付変更</a>
             </div>
-            <ul class="tabs">
+            <ul class="tabs tab2">
                 <li class="tab"><a id="cc-list-tab-1" class="active" href="#cc-list-circle">お気に入りリスト</a></li>
                 <li class="tab"><a id="cc-list-tab-2" href="#cc-list-buy">購入リスト</a></li>
             </ul>            
@@ -440,7 +442,7 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
 
         <!-- MapTab -->
         <div id="cc-map" class="col s12">
-            <ul class="tabs">
+            <ul class="tabs tab2">
                 <li class="tab"><a class="active" href="#cc-map-w1">西1・西2</a></li>
                 <li class="tab"><a href="#cc-map-w2">西3・西4</a></li>
                 <li class="tab"><a href="#cc-map-s1">南1・南2</a></li>

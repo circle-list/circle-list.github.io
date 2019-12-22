@@ -34,6 +34,12 @@ function getConfig(d) {
     }
 }
 
+function setConfig(d, f) {
+    var c = JSON.parse(localStorage.getItem('config'))
+    c[d] = f
+    localStorage.setItem('config', JSON.stringify(c))
+}
+
 /*  ErrorHandler  */
 window.onerror = function(msg, url, line, col) {
     M.toast({html: '<b class="red-text text-accent-1" style="font-weight: bold;">エラーが発生しました</b>'})
@@ -128,6 +134,7 @@ $(document).ready(function(){
     cacheVers()
     old_data_list()
     leon_init()
+    changeTheme()
 
     setTimeout(function() {
         $('#loading-div').addClass('load-end')
@@ -394,6 +401,10 @@ function ConfigCheck() {
     }
     if(config['errorReport'] === undefined) {
         config['errorReport'] = true
+    }
+
+    if(config['darktheme'] === undefined) {
+        config['darktheme'] = false
     }
     localStorage.setItem('config', JSON.stringify(config))
 }
@@ -673,7 +684,7 @@ function updateList(dc) {
             } else {
                 color = 'grey-text text-lighten-1'
             }
-            $('#cc-list-circle-wrapper').append('<li><div class="collapsible-header ' + color + '"><i class="material-icons" id="check-box" data-id="' + tmp.id + '">' + isBuy + '</i><span class="cc-day">' + tmp.place.date + '日目</span><span class="cc-place">' + place + '</span><span class="cc-hall">' + hall + '</span><span class="cc-name">' + tmp.name + '</span></div><div class="collapsible-body grey lighten-4"><p>【メモ】</p><p class="memo">' + memo + '</p>【購入リスト】<p>' + buyList.join('<br>') + '</p><a id="remove-button" class="waves-effect waves-red btn-flat red-text remove-button" data-id="' + tmp.id + '">削除</a><a id="edit-button" class="waves-effect waves-blue btn-flat blue-text edit-button" data-id="' + tmp.id + '">編集</a></div></li>')
+            $('#cc-list-circle-wrapper').append('<li><div class="collapsible-header ' + color + '"><i class="material-icons" id="check-box" data-id="' + tmp.id + '">' + isBuy + '</i><span class="cc-day">' + tmp.place.date + '日目</span><span class="cc-place">' + place + '</span><span class="cc-hall">' + hall + '</span><span class="cc-name">' + tmp.name + '</span></div><div class="collapsible-body"><p>【メモ】</p><p class="memo">' + memo + '</p>【購入リスト】<p>' + buyList.join('<br>') + '</p><a id="remove-button" class="waves-effect waves-red btn-flat red-text remove-button" data-id="' + tmp.id + '">削除</a><a id="edit-button" class="waves-effect waves-blue btn-flat blue-text edit-button" data-id="' + tmp.id + '">編集</a></div></li>')
 
             // ここから下購入リスト
             if(tmp.buy.length !== 0 && disableClear === false) {
@@ -684,7 +695,7 @@ function updateList(dc) {
                     tmp_box.push('<tr><td><i class="material-icons" id="check-box" data-id="' + tmp.id + '" data-item-id="' + _tmp.id + '">' + isBuyF(_tmp.buy) + '</i></td><td>' + _tmp.name + '</td><td>' + _tmp.price + '円</td><td class="del-button-wrapper"><a class="waves-effect waves-red btn-flat red-text buylist-delete" id="buy-delete-button" data-id="' + tmp.id + '" data-item-id="' + _tmp.id + '">削除</a></td></tr>')
                 }
 
-                $('#cc-buylist-wrapper').append('<li><div class="collapsible-header"><span>' + tmp.name + ' (' + place + ' / ' + tmp.place.date + '日目)</span></div><div class="collapsible-body grey lighten-4"><table class="highlight"><tbody>' + tmp_box.join('') + '</tbody></table></div></li>')
+                $('#cc-buylist-wrapper').append('<li><div class="collapsible-header"><span>' + tmp.name + ' (' + place + ' / ' + tmp.place.date + '日目)</span></div><div class="collapsible-body"><table class="highlight"><tbody>' + tmp_box.join('') + '</tbody></table></div></li>')
             }
         }
 
@@ -1626,3 +1637,22 @@ $('[id=social-share]').on('click', function() {
         alert('お使いのブラウザは非対応です。')
     }
 })
+
+// テーマ切り替え
+$('#toggle-theme').on('click', function() {
+    setConfig('darktheme', !getConfig('darktheme'))
+    changeTheme()
+})
+
+function changeTheme() {
+    if(getConfig('darktheme')) {
+        var icon = 'brightness_5'
+        var link = 'src/theme/dark.css'
+    } else {
+        var icon = 'brightness_3'
+        var link = 'src/theme/light.css'
+    }
+
+    $('#theme-icon').text(icon)
+    $('#site-theme').attr('href', link)
+}
