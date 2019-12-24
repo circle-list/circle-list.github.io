@@ -1656,3 +1656,123 @@ function changeTheme() {
     $('#theme-icon').text(icon)
     $('#site-theme').attr('href', link)
 }
+
+// データのサーバーバックアップ
+function serverBackup(u, d) {
+    $.ajax({
+        url:'https://sp-wtr-api.gq/api/v1/circlelist/backup-create',
+        type:'POST',
+        data: {
+            uuid: u,
+            data: d
+        }
+    })
+    .done(data => {
+        if(data.type === 'update') {
+            M.toast({html: 'バックアップデータの更新に成功しました！'})
+        } else {
+            setConfig('uuid', data.uuid)
+            M.toast({html: '<span>バックアップに成功しました。<br>復元用ID:<span style="color: #41b0ff; font-weight:bold;"> ' + data.id + ' </span><br>パスワード:<span style="color: #41b0ff; font-weight:bold;"> ' + data.pass + ' </span></span>', displayLength: 'stay'})
+        }
+    })
+    .fail(data => {
+        console.log(data)
+        M.toast({html: '<b class="red-text text-accent-1" style="font-weight: bold;">データのバックアップに失敗しました。</b>'})
+    })
+}
+
+$('#cc-cloud_backup').on('click', function() {
+    var u = getConfig('uuid')
+    if(u === undefined) {var u = 'none'}
+    serverBackup(u, localStorage.getItem('circles'))
+})
+
+circle_restore = undefined
+
+$('#cc-cloud_check').on('click', function() {
+    $.ajax({
+        url:'https://sp-wtr-api.gq/api/v1/circlelist/backup-check',
+        type:'POST',
+        data: {
+            uuid: getConfig('uuid')
+        }
+    })
+    .done(data => {
+        if(data.status === 'notfound') {
+            $('#cl-bu-status').text('バックアップデータがありません')
+            $('#cl-bu-status').addClass('red-text')
+        } else {
+            $('#cl-bu-status').text('バックアップできています')
+            $('#cl-bu-status').addClass('blue-text')
+            $('#cl-bu-date').text(data.date)
+            $('#cl-bu-id').text(data.id)
+            $('#cl-bu-pass').text(data.pass)
+        }
+    })
+    .fail(data => {
+        console.log(data)
+        M.toast({html: '<b class="red-text text-accent-1" style="font-weight: bold;">情報の取得に失敗しました</b>'})
+    })
+})
+
+$('#cl-restore-login').on('click', function() {
+    $.ajax({
+        url:'https://sp-wtr-api.gq/api/v1/circlelist/backup-restore',
+        type:'POST',
+        data: {
+            id: $('#cl-restore-id').val(),
+            pass: $('#cl-restore-pass').val()
+        }
+    })
+    .done(data => {
+        console.log(data)
+        var circle = JSON.parse(data.data)
+        if(data.status === 'failed') {
+            $('#cl-restore-login-message').text(data.message)
+            $('#cl-restore-login-message').addClass('red-text')
+        } else {
+            $('#cl-restore-loginform').addClass('login_success')
+            $('#cl-restore-confirm').removeClass('login_success')
+            $('#cl-restore-confirm-date').text(data.date)
+            $('#cl-restore-confirm-circle').text(Object.keys(circle).length)
+            // 確定ボタンとかの処理をつくる
+            circle_restore = circle
+        }
+    })
+    .fail(data => {
+        console.log(data)
+        M.toast({html: '<b class="red-text text-accent-1" style="font-weight: bold;">情報の取得に失敗しました</b>'})
+    })
+})
+
+$('#cl-restore-confirm-button').on('click', function() {
+    if(circle_restore === undefined) {
+        M.toast({html: '<b class="red-text text-accent-1" style="font-weight: bold;">データの取得に失敗しています。再度お試しください。</b>'})
+    } else {
+        localStorage.setItem('circle', circle_restore)
+        M.toast({html: 'バックアップデータの復元に成功しました！データ反映のため5秒後に再読み込みをします。',  displayLength: 'stay'})
+        setTimeout(function() {
+            location.reload()
+        }, 5000)
+    }
+})
+function copy(string){
+    var temp = document.createElement('textarea')
+  
+    temp.value = string
+    temp.selectionStart = 0
+    temp.selectionEnd = temp.value.length
+
+    var s = temp.style
+    s.position = 'fixed'
+    s.left = '-100%'
+  
+    document.body.appendChild(temp)
+    temp.focus()
+    var result = document.execCommand('copy')
+    temp.blur()
+    document.body.removeChild(temp)
+    if(result) {
+        M.toast({html: 'コピーしました'})
+    }
+}

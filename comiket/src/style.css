@@ -446,3 +446,22 @@ h5 {
 .share-btn i {
     font-size: 20px !important;
 }
+
+.restore_login {
+    transition: all  1s ease;
+}
+
+.login_success {
+    display: none;
+}
+
+.copy-icon {
+    display:inline;
+    cursor: pointer;
+}
+
+.copy-icon i {
+    font-size: 20px;
+    margin-left: 10px;
+    vertical-align: bottom;
+}

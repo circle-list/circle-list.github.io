@@ -1,6 +1,6 @@
 // メインはこっちを変える
 // サービスに直接的に関わる変更など
-var CACHE_STATIC_VERSION = 'static-v2.13'
+var CACHE_STATIC_VERSION = 'static-v2.14'
 
 // こっちはassets系統のアプデ時のみ使用
 // フォント変更やmaterialize,jQueryなどの外部ライブラリ更新時のみ変更
@@ -17,6 +17,7 @@ self.addEventListener('install', function(event) {
         console.log('[Service Worker] Precaching App...')
         cache.addAll([
           '/comiket/',
+          '/comiket/index.html',
           '/comiket/manifest.json',
           '/comiket/src/style.css',
           '/comiket/src/scheck.js',

@@ -77,7 +77,7 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
                     <div class="container black-text" style="line-height: 12px;">
                         <br>
                         <img src="assets/logo.png" class="sub-logo"></img>
-                        <h6 class="theme-color-text">2019@C97対応版</h6>
+                        <h6 class="theme-color-text">C97対応版</h6>
                         <p class="theme-color-text">2019/12/28 ~ 31</p>
                         <br>
                         <hr>
@@ -128,7 +128,7 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
                 <p>・サークルマップを閲覧</p>
                 <p>・サークルマップのお気に入りのサークルのマスに自動的に色をつける</p>
                 <p>・オフラインでも使用可能</p>
-                <p>・登録したデータをほかの端末にコピー</p>
+                <p>・登録したデータをクラウドにバックアップして他の端末にコピー</p>
                 <p>などなど...</p>
                 <h5>使い方</h5>
                 <hr>
@@ -231,12 +231,21 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
                 <a class="waves-effect waves-light btn blue lighten-1" disabled id="install_button"><i class="material-icons left">file_download</i>インストール</a>
                 <p>(上のボタンが押せない場合はインストールすることが出来ませんが、時間を置いて再度アクセスするとインストールできるようになるかもしれません。)</p>
                 <hr>
-                <h6>サークルデータダウンロード/インポート</h6>
+                <h6>サークルデータのバックアップ/復元</h6>
                 <br>
-                <a class="waves-effect waves-light btn blue lighten-1" id="cc-info-export" download="circlelist.db"><i class="material-icons left">cloud_download</i>ダウンロード</a>
-                <p>現在登録されているサークルリストと購入リストをすべて書き出します。ほかの端末でインポートを行うことでデータを引き継げます。</p>
-                <a class="waves-effect waves-light btn blue lighten-1 modal-trigger" id="cc-info-import" href="#import-modal"><i class="material-icons left">cloud_upload</i>インポート</a>
-                <p>書き出したサークルリストと購入リストを取り込みます。現在登録されているサークルリストと購入リストはすべて削除されます。</p>
+                <a class="waves-effect waves-light btn blue lighten-1" id="cc-cloud_backup"><i class="material-icons left">cloud_upload</i>バックアップ</a>
+                <p>現在登録されているサークルリストと購入リストをサーバー上にバックアップします。</p>
+                <a class="waves-effect waves-light btn blue lighten-1 modal-trigger" id="cc-cloud_restore" href="#backup-restore"><i class="material-icons left">cloud_download</i>復元</a>
+                <p>サーバー上にバックアップされているデータをこの端末に復元します。現在登録されているサークルリストと購入リストはすべて上書き（削除）されますのでご注意ください。</p>
+                <a class="waves-effect waves-light btn btn-small modal-trigger" id="cc-cloud_check" href="#backup-check"><i class="material-icons left">autorenew</i>バックアップ状況を確認</a>
+                <p>サーバー上にバックアップされているデータ、ID、パスワードを確認できます。</p>
+                <hr>
+                <h6>全データダウンロード/インポート</h6>
+                <br>
+                <a class="waves-effect waves-light btn blue lighten-1" id="cc-info-export" download="circlelist.db"><i class="material-icons left">file_download</i>ダウンロード</a>
+                <p>現在登録されているサークルリスト、購入リスト、メモなどをすべて書き出します。ほかの端末でインポートを行うことでデータを引き継げます。</p>
+                <a class="waves-effect waves-light btn blue lighten-1 modal-trigger" id="cc-info-import" href="#import-modal"><i class="material-icons left">file_upload</i>インポート</a>
+                <p>書き出したサークルリスト、購入リスト、メモなどを取り込みます。現在登録されているサークルリスト、購入リスト、メモなどはすべて削除されます。</p>
                 <hr>
                 <h6>キャッシュ</h6>
                 <br>
@@ -283,6 +292,49 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
                 <div class="modal-footer">
                     <a href="#!" class="modal-close waves-effect waves-light info-color btn">キャンセル</a>
                     <a href="#!" class="modal-close waves-effect waves-light warning-color btn" id="import-submit">インポート</a>
+                </div>
+            </div>
+            <div id="backup-check" class="modal">
+                <div class="modal-content">
+                    <h6>バックアップ状況</h6>
+                    <hr>
+                    <p>状態: <span id="cl-bu-status">-----</span></p>
+                    <p>最終バックアップ日時: <span id="cl-bu-date">-----</span></p>
+                    <p>ID: <span id="cl-bu-id">-----</span><a class="copy-icon" onclick="copy($('#cl-bu-id').text())"><i class="material-icons">content_copy</i></a></p>
+                    <p>パスワード: <span id="cl-bu-pass">-----</span><a class="copy-icon" onclick="copy($('#cl-bu-pass').text())"><i class="material-icons">content_copy</i></a></p>
+                </div>
+                <div class="modal-footer">
+                    <a href="#!" class="modal-close waves-effect waves-light info-color btn">閉じる</a>
+                </div>
+            </div>
+            <div id="backup-restore" class="modal">
+                <div class="modal-content">
+                    <h6>データの復元</h6>
+                    <hr>
+                    <div id="cl-restore-loginform" class="restore_login">
+                        <form class="col s12">
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    <input id="cl-restore-id" type="text" class="validate">
+                                    <label for="cl-restore-id">ID</label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <input id="cl-restore-pass" type="password" class="validate">
+                                    <label for="cl-restore-pass">パスワード</label>
+                                </div>
+                            </div>
+                        </form>
+                        <a class="waves-effect waves-light btn" id="cl-restore-login">ログイン</a><span style="margin-left: 15px;" id="cl-restore-login-message"></span>
+                    </div>
+                    <div id="cl-restore-confirm" class="login_success">
+                        <p>以下のデータを復元しますか？</p>
+                        <p>最終バックアップ日時: <span id="cl-restore-confirm-date"></span></p>
+                        <p>登録してあるサークル数: <span id="cl-restore-confirm-circle"></span></p>
+                        <a href="#!" class="modal-close waves-effect waves-light warning-color btn" id="cl-restore-confirm-button">このデータを復元する</a>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="#!" class="modal-close waves-effect waves-light info-color btn">閉じる</a>
                 </div>
             </div>
             <div id="cc-top-bug" class="container">
