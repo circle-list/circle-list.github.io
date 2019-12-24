@@ -1668,6 +1668,7 @@ function serverBackup(u, d) {
         }
     })
     .done(data => {
+        console.log(data)
         if(data.uuid !== undefined) {
             setConfig('uuid', data.uuid)
         }
