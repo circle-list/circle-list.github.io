@@ -4,7 +4,7 @@ var CACHE_STATIC_VERSION = 'static-v2.15'
 
 // こっちはassets系統のアプデ時のみ使用
 // フォント変更やmaterialize,jQueryなどの外部ライブラリ更新時のみ変更
-var CACHE_DYNAMIC_VERSION = 'dynamic-v3.1'
+var CACHE_DYNAMIC_VERSION = 'dynamic-v3.2'
 
 importScripts("https://unpkg.com/service-worker-updatefound-refresh-dialog@1.1.0/dist/service-worker-updatefound-refresh-dialog.umd.js");
 
