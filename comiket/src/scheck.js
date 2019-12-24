@@ -1726,11 +1726,11 @@ $('#cl-restore-login').on('click', function() {
     })
     .done(data => {
         console.log(data)
-        var circle = JSON.parse(data.data)
         if(data.status === 'failed') {
             $('#cl-restore-login-message').text(data.message)
             $('#cl-restore-login-message').addClass('red-text')
         } else {
+            var circle = JSON.parse(data.data)
             $('#cl-restore-loginform').addClass('login_success')
             $('#cl-restore-confirm').removeClass('login_success')
             $('#cl-restore-confirm-date').text(data.date)
