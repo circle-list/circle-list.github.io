@@ -314,8 +314,8 @@ for(var i = 0; Object.keys(circle_temp).length > i; i++) {
     circles_data.push(circle_temp[Object.keys(circle_temp)[i]])
 }
 
-// pixelRatioの設定 =>上げれば上げるほど解像度は上がるが重くなる
-var pixelRatio = 2
+// pixelRatio_mapの設定 =>上げれば上げるほど解像度は上がるが重くなる
+var pixelRatio_map_map = 2
 
 var circle_box = []
 
@@ -346,11 +346,11 @@ function draw_map_w(map_data, jquery) {
     ctx.fillStyle = '#FFFFFF'
     ctx.fillRect(0, 0, map.width, map.height)
     ctx.fillStyle = '#000000'
-    map.width = map.width * pixelRatio
-    map.height = map.height * pixelRatio
-    map.style.width = (map.width / pixelRatio) + 'px'
-    map.style.height = (map.height / pixelRatio) + 'px'
-    ctx.scale(pixelRatio, pixelRatio)
+    map.width = map.width * pixelRatio_map
+    map.height = map.height * pixelRatio_map
+    map.style.width = (map.width / pixelRatio_map) + 'px'
+    map.style.height = (map.height / pixelRatio_map) + 'px'
+    ctx.scale(pixelRatio_map, pixelRatio_map)
 
     if(jquery === 'w1') {
         var item = map_data['wall-1']
@@ -475,11 +475,11 @@ function draw_map_s(map_data, jquery) {
     ctx.fillStyle = '#FFFFFF'
     ctx.fillRect(0, 0, map.width, map.height)
     ctx.fillStyle = '#000000'
-    map.width = map.width * pixelRatio
-    map.height = map.height * pixelRatio
-    map.style.width = (map.width / pixelRatio) + 'px'
-    map.style.height = (map.height / pixelRatio) + 'px'
-    ctx.scale(pixelRatio, pixelRatio)
+    map.width = map.width * pixelRatio_map
+    map.height = map.height * pixelRatio_map
+    map.style.width = (map.width / pixelRatio_map) + 'px'
+    map.style.height = (map.height / pixelRatio_map) + 'px'
+    ctx.scale(pixelRatio_map, pixelRatio_map)
 
     // 壁サークル
     var item = map_data['wall']
