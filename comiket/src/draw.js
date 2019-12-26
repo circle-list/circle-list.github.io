@@ -310,8 +310,13 @@ var mapAssets = {
 // サークルデータの読み込み
 var circle_temp = JSON.parse(localStorage.getItem('circles'))
 var circles_data = []
-for(var i = 0; Object.keys(circle_temp).length > i; i++) {
-    circles_data.push(circle_temp[Object.keys(circle_temp)[i]])
+
+if(circle_temp === null || circle_temp === undefined) {
+    console.log('データがないよ')
+} else {
+    for(var i = 0; Object.keys(circle_temp).length > i; i++) {
+        circles_data.push(circle_temp[Object.keys(circle_temp)[i]])
+    }
 }
 
 // pixelRatio_mapの設定 =>上げれば上げるほど解像度は上がるが重くなる
