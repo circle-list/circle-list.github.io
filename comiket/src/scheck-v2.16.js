@@ -130,6 +130,7 @@ $(document).ready(function(){
     ConfigCheck()
     updateList()
     init()
+    drawMap()
     cacheVers()
     old_data_list()
     leon_init()
@@ -882,6 +883,625 @@ $('#cc-buylist-wrapper').on('click', '#buy-delete-button', function() {
     $('#remove-item-modal div').modal()
     M.Modal.getInstance($('#remove-item-modal div')).open()
 })
+
+// マップ描画関係
+var mapAssets = {
+    "s1": {
+        "x": [1120, 1060, 1000, 940, 880, 820, 760, 700, 640, 580, 520, 460, 400, 340, 280, 220, 160, 100, 40],
+        "y": [420, 240, 60],
+        "mark": ['イ', 'ウ', 'エ', 'オ', 'カ', 'キ' , 'ク', 'ケ', 'コ', 'サ', 'シ', 'ス', 'セ', 'ソ', 'タ', 'チ', 'ツ', 'テ', 'ト'],
+        "wall": [{x: 520,y:620}, {x:500,y:620}, {x:480,y:620}, {x:0,y:600}, {x:0,y:580}, {x:0,y:540}, {x:0,y:520}, {x: 0, y: 480} ,{x: 0, y: 460}, {x: 20, y: 20}, {x: 40, y:20}, {x: 60, y:20}, {x: 100, y:20}, {x: 240, y:40}, {x: 260, y:40}, {x: 280, y:40}, {x: 340, y: 20}, {x: 360, y: 20}, {x: 380, y: 20}, {x: 420, y: 20}, {x: 440, y: 20}, {x: 480, y: 20}, {x: 500, y: 20}, {x: 700, y: 20}, {x: 720, y: 20}, {x: 760, y: 20}, {x: 860, y: 40}, {x: 880, y: 40}, {x: 900, y: 40}, {x: 960, y: 20}, {x: 980, y: 20}, {x: 1000, y: 20}, {x: 1040, y: 20}, {x: 1060, y: 20}, {x: 1100, y: 20}, {x: 1120, y: 20}, {x: 1200, y: 80}, {x: 1200, y: 100}, {x: 1200, y: 140}, {x: 1200, y: 160}, {x: 1200, y: 200}, {x: 1200, y: 220}, {x: 1200, y: 240}, {x: 1200, y: 260}, {x: 1200, y: 380}, {x: 1200, y: 400}, {x: 1200, y: 420}, {x: 1200, y: 440}, {x: 1200, y: 460}, {x: 1200, y: 500}, {x: 1200, y: 520}, {x: 1200, y: 560}, {x: 1200, y: 580}, {x: 1170, y: 620}, {x: 1150, y: 620}, {x: 1120, y: 620}, {x: 1100, y: 620}, ]
+    },
+    "s2": {
+        "x": [1120, 1060, 1000, 940, 880, 820, 760, 700, 640, 580, 520, 460, 400, 340, 280, 220, 160, 100, 40],
+        "y": [420, 240, 60],
+        "mark": ['ニ', 'ヌ', 'ネ', 'ノ', 'ハ', 'ヒ', 'フ', 'ヘ', 'ホ', 'マ', 'ミ', 'ム', 'メ', 'モ', 'ヤ', 'ユ', 'ヨ', 'ラ', 'リ'],
+        "wall": [{x: 940, y: 620}, {x: 960, y: 620}, {x: 990, y: 620}, {x: 1010, y: 620}, {x: 1040, y: 620}, {x: 1060, y: 620}, {x: 1100, y: 620}, {x: 1120, y: 620}, {x: 1150, y: 620}, {x: 1170, y: 620}, {x: 1200, y: 620}, {x: 1200, y: 600}, {x: 1200, y: 580}, {x: 1200, y: 560}, {x: 1200, y: 520}, {x: 1200, y: 500}, {x: 1200, y: 460}, {x: 1200, y: 440}, {x: 1200, y: 260}, {x: 1200, y: 240}, {x: 1200, y: 220}, {x: 1200, y: 200}, {x: 1200, y: 160}, {x: 1200, y: 140}, {x: 1200, y: 100}, {x: 1200, y: 80}, {x: 1200, y: 60}, {x: 900, y: 40}, {x: 880, y: 40}, {x: 860, y: 40}, {x: 740, y: 20}, {x: 700, y: 20}, {x: 680, y: 20}, {x: 500, y: 20}, {x: 480, y: 20}, {x: 440, y: 20}, {x: 420, y: 20}, {x: 280, y: 40}, {x: 260, y: 40}, {x: 240, y: 40}, {x: 60, y: 20}, {x: 40, y: 20}, {x: 20, y: 20}, {x: 340, y: 620}, {x: 360, y: 620}, {x: 380, y: 620}, {x: 400, y: 620}, {x: 420, y: 620}, {x: 440, y: 620}, {x: 480, y: 620}, {x: 500, y: 620}, {x: 530, y: 620}, {x: 550, y: 620}]
+    },
+    // x: x軸, y: y軸, s: 縦方向サイズ
+    "w1": {
+        "wall-1": [{x: 360, y: 1220}, {x: 340, y: 1220}, {x: 320, y: 1220}, {x: 300, y: 1220}, {x: 280, y: 1220}, {x: 260, y: 1220}, {x: 240, y: 1220}, {x: 220, y: 1220}, {x: 200, y: 1220}, {x: 180, y: 1220}, {x: 160, y: 1220}, {x: 140, y: 1220}, {x: 120, y: 1220}, {x: 100, y: 1220}, {x: 80, y: 1220}, {x: 0, y: 1120}, {x: 0, y: 1100}, {x: 0, y: 1080}, {x: 0, y: 1040}, {x: 0, y: 1000}, {x: 0, y: 960}, {x: 0, y: 940}, {x: 0, y: 920}, {x: 0, y: 700}, {x: 0, y: 680}, {x: 0, y: 660}, {x: 0, y: 500}, {x: 0, y: 480}, {x: 0, y: 460}, {x: 0, y: 320}, {x: 0, y: 300}, {x: 0, y: 280}, {x: 0, y: 260}, {x: 0, y: 200}, {x: 0, y: 160}, {x: 0, y: 100}, {x: 0, y: 80}, {x: 0, y: 60}, {x: 0, y: 40}, {x: 110, y: 0}, {x: 130, y: 0}, {x: 150, y: 0}, {x: 200, y: 0}, {x: 240, y: 0}, {x: 310, y: 0}, {x: 330, y: 0}, {x: 350, y: 0}, {x: 570, y: 0}, {x: 590, y: 0}, {x: 610, y: 0}, {x: 680, y: 0}, {x: 720, y: 0}, {x: 790, y: 0}, {x: 810, y: 0}, {x: 830, y: 0}, {x: 600, y: 380}, {x: 580, y: 380}, {x: 560, y: 380}, {x: 540, y: 380}, {x: 420, y: 460}, {x: 420, y: 480}, {x: 420, y: 500}, {x: 420, y: 520}, {x: 420, y: 880}, {x: 420, y: 900}, {x: 420, y: 920}, {x: 420, y: 940}, {x: 420, y: 1080}, {x: 420, y: 1100}, {x: 420, y: 1120}, {x: 420, y: 1140}, {x: 420, y: 1160}],
+        "wall-2": [{x: 1420, y: 1220}, {x: 1440, y: 1220}, {x: 1460, y: 1220}, {x: 1480, y: 1220}, {x: 1500, y: 1220}, {x: 1520, y: 1220}, {x: 1540, y: 1220}, {x: 1560, y: 1220}, {x: 1580, y: 1220}, {x: 1600, y: 1220}, {x: 1620, y: 1220}, {x: 1640, y: 1220}, {x: 1660, y: 1220}, {x: 1680, y: 1220}, {x: 1700, y: 1220}, {x: -20, y: -20}, {x: -20, y: -20}, {x: -20, y: -20}, {x: -20, y: -20}, {x: -20, y: -20}, {x: 1780, y: 960}, {x: 1780, y: 940}, {x: 1780, y: 920}, {x: 1780, y: 700}, {x: 1780, y: 680}, {x: 1780, y: 660}, {x: 1780, y: 500}, {x: 1780, y: 480}, {x: 1780, y: 460}, {x: 1780, y: 320}, {x: 1780, y: 300}, {x: 1780, y: 280}, {x: 1780, y: 260}, {x: -20, y: -20}, {x: -20, y: -20}, {x: 1780, y: 100}, {x: 1780, y: 80}, {x: 1780, y: 60}, {x: 1780, y: 40}, {x: 1670, y: 0}, {x: 1650, y: 0}, {x: 1630, y: 0}, {x: 1580, y: 0}, {x: 1540, y: 0}, {x: 1470, y: 0}, {x: 1450, y: 0}, {x: 1430, y: 0}, {x: 1210, y: 0}, {x: 1190, y: 0}, {x: 1170, y: 0}, {x: 1100, y: 0}, {x: 1060, y: 0}, {x: 990, y: 0}, {x: 970, y: 0}, {x: 950, y: 0}, {x: 1180, y: 380}, {x: 1200, y: 380}, {x: 1220, y: 380}, {x: 1240, y: 380}, {x: 1360, y: 460}, {x: 1360, y: 480}, {x: 1360, y: 500}, {x: 1360, y: 520}, {x: 1360, y: 860}, {x: 1360, y: 880}, {x: 1360, y: 900}, {x: 1360, y: 920}, {x: 1360, y: 1080}, {x: 1360, y: 1100}, {x: 1360, y: 1120}, {x: 1360, y: 1140}, {x: 1360, y: 1160}],
+        "mark-list": {
+            "い": [
+                {x: 1700, y: 1060, s: 5},
+                {x: 1700, y: 860, s: 7},
+                {x: 1700, y: 640, s: 7}
+            ],
+            "う": [
+                {x: 1640, y: 1060, s: 6},
+                {x: 1640, y: 860, s: 7},
+                {x: 1640, y: 640, s: 7}
+            ],
+            "え": [
+                {x: 1580, y: 1060, s: 6},
+                {x: 1580, y: 860, s: 7},
+                {x: 1580, y: 640, s: 7}
+            ],
+            "お": [
+                {x: 1520, y: 1060, s: 6},
+                {x: 1520, y: 860, s: 7},
+                {x: 1520, y: 640, s: 7}
+            ],
+            "か": [
+                {x: 1460, y: 1060, s: 6},
+                {x: 1460, y: 860, s: 7},
+                {x: 1460, y: 640, s: 7}
+            ],
+            "き": [
+                {x: 1400, y: 1060, s: 5},
+                {x: 1400, y: 860, s: 7},
+                {x: 1400, y: 640, s: 7}
+            ],
+            "く": [
+                {x: 1700, y: 420, s:7},
+                {x: 1700, y: 220, s:7},
+                {x: 1700, y: 60, s:4}
+            ],
+            "け": [
+                {x: 1640, y: 420, s:7},
+                {x: 1640, y: 220, s:7},
+                {x: 1640, y: 60, s:4}
+            ],
+            "こ": [
+                {x: 1580, y: 420, s:7},
+                {x: 1580, y: 220, s:7},
+                {x: 1580, y: 60, s:4}
+            ],
+            "さ": [
+                {x: 1520, y: 420, s:7},
+                {x: 1520, y: 220, s:7},
+                {x: 1520, y: 60, s:4}
+            ],
+            "し": [
+                {x: 1460, y: 420, s:7},
+                {x: 1460, y: 220, s:7},
+                {x: 1460, y: 60, s:4}
+            ],
+            "す": [
+                {x: 1400, y: 420, s:7},
+                {x: 1400, y: 220, s:7},
+                {x: 1400, y: 60, s:4}
+            ],
+            "せ": [
+                {x: 1340, y: 220, s:4},
+                {x: 1340, y: 80, s:3}
+            ],
+            "そ": [
+                {x: 1280, y: 220, s:4},
+                {x: 1280, y: 80, s:3}
+            ],
+            "た": [
+                {x: 1220, y: 220, s:5},
+                {x: 1220, y: 60, s:4}
+            ],
+            "ち": [
+                {x: 1160, y: 220, s:5},
+                {x: 1160, y: 60, s:4}
+            ],
+            "つ": [
+                {x: 1100, y: 220, s:5},
+                {x: 1100, y: 60, s:4}
+            ],
+            "て": [
+                {x: 1040, y: 220, s:5},
+                {x: 1040, y: 60, s:4}
+            ],
+            "と": [
+                {x: 980, y: 220, s:5},
+                {x: 980, y: 60, s:4}
+            ],
+            "ぬ": [
+                {x: 780, y: 220, s:5},
+                {x: 780, y: 60, s:4}
+            ],
+            "ね": [
+                {x: 720, y: 220, s:5},
+                {x: 720, y: 60, s:4}
+            ],
+            "の": [
+                {x: 660, y: 220, s:5},
+                {x: 660, y: 60, s:4}
+            ],
+            "は": [
+                {x: 600, y: 220, s:5},
+                {x: 600, y: 60, s:4}
+            ],
+            "ひ": [
+                {x: 540, y: 220, s:5},
+                {x: 540, y: 60, s:4}
+            ],
+            "ふ": [
+                {x: 480, y: 220, s:4},
+                {x: 480, y: 80, s:3}
+            ],
+            "へ": [
+                {x: 420, y: 220, s:4},
+                {x: 420, y: 80, s:3}
+            ],
+            "ほ": [
+                {x: 360, y: 420, s:7},
+                {x: 360, y: 220, s:7},
+                {x: 360, y: 60, s:4}
+            ],
+            "ま": [
+                {x: 300, y: 420, s:7},
+                {x: 300, y: 220, s:7},
+                {x: 300, y: 60, s:4}
+            ],
+            "み": [
+                {x: 240, y: 420, s:7},
+                {x: 240, y: 220, s:7},
+                {x: 240, y: 60, s:4}
+            ],
+            "む": [
+                {x: 180, y: 420, s:7},
+                {x: 180, y: 220, s:7},
+                {x: 180, y: 60, s:4}
+            ],
+            "め": [
+                {x: 120, y: 420, s:7},
+                {x: 120, y: 220, s:7},
+                {x: 120, y: 60, s:4}
+            ],
+            "も": [
+                {x: 60, y: 420, s:7},
+                {x: 60, y: 220, s:7},
+                {x: 60, y: 60, s:4}
+            ],
+            "や": [
+                {x: 360, y: 1060, s:6},
+                {x: 360, y: 860, s:7},
+                {x: 360, y: 640, s:7}
+            ],
+            "ゆ": [
+                {x: 300, y: 1060, s:6},
+                {x: 300, y: 860, s:7},
+                {x: 300, y: 640, s:7}
+            ],
+            "よ": [
+                {x: 240, y: 1060, s:6},
+                {x: 240, y: 860, s:7},
+                {x: 240, y: 640, s:7}
+            ],
+            "ら": [
+                {x: 180, y: 1060, s:6},
+                {x: 180, y: 860, s:7},
+                {x: 180, y: 640, s:7}
+            ],
+            "り": [
+                {x: 120, y: 1060, s:6},
+                {x: 120, y: 860, s:7},
+                {x: 120, y: 640, s:7}
+            ],
+            "る": [
+                {x: 60, y: 1060, s:6},
+                {x: 60, y: 860, s:7},
+                {x: 60, y: 640, s:7}
+            ]
+        }
+    },
+    "w2": {
+        "wall": [{x: 1000, y: 380}, {x: 1020, y: 380}, {x: 1040, y: 380}, {x: 1060, y: 380}, {x: 1080, y: 380}, {x: 1220, y: 380}, {x: 1240, y: 380}, {x: 1260, y: 380}, {x: 1280, y: 380}, {x: 1320, y: 340}, {x: 1320, y: 300}, {x: 1320, y: 280}, {x: 1320, y: 260}, {x: 1320, y: 220}, {x: 1320, y: 200}, {x: 1320, y: 140}, {x: 1320, y: 120}, {x: 1320, y: 80}, {x: 1320, y: 60}, {x: 1320, y: 40}, {x: 1260, y: 0}, {x: 1240, y: 0}, {x: 1220, y: 0}, {x: 1180, y: 0}, {x: 1140, y: 0}, {x: 1100, y: 0}, {x: 1080, y: 0}, {x: 1060, y: 0}, {x: 840, y: 0}, {x: 820, y: 0}, {x: 800, y: 0}, {x: 600, y: 0}, {x: 580, y: 0}, {x: 560, y: 0}, {x: 360, y: 0}, {x: 340, y: 0}, {x: 320, y: 0}, {x: 240, y: 0}, {x: 180, y: 0}, {x: 140, y: 0}, {x: 120, y: 0}, {x: 100, y: 0}, {x: 0, y: 40}, {x: 0, y: 60}, {x: 0, y: 80}, {x: 0, y: 240}, {x: 0, y: 260}, {x: 0, y: 280}, {x: 0, y: 460}, {x: 0, y: 480}, {x: 0, y: 500}, {x: 0, y: 660}, {x: 0, y: 680}, {x: 0, y: 700}, {x: 0, y: 920}, {x: 0, y: 940}, {x: 0, y: 960}, {x: 0, y: 1000}, {x: 0, y: 1040}, {x: 0, y: 1080}, {x: 0, y: 1100}, {x: 0, y: 1120}, {x: 60, y: 1220}, {x: 100, y: 1220}, {x: 120, y: 1220}, {x: 140, y: 1220}, {x: 180, y: 1220}, {x: 200, y: 1220}, {x: 240, y: 1220}, {x: 260, y: 1220}, {x: 300, y: 1220}, {x: 320, y: 1220}, {x: 340, y: 1220}, {x: 380, y: 1220}],
+        "mark-list": {
+            B: [
+                { x: 1260, y: 220, s: 5 },
+                { x: 1260, y: 60, s: 4 },
+                { x: 1200, y: 220, s: 5 },
+                { x: 1200, y: 60, s: 4 },
+                { x: 1140, y: 220, s: 5 },
+                { x: 1140, y: 60, s: 4 }
+            ],
+            C: [
+                { x: 1080, y: 220, s: 5 },
+                { x: 1080, y: 60, s: 4 },
+                { x: 1020, y: 220, s: 5 },
+                { x: 1020, y: 60, s: 4 },
+                { x: 960, y: 220, s: 4 },
+                { x: 960, y: 80, s: 3 }
+            ],
+            D: [
+                { x: 900, y: 220, s: 4 },
+                { x: 900, y: 80, s: 3 },
+                { x: 840, y: 220, s: 4 },
+                { x: 840, y: 80, s: 3 },
+                { x: 780, y: 220, s: 5 },
+                { x: 780, y: 60, s: 4 },
+                { x: 720, y: 220, s: 5 },
+                { x: 720, y: 60, s: 4 }
+            ],
+            E: [
+                { x: 660, y: 220, s: 5 },
+                { x: 660, y: 60, s: 4 },
+                { x: 600, y: 220, s: 5 },
+                { x: 600, y: 60, s: 4 }
+            ],
+            F: [
+                { x: 540, y: 220, s: 4 },
+                { x: 540, y: 80, s: 3 },
+                { x: 480, y: 220, s: 4 },
+                { x: 480, y: 80, s: 3 },
+                { x: 420, y: 220, s: 4 },
+                { x: 420, y: 80, s: 3 }
+            ],
+            G: [
+                { x: 360, y: 440, s: 6 },
+                { x: 360, y: 220, s: 6 },
+                { x: 360, y: 60, s: 4 }
+            ],
+            H: [
+                { x: 300, y: 420, s: 7 },
+                { x: 300, y: 220, s: 7 },
+                { x: 300, y: 60, s: 4 }
+            ],
+            I: [
+                { x: 240, y: 420, s: 7 },
+                { x: 240, y: 220, s: 7 },
+                { x: 240, y: 60, s: 4 }
+            ],
+            J: [
+                { x: 180, y: 420, s: 7 },
+                { x: 180, y: 220, s: 7 },
+                { x: 180, y: 60, s: 4 }
+            ],
+            K: [
+                { x: 120, y: 420, s: 7 },
+                { x: 120, y: 220, s: 7 },
+                { x: 120, y: 60, s: 4 }
+            ],
+            L: [
+                { x: 60, y: 420, s: 7 },
+                { x: 60, y: 220, s: 7 },
+                { x: 60, y: 60, s: 4 }
+            ],
+            M: [
+                { x: 360, y: 1060, s: 5 },
+                { x: 360, y: 860, s: 7 },
+                { x: 360, y: 640, s: 7 }
+            ],
+            N: [
+                { x: 300, y: 1060, s: 6 },
+                { x: 300, y: 860, s: 7 },
+                { x: 300, y: 640, s: 7 }
+            ],
+            O: [
+                { x: 240, y: 1060, s: 6 },
+                { x: 240, y: 860, s: 7 },
+                { x: 240, y: 640, s: 7 }
+            ],
+            P: [
+                { x: 180, y: 1060, s: 6 },
+                { x: 180, y: 860, s: 7 },
+                { x: 180, y: 640, s: 7 }
+            ],
+            Q: [
+                { x: 120, y: 1060, s: 6 },
+                { x: 120, y: 860, s: 7 },
+                { x: 120, y: 640, s: 7 }
+            ],
+            R: [
+                { x: 60, y: 1060, s: 6 },
+                { x: 60, y: 860, s: 7 },
+                { x: 60, y: 640, s: 7 }
+            ]
+        }
+    }
+}
+
+// div数計算
+function divCalc(d) {
+    var box = []
+    var num = 0
+    for(var i = 0; d.length > i; i++) {
+        var box_tmp = []
+        var box_tmp2 = []
+
+        if(d.length === 3) {
+            switch(i + 1) {
+                case 1:
+                    for(var t = 0; d[i].s > t; t++) {
+                        box_tmp.push((d[i].s + (d[i + 1].s * 2) + 4) + (d[i + 2].s * 2) + 2 + 1 + t)
+                    }
+                    for(var t = 0; d[i].s > t; t++) {
+                        box_tmp.push(d[i].s + 1 - t)
+                    }
+                    div_upper_tmp = d[i].s + (d[i + 1].s * 2) + (d[i + 2].s * 2) + 6
+                    div_lower_tmp = 1
+                    break
+                
+                case 2:
+                    for(var t = 0; d[i].s > t; t++) {
+                        box_tmp.push(d[i - 1].s + d[i].s + (d[i + 1].s * 2) + 6 + t)
+                    }
+                    for(var t = 0; d[i].s > t; t++) {
+                        box_tmp.push(d[i - 1].s + d[i].s + 2 - t)
+                    }
+                    div_upper_tmp = d[i - 1].s + d[i].s + (d[i + 1].s * 2) + 5
+                    div_lower_tmp = d[i - 1].s + 2
+                    break
+
+                case 3:
+                    for(var t = 0; d[i].s > t; t++) {
+                        box_tmp.push(d[i - 2].s + d[i - 1].s + d[i].s + 4 + t + 1)
+                    }
+                    for(var t = 0; d[i].s > t; t++) {
+                        box_tmp.push(d[i - 2].s + d[i - 1].s + d[i].s + 3 - t)
+                    }
+                    div_upper_tmp = d[i - 2].s + d[i - 1].s + d[i].s + 4
+                    div_lower_tmp = d[i - 2].s + d[i - 1].s + 3
+                    break
+            }
+        } else {
+            if((i + 1) % 2 === 0) {
+                // 偶数時(上段)処理
+                for(var t = 0; d[i].s > t; t++) {
+                    box_tmp.push(d[i].s + d[i - 1].s + 4 + num + t)
+                }
+                for(var t = 0; d[i].s > t; t++) {
+                    box_tmp.push(d[i].s + d[i - 1].s + 2 + num - t)
+                }
+                div_upper_tmp = num + d[i].s + d[i - 1].s + 3
+                div_lower_tmp = d[i -1].s + 2 + num
+            } else {
+                // 奇数時(下段)処理
+                for(var t = 0; d[i].s > t; t++) {
+                    box_tmp.push((d[i].s + (d[i + 1].s * 2) + 4) + 1 + num + t)
+                }
+                for(var t = 0; d[i].s > t; t++) {
+                    box_tmp.push(d[i].s + 1 + num - t)
+                }
+                div_upper_tmp = num + d[i].s + (d[i + 1].s * 2) + 4
+                div_lower_tmp = num + 1
+            }   
+        }
+
+        for(var r = 0; box_tmp.length > r; r++) {
+            box_tmp2.push(('0' + box_tmp[r]).slice(-2))
+        }
+
+        box.push({
+            id: i + 1,
+            div_list: box_tmp2,
+            div_lower: ('0' + div_lower_tmp).slice(-2),
+            div_upper: ('0' + div_upper_tmp).slice(-2)
+        })
+
+        if((i + 1) % 2 === 0) {
+            num = num + (d[i].s * 2) + (d[i - 1].s * 2) + 4
+        }
+    }
+    return box
+}
+
+function drawMap() {
+    for(var i = 0; Object.keys(mapAssets).length > i; i++) {
+        var tmp_assets = mapAssets[Object.keys(mapAssets)[i]]
+        var map_id = Object.keys(mapAssets)[i]
+        var map_island_box = []
+
+        // マップ分岐
+        if(map_id === 's1') {
+            // 大まかなdiv生成
+            for(var ii = 0; tmp_assets.x.length > ii; ii++) {
+                for(var iii = 0; tmp_assets.y.length > iii; iii++) {
+                    if(tmp_assets.y[iii] === 420) {
+                        map_class = 'block-9'
+                    } else {
+                        map_class = 'block-7'
+                    }
+
+                    map_top_px = tmp_assets.y[iii]
+
+                    if(iii === 2) {
+                        if(tmp_assets.mark[ii].match(/[オカキタチ]/)) {
+                            map_class = 'block-5'
+                            map_top_px = tmp_assets.y[iii] + 40 
+                        }
+
+                        if(tmp_assets.mark[ii].match(/[クケソツテト]/)) {
+                            map_class = 'block-6'
+                            map_top_px = tmp_assets.y[iii] + 20
+                        }
+                    }
+
+                    map_island_box.push('<div id="s1' + tmp_assets.mark[ii] + '" class="' + map_class + ' grid" style="top: ' + map_top_px +  'px; left: ' + tmp_assets.x[ii] + 'px;"></div>')
+                }
+            }
+            $('#cc-map-s1-inside').append(map_island_box.join(''))
+            // Div内にサークル生成
+            for(var ii = 0; tmp_assets.mark.length > ii; ii++) {
+
+                circle_num_box = ''
+
+                if(tmp_assets.mark[ii].match(/[オカキタチ]/)) {
+                    // オ,カ,タ
+                    circle_num_box = [['34', '35', '36', '37', '38', '39', '40', '41', '42', '09', '08', '07', '06', '05', '04', '03', '02', '01'], ['27', '28', '29', '30', '31', '32', '33', '16', '15', '14', '13', '12', '11', '10'], ['22', '23', '24', '25', '26', '21', '20', '19', '18', '17']]
+                }
+
+                if(tmp_assets.mark[ii].match(/[クケソツテト]/)) {
+                    // ク,ケ,ソ,ツ,テ,ト
+                    circle_num_box = [['36', '37', '38', '39', '40', '41', '42', '43', '44', '09', '08', '07', '06', '05', '04', '03', '02', '01'], ['29', '30', '31', '32', '33', '34', '35', '16', '15', '14', '13', '12', '11', '10'], ['23', '24', '25', '26', '27', '28', '22', '21', '20', '19', '18', '17']]
+                }
+
+                if(circle_num_box === '') {
+                    // それ以外
+                    circle_num_box = [['38', '39', '40', '41', '42', '43', '44', '45', '46', '09', '08', '07', '06', '05', '04', '03', '02', '01'], ['31', '32', '33', '34', '35', '36', '37', '16', '15', '14', '13', '12', '11', '10'], ['24', '25', '26', '27', '28', '29', '30', '23', '22', '21', '20', '19', '18', '17']]
+                }
+
+                var circle_list_tmp = $('#s1' + tmp_assets.mark[ii])
+                for(var iii = 0; circle_list_tmp.length > iii; iii++) { //ここで「アの上段」「中段」「下段」とかカとかキとか
+                    var cl_box = []
+                    for(var iiii = 0; circle_num_box[iii].length > iiii; iiii++) { // Divを詰める！！！！
+                        cl_box.push('<div id="map_' + tmp_assets.mark[ii] + circle_num_box[iii][iiii] + '">' + circle_num_box[iii][iiii] + '</div>')
+                    }
+
+                    $($('#s1' + tmp_assets.mark[ii])[iii]).append(cl_box.join(''))
+                }
+
+            }
+
+            // 壁サークル生成
+            var wall_tmp = []
+            for(var ii = 0; tmp_assets.wall.length > ii; ii++) {
+                wall_tmp.push('<div id="map_ア' + ('0' + (tmp_assets.wall.length - ii)).slice(-2) + '" class="miniblock" style="top: ' + tmp_assets.wall[ii].y + 'px; left: ' + tmp_assets.wall[ii].x + 'px;">' + ('0' + (tmp_assets.wall.length - ii)).slice(-2) + '</div>')
+            }
+            $('#cc-map-s1-inside').append(wall_tmp.join(''))
+        }
+        // s1ここまで
+
+        if(map_id === 's2') {
+            for(var ii = 0; tmp_assets.x.length > ii; ii++) {
+                for(var iii = 0; tmp_assets.y.length > iii; iii++) {
+                    if(tmp_assets.y[iii] === 420) {
+                        map_class = 'block-9'
+                    } else {
+                        map_class = 'block-7'
+                    }
+
+                    map_top_px = tmp_assets.y[iii]
+
+                    if(iii === 2) {
+                        if(tmp_assets.mark[ii].match(/[ハヒモヤユ]/)) {
+                            map_class = 'block-5'
+                            map_top_px = tmp_assets.y[iii] + 40 
+                        }
+                    }
+
+                    map_island_box.push('<div id="s2' + tmp_assets.mark[ii] + '" class="' + map_class + ' grid" style="top: ' + map_top_px +  'px; left: ' + tmp_assets.x[ii] + 'px;"></div>')
+                }
+            }
+            $('#cc-map-s2-inside').append(map_island_box.join(''))
+            // Div内にサークル生成
+            for(var ii = 0; tmp_assets.mark.length > ii; ii++) {
+
+                if(tmp_assets.mark[ii].match(/[ハヒモヤユ]/)) {
+                    circle_num_box = [['34', '35', '36', '37', '38', '39', '40', '41', '42', '09', '08', '07', '06', '05', '04', '03', '02', '01'], ['27', '28', '29', '30', '31', '32', '33', '16', '15', '14', '13', '12', '11', '10'], ['22', '23', '24', '25', '26', '21', '20', '19', '18', '17']]
+                } else {
+                    circle_num_box = [['38', '39', '40', '41', '42', '43', '44', '45', '46', '09', '08', '07', '06', '05', '04', '03', '02', '01'], ['31', '32', '33', '34', '35', '36', '37', '16', '15', '14', '13', '12', '11', '10'], ['24', '25', '26', '27', '28', '29', '30', '23', '22', '21', '20', '19', '18', '17']]
+                }
+
+                var circle_list_tmp = $('#s2' + tmp_assets.mark[ii])
+                for(var iii = 0; circle_list_tmp.length > iii; iii++) { //ここで「アの上段」「中段」「下段」とかカとかキとか
+                    var cl_box = []
+                    for(var iiii = 0; circle_num_box[iii].length > iiii; iiii++) { // Divを詰める！！！！
+                        cl_box.push('<div id="map_' + tmp_assets.mark[ii] + circle_num_box[iii][iiii] + '">' + circle_num_box[iii][iiii] + '</div>')
+                    }
+
+                    $($('#s2' + tmp_assets.mark[ii])[iii]).append(cl_box.join(''))
+                }
+
+            }
+
+            // 壁サークル生成
+            var wall_tmp = []
+            for(var ii = 0; tmp_assets.wall.length > ii; ii++) {
+                wall_tmp.push('<div id="map_ナ' + ('0' + (ii + 1)).slice(-2) + '" class="miniblock" style="top: ' + tmp_assets.wall[ii].y + 'px; left: ' + tmp_assets.wall[ii].x + 'px;">' + ('0' + (ii + 1)).slice(-2) + '</div>')
+            }
+            $('#cc-map-s2-inside').append(wall_tmp.join(''))
+        }
+        // s2ここまで
+
+        if(map_id === 'w1') {
+            for(var ii = 0; Object.keys(tmp_assets['mark-list']).length > ii; ii++) { // mark-listのおまとめDivを作る
+                var ma_div = tmp_assets['mark-list'][Object.keys(tmp_assets['mark-list'])[ii]]
+                var ma_id = Object.keys(tmp_assets['mark-list'])[ii]
+                $('#cc-map-w1-inside').append('<div id="w1' + ma_id + '"></div>')
+
+                // mark-listの中に入るdiv数計算
+                var divList = divCalc(ma_div)
+
+                for(var j = 0; ma_div.length > j; j++) { // mark-listの中身生成
+                    $('#w1' + ma_id).append('<div id="w1' + ma_id + '-' + (j + 1) + '" class="block-' + ma_div[j].s + ' grid" style="top: ' + ma_div[j].y + 'px; left: ' + ma_div[j].x + 'px;"></div>')
+                    $('#w1' + ma_id + '-' + (j + 1)).append('<div class="upper-div" id="map_' +  ma_id + divList[j].div_upper + '">' +  divList[j].div_upper + '</div>')
+                    $('#w1' + ma_id + '-' + (j + 1)).append('<div class="lower-div" id="map_' +  ma_id + divList[j].div_lower + '">' +  divList[j].div_lower + '</div>')
+                    for(var f = 0; divList[j].div_list.length > f; f++) {
+                        $('#w1' + ma_id + '-' + (j + 1)).append('<div id="map_' + ma_id +  divList[j].div_list[f] + '">' +  divList[j].div_list[f] + '</div>')
+                    }
+                }
+            }
+
+            // 壁サークル生成
+            var wall_tmp = []
+            for(var ii = 0; tmp_assets['wall-1'].length > ii; ii++) {
+                wall_tmp.push('<div id="map_れ' + ('0' + (ii + 1)).slice(-2) + '" class="miniblock" style="top: ' +  tmp_assets['wall-1'][ii].y + 'px; left: ' + tmp_assets['wall-1'][ii].x + 'px;">' + ('0' + (ii + 1)).slice(-2) + '</div>')
+            }
+            for(var ii = 0; tmp_assets['wall-2'].length > ii; ii++) {
+                wall_tmp.push('<div id="map_あ' + ('0' + (ii + 1)).slice(-2) + '" class="miniblock" style="top: ' +  tmp_assets['wall-2'][ii].y + 'px; left: ' + tmp_assets['wall-2'][ii].x + 'px;">' + ('0' + (ii + 1)).slice(-2) + '</div>')
+            }
+            $('#cc-map-w1-inside').append(wall_tmp.join(''))
+        }
+        // w1ここまで
+        
+        if(map_id === 'w2') {
+            for(var ii = 0; Object.keys(tmp_assets['mark-list']).length > ii; ii++) { // mark-listのおまとめDivを作る
+                var ma_div = tmp_assets['mark-list'][Object.keys(tmp_assets['mark-list'])[ii]]
+                var ma_id = Object.keys(tmp_assets['mark-list'])[ii]
+                $('#cc-map-w2-inside').append('<div id="w2' + ma_id + '"></div>')
+
+                // mark-listの中に入るdiv数計算
+                var divList = divCalc(ma_div)
+
+                for(var j = 0; ma_div.length > j; j++) { // mark-listの中身生成
+                    $('#w2' + ma_id).append('<div id="w2' + ma_id + '-' + (j + 1) + '" class="block-' + ma_div[j].s + ' grid" style="top: ' + ma_div[j].y + 'px; left: ' + ma_div[j].x + 'px;"></div>')
+                    $('#w2' + ma_id + '-' + (j + 1)).append('<div class="upper-div" id="map_' +  ma_id + divList[j].div_upper + '">' +  divList[j].div_upper + '</div>')
+                    $('#w2' + ma_id + '-' + (j + 1)).append('<div class="lower-div" id="map_' +  ma_id + divList[j].div_lower + '">' +  divList[j].div_lower + '</div>')
+                    for(var f = 0; divList[j].div_list.length > f; f++) {
+                        $('#w2' + ma_id + '-' + (j + 1)).append('<div id="map_' + ma_id +  divList[j].div_list[f] + '">' +  divList[j].div_list[f] + '</div>')
+                    }
+                }
+            }
+
+            // 壁サークル生成
+            var wall_tmp = []
+            for(var ii = 0; tmp_assets.wall.length > ii; ii++) {
+                wall_tmp.push('<div id="map_A' + ('0' + (ii + 1)).slice(-2) + '" class="miniblock" style="top: ' + tmp_assets.wall[ii].y + 'px; left: ' + tmp_assets.wall[ii].x + 'px;">' + ('0' + (ii + 1)).slice(-2) + '</div>')
+            }
+            $('#cc-map-w2-inside').append(wall_tmp.join(''))
+        }
+        // w2ここまで
+    }
+    drawColor()
+}
+
+// 色付けるやつ
+function drawColor() {
+    var c_tmp = {}
+    for(var l = 0; color_change_box.length > l; l++) {
+        tmp = color_change_box[l]
+        id = tmp.place.island + tmp.place.number
+        if(c_tmp[id] === undefined) {
+            c_tmp[id] = []
+        }
+        c_tmp[id].push(tmp)
+    }
+    
+    for(var i = 0; Object.keys(c_tmp).length > i; i++) {
+        var hako = []
+        var map_id = Object.keys(c_tmp)[i]
+        for(var l = 0; c_tmp[Object.keys(c_tmp)[i]].length > l; l++) {
+            tmp = c_tmp[Object.keys(c_tmp)[i]][l]
+            hako.push('<span style="font-size: 15px; line-height: 18px;">' + tmp.name + ' (' + tmp.place.ab + ' / ' + tmp.place.date + '日目)</span>')
+        }
+        switch(c_tmp[Object.keys(c_tmp)[i]][0].place.date) {
+            case '1':
+                day_color = 'green white-text'
+                break
+            case '2':
+                day_color = 'blue white-text'
+                break
+            case '3':
+                day_color = 'pink white-text'
+                break
+            case '4':
+                day_color = 'yellow darken-3 white-text'
+                break
+        }
+        $('#map_' + map_id).addClass(day_color + ' tooltipped')
+        $('#map_' + map_id).attr('data-position', 'top')
+        $('#map_' + map_id).attr('data-tooltip', hako.join('<br>'))
+    }
+    M.Tooltip.init($('.tooltipped'), {html: true})
+}
 
 // フォーム初期化ON/OFF
 $('#cc-setting-disableReset').on('click', function() {

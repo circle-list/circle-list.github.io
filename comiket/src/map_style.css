@@ -1,0 +1,47 @@
+.map {
+    top: 0px;
+    left: 0px;
+    position: absolute;
+}
+
+.map_cover {
+    top: 0px;
+    left: 0px;
+    position: absolute;
+}
+
+.map_parent {
+    position: relative;
+    height: 680px;
+    background: #ffffff;
+    margin: 30px 0px;
+    border-radius: 30px;
+    border: solid 3px var(--nav);
+    overflow: scroll;
+}
+
+.map_parent::-webkit-scrollbar {
+    display: none;
+  }
+
+.cover-w1 {
+    width: 1800px;
+    height: 1280px;
+}
+
+.cover-w2 {
+    width: 1340px;
+    height: 1280px;
+}
+
+.cover-s {
+    width: 1240px;
+    height: 680px;
+}
+
+.tip-circle {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+}
+

@@ -41,7 +41,8 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
         <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:300,400&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link href="src/style.css" rel="stylesheet">
-        <link href="src/map.css" rel="stylesheet">
+        <link href="src/map_style.css" rel="stylesheet" >
+        <link href="src/map.css" rel="stylesheet" >
         <link href="src/theme/light.css" rel="stylesheet" id="site-theme">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -130,6 +131,15 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
                 <p>・オフラインでも使用可能</p>
                 <p>・登録したデータをクラウドにバックアップして他の端末にコピー</p>
                 <p>などなど...</p>
+                <h5>おしらせ</h5>
+                <hr>
+                <p>[12月26日 ver2.17アップデート]</p>
+                <p>・スマホなどからマップを閲覧した際に動作が重くなってしまう場合があったため、マップの描画方式を変更いたしました。</p>
+                <p>・マップの色がついている場所をタップ（クリック）すると、そのサークルの詳細情報（日付やメモなど）がわかる機能を追加しました。</p>
+                <p>[12月24日 ver2.16アップデート]</p>
+                <p>・クラウドバックアップ機能を追加しました。「設定」タブ内からバックアップと復元が可能です。</p>
+                <p>[12月23日 ver2.15アップデート]</p>
+                <p>・ダークテーマに対応しました。画面上部、再読み込みアイコンの横にある月マークをタップすることでダークモードに変更できます。</p>
                 <h5>使い方</h5>
                 <hr>
                 <a href="https://hideki0403.ml/archives/227" target="_blank">ブログの方に画像付きの使い方記事を公開しました。</a>
@@ -234,11 +244,11 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
                 <h6>サークルデータのバックアップ/復元</h6>
                 <br>
                 <a class="waves-effect waves-light btn blue lighten-1" id="cc-cloud_backup"><i class="material-icons left">cloud_upload</i>バックアップ</a>
-                <p>現在登録されているサークルリストと購入リストをサーバー上にバックアップします。</p>
+                <p>現在登録されているサークルリストと購入リストをクラウド上にバックアップします。</p>
                 <a class="waves-effect waves-light btn blue lighten-1 modal-trigger" id="cc-cloud_restore" href="#backup-restore"><i class="material-icons left">cloud_download</i>復元</a>
-                <p>サーバー上にバックアップされているデータをこの端末に復元します。現在登録されているサークルリストと購入リストはすべて上書き（削除）されますのでご注意ください。</p>
+                <p>クラウド上にバックアップされているデータをこの端末に復元します。現在登録されているサークルリストと購入リストはすべて上書き（削除）されますのでご注意ください。</p>
                 <a class="waves-effect waves-light btn btn-small modal-trigger" id="cc-cloud_check" href="#backup-check"><i class="material-icons left">autorenew</i>バックアップ状況を確認</a>
-                <p>サーバー上にバックアップされているデータ、ID、パスワードを確認できます。</p>
+                <p>クラウド上にバックアップされているデータ、ID、パスワードを確認できます。</p>
                 <hr>
                 <h6>全データダウンロード/インポート</h6>
                 <br>
@@ -518,197 +528,44 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
 
             <!-- マップ一覧@w1 -->
             <div id="cc-map-w1" class="col s12 container">
-                <br>
-                <a class="waves-effect waves-light btn-small theme-color map_download_button modal-trigger" href="#map2img_prg" onclick="map2img('w1')"><i class="material-icons left">cloud_download</i>このマップをダウンロード</a>
-                <div class="map-frame">
-                    <div class="map-w1 map-parent" id="cc-map-w1-inside">
-                        <div style="left: 900px;top: 10px;height: 435px;" class="stripe"></div>
-                        <div style="top: 450px;left: 500px;outline: 1px solid #616161;width: 800px;height: 750px;">
-                            <p style="line-height: 700px; text-align: center; position: relative; font-size: 50px;">西1・西2</p>
-                        </div>
-                        <p style="top: 1195px;left: 1755px;font-size: 20px;">あ</p>
-                        <p style="top: -15px;left: 1755px;font-size: 20px;">あ</p>
-                        <p style="top: 355px;left: 1315px;font-size: 20px;">あ</p>
-                        <p style="top: -15px;left: 15px;font-size: 20px;">れ</p>
-                        <p style="top: 355px;left: 455px;font-size: 20px;">れ</p>
-                        <p style="top: 1195px;left: 20px;font-size: 20px;">れ</p>
-                        <p class="_2" style="left: 1710px;">い</p>
-                        <p class="_2" style="left: 1650px;">う</p>
-                        <p class="_2" style="left: 1590px;">え</p>
-                        <p class="_2" style="left: 1530px;">お</p>
-                        <p class="_2" style="left: 1470px;">か</p>
-                        <p class="_2" style="left: 1410px;">き</p>
-                        <p class="_1" style="left: 1710px;">く</p>
-                        <p class="_1" style="left: 1650px;">け</p>
-                        <p class="_1" style="left: 1590px;">こ</p>
-                        <p class="_1" style="left: 1530px;">さ</p>
-                        <p class="_1" style="left: 1470px;">し</p>
-                        <p class="_1" style="left: 1410px;">す</p>
-                        <p class="_1" style="left: 1350px;">せ</p>
-                        <p class="_1" style="left: 1290px;">そ</p>
-                        <p class="_1" style="left: 1230px;">た</p>
-                        <p class="_1" style="left: 1170px;">ち</p>
-                        <p class="_1" style="left: 1110px;">つ</p>
-                        <p class="_1" style="left: 1050px;">て</p>
-                        <p class="_1" style="left: 990px;">と</p>
-                        <p class="_1" style="left: 790px;">ぬ</p>
-                        <p class="_1" style="left: 730px;">ね</p>
-                        <p class="_1" style="left: 670px;">の</p>
-                        <p class="_1" style="left: 610px;">は</p>
-                        <p class="_1" style="left: 550px;">ひ</p>
-                        <p class="_1" style="left: 490px;">ふ</p>
-                        <p class="_1" style="left: 430px;">へ</p>
-                        <p class="_1" style="left: 370px;">ほ</p>
-                        <p class="_1" style="left: 310px;">ま</p>
-                        <p class="_1" style="left: 250px;">み</p>
-                        <p class="_1" style="left: 190px;">む</p>
-                        <p class="_1" style="left: 130px;">め</p>
-                        <p class="_1" style="left: 70px;">も</p>
-                        <p class="_2" style="left: 370px;">や</p>
-                        <p class="_2" style="left: 310px;">ゆ</p>
-                        <p class="_2" style="left: 250px;">よ</p>
-                        <p class="_2" style="left: 190px;">ら</p>
-                        <p class="_2" style="left: 130px;">り</p>
-                        <p class="_2" style="left: 70px;">る</p>
-                    </div>
+                <div class="map_parent">
+                    <canvas class="map" id="map-hall-w1" width="1800px" height="1280px"></canvas>
+                    <div class="map_cover cover-w1" id="map-hall-w1-cover"></div>
                 </div>
             </div>
             <!-- マップ一覧@w2 -->
             <div id="cc-map-w2" class="col s12 container">
-                <br>
-                <a class="waves-effect waves-light btn-small theme-color map_download_button modal-trigger" href="#map2img_prg" onclick="map2img('w2')"><i class="material-icons left">cloud_download</i>このマップをダウンロード</a>
-                <div class="map-frame">
-                    <div class="map-w2 map-parent" id="cc-map-w2-inside">
-                        <div style="top: 400px; left: 500px; outline: 1px solid #616161; width: 800px; height: 800px;">
-                                <p style="line-height: 700px; text-align: center; position: relative; font-size: 50px;">西4F</p>
-                        </div>
-                        <p style="top: 355px;left: 1315px;font-size: 20px;">A</p>
-                        <p style="top: -15px;left: 1315px;font-size: 20px;">A</p>
-                        <p style="top: 1200px;left: 20px;font-size: 20px;">A</p>
-                        <p style="top: -15px;left: 10px;font-size: 20px;">A</p>
-                        <p class="_1" style="left: 1215px;">B</p>
-                        <p class="_1" style="left: 1035px;">C</p>
-                        <p class="_1" style="left: 825px;">D</p>
-                        <p class="_1" style="left: 645px;">E</p>
-                        <p class="_1" style="left: 495px;">F</p>
-                        <p class="_1" style="left: 375px;">G</p>
-                        <p class="_1" style="left: 315px;">H</p>
-                        <p class="_1" style="left: 255px;">I</p>
-                        <p class="_1" style="left: 195px;">J</p>
-                        <p class="_1" style="left: 135px;">K</p>
-                        <p class="_1" style="left: 75px;">L</p>
-                        <p class="_2" style="left: 375px;">M</p>
-                        <p class="_2" style="left: 315px;">N</p>
-                        <p class="_2" style="left: 255px;">O</p>
-                        <p class="_2" style="left: 195px;">P</p>
-                        <p class="_2" style="left: 135px;">Q</p>
-                        <p class="_2" style="left: 75px;">R</p>
-
-                    </div>
+                <div class="map_parent">
+                    <canvas class="map" id="map-hall-w2" width="1340px" height="1280px"></canvas>
+                    <div class="map_cover cover-w2" id="map-hall-w2-cover"></div>
                 </div>
             </div>
             <!-- マップ一覧@s1 -->
             <div id="cc-map-s1" class="col s12 container">
-                <br>
-                <a class="waves-effect waves-light btn-small theme-color map_download_button modal-trigger" href="#map2img_prg" onclick="map2img('s1')"><i class="material-icons left">cloud_download</i>このマップをダウンロード</a>    
-                <div class="map-frame">
-                    <div class="map-s12 map-parent" id="cc-map-s1-inside">
-                        <p style="top: 595px;left: 1200px;font-size: 20px;">ア</p>
-                        <p style="top: 0px;left: 1200px;font-size: 20px;">ア</p>
-                        <p style="top: 595px;left: 30px;font-size: 20px;">ア</p>
-                        <p style="top: 25px;left: 10px;font-size: 20px;">ア</p>
-                        <p style="top: 365px;left: 1130px;font-size: 20px;">イ</p>
-                        <p style="top: 185px;left: 1130px;font-size: 20px;">イ</p>
-                        <p style="top: 365px;left: 1070px;font-size: 20px;">ウ</p>
-                        <p style="top: 185px;left: 1070px;font-size: 20px;">ウ</p>
-                        <p style="top: 365px;left: 1010px;font-size: 20px;">エ</p>
-                        <p style="top: 185px;left: 1010px;font-size: 20px;">エ</p>
-                        <p style="top: 365px;left: 950px;font-size: 20px;">オ</p>
-                        <p style="top: 185px;left: 950px;font-size: 20px;">オ</p>
-                        <p style="top: 365px;left: 890px;font-size: 20px;">カ</p>
-                        <p style="top: 185px;left: 890px;font-size: 20px;">カ</p>
-                        <p style="top: 365px;left: 830px;font-size: 20px;">キ</p>
-                        <p style="top: 185px;left: 830px;font-size: 20px;">キ</p>
-                        <p style="top: 365px;left: 770px;font-size: 20px;">ク</p>
-                        <p style="top: 185px;left: 770px;font-size: 20px;">ク</p>
-                        <p style="top: 365px;left: 710px;font-size: 20px;">ケ</p>
-                        <p style="top: 185px;left: 710px;font-size: 20px;">ケ</p>
-                        <p style="top: 365px;left: 650px;font-size: 20px;">コ</p>
-                        <p style="top: 185px;left: 650px;font-size: 20px;">コ</p>
-                        <p style="top: 365px;left: 590px;font-size: 20px;">サ</p>
-                        <p style="top: 185px;left: 590px;font-size: 20px;">サ</p>
-                        <p style="top: 365px;left: 530px;font-size: 20px;">シ</p>
-                        <p style="top: 185px;left: 530px;font-size: 20px;">シ</p>
-                        <p style="top: 365px;left: 470px;font-size: 20px;">ス</p>
-                        <p style="top: 185px;left: 470px;font-size: 20px;">ス</p>
-                        <p style="top: 365px;left: 410px;font-size: 20px;">セ</p>
-                        <p style="top: 185px;left: 410px;font-size: 20px;">セ</p>
-                        <p style="top: 365px;left: 350px;font-size: 20px;">ソ</p>
-                        <p style="top: 185px;left: 350px;font-size: 20px;">ソ</p>
-                        <p style="top: 365px;left: 290px;font-size: 20px;">タ</p>
-                        <p style="top: 185px;left: 290px;font-size: 20px;">タ</p>
-                        <p style="top: 365px;left: 230px;font-size: 20px;">チ</p>
-                        <p style="top: 185px;left: 230px;font-size: 20px;">チ</p>
-                        <p style="top: 365px;left: 170px;font-size: 20px;">ツ</p>
-                        <p style="top: 185px;left: 170px;font-size: 20px;">ツ</p>
-                        <p style="top: 365px;left: 110px;font-size: 20px;">テ</p>
-                        <p style="top: 185px;left: 110px;font-size: 20px;">テ</p>
-                        <p style="top: 365px;left: 50px;font-size: 20px;">ト</p>
-                        <p style="top: 185px;left: 50px;font-size: 20px;">ト</p>
-                    </div>
+                <div class="map_parent">
+                    <canvas class="map" id="map-hall-s1" width="1240px" height="680px"></canvas>
+                    <div class="map_cover cover-s" id="map-hall-s1-cover"></div>
                 </div>
             </div>
             <!-- マップ一覧@s2 -->
             <div id="cc-map-s2" class="col s12 container">
-                <br>
-                <a class="waves-effect waves-light btn-small theme-color map_download_button modal-trigger" href="#map2img_prg" onclick="map2img('s2')"><i class="material-icons left">cloud_download</i>このマップをダウンロード</a>
-                <div class="map-frame">
-                    <div class="map-s12 map-parent" id="cc-map-s2-inside">
-                        <p style="top: 595px;left: 900px;font-size: 20px;">ナ</p>
-                        <p style="top: 0px;left: 1200px;font-size: 20px;">ナ</p>
-                        <p style="top: 595px;left: 300px;font-size: 20px;">ナ</p>
-                        <p style="top: 0px;left: 90px;font-size: 20px;">ナ</p>
-                        <p style="top: 365px;left: 1130px;font-size: 20px;">ニ</p>
-                        <p style="top: 185px;left: 1130px;font-size: 20px;">ニ</p>
-                        <p style="top: 365px;left: 1070px;font-size: 20px;">ヌ</p>
-                        <p style="top: 185px;left: 1070px;font-size: 20px;">ヌ</p>
-                        <p style="top: 365px;left: 1010px;font-size: 20px;">ネ</p>
-                        <p style="top: 185px;left: 1010px;font-size: 20px;">ネ</p>
-                        <p style="top: 365px;left: 950px;font-size: 20px;">ノ</p>
-                        <p style="top: 185px;left: 950px;font-size: 20px;">ノ</p>
-                        <p style="top: 365px;left: 890px;font-size: 20px;">ハ</p>
-                        <p style="top: 185px;left: 890px;font-size: 20px;">ハ</p>
-                        <p style="top: 365px;left: 830px;font-size: 20px;">ヒ</p>
-                        <p style="top: 185px;left: 830px;font-size: 20px;">ヒ</p>
-                        <p style="top: 365px;left: 770px;font-size: 20px;">フ</p>
-                        <p style="top: 185px;left: 770px;font-size: 20px;">フ</p>
-                        <p style="top: 365px;left: 710px;font-size: 20px;">ヘ</p>
-                        <p style="top: 185px;left: 710px;font-size: 20px;">ヘ</p>
-                        <p style="top: 365px;left: 650px;font-size: 20px;">ホ</p>
-                        <p style="top: 185px;left: 650px;font-size: 20px;">ホ</p>
-                        <p style="top: 365px;left: 590px;font-size: 20px;">マ</p>
-                        <p style="top: 185px;left: 590px;font-size: 20px;">マ</p>
-                        <p style="top: 365px;left: 530px;font-size: 20px;">ミ</p>
-                        <p style="top: 185px;left: 530px;font-size: 20px;">ミ</p>
-                        <p style="top: 365px;left: 470px;font-size: 20px;">ム</p>
-                        <p style="top: 185px;left: 470px;font-size: 20px;">ム</p>
-                        <p style="top: 365px;left: 410px;font-size: 20px;">メ</p>
-                        <p style="top: 185px;left: 410px;font-size: 20px;">メ</p>
-                        <p style="top: 365px;left: 350px;font-size: 20px;">モ</p>
-                        <p style="top: 185px;left: 350px;font-size: 20px;">モ</p>
-                        <p style="top: 365px;left: 290px;font-size: 20px;">ヤ</p>
-                        <p style="top: 185px;left: 290px;font-size: 20px;">ヤ</p>
-                        <p style="top: 365px;left: 230px;font-size: 20px;">ユ</p>
-                        <p style="top: 185px;left: 230px;font-size: 20px;">ユ</p>
-                        <p style="top: 365px;left: 170px;font-size: 20px;">ヨ</p>
-                        <p style="top: 185px;left: 170px;font-size: 20px;">ヨ</p>
-                        <p style="top: 365px;left: 110px;font-size: 20px;">ラ</p>
-                        <p style="top: 185px;left: 110px;font-size: 20px;">ラ</p>
-                        <p style="top: 365px;left: 50px;font-size: 20px;">リ</p>
-                        <p style="top: 185px;left: 50px;font-size: 20px;">リ</p>
-                    </div>
+                <div class="map_parent">
+                    <canvas class="map" id="map-hall-s2" width="1240px" height="680px"></canvas>
+                    <div class="map_cover cover-s" id="map-hall-s2-cover"></div>
                 </div>
             </div>
+            <!-- 詳細情報modal -->
+            <div id="map_circle_info" class="modal">
+                <div class="modal-content">
+                    <h6><span id="map_circle_info_place"></span>の詳細情報</h6>
+                    <hr>
+                    <div id="map_circle_info_list"></div>
+                </div>
+                <div class="modal-footer">
+                  <a href="#!" class="modal-close waves-effect waves btn">閉じる</a>
+                </div>
+            </div>
+
             <!-- マップ一覧@k -->
             <div id="cc-map-k" class="col s12 container">
                 <br>
@@ -933,6 +790,9 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
         <script src="src/leon.js"></script>
         <script src="src/scheck.js"></script>
+        <script src="https://unpkg.com/popper.js@1"></script>
+        <script src="https://unpkg.com/tippy.js@5"></script>
+        <script src="src/draw.js"></script>
         <script src="https://unpkg.com/service-worker-updatefound-refresh-dialog@1.1.0/dist/service-worker-updatefound-refresh-dialog.umd.js"></script>
         <script src="src/reg_sw.js"></script>
     </body>
