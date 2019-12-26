@@ -315,7 +315,7 @@ for(var i = 0; Object.keys(circle_temp).length > i; i++) {
 }
 
 // pixelRatio_mapの設定 =>上げれば上げるほど解像度は上がるが重くなる
-var pixelRatio_map_map = 2
+var pixelRatio_map = 2
 
 var circle_box = []
 
