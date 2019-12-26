@@ -314,6 +314,9 @@ for(var i = 0; Object.keys(circle_temp).length > i; i++) {
     circles_data.push(circle_temp[Object.keys(circle_temp)[i]])
 }
 
+// pixelRatioの設定 =>上げれば上げるほど解像度は上がるが重くなる
+var pixelRatio = 2
+
 var circle_box = []
 
 var mapAssets_key = Object.keys(mapAssets)
@@ -339,10 +342,15 @@ function draw_map_w(map_data, jquery) {
     // 初期化
     var map = $('#map-hall-' + jquery)[0]
     ctx = map.getContext('2d')
-    ctx.font = '12px Arial'
+    ctx.font = '12px Noto Sans JP'
     ctx.fillStyle = '#FFFFFF'
     ctx.fillRect(0, 0, map.width, map.height)
     ctx.fillStyle = '#000000'
+    map.width = map.width * pixelRatio
+    map.height = map.height * pixelRatio
+    map.style.width = (map.width / pixelRatio) + 'px'
+    map.style.height = (map.height / pixelRatio) + 'px'
+    ctx.scale(pixelRatio, pixelRatio)
 
     if(jquery === 'w1') {
         var item = map_data['wall-1']
@@ -351,6 +359,7 @@ function draw_map_w(map_data, jquery) {
             var coord = item[i]
             nums = returnNum(cl_num++)
             ctx.strokeRect(coord.x, coord.y, 20, 20)
+            ctx.font = '12px Noto Sans JP'
             ctx.fillText(nums, coord.x + 3, coord.y + 15)
             createTooltip(jquery, coord.y, coord.x, 'れ', nums)
         }
@@ -361,13 +370,14 @@ function draw_map_w(map_data, jquery) {
             var coord = item[i]
             nums = returnNum(cl_num++)
             ctx.strokeRect(coord.x, coord.y, 20, 20)
+            ctx.font = '12px Noto Sans JP'
             ctx.fillText(nums, coord.x + 3, coord.y + 15)
             createTooltip(jquery, coord.y, coord.x, 'あ', nums)
         }
         // 壁サークル番号
         var item = map_data['mark-coord']
         for(var i = 0; item.length > i; i++) {
-            ctx.font = '20px Arial'
+            ctx.font = '20px Noto Sans JP'
             ctx.fillText(item[i].c, item[i].x, item[i].y + 30)
         }
         // 四角
@@ -379,13 +389,14 @@ function draw_map_w(map_data, jquery) {
             var coord = item[i]
             nums = returnNum(cl_num++)
             ctx.strokeRect(coord.x, coord.y, 20, 20)
+            ctx.font = '12px Noto Sans JP'
             ctx.fillText(nums, coord.x + 3, coord.y + 15)
             createTooltip(jquery, coord.y, coord.x, 'A', nums)
         }
         // 壁サークル番号
         var item = map_data['mark-coord']
         for(var i = 0; item.length > i; i++) {
-            ctx.font = '20px Arial'
+            ctx.font = '20px Noto Sans JP'
             ctx.fillText(item[i].c, item[i].x, item[i].y + 30)
         }
         // 四角
@@ -407,16 +418,16 @@ function draw_map_w(map_data, jquery) {
 
             // 文字入れ
             if(obj_keys[i].match(/[せそたちつてとぬねのはひふへBCDEF]/) && j === 0) {
-                ctx.font = '20px Arial'
+                ctx.font = '20px Noto Sans JP'
                 ctx.fillText(obj_keys[i], single_island.x + 10, single_island.y - 30)
             } else {
                 if(j === 1 && !obj_keys[i].match(/[せそたちつてとぬねのはひふへBCDEF]/)) {
-                    ctx.font = '20px Arial'
+                    ctx.font = '20px Noto Sans JP'
                     ctx.fillText(obj_keys[i], single_island.x + 10, single_island.y - 30)
                 }
             }
     
-            ctx.font = '12px Arial'
+            ctx.font = '12px Noto Sans JP'
 
             // =========================================右側処理===========================================
             // サークル@下部
@@ -460,10 +471,15 @@ function draw_map_s(map_data, jquery) {
     // 初期化
     var map = $('#map-hall-' + jquery)[0]
     ctx = map.getContext('2d')
-    ctx.font = '12px Arial'
+    ctx.font = '12px Noto Sans JP'
     ctx.fillStyle = '#FFFFFF'
     ctx.fillRect(0, 0, map.width, map.height)
     ctx.fillStyle = '#000000'
+    map.width = map.width * pixelRatio
+    map.height = map.height * pixelRatio
+    map.style.width = (map.width / pixelRatio) + 'px'
+    map.style.height = (map.height / pixelRatio) + 'px'
+    ctx.scale(pixelRatio, pixelRatio)
 
     // 壁サークル
     var item = map_data['wall']
@@ -474,6 +490,7 @@ function draw_map_s(map_data, jquery) {
             nums = returnNum(57 - cl_num++)
             var coord = item[i]
             ctx.strokeRect(coord.x, coord.y, 20, 20)
+            ctx.font = '12px Noto Sans JP'
             ctx.fillText(nums, coord.x + 3, coord.y + 15)
             createTooltip(jquery, coord.y, coord.x, island_n, nums)
         }
@@ -481,7 +498,7 @@ function draw_map_s(map_data, jquery) {
         // 壁サークル番号
         var item = map_data['mark-coord']
         for(var i = 0; item.length > i; i++) {
-            ctx.font = '20px Arial'
+            ctx.font = '20px Noto Sans JP'
             ctx.fillText(item[i].c, item[i].x, item[i].y + 40)
         }
 
@@ -492,6 +509,7 @@ function draw_map_s(map_data, jquery) {
             nums = returnNum(cl_num++)
             var coord = item[i]
             ctx.strokeRect(coord.x, coord.y, 20, 20)
+            ctx.font = '12px Noto Sans JP'
             ctx.fillText(nums, coord.x + 3, coord.y + 15)
             createTooltip(jquery, coord.y, coord.x, island_n, nums)
         }
@@ -499,7 +517,7 @@ function draw_map_s(map_data, jquery) {
         // 壁サークル番号
         var item = map_data['mark-coord']
         for(var i = 0; item.length > i; i++) {
-            ctx.font = '20px Arial'
+            ctx.font = '20px Noto Sans JP'
             ctx.fillText(item[i].c, item[i].x, item[i].y + 40)
         }
     }
@@ -528,12 +546,12 @@ function draw_map_s(map_data, jquery) {
             }
 
             if(j === 0 || j === 1) {
-                ctx.font = '20px Arial'
+                ctx.font = '20px Noto Sans JP'
                 ctx.fillText(map_data.mark[i], map_data.x[i] + 10, map_data.y[j] - 12)
             }
 
 
-            ctx.font = '12px Arial'
+            ctx.font = '12px Noto Sans JP'
             for(var k = 0; s > k; k++) {
                 // ================右側処理================
                 nums = returnNum(cl_num++)
@@ -607,7 +625,7 @@ function finalize() {
         var ctx = $('#map-hall-' + coord.hall)[0].getContext('2d')
         ctx.fillStyle = days_color[data.place.date]
         ctx.fillRect(coord.y + 1, coord.x + 1, 18, 18)
-        ctx.font = '12px Arial'
+        ctx.font = '12px Noto Sans JP'
         ctx.fillStyle = '#FFF'
         ctx.fillText(num, coord.y + 3, coord.x + 14)
 

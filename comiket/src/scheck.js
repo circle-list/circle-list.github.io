@@ -1163,8 +1163,7 @@ function canvas2png(hall) {
     var ctx = canvas.getContext('2d')
     ctx.font = '10pt Noto Sans JP'
     ctx.fillStyle = '#90caf9'
-    ctx.fillText(COPYRIGHTS, 15, (canvas.height - 15))
-
+    ctx.fillText(COPYRIGHTS, 15, (canvas.style.height.replace('px', '') * 1) - 15)
     var dataurl = canvas.toDataURL('image/png')
     var bin = atob(dataurl.split(',')[1])
     var buffer = new Uint8Array(bin.length)

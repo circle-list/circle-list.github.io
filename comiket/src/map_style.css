@@ -45,3 +45,17 @@
     height: 20px;
 }
 
+.p_w1 {
+    height: 1280px;
+    overflow-y: hidden;
+}
+
+.p_w2 {
+    height: 1280px;
+    overflow-y: hidden;
+}
+
+.p_s {
+    height: 680px;
+    overflow-y: hidden;
+}
