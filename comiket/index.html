@@ -361,30 +361,37 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
                     <p>表示する日付を選択してください（複数選択可）</p>
                     <br>
                     <form action="#">
-                        <p>
+                        <div class="switch">
                             <label>
-                                <input type="checkbox" class="filled-in" checked="checked" id="cc-changedate-1"/>
-                                <span>1日目</span>
+                              <input type="checkbox" id="cc-changedate-1"/>
+                              <span class="lever"></span>
+                              1日目
                             </label>
-                        </p>
-                        <p>
+                        </div>
+                        <br>
+                        <div class="switch">
                             <label>
-                                <input type="checkbox" class="filled-in" checked="checked" id="cc-changedate-2" />
-                                <span>2日目</span>
+                              <input type="checkbox" id="cc-changedate-2"/>
+                              <span class="lever"></span>
+                              2日目
                             </label>
-                        </p>
-                        <p>
+                        </div>
+                        <br>
+                        <div class="switch">
                             <label>
-                                <input type="checkbox" class="filled-in" checked="checked" id="cc-changedate-3" />
-                                <span>3日目</span>
+                              <input type="checkbox" id="cc-changedate-3"/>
+                              <span class="lever"></span>
+                              3日目
                             </label>
-                        </p>
-                        <p>
+                        </div>
+                        <br>
+                        <div class="switch">
                             <label>
-                                <input type="checkbox" class="filled-in" checked="checked" id="cc-changedate-4" />
-                                <span>4日目</span>
+                              <input type="checkbox" id="cc-changedate-4"/>
+                              <span class="lever"></span>
+                              4日目
                             </label>
-                        </p>
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -528,6 +535,11 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
 
             <!-- マップ一覧@w1 -->
             <div id="cc-map-w1" class="col s12 container">
+                <div class="fixed-action-btn">
+                    <a class="btn-floating btn-large theme-color" onclick="canvas2png('w1')">
+                        <i class="large material-icons">cloud_download</i>
+                    </a>
+                </div>
                 <div class="map_parent">
                     <canvas class="map" id="map-hall-w1" width="1800px" height="1280px"></canvas>
                     <div class="map_cover cover-w1" id="map-hall-w1-cover"></div>
@@ -535,6 +547,11 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
             </div>
             <!-- マップ一覧@w2 -->
             <div id="cc-map-w2" class="col s12 container">
+                <div class="fixed-action-btn">
+                    <a class="btn-floating btn-large theme-color" onclick="canvas2png('w2')">
+                        <i class="large material-icons">cloud_download</i>
+                    </a>
+                </div>
                 <div class="map_parent">
                     <canvas class="map" id="map-hall-w2" width="1340px" height="1280px"></canvas>
                     <div class="map_cover cover-w2" id="map-hall-w2-cover"></div>
@@ -542,6 +559,11 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
             </div>
             <!-- マップ一覧@s1 -->
             <div id="cc-map-s1" class="col s12 container">
+                <div class="fixed-action-btn">
+                    <a class="btn-floating btn-large theme-color" onclick="canvas2png('s1')">
+                        <i class="large material-icons">cloud_download</i>
+                    </a>
+                </div>
                 <div class="map_parent">
                     <canvas class="map" id="map-hall-s1" width="1240px" height="680px"></canvas>
                     <div class="map_cover cover-s" id="map-hall-s1-cover"></div>
@@ -549,6 +571,11 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
             </div>
             <!-- マップ一覧@s2 -->
             <div id="cc-map-s2" class="col s12 container">
+                <div class="fixed-action-btn">
+                    <a class="btn-floating btn-large theme-color" onclick="canvas2png('s2')">
+                        <i class="large material-icons">cloud_download</i>
+                    </a>
+                </div>
                 <div class="map_parent">
                     <canvas class="map" id="map-hall-s2" width="1240px" height="680px"></canvas>
                     <div class="map_cover cover-s" id="map-hall-s2-cover"></div>
@@ -566,6 +593,9 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
                 </div>
             </div>
 
+            <!-- 画像ダウンロード用ダミーリンク -->
+            <a style="visibility: hidden;" id="dl-map_dummy"></a>
+            
             <!-- マップ一覧@k -->
             <div id="cc-map-k" class="col s12 container">
                 <br>

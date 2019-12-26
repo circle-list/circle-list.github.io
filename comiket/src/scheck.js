@@ -1156,3 +1156,29 @@ function copy(string){
         M.toast({html: 'コピーしました'})
     }
 }
+
+// 新ダウンロードするやつ（適当）
+function canvas2png(hall) {
+    var canvas = $('#map-hall-' + hall)[0]
+    var ctx = canvas.getContext('2d')
+    ctx.font = '10pt Noto Sans JP'
+    ctx.fillStyle = '#90caf9'
+    ctx.fillText(COPYRIGHTS, 15, (canvas.height - 15))
+
+    var dataurl = canvas.toDataURL('image/png')
+    var bin = atob(dataurl.split(',')[1])
+    var buffer = new Uint8Array(bin.length)
+    for (var i = 0; i < bin.length; i++) {
+        buffer[i] = bin.charCodeAt(i)
+    }
+
+    var blob = new Blob([buffer.buffer], {type: 'image/png'})
+
+    if (window.navigator.msSaveBlob) {
+        window.navigator.msSaveBlob(blob, 'map-' + hall + '.png')
+    } else {
+        $('#dl-map_dummy').attr('href', window.URL.createObjectURL(blob))
+        $('#dl-map_dummy').attr('download', 'map-' + hall + '.png')
+        $('#dl-map_dummy')[0].click()
+    }
+}

@@ -340,6 +340,9 @@ function draw_map_w(map_data, jquery) {
     var map = $('#map-hall-' + jquery)[0]
     ctx = map.getContext('2d')
     ctx.font = '12px Arial'
+    ctx.fillStyle = '#FFFFFF'
+    ctx.fillRect(0, 0, map.width, map.height)
+    ctx.fillStyle = '#000000'
 
     if(jquery === 'w1') {
         var item = map_data['wall-1']
@@ -458,6 +461,9 @@ function draw_map_s(map_data, jquery) {
     var map = $('#map-hall-' + jquery)[0]
     ctx = map.getContext('2d')
     ctx.font = '12px Arial'
+    ctx.fillStyle = '#FFFFFF'
+    ctx.fillRect(0, 0, map.width, map.height)
+    ctx.fillStyle = '#000000'
 
     // 壁サークル
     var item = map_data['wall']
