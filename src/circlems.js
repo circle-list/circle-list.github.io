@@ -1,3 +1,4 @@
+(function(){
 var items = $('.item table tr')
 var data = {}
 
@@ -9,3 +10,4 @@ for(var i = 0; items.length > i; i++) {
 }
 
 location.href = 'https://hideki0403.github.io/comiket/?circleData=' + JSON.stringify(data)
+})()
