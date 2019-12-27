@@ -1,8 +1,3 @@
-/* ====メモ====
-・データの書き出し処理変更
-
-=============*/
-
 /* 設定項目一覧 */
 
 // マスターアップ時に必ず変更すること！！
@@ -134,6 +129,7 @@ $(document).ready(function(){
     old_data_list()
     leon_init()
     changeTheme()
+    checkQuery()
 
     setTimeout(function() {
         $('#loading-div').addClass('load-end')
@@ -1182,5 +1178,73 @@ function canvas2png(hall) {
         $('#dl-map_dummy').attr('href', window.URL.createObjectURL(blob))
         $('#dl-map_dummy').attr('download', 'map-' + hall + '.png')
         $('#dl-map_dummy')[0].click()
+    }
+}
+
+// クエリチェック
+function checkQuery() {
+    if(location.search.match(/\?circleData/)) {
+        try{
+            var importData = JSON.parse(location.search.replace('?circleData='))
+        
+            switch(importData['配置スペース']) {
+                case /土曜日/:
+                    im_date = 1
+                    break
+                case /日曜日/:
+                    im_date = 2
+                    break
+                case /月曜日/:
+                    im_date = 3
+                    break
+                case /火曜日/:
+                    im_date = 4
+    
+            }
+    
+            im_island = importData['配置スペース'].substr(7, 1)
+            im_number = importData['配置スペース'].substr(8, 2)
+            im_ab = importData['配置スペース'].substr(10)
+    
+            var data = JSON.parse(localStorage.getItem('circles'))
+
+            var id = im_date + im_island + im_number + im_ab
+    
+            if(data[id] !== undefined) {
+                data[id] = {
+                    place: {
+                        date: im_date,
+                        island: im_island,
+                        number: im_number,
+                        ab: im_ab
+                    },
+                    name: importData['サークル名'],
+                    memo: data[id].memo,
+                    buy: data[id].buy,
+                    paid: data[id].paid,
+                    id: id
+                }
+                M.toast({html: '更新しました！'})
+            } else {
+                data[id] = {
+                    place: {
+                        date: im_date,
+                        island: im_island,
+                        number: im_number,
+                        ab: im_ab
+                    },
+                    name: importData['サークル名'],
+                    memo: '執筆者名: ' + importData['執筆者名'],
+                    buy: [],
+                    paid: false,
+                    id: id
+                }
+                M.toast({html: '追加しました！'})
+            }
+        
+            localStorage.setItem('circles', JSON.stringify(data))
+        } catch {
+            M.toast({html: '追加に失敗しました'})
+        }
     }
 }
