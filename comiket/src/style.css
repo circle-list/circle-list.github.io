@@ -83,6 +83,7 @@
 .collapsible-header {
     background-color: var(--background) !important;
     border-bottom: 1px solid var(--border) !important;
+    color: var(--text-color);
 }
 
 .collapsible-body {
