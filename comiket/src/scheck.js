@@ -1028,13 +1028,16 @@ function changeTheme() {
     if(getConfig('darktheme')) {
         var icon = 'brightness_5'
         var link = 'src/theme/dark.css'
+        var header = '#323639'
     } else {
         var icon = 'brightness_3'
         var link = 'src/theme/light.css'
+        var header = '#c99987'
     }
 
     $('#theme-icon').text(icon)
     $('#site-theme').attr('href', link)
+    $('#header-theme-color').attr('content', header)
 }
 
 // データのサーバーバックアップ
