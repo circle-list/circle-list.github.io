@@ -61,7 +61,7 @@ window.onerror = function(msg, url, line, col) {
                     effectiveType: window.navigator.connection.effectiveType,
                     downlink: window.navigator.connection.downlink
                 },
-                cache: cache_version
+                cache: JSON.stringfy(cache_version)
             },
             error: {
                 errorMessage: msg,
