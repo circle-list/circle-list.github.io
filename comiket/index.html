@@ -106,16 +106,15 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
         <div id="cc-top" class="col s12">
             <ul class="tabs tab2">
                 <li class="tab"><a class="active" href="#cc-top-about">はじめに</a></li>
+                <li class="tab"><a href="#cc-top-notification">おしらせ</a></li>
                 <li class="tab"><a href="#cc-top-memo">メモ</a></li>
                 <li class="tab"><a href="#cc-top-stat">情報</a></li>
                 <li class="tab"><a href="#cc-top-info">設定</a></li>
-                <li class="tab"><a href="#cc-top-bug">バグ報告</a></li>
             </ul>
             <div id="cc-top-about" class="container text-color" style="margin-bottom: 80px;">
                 <br>
                 <a class="waves-effect waves-light btn-small grey share-btn" id="social-share"><i class="material-icons left">share</i>share</a>
-                <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-text="コミケで行きたいサークルをリスト化できるサービス CircleList" data-url="https://hideki0403.github.io/comiket/" data-via="circle_list" data-hashtags="CircleList" data-related="circle_list,hideki_0403" data-show-count="true">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-                <a href="https://twitter.com/circle_list?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="true" data-show-screen-name="false">Follow</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-text="コミケで行きたいサークルをリスト化できるサービス CircleList" data-url="https://hideki0403.github.io/comiket/" data-via="circle_list" data-hashtags="CircleList" data-related="circle_list,hideki_0403" data-show-count="true">ツイート</a>
                 <div class="line-it-button" data-lang="ja" data-type="share-a" data-ver="3" data-url="https://hideki0403.github.io/comiket/" data-color="default" data-count="true" style="display: none;"></div>
                 <!-- <h6 class="red-text">注意: これはデバッグ用のバージョンです。<a href="../index.html">安定版をお使いください。</a></h6> -->
                 <h5>CircleListとは？</h5>
@@ -131,15 +130,6 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
                 <p>・オフラインでも使用可能</p>
                 <p>・登録したデータをクラウドにバックアップして他の端末にコピー</p>
                 <p>などなど...</p>
-                <h5>おしらせ</h5>
-                <hr>
-                <p>[12月26日 ver2.17アップデート]</p>
-                <p>・スマホなどからマップを閲覧した際に動作が重くなってしまう場合があったため、マップの描画方式を変更しました。</p>
-                <p>・マップの色がついている場所をタップ（クリック）すると、そのサークルの詳細情報（日付やメモなど）がわかる機能を追加しました。</p>
-                <p>[12月24日 ver2.16アップデート]</p>
-                <p>・クラウドバックアップ機能を追加しました。「設定」タブ内からバックアップと復元が可能です。</p>
-                <p>[12月23日 ver2.15アップデート]</p>
-                <p>・ダークテーマに対応しました。画面上部、再読み込みアイコンの横にある月マークをタップすることでダークモードに変更できます。</p>
                 <h5>使い方</h5>
                 <hr>
                 <a href="https://hideki0403.ml/archives/227" target="_blank">ブログの方に画像付きの使い方記事を公開しました。</a>
@@ -203,6 +193,11 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
                     </form>
                 </div>
             </div>
+            <div id="cc-top-notification" class="container text-color">
+                <h5>おしらせ</h5>
+                <hr>
+                <a class="twitter-timeline" data-theme="dark" href="https://twitter.com/circle_list?ref_src=twsrc%5Etfw" data-chrome="noheader nofooter transparent noborders">Tweets by circle_list</a>
+            </div> 
             <div id="cc-top-stat" class="container text-color">
                 <h5>情報</h5>
                 <hr>
@@ -350,10 +345,12 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
                     <a href="#!" class="modal-close waves-effect waves-light info-color btn">閉じる</a>
                 </div>
             </div>
+            <!--
             <div id="cc-top-bug" class="container">
                 <br>
                 <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdkgT-jcUEoNhyx2J9FkfXwrIsotbGemv3pS4VXngqqXRtrgw/viewform?embedded=true" width="100%" height="1000px" frameborder="0" marginheight="0" marginwidth="0">読み込んでいます…</iframe>
             </div>
+            -->
         </div>        
             
         <!-- ListTab -->
@@ -823,6 +820,7 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
         <script src="src/leon.js"></script>
         <script src="src/scheck.js"></script>
+        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         <script src="https://unpkg.com/popper.js@1"></script>
         <script src="https://unpkg.com/tippy.js@5"></script>
         <script src="src/draw.js"></script>

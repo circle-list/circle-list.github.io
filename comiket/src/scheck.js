@@ -1025,10 +1025,12 @@ function changeTheme() {
         var icon = 'brightness_5'
         var link = 'src/theme/dark.css'
         var header = '#323639'
+        $('.twitter-timeline').data('theme', 'dark')
     } else {
         var icon = 'brightness_3'
         var link = 'src/theme/light.css'
         var header = '#c99987'
+        $('.twitter-timeline').data('theme', 'light')
     }
 
     $('#theme-icon').text(icon)
