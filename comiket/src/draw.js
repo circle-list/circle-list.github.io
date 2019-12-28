@@ -610,86 +610,44 @@ var map_n = 0
 var map_array = {}
 var days_color = {"1": '#039be5', "2": '#d81b60', "3": '#ffb300', "4": '#43a047'}
 function finalize() {
-    for(var i = 0; circles_data.length > i; i++) {
-        var data = circles_data[i]
-        if(map_array[data.place.island + data.place.number] === undefined) {
-            map_array[data.place.island + data.place.number] = []
-        }
-        map_array[data.place.island + data.place.number].push(data)
-    }
-
-    for(var i = 0; Object.keys(map_array).length > i; i++) {
-
-        var data = map_array[Object.keys(map_array)[i]][0]
-        
-        var num = Object.keys(circle_box[data.place.island]).find(d => {
-            return (d === data.place.number)
-        })
-        var coord = circle_box[data.place.island][num]
-        try {
-            $('#map-hall-' + coord.hall + '-cover').append('<div class="tip-circle" id="map_temp-' + map_n + '" style="top: ' + coord.x + 'px; left: ' + coord.y + 'px;" onclick="openDetails(\'' + data.place.island + data.place.number + '\')"></div>')
-        } catch(err) {
-            //M.toast({html: '<b class="red-text text-accent-1" style="font-weight: bold;">エラーが発生しました。マップの描画に失敗している可能性があります</b>'})
-            if(getConfig('errorReport') !== false) {
-        
-                var errorReport = {
-                    report: {
-                        time: new Date(),
-                        info: {
-                            vendor: window.navigator.vendor,
-                            userAgent: window.navigator.userAgent,
-                            language: window.navigator.language
-                        },
-                        connection: {
-                            type: window.navigator.connection.type,
-                            effectiveType: window.navigator.connection.effectiveType,
-                            downlink: window.navigator.connection.downlink
-                        }
-                    },
-                    error: {
-                        data: JSON.stringify(circle_box),
-                        err: err
-                    }
-                }
-        
-                if(window.navigator.onLine) {
-                    $.ajax({
-                        url:'https://sp-wtr-api.gq/api/v1/circlelist/error',
-                        type:'POST',
-                        data: errorReport
-                    })
-                    .done(data => {
-                        console.log(data)
-                    })
-                    .fail(data => {
-                        console.log(data)
-                        console.log(errorReport)
-                        M.toast({html: '<b class="red-text text-accent-1" style="font-weight: bold;">エラー情報の送信に失敗しました</b>'})
-                    })
-        
-                }
+    if(circle_box !== []) {
+        for(var i = 0; circles_data.length > i; i++) {
+            var data = circles_data[i]
+            if(map_array[data.place.island + data.place.number] === undefined) {
+                map_array[data.place.island + data.place.number] = []
             }
+            map_array[data.place.island + data.place.number].push(data)
         }
-
-        var ctx = $('#map-hall-' + coord.hall)[0].getContext('2d')
-        ctx.fillStyle = days_color[data.place.date]
-        ctx.fillRect(coord.y + 1, coord.x + 1, 18, 18)
-        ctx.font = '12px Noto Sans JP'
-        ctx.fillStyle = '#FFF'
-        ctx.fillText(num, coord.y + 3, coord.x + 14)
-
-        var array = map_array[data.place.island + data.place.number]
-        var circle_list = []
-        for(var j = 0; array.length > j; j++) {
-            circle_list.push(array[j].name + ' (' + array[j].place.date + '日目/' + array[j].place.ab + ')')
+    
+        for(var i = 0; Object.keys(map_array).length > i; i++) {
+    
+            var data = map_array[Object.keys(map_array)[i]][0]
+            
+            var num = Object.keys(circle_box[data.place.island]).find(d => {
+                return (d === data.place.number)
+            })
+            var coord = circle_box[data.place.island][num]
+            $('#map-hall-' + coord.hall + '-cover').append('<div class="tip-circle" id="map_temp-' + map_n + '" style="top: ' + coord.x + 'px; left: ' + coord.y + 'px;" onclick="openDetails(\'' + data.place.island + data.place.number + '\')"></div>')
+            var ctx = $('#map-hall-' + coord.hall)[0].getContext('2d')
+            ctx.fillStyle = days_color[data.place.date]
+            ctx.fillRect(coord.y + 1, coord.x + 1, 18, 18)
+            ctx.font = '12px Noto Sans JP'
+            ctx.fillStyle = '#FFF'
+            ctx.fillText(num, coord.y + 3, coord.x + 14)
+    
+            var array = map_array[data.place.island + data.place.number]
+            var circle_list = []
+            for(var j = 0; array.length > j; j++) {
+                circle_list.push(array[j].name + ' (' + array[j].place.date + '日目/' + array[j].place.ab + ')')
+            }
+    
+            var text = circle_list.join('<br>')
+            tippy('#map_temp-' + map_n, {
+                content: text
+            })
+    
+            map_n++
         }
-
-        var text = circle_list.join('<br>')
-        tippy('#map_temp-' + map_n, {
-            content: text
-        })
-
-        map_n++
     }
 }
 
