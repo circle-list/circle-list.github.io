@@ -39,6 +39,11 @@
     height: 680px;
 }
 
+.cover-k {
+    width: 1720px;
+    height: 1050px;
+}
+
 .tip-circle {
     position: absolute;
     width: 20px;
@@ -57,5 +62,10 @@
 
 .p_s {
     height: 680px;
+    overflow-y: hidden;
+}
+
+.p_k {
+    height: 1050px;
     overflow-y: hidden;
 }

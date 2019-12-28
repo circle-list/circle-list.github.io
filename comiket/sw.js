@@ -1,10 +1,10 @@
 // メインはこっちを変える
 // サービスに直接的に関わる変更など
-var CACHE_STATIC_VERSION = 'static-v2.30'
+var CACHE_STATIC_VERSION = 'static-v2.31'
 
 // こっちはassets系統のアプデ時のみ使用
 // フォント変更やmaterialize,jQueryなどの外部ライブラリ更新時のみ変更
-var CACHE_DYNAMIC_VERSION = 'dynamic-v4.0'
+var CACHE_DYNAMIC_VERSION = 'dynamic-v4.1'
 
 importScripts("https://unpkg.com/service-worker-updatefound-refresh-dialog@1.1.0/dist/service-worker-updatefound-refresh-dialog.umd.js");
 
@@ -21,7 +21,6 @@ self.addEventListener('install', function(event) {
           '/comiket/manifest.json',
           '/comiket/src/style.css',
           '/comiket/src/scheck.js',
-          '/comiket/src/map.css',
           '/comiket/src/reg_sw.js',
           '/comiket/src/draw.js',
           '/comiket/src/map_style.css',

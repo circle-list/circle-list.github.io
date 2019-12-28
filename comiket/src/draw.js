@@ -305,7 +305,7 @@ var mapAssets = {
             ]
         }
     },
-    "c": {
+    "k": {
         coord: [
             {
                 x: 210,
@@ -441,7 +441,7 @@ var mapAssets = {
                 n: 1151
             },
             {
-                x: 670,
+                x: 690,
                 y: 180,
                 w: 20,
                 h: 60,
@@ -477,7 +477,7 @@ var mapAssets = {
             },
             {
                 x: 130,
-                y: 400,
+                y: 420,
                 w: 20,
                 h: 20,
                 n: 1213
@@ -561,7 +561,7 @@ var mapAssets = {
             },
             {
                 x: 390,
-                y: 400,
+                y: 420,
                 w: 20,
                 h: 20,
                 n: 1233
@@ -577,7 +577,7 @@ var mapAssets = {
                 x: 530,
                 y: 380,
                 w: 20,
-                h: 40,
+                h: 60,
                 n: 1242
             },
             {
@@ -797,6 +797,524 @@ var mapAssets = {
                 h: 80,
                 n: 1353
             },
+            {
+                x: 30,
+                y: 760,
+                w: 20,
+                h: 60,
+                n: 1411
+            },
+            {
+                x: 230,
+                y: 840,
+                w: 20,
+                h: 20,
+                n: 1421
+            },
+            {
+                x: 250,
+                y: 840,
+                w: 80,
+                h: 20,
+                n: 1422
+            },
+            {
+                x: 450,
+                y: 860,
+                w: 60,
+                h: 20,
+                n: 1431
+            },
+            {
+                x: 510,
+                y: 860,
+                w: 40,
+                h: 20,
+                n: 1432
+            },
+            {
+                x: 670,
+                y: 860,
+                w: 40,
+                h: 20,
+                n: 1451
+            },
+            {
+                x: 710,
+                y: 860,
+                w: 60,
+                h: 20,
+                n: 1451
+            },
+            {
+                x: 1470,
+                y: 80,
+                w: 20,
+                h: 20,
+                n: 2911
+            },
+            {
+                x: 1490,
+                y: 80,
+                w: 20,
+                h: 20,
+                n: 2912
+            },
+            {
+                x: 1510,
+                y: 80,
+                w: 20,
+                h: 20,
+                n: 2913
+            },
+            {
+                x: 1530,
+                y: 80,
+                w: 20,
+                h: 20,
+                n: 2914
+            },
+            {
+                x: 1550,
+                y: 80,
+                w: 20,
+                h: 20,
+                n: 2915
+            },
+            {
+                x: 1570,
+                y: 80,
+                w: 20,
+                h: 20,
+                n: 2921
+            },
+            {
+                x: 1590,
+                y: 80,
+                w: 20,
+                h: 20,
+                n: 2922
+            },
+            {
+                x: 1610,
+                y: 80,
+                w: 20,
+                h: 20,
+                n: 2923
+            },
+            {
+                x: 1630,
+                y: 80,
+                w: 20,
+                h: 20,
+                n: 2924
+            },
+            {
+                x: 1650,
+                y: 80,
+                w: 20,
+                h: 20,
+                n: 2925
+            },
+            {
+                x: 1090,
+                y: 180,
+                w: 20,
+                h: 20,
+                n: 2111
+            },
+            {
+                x: 1090,
+                y: 200,
+                w: 20,
+                h: 20,
+                n: 2112
+            },
+            {
+                x: 1090,
+                y: 220,
+                w: 20,
+                h: 20,
+                n: 2113
+            },
+            {
+                x: 1110,
+                y: 200,
+                w: 20,
+                h: 40,
+                n: 2114
+            },
+            {
+                x: 1110,
+                y: 180,
+                w: 20,
+                h: 20,
+                n: 2115
+            },
+            {
+                x: 1230,
+                y: 180,
+                w: 20,
+                h: 40,
+                n: 2121
+            },
+            {
+                x: 1230,
+                y: 220,
+                w: 20,
+                h: 40,
+                n: 2122
+            },
+            {
+                x: 1250,
+                y: 240,
+                w: 20,
+                h: 20,
+                n: 2123
+            },
+            {
+                x: 1250,
+                y: 180,
+                w: 20,
+                h: 60,
+                n: 2124
+            },
+            {
+                x: 1370,
+                y: 180,
+                w: 20,
+                h: 80,
+                n: 2131
+            },
+            {
+                x: 1390,
+                y: 180,
+                w: 20,
+                h: 80,
+                n: 2132
+            },
+            {
+                x: 1090,
+                y: 360,
+                w: 20,
+                h: 80,
+                n: 2211
+            },
+            {
+                x: 1110,
+                y: 420,
+                w: 20,
+                h: 20,
+                n: 2212
+            },
+            {
+                x: 1110,
+                y: 400,
+                w: 20,
+                h: 20,
+                n: 2213
+            },
+            {
+                x: 1110,
+                y: 380,
+                w: 20,
+                h: 20,
+                n: 2214
+            },
+            {
+                x: 1110,
+                y: 360,
+                w: 20,
+                h: 20,
+                n: 2215
+            },
+            {
+                x: 1230,
+                y: 360,
+                w: 20,
+                h: 20,
+                n: 2221
+            },
+            {
+                x: 1230,
+                y: 380,
+                w: 20,
+                h: 20,
+                n: 2222
+            },
+            {
+                x: 1230,
+                y: 400,
+                w: 20,
+                h: 40,
+                n: 2223
+            },
+            {
+                x: 1250,
+                y: 400,
+                w: 20,
+                h: 40,
+                n: 2224
+            },
+            {
+                x: 1250,
+                y: 380,
+                w: 20,
+                h: 20,
+                n: 2225
+            },
+            {
+                x: 1250,
+                y: 360,
+                w: 20,
+                h: 20,
+                n: 2226
+            },
+            {
+                x: 1370,
+                y: 360,
+                w: 20,
+                h: 60,
+                n: 2231
+            },
+            {
+                x: 1370,
+                y: 420,
+                w: 20,
+                h: 20,
+                n: 2232
+            },
+            {
+                x: 1390,
+                y: 360,
+                w: 20,
+                h: 80,
+                n: 2233
+            },
+            {
+                x: 1510,
+                y: 360,
+                w: 20,
+                h: 40,
+                n: 2241
+            },
+            {
+                x: 1510,
+                y: 400,
+                w: 20,
+                h: 20,
+                n: 2242
+            },
+            {
+                x: 1510,
+                y: 420,
+                w: 20,
+                h: 20,
+                n: 2243
+            },
+            {
+                x: 1530,
+                y: 420,
+                w: 20,
+                h: 20,
+                n: 2244
+            },
+            {
+                x: 1530,
+                y: 400,
+                w: 20,
+                h: 20,
+                n: 2245
+            },
+            {
+                x: 1530,
+                y: 360,
+                w: 20,
+                h: 40,
+                n: 2246
+            },
+            {
+                x: 1630,
+                y: 360,
+                w: 20,
+                h: 20,
+                n: 2251
+            },
+            {
+                x: 1630,
+                y: 380,
+                w: 20,
+                h: 20,
+                n: 2252
+            },
+            {
+                x: 1630,
+                y: 400,
+                w: 20,
+                h: 40,
+                n: 2253
+            },
+            {
+                x: 1650,
+                y: 400,
+                w: 20,
+                h: 40,
+                n: 2254
+            },
+            {
+                x: 1650,
+                y: 360,
+                w: 20,
+                h: 40,
+                n: 2255
+            },
+            {
+                x: 1090,
+                y: 600,
+                w: 40,
+                h: 80,
+                n: 2311
+            },
+            {
+                x: 1230,
+                y: 600,
+                w: 20,
+                h: 20,
+                n: 2321
+            },
+            {
+                x: 1230,
+                y: 620,
+                w: 20,
+                h: 40,
+                n: 2322
+            },
+            {
+                x: 1230,
+                y: 660,
+                w: 20,
+                h: 20,
+                n: 2323
+            },
+            {
+                x: 1250,
+                y: 640,
+                w: 20,
+                h: 40,
+                n: 2324
+            },
+            {
+                x: 1250,
+                y: 600,
+                w: 20,
+                h: 40,
+                n: 2325
+            },
+            {
+                x: 1370,
+                y: 600,
+                w: 40,
+                h: 20,
+                n: 2331
+            },
+            {
+                x: 1370,
+                y: 620,
+                w: 20,
+                h: 20,
+                n: 2332
+            },
+            {
+                x: 1370,
+                y: 640,
+                w: 20,
+                h: 40,
+                n: 2333
+            },
+            {
+                x: 1390,
+                y: 620,
+                w: 20,
+                h: 60,
+                n: 2334
+            },
+            {
+                x: 1510,
+                y: 600,
+                w: 20,
+                h: 20,
+                n: 2341
+            },
+            {
+                x: 1510,
+                y: 620,
+                w: 20,
+                h: 20,
+                n: 2342
+            },
+            {
+                x: 1510,
+                y: 640,
+                w: 20,
+                h: 20,
+                n: 2343
+            },
+            {
+                x: 1510,
+                y: 660,
+                w: 20,
+                h: 20,
+                n: 2344
+            },
+            {
+                x: 1530,
+                y: 640,
+                w: 20,
+                h: 40,
+                n: 2345
+            },
+            {
+                x: 1530,
+                y: 600,
+                w: 20,
+                h: 40,
+                n: 2346
+            },
+            {
+                x: 1630,
+                y: 600,
+                w: 20,
+                h: 80,
+                n: 2351
+            },
+            {
+                x: 1650,
+                y: 600,
+                w: 20,
+                h: 80,
+                n: 2352
+            },
+            {
+                x: 1330,
+                y: 820,
+                w: 40,
+                h: 80,
+                n: 2431
+            },
+            {
+                x: 1490,
+                y: 860,
+                w: 20,
+                h: 20,
+                n: 2441
+            },
+            {
+                x: 1510,
+                y: 860,
+                w: 60,
+                h: 20,
+                n: 2442
+            }
         ]
     }
 }
@@ -834,6 +1352,8 @@ for(i = 0; mapAssets_key.length > i; i++) {
         case 's2':
             draw_map_s(mapAssets.s2, 's2')
             break
+        case 'k':
+            draw_map_k(mapAssets.k, 'k')
     }
 }
 
@@ -842,14 +1362,14 @@ function draw_map_w(map_data, jquery) {
     var map = $('#map-hall-' + jquery)[0]
     ctx = map.getContext('2d')
     ctx.font = '12px Noto Sans JP'
-    ctx.fillStyle = '#FFFFFF'
-    ctx.fillRect(0, 0, map.width, map.height)
-    ctx.fillStyle = '#000000'
     map.width = map.width * pixelRatio_map
     map.height = map.height * pixelRatio_map
     map.style.width = (map.width / pixelRatio_map) + 'px'
     map.style.height = (map.height / pixelRatio_map) + 'px'
     ctx.scale(pixelRatio_map, pixelRatio_map)
+    ctx.fillStyle = '#FFFFFF'
+    ctx.fillRect(0, 0, (map.width / pixelRatio_map), (map.height / pixelRatio_map))
+    ctx.fillStyle = '#000000'
 
     if(jquery === 'w1') {
         var item = map_data['wall-1']
@@ -971,14 +1491,14 @@ function draw_map_s(map_data, jquery) {
     var map = $('#map-hall-' + jquery)[0]
     ctx = map.getContext('2d')
     ctx.font = '12px Noto Sans JP'
-    ctx.fillStyle = '#FFFFFF'
-    ctx.fillRect(0, 0, map.width, map.height)
-    ctx.fillStyle = '#000000'
     map.width = map.width * pixelRatio_map
     map.height = map.height * pixelRatio_map
     map.style.width = (map.width / pixelRatio_map) + 'px'
     map.style.height = (map.height / pixelRatio_map) + 'px'
     ctx.scale(pixelRatio_map, pixelRatio_map)
+    ctx.fillStyle = '#FFFFFF'
+    ctx.fillRect(0, 0, (map.width / pixelRatio_map), (map.height / pixelRatio_map))
+    ctx.fillStyle = '#000000'
 
     // 壁サークル
     var item = map_data['wall']
@@ -1066,6 +1586,29 @@ function draw_map_s(map_data, jquery) {
 
             }
         }
+    }
+}
+
+function draw_map_k(map_data, jquery) {
+    // 初期化
+    var map = $('#map-hall-' + jquery)[0]
+    ctx = map.getContext('2d')
+    ctx.font = '10px Noto Sans JP'
+    map.width = map.width * pixelRatio_map
+    map.height = map.height * pixelRatio_map
+    map.style.width = (map.width / pixelRatio_map) + 'px'
+    map.style.height = (map.height / pixelRatio_map) + 'px'
+    ctx.scale(pixelRatio_map, pixelRatio_map)
+    ctx.fillStyle = '#FFFFFF'
+    ctx.fillRect(0, 0, (map.width / pixelRatio_map), (map.height / pixelRatio_map))
+    ctx.fillStyle = '#000000'
+    ctx.fillRect(900, 150, 3, 800) 
+
+    for(var i = 0; map_data.coord.length > i; i++) {
+        var item = map_data.coord[i]
+        ctx.strokeRect(item.x, item.y, item.w, item.h)
+        ctx.fillText((item.n + '').slice(0, 2), item.x + (item.w / 3), item.y + (item.h / 2))
+        ctx.fillText((item.n + '').slice(2, 4), item.x + (item.w / 3), item.y + (item.h / 2) + 8)
     }
 }
 

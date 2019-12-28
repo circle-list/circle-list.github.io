@@ -61,7 +61,7 @@ window.onerror = function(msg, url, line, col) {
                     effectiveType: window.navigator.connection.effectiveType,
                     downlink: window.navigator.connection.downlink
                 },
-                cache: JSON.stringfy(cache_version),
+                cache: cache_version.join(';'),
                 circle: circle_box.length
             },
             error: {
@@ -905,47 +905,6 @@ $('#cc-memo-area').on('change', function() {
     Seconds = DD.getSeconds();
     $('#cc-memo-savetime').text('保存しました (保存日時: ' + Hours + "時" + Minutes + "分" + Seconds + "秒" + ')')
 })
-
-// 画像化して出力
-function map2img(map_id) {
-    c('[map2img] Clicked')
-    $("#dl_m_img").attr('disabled', true)
-    $('#output_img').attr('src', '')
-    $('#progress_message').text('画像生成中です...')
-    html2canvas($('#cc-map-' + map_id + '-inside'),{
-        onrendered: function(canvas){
-            c('[map2img] RenderedSuccess')
-
-            // 独自の透かしを入れる (転載対策的な)
-            var ctx = canvas.getContext('2d')
-            ctx.font = '10pt Noto Sans JP'
-            ctx.fillStyle = '#90caf9'
-            ctx.fillText(COPYRIGHTS, 15, (canvas.height - 15))
-
-            var dataurl = canvas.toDataURL('image/png')
-            var bin = atob(dataurl.split(',')[1])
-            var buffer = new Uint8Array(bin.length)
-            for (var i = 0; i < bin.length; i++) {
-                buffer[i] = bin.charCodeAt(i)
-            }
-
-            var blob = new Blob([buffer.buffer], {type: 'image/png'})
-
-            $("#dl_m_img").attr('disabled', false)
-            $('#progress_message').text('生成完了')
-            $('#output_img').attr('src', dataurl)
-
-            if (window.navigator.msSaveBlob) {
-                c('[map2img] 1')
-                window.navigator.msSaveBlob(blob, 'map-' + map_id + '.png')
-            } else {
-                c('[map2img] 2')
-                $('#dl_m_img').attr('href', window.URL.createObjectURL(blob))
-                $('#dl_m_img').attr('download', 'map-' + map_id + '.png')
-            }
-        }
-    })
-}
 
 // ロード時のロゴアニメーション
 
