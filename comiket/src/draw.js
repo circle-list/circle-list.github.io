@@ -628,8 +628,8 @@ function finalize() {
         var coord = circle_box[data.place.island][num]
         try {
             $('#map-hall-' + coord.hall + '-cover').append('<div class="tip-circle" id="map_temp-' + map_n + '" style="top: ' + coord.x + 'px; left: ' + coord.y + 'px;" onclick="openDetails(\'' + data.place.island + data.place.number + '\')"></div>')
-        } catch {
-            M.toast({html: '<b class="red-text text-accent-1" style="font-weight: bold;">エラーが発生しました。マップの描画に失敗している可能性があります</b>'})
+        } catch(err) {
+            //M.toast({html: '<b class="red-text text-accent-1" style="font-weight: bold;">エラーが発生しました。マップの描画に失敗している可能性があります</b>'})
             if(getConfig('errorReport') !== false) {
         
                 var errorReport = {
@@ -647,7 +647,8 @@ function finalize() {
                         }
                     },
                     error: {
-                        data: JSON.stringify(circle_box)
+                        data: JSON.stringify(circle_box),
+                        err: err
                     }
                 }
         
