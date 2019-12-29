@@ -129,7 +129,6 @@ $(document).ready(function(){
     cacheVers()
     old_data_list()
     leon_init()
-    changeTheme()
     checkQuery()
 
     setTimeout(function() {
@@ -985,18 +984,20 @@ function changeTheme() {
         var icon = 'brightness_5'
         var link = 'src/theme/dark.css'
         var header = '#323639'
-        $('.twitter-timeline').data('theme', 'dark')
+        $('.twitter-timeline').attr('data-theme', 'dark')
     } else {
         var icon = 'brightness_3'
         var link = 'src/theme/light.css'
         var header = '#c99987'
-        $('.twitter-timeline').data('theme', 'light')
+        $('.twitter-timeline').attr('data-theme', 'light')
     }
 
     $('#theme-icon').text(icon)
     $('#site-theme').attr('href', link)
     $('#header-theme-color').attr('content', header)
 }
+
+changeTheme() // Twitterのやつもあるので即時実行
 
 // データのサーバーバックアップ
 function serverBackup(u, d) {
