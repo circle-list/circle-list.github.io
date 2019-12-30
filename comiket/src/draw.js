@@ -15,7 +15,7 @@ if(circle_temp === null || circle_temp === undefined) {
 // pixelRatio_mapの設定 =>上げれば上げるほど解像度は上がるが重くなる
 var pixelRatio_map = 2
 
-var circle_box = []
+var circle_box = {}
 
 var mapAssets_key = Object.keys(mapAssets)
 
@@ -327,8 +327,9 @@ function calcCircle(obj) {
 var map_n = 0
 var map_array = {}
 var days_color = {"1": '#039be5', "2": '#d81b60', "3": '#ffb300', "4": '#43a047'}
+bug_send_coord = ''
 function finalize() {
-    if(circle_box !== []) {
+    if(circle_box !== {}) {
         for(var i = 0; circles_data.length > i; i++) {
             var data = circles_data[i]
             if(map_array[data.place.island + data.place.number] === undefined) {
@@ -345,6 +346,10 @@ function finalize() {
                 return (d === data.place.number)
             })
             var coord = circle_box[data.place.island][num]
+            bug_send_coord = {
+                coord: coord,
+                circle: circles_data.length
+            }
             $('#map-hall-' + coord.hall + '-cover').append('<div class="tip-circle" id="map_temp-' + map_n + '" style="top: ' + coord.x + 'px; left: ' + coord.y + 'px;" onclick="openDetails(\'' + data.place.island + data.place.number + '\')"></div>')
             var ctx = $('#map-hall-' + coord.hall)[0].getContext('2d')
             ctx.fillStyle = days_color[data.place.date]

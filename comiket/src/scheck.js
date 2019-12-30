@@ -61,8 +61,7 @@ window.onerror = function(msg, url, line, col) {
                     effectiveType: window.navigator.connection.effectiveType,
                     downlink: window.navigator.connection.downlink
                 },
-                cache: cache_version.join(';'),
-                circle: circle_box.length
+                registData: bug_send_coord
             },
             error: {
                 errorMessage: msg,
