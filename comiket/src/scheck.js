@@ -280,7 +280,7 @@ function old_data_list() {
     for(var i = 0; Object.keys(vers).length > i; i++) {
         var v_name = comiketList[Object.keys(vers)[i]]
         var v_length = Object.keys(vers[Object.keys(vers)[i]]).length
-        $('#cc-top-stat-old').append('<tr><th>' + v_name + '</th><th>' + v_length + '</th></tr>')
+        $('#cc-top-stat-old').append('<tr onclick="old_comiket(\'' + Object.keys(vers)[i] + '\')"><th>' + v_name + '</th><th>' + v_length + '</th></tr>')
     }
 }
 
@@ -422,7 +422,7 @@ function find_old_data() {
 
         // modal追加処理
         if(comiket_v !== '') {
-            $('body').append('<div id="move-confirm" class="modal"><div class="modal-content"><p>以前のコミケ( ' + comiket_v + ' )のデータが残っているようです。「過去のコミケ」へデータを移動させますか？</p><p>いいえを選択した場合は現在のデータが保持されますが、次回アクセス時にこの確認画面が再度表示されます。</p><br><p>※「過去のコミケ」にデータを移動させることで、以前のデータを残しつつも初めから新しくサークルを登録することができるようになります。</p><p>過去のデータは「トップ」→「情報」よりいつでも閲覧可能です。</p></div><div class="modal-footer"><a href="#!" class="modal-close waves-effect waves-light info-color btn">いいえ</a><a href="#!" class="modal-close waves-effect waves-light warning-color btn" onclick="old_data();">はい</a></div></div>')
+            $('body').append('<div id="move-confirm" class="modal"><div class="modal-content"><p>以前のコミケ( ' + comiket_v + ' )のデータが残っているようです。「過去のコミケ」へデータを移動させますか？</p><p>いいえを選択した場合は現在のデータが保持されますが、次回アクセス時にこの確認画面が再度表示されます。</p><br><p>※「過去のコミケ」にデータを移動させることで、以前のデータを残しつつも初めから新しくサークルを登録することができるようになります。</p><p>過去のデータは「トップ」→「情報」よりいつでも閲覧可能です。</p></div><div class="modal-footer"><a href="#!" class="modal-close waves-effect waves-light info-color btn">いいえ</a><a href="#!" class="modal-close waves-effect waves-light warning-color btn" onclick="old_data();" style="margin-left: 15px;">はい</a></div></div>')
             $('.modal').modal()
             M.Modal.getInstance($('#move-confirm')).open()
         }
@@ -430,6 +430,10 @@ function find_old_data() {
     } else {
         if(config['newUser'] === undefined) {
             config['newUser'] = true
+            localStorage.setItem('config', JSON.stringify(config))
+        } else {
+            config['version'] = comiketName
+            console.log(comiketName)
             localStorage.setItem('config', JSON.stringify(config))
         }
     }
@@ -453,16 +457,19 @@ function old_data() {
         // C97~用処理
         if(config['version'] !== comiketName) {
             c('ok')
-            old[config['version']] =  localStorage.getItem('circles')
+            old[config['version']] =  JSON.parse(localStorage.getItem('circles'))
             localStorage.setItem('old_version', JSON.stringify(old))
             localStorage.setItem('circles', '{}')
-            M.toast({html: comiketList[config['version']] + 'のデータを「過去のコミケ」に引き継ぎました！「トップ」→「情報」から閲覧可能です。', displayLength: 15000})
+            M.toast({html: comiketList[config['version']] + 'のデータを「過去のコミケ」に引き継ぎました！最新の情報を反映するために5秒後に再読み込みします。', displayLength: 15000})
             config['version'] = comiketName
             localStorage.setItem('config', JSON.stringify(config))
             old_data_list()
+            setTimeout(function() {
+                location.reload()
+            }, 5000)
             return
         }
-    }
+    } 
 }
 
 // 保存
@@ -1209,4 +1216,17 @@ function checkQuery() {
             M.toast({html: '追加に失敗しました'})
         }
     }
+}
+
+// 過去のコミケ＠詳細
+function old_comiket(comiket) {
+    var data = JSON.parse(localStorage.getItem('old_version'))[comiket]
+    var keys = Object.keys(data)
+    $('#cc-stat-modal-name').text(comiketList[comiket])
+    $('#cc-stat-modal-box').html('')
+    for(var i = 0; Object.keys(data).length > i; i++) {
+        var temped = data[keys[i]]
+        $('#cc-stat-modal-box').append('・' + temped.name + ' (' + temped.place.date + '日目/' + temped.place.island + temped.place.number + temped.place.ab + ')<br>')
+    }
+    M.Modal.getInstance($('#cc-stat-modal')).open()
 }
