@@ -115,6 +115,7 @@ window.onerror = function(msg, url, line, col) {
 $(document).ready(function(){
     $('.tabs').tabs()
     $('.sidenav').sidenav()
+    disableMaterializeSelect()
     $('select').formSelect()
     $('.modal').modal()
     $('.collapsible').collapsible()
@@ -141,6 +142,13 @@ $(document).ready(function(){
         find_old_data()
     }, 3500)
 })
+
+// disableMaterializeSelect
+function disableMaterializeSelect() {
+    if(getConfig('browser-select')) {
+        $('select').addClass('browser-default')
+    }
+}
 
 // PWA
 var installPromptEvent
@@ -334,6 +342,7 @@ function init() {
 
     $('#cc-setting-disableReset').prop('checked', config['disableReset'])
     $('#cc-setting-errorReport').prop('checked', config['errorReport'])
+    $('#cc-setting-enableBrowserSelect').prop('checked', config['browser-select'])
 }
 
 // StorageCheck
@@ -396,9 +405,11 @@ function ConfigCheck() {
     if(config['errorReport'] === undefined) {
         config['errorReport'] = true
     }
-
     if(config['darktheme'] === undefined) {
         config['darktheme'] = false
+    }
+    if(config['browser-select'] === undefined) {
+        config['browser-select'] = false
     }
     localStorage.setItem('config', JSON.stringify(config))
 }
@@ -887,7 +898,6 @@ $('#cc-buylist-wrapper').on('click', '#buy-delete-button', function() {
 
 // フォーム初期化ON/OFF
 $('#cc-setting-disableReset').on('click', function() {
-    console.log($('#cc-setting-disableReset').prop('checked'))
     var config = JSON.parse(localStorage.getItem('config'))
     config['disableReset'] = $('#cc-setting-disableReset').prop('checked')
     localStorage.setItem('config', JSON.stringify(config))
@@ -895,10 +905,17 @@ $('#cc-setting-disableReset').on('click', function() {
 
 // 自動バグレポート機能ON/OFF
 $('#cc-setting-errorReport').on('click', function() {
-    console.log($('#cc-setting-errorReport').prop('checked'))
     var config = JSON.parse(localStorage.getItem('config'))
     config['errorReport'] = $('#cc-setting-errorReport').prop('checked')
     localStorage.setItem('config', JSON.stringify(config))
+})
+
+// materializeSelect無効化ON/OFF
+$('#cc-setting-enableBrowserSelect').on('click', function() {
+    var config = JSON.parse(localStorage.getItem('config'))
+    config['browser-select'] = $('#cc-setting-enableBrowserSelect').prop('checked')
+    localStorage.setItem('config', JSON.stringify(config))
+    M.toast({html: 'この機能は再読み込み後から有効になります。'})
 })
 
 // メモエリア

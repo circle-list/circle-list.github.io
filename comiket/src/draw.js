@@ -347,7 +347,7 @@ function finalize() {
             })
             var coord = circle_box[data.place.island][num]
             bug_send_coord = {
-                coord: coord,
+                coord: JSON.stringify(coord),
                 circle: circles_data.length
             }
             $('#map-hall-' + coord.hall + '-cover').append('<div class="tip-circle" id="map_temp-' + map_n + '" style="top: ' + coord.x + 'px; left: ' + coord.y + 'px;" onclick="openDetails(\'' + data.place.island + data.place.number + '\')"></div>')
