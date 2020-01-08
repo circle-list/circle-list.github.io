@@ -71,7 +71,9 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
                     <img src="assets/logo.png" class="brand-logo main-logo"></img>
                 </div>
                 <ul class="right">
-                    <li><a href="#" id="toggle-theme"><i class="material-icons" id="theme-icon">brightness_3</i></a></li>
+                    <li><a href="#notification-modal" class="notification modal-trigger" id="cc-notification">
+                        <i class="material-icons">notifications</i>
+                    </a></li>
                     <li><a href="#" onclick="location.reload();"><i class="material-icons">refresh</i></a></li>
                 </ul>
                 <ul id="slide-out" class="sidenav">
@@ -102,11 +104,32 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
             </div>
         </nav>
 
+        <!-- NotificationModal -->
+        <div id="notification-modal" class="modal modal-fixed-footer">
+            <div class="modal-content disableOverflowX" class="relative">
+                <h6 id="notification-modal-title" class="move">お知らせ</h6>
+                <hr style="margin-top: 15px !important;">
+                <div id="notification-modal-list" class="move">
+                    <table>
+                        <tbody class="pointer" id="notification-modal-inner"></tbody>
+                    </table>
+                </div>
+                <div id="notification-modal-detail" class="move fadeout displayNone">
+                    <span><i class="material-icons left">date_range</i><span id="notification-modal-date">----/--/--</span></span>
+                    <br>
+                    <br>
+                    <span id="notification-modal-message"></span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-close waves-effect btn">閉じる</a>
+            </div>
+        </div>
+
         <!-- TopTab -->
         <div id="cc-top" class="col s12">
             <ul class="tabs tab2">
                 <li class="tab"><a class="active" href="#cc-top-about">はじめに</a></li>
-                <li class="tab"><a href="#cc-top-notification">おしらせ</a></li>
                 <li class="tab"><a href="#cc-top-memo">メモ</a></li>
                 <li class="tab"><a href="#cc-top-stat">情報</a></li>
                 <li class="tab"><a href="#cc-top-info">設定</a></li>
@@ -117,7 +140,7 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
                 <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-text="コミケで行きたいサークルをリスト化できるサービス CircleList" data-url="https://hideki0403.github.io/comiket/" data-via="circle_list" data-hashtags="CircleList" data-related="circle_list,hideki_0403" data-show-count="true">ツイート</a>
                 <div class="line-it-button" data-lang="ja" data-type="share-a" data-ver="3" data-url="https://hideki0403.github.io/comiket/" data-color="default" data-count="true" style="display: none;"></div>
                 <!-- <h6 class="red-text">注意: これはデバッグ用のバージョンです。<a href="../index.html">安定版をお使いください。</a></h6> -->
-                <a href="https://forms.gle/My8KFCv3sUes1R9r8" target="_brank">バグ報告はこちらから</a>
+                <a href="https://forms.gle/My8KFCv3sUes1R9r8" target="_brank" class="share-btn waves-effect waves-light btn-small orange darken-1"><i class="material-icons left">bug_report</i>バグ報告</a>
                 <h5>CircleListとは？</h5>
                 <hr>
                 <p>CircleListはコミックマーケット用の非公式ツールです。</p>
@@ -165,7 +188,6 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
                 <h6>使用ライブラリ</h6>
                 <hr>
                 <p>・materialize</p>
-                <p>・html2canvas</p>
                 <p>・jQuery</p>
                 <p>・Tippy</p>
                 <p>・leon</p>
@@ -194,11 +216,13 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
                     </form>
                 </div>
             </div>
+            <!--
             <div id="cc-top-notification" class="container text-color">
                 <h5>おしらせ</h5>
                 <hr>
                 <a class="twitter-timeline" data-theme="light" href="https://twitter.com/circle_list?ref_src=twsrc%5Etfw" data-chrome="noheader nofooter transparent noborders">Tweets by circle_list</a>
-            </div> 
+            </div>
+            --> 
             <div id="cc-top-stat" class="container text-color">
                 <h5>情報</h5>
                 <hr>
@@ -232,6 +256,19 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
             </div>
             <div id="cc-top-info" class="container text-color" style="margin-bottom: 80px;">
                 <h5>設定</h5>
+                <hr>
+                <h6>ダークモード</h6>
+                <br>
+                <div class="switch">
+                    <label>
+                    OFF
+                    <input type="checkbox" id="cc-setting-darkmode">
+                    <span class="lever"></span>
+                    ON
+                    </label>
+                </div>
+                <br>
+                <p>ダークモードをオンにすると黒を基調とした配色に切り替わります。</p>
                 <hr>
                 <h6>サークル情報入力方式を変更する</h6>
                 <br>
@@ -289,6 +326,7 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
                 <p class="red-text">この機能を使用して、何か問題が発生したとしても開発者は責任を負いかねます。</p>
                 <p>画面左上のメニュー内にある「初期化ロック」をタップすることで下のボタンが押せるようになります。</p>
                 <a id="all_clear" class="waves-effect waves-light btn small-btn red" disabled onclick="localStorage.clear()">初期化</a>
+                <br>
                 <hr>
                 <h6>エラー情報送信</h6>
                 <p>エラーが発生した際に、自動的にエラーの内容を開発元のサーバーへ送信します。</p>

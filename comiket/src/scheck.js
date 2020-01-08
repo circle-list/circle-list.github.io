@@ -110,6 +110,9 @@ window.onerror = function(msg, url, line, col) {
 
 }
 
+// Initialize NewsCache
+news_cache = ''
+
 /*  MaterializeJS Loader */
 
 $(document).ready(function(){
@@ -130,6 +133,12 @@ $(document).ready(function(){
     old_data_list()
     leon_init()
     checkQuery()
+
+    $.getJSON('https://hideki0403.github.io/comiket/data/news.json')
+    .done(function(data) {
+        news_cache = data.news
+        updateNews()
+    })
 
     setTimeout(function() {
         $('#loading-div').addClass('load-end')
@@ -343,6 +352,7 @@ function init() {
     $('#cc-setting-disableReset').prop('checked', config['disableReset'])
     $('#cc-setting-errorReport').prop('checked', config['errorReport'])
     $('#cc-setting-enableBrowserSelect').prop('checked', config['browser-select'])
+    $('#cc-setting-darkmode').prop('checked', config['darktheme'])
 }
 
 // StorageCheck
@@ -364,6 +374,10 @@ function ConfigCheck() {
 
     if(localStorage.getItem('old_version') === null) {
         localStorage.setItem('old_version', '[]')
+    }
+
+    if(localStorage.getItem('read_news') === null) {
+        localStorage.setItem('read_news', '[]')
     }
 
     if(localStorage.getItem('errorStack') !== null) {
@@ -899,21 +913,21 @@ $('#cc-buylist-wrapper').on('click', '#buy-delete-button', function() {
 // フォーム初期化ON/OFF
 $('#cc-setting-disableReset').on('click', function() {
     var config = JSON.parse(localStorage.getItem('config'))
-    config['disableReset'] = $('#cc-setting-disableReset').prop('checked')
+    config['disableReset'] = $(this).prop('checked')
     localStorage.setItem('config', JSON.stringify(config))
 })
 
 // 自動バグレポート機能ON/OFF
 $('#cc-setting-errorReport').on('click', function() {
     var config = JSON.parse(localStorage.getItem('config'))
-    config['errorReport'] = $('#cc-setting-errorReport').prop('checked')
+    config['errorReport'] = $(this).prop('checked')
     localStorage.setItem('config', JSON.stringify(config))
 })
 
 // materializeSelect無効化ON/OFF
 $('#cc-setting-enableBrowserSelect').on('click', function() {
     var config = JSON.parse(localStorage.getItem('config'))
-    config['browser-select'] = $('#cc-setting-enableBrowserSelect').prop('checked')
+    config['browser-select'] = $(this).prop('checked')
     localStorage.setItem('config', JSON.stringify(config))
     M.toast({html: 'この機能は再読み込み後から有効になります。'})
 })
@@ -997,25 +1011,20 @@ $('[id=social-share]').on('click', function() {
 })
 
 // テーマ切り替え
-$('#toggle-theme').on('click', function() {
-    setConfig('darktheme', !getConfig('darktheme'))
+$('#cc-setting-darkmode').on('click', function() {
+    setConfig('darktheme', $(this).prop('checked'))
     changeTheme()
 })
 
 function changeTheme() {
     if(getConfig('darktheme')) {
-        var icon = 'brightness_5'
         var link = 'src/theme/dark.css'
         var header = '#323639'
-        $('.twitter-timeline').attr('data-theme', 'dark')
     } else {
-        var icon = 'brightness_3'
         var link = 'src/theme/light.css'
         var header = '#c99987'
-        $('.twitter-timeline').attr('data-theme', 'light')
     }
 
-    $('#theme-icon').text(icon)
     $('#site-theme').attr('href', link)
     $('#header-theme-color').attr('content', header)
 }
@@ -1246,4 +1255,82 @@ function old_comiket(comiket) {
         $('#cc-stat-modal-box').append('・' + temped.name + ' (' + temped.place.date + '日目/' + temped.place.island + temped.place.number + temped.place.ab + ')<br>')
     }
     M.Modal.getInstance($('#cc-stat-modal')).open()
+}
+
+// おしらせ
+function openNotification(id, flag) {
+    $('#notification-modal-list').addClass('fadeout')
+    $('#notification-modal-detail').removeClass('displayNone')
+    $('#notification-modal-title').addClass('fadeout')
+    setTimeout(function() {
+        var detail_title = news_cache[id]
+        $('#notification-modal-title').html('<span onclick="closeNotification()" class="link-color" style="margin-right: 15px;"><i class="material-icons left icon-fixed">keyboard_backspace</i>戻る</span>' + detail_title.title)
+        $('#notification-modal-list').addClass('displayNone')
+        $('#notification-modal-detail').removeClass('fadeout')
+        $('#notification-modal-title').removeClass('fadeout')
+    }, 550)
+
+    if(!flag) {
+        var read_news = JSON.parse(localStorage.getItem('read_news'))
+        read_news.push(id)
+        localStorage.setItem('read_news', JSON.stringify(read_news))
+        updateNews()
+    }
+}
+
+function closeNotification() {
+    $('#notification-modal-detail').addClass('fadeout')
+    $('#notification-modal-title').addClass('fadeout')
+    setTimeout(function() {
+        $('#notification-modal-list').removeClass('displayNone')
+        $('#notification-modal-detail').addClass('displayNone')
+        $('#notification-modal-title').html('お知らせ')
+        setTimeout(function() {
+            $('#notification-modal-list').removeClass('fadeout')
+            $('#notification-modal-title').removeClass('fadeout')
+        }, 200)
+    }, 550)
+}
+
+// pulse btn-floating info-color
+
+// 情報取得
+$('#cc-notification').on('click', function() {
+    if(news_cache === '') {
+        $.getJSON('https://hideki0403.github.io/comiket/data/news.json')
+        .done(function(data) {
+            news_cache = data.news
+            updateNews()
+        })
+    } else {
+        updateNews()
+    }
+})
+
+function updateNews() {
+    var unread_counter = 0
+    var news = news_cache
+    var news_keys = Object.keys(news)
+    var read_news = JSON.parse(localStorage.getItem('read_news'))
+    $('#notification-modal-inner').html('')
+    for(var i = 0; news_keys.length > i; i++) {
+        if(read_news.indexOf(news_keys[i]) !== -1) {
+            // 読んでいた場合
+            news_readed = ''
+            read_flag = true
+        } else {
+            // 読んでいない場合
+            news_readed = 'new-notice'
+            read_flag = false
+            unread_counter++
+        }
+        $('#notification-modal-inner').append('<tr class="' + news_readed + '" onclick="openNotification(\'' + news_keys[i] + '\', ' + read_flag + ')"><td>' + news[news_keys[i]].date + '</td><td>' + news[news_keys[i]].title + '</td></tr>')
+        $('#notification-modal-message').html(news[news_keys[i]].text.replace(/\/n/g, '<br>'))
+        $('#notification-modal-date').text(news[news_keys[i]].date)
+    }
+
+    $('#cc-notification span').remove()
+    if(unread_counter !== 0) {
+        $('#cc-notification').append('<span>' + unread_counter + '</span>')
+    }
 }
