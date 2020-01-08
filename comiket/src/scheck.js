@@ -1302,11 +1302,14 @@ function old_comiket(comiket) {
 
 // おしらせ
 function openNotification(id, flag) {
+    var detail_title = news_cache[id]
+    $('#notification-modal-message').html(detail_title.text.replace(/\/n/g, '<br>'))
+    $('#notification-modal-date').text(detail_title.date)
+
     $('#notification-modal-list').addClass('fadeout')
     $('#notification-modal-detail').removeClass('displayNone')
     $('#notification-modal-title').addClass('fadeout')
     setTimeout(function() {
-        var detail_title = news_cache[id]
         $('#notification-modal-title').html('<span onclick="closeNotification()" class="link-color" style="margin-right: 15px;"><i class="material-icons left icon-fixed">keyboard_backspace</i>戻る</span>' + detail_title.title)
         $('#notification-modal-list').addClass('displayNone')
         $('#notification-modal-detail').removeClass('fadeout')
@@ -1368,8 +1371,6 @@ function updateNews() {
             unread_counter++
         }
         $('#notification-modal-inner').append('<tr class="' + news_readed + '" onclick="openNotification(\'' + news_keys[i] + '\', ' + read_flag + ')"><td>' + news[news_keys[i]].date + '</td><td>' + news[news_keys[i]].title + '</td></tr>')
-        $('#notification-modal-message').html(news[news_keys[i]].text.replace(/\/n/g, '<br>'))
-        $('#notification-modal-date').text(news[news_keys[i]].date)
     }
 
     $('#cc-notification span').remove()
