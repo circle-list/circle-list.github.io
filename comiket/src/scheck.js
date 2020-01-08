@@ -159,6 +159,15 @@ function disableMaterializeSelect() {
     }
 }
 
+const Base64 = {
+    encode: function(str) {
+        return btoa(unescape(encodeURIComponent(str)))
+    },
+    decode: function(str) {
+        return decodeURIComponent(escape(atob(str)))
+    }
+}
+
 // PWA
 var installPromptEvent
 
@@ -1081,6 +1090,9 @@ $('#cc-cloud_check').on('click', function() {
             $('#cl-bu-date').text(data.date)
             $('#cl-bu-id').text(data.id)
             $('#cl-bu-pass').text(data.pass)
+            $('#takeover_qr').empty()
+            $('#takeover_qr').qrcode({width: 128, height: 128, text: 'https://hideki0403.github.io/comiket/?takeover=' + Base64.encode(JSON.stringify({id: data.id, pass: data.pass}))})
+            $('#takeover_qr').append('<p>(上記のQRコードをスマホなどで読み取ると簡単に復元ができます。)</p>')
         }
     })
     .fail(data => {
@@ -1089,14 +1101,11 @@ $('#cc-cloud_check').on('click', function() {
     })
 })
 
-$('#cl-restore-login').on('click', function() {
+function ajax_login(dt) {
     $.ajax({
         url:'https://sp-wtr-api.gq/api/v1/circlelist/backup-restore',
         type:'POST',
-        data: {
-            id: $('#cl-restore-id').val(),
-            pass: $('#cl-restore-pass').val()
-        }
+        data: dt
     })
     .done(data => {
         console.log(data)
@@ -1116,6 +1125,13 @@ $('#cl-restore-login').on('click', function() {
     .fail(data => {
         console.log(data)
         M.toast({html: '<b class="red-text text-accent-1" style="font-weight: bold;">情報の取得に失敗しました</b>'})
+    })
+}
+
+$('#cl-restore-login').on('click', function() {
+    ajax_login({
+        id: $('#cl-restore-id').val(),
+        pass: $('#cl-restore-pass').val()
     })
 })
 
@@ -1177,70 +1193,97 @@ function canvas2png(hall) {
 }
 
 // クエリチェック
-function checkQuery() {
-    if(location.search.match(/\?circleData/)) {
-        try{
-            var importData = JSON.parse(location.search.replace('?circleData='))
-        
-            switch(importData['配置スペース']) {
-                case /土曜日/:
-                    im_date = 1
-                    break
-                case /日曜日/:
-                    im_date = 2
-                    break
-                case /月曜日/:
-                    im_date = 3
-                    break
-                case /火曜日/:
-                    im_date = 4
-    
-            }
-    
-            im_island = importData['配置スペース'].substr(7, 1)
-            im_number = importData['配置スペース'].substr(8, 2)
-            im_ab = importData['配置スペース'].substr(10)
-    
-            var data = JSON.parse(localStorage.getItem('circles'))
+var query = getUrlVars()
+function getUrlVars() {
+    var vars = [], max = 0, hash = '', array = ''
+    var url = window.location.search
 
-            var id = im_date + im_island + im_number + im_ab
-    
-            if(data[id] !== undefined) {
-                data[id] = {
-                    place: {
-                        date: im_date,
-                        island: im_island,
-                        number: im_number,
-                        ab: im_ab
-                    },
-                    name: importData['サークル名'],
-                    memo: data[id].memo,
-                    buy: data[id].buy,
-                    paid: data[id].paid,
-                    id: id
-                }
-                M.toast({html: '更新しました！'})
-            } else {
-                data[id] = {
-                    place: {
-                        date: im_date,
-                        island: im_island,
-                        number: im_number,
-                        ab: im_ab
-                    },
-                    name: importData['サークル名'],
-                    memo: '執筆者名: ' + importData['執筆者名'],
-                    buy: [],
-                    paid: false,
-                    id: id
-                }
-                M.toast({html: '追加しました！'})
-            }
+    hash  = url.slice(1).split('&')
+    max = hash.length
+    for (var i = 0; i < max; i++) {
+        array = hash[i].split('=')
+        vars.push(array[0])
+        vars[array[0]] = array[1]
+    }
+
+    return vars
+}
+
+function checkQuery() {
+    switch(query[0]) {
+        case 'circleData':
+            try{
+                var importData = query['circleData']
+            
+                switch(importData['配置スペース']) {
+                    case /土曜日/:
+                        im_date = 1
+                        break
+                    case /日曜日/:
+                        im_date = 2
+                        break
+                    case /月曜日/:
+                        im_date = 3
+                        break
+                    case /火曜日/:
+                        im_date = 4
         
-            localStorage.setItem('circles', JSON.stringify(data))
-        } catch {
-            M.toast({html: '追加に失敗しました'})
-        }
+                }
+        
+                im_island = importData['配置スペース'].substr(7, 1)
+                im_number = importData['配置スペース'].substr(8, 2)
+                im_ab = importData['配置スペース'].substr(10)
+        
+                var data = JSON.parse(localStorage.getItem('circles'))
+    
+                var id = im_date + im_island + im_number + im_ab
+        
+                if(data[id] !== undefined) {
+                    data[id] = {
+                        place: {
+                            date: im_date,
+                            island: im_island,
+                            number: im_number,
+                            ab: im_ab
+                        },
+                        name: importData['サークル名'],
+                        memo: data[id].memo,
+                        buy: data[id].buy,
+                        paid: data[id].paid,
+                        id: id
+                    }
+                    M.toast({html: '更新しました！'})
+                } else {
+                    data[id] = {
+                        place: {
+                            date: im_date,
+                            island: im_island,
+                            number: im_number,
+                            ab: im_ab
+                        },
+                        name: importData['サークル名'],
+                        memo: '執筆者名: ' + importData['執筆者名'],
+                        buy: [],
+                        paid: false,
+                        id: id
+                    }
+                    M.toast({html: '追加しました！'})
+                }
+            
+                localStorage.setItem('circles', JSON.stringify(data))
+            } catch {
+                M.toast({html: '追加に失敗しました'})
+            }
+            break
+        
+        case 'takeover':
+            var user_data = JSON.parse(Base64.decode(query['takeover'] + '=='))
+            ajax_login({
+                id: user_data.id,
+                pass: user_data.pass
+            })
+            M.Modal.getInstance($('#backup-restore')).open()
+            break
     }
 }
 
