@@ -182,9 +182,15 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
                 <hr>
                 <p>ゆきねこ (@hideki_0403)</p>
                 <p>お問い合わせなどはTwitterのDM、またはメンションにてお願いします。</p>
+                <br>
+                <h6>投げ銭</h6>
+                <hr>
                 <p>以下のサービスで投げ銭を受け付けています。15円以上の任意の金額を投げ銭できます。（頂いた投げ銭は本サービスの維持費として使用させていただきます）</p>
                 <script src="https://kampa.me/t/tbe.js"></script>
-                <p>また、このサイトのソースコードはGithubですべて公開しています。以下のリポジトリにある"comiket"ディレクトリ内がこのサイトのソースコードです。</p>
+                <br>
+                <h6>ソースコード（開発者向け）</h6>
+                <hr>
+                <p>このサイトのソースコードはGithubですべて公開しています。以下のリポジトリにある"comiket"ディレクトリ内がこのサイトのソースコードです。</p>
                 <a class="github-button" href="https://github.com/hideki0403/hideki0403.github.io" data-show-count="true" aria-label="Star hideki0403/hideki0403.github.io on GitHub">Star</a>
                 <br>
                 <h6>使用ライブラリ</h6>
@@ -233,7 +239,6 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
                 <span>グッズの合計金額: </span><span id="cc-stat-prices"></span>
                 <h5>過去のコミケ</h5>
                 <hr>
-                <p>サークルなどの詳細情報を閲覧する機能は後日実装予定です！</p>
                 <table class="highlight">
                     <thead>
                         <tr>
@@ -260,17 +265,28 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
                 <h5>設定</h5>
                 <hr>
                 <h6>ダークモード</h6>
-                <br>
-                <div class="switch">
-                    <label>
-                    OFF
-                    <input type="checkbox" id="cc-setting-darkmode">
-                    <span class="lever"></span>
-                    ON
-                    </label>
-                </div>
-                <br>
+                <form action="#" id="cc-setting-darkmode">  
+                    <p>
+                        <label>
+                            <input class="with-gap" name="radio-darkmode" type="radio" value="true" />
+                            <span>ON</span>
+                        </label>
+                    </p>
+                    <p>
+                        <label>
+                            <input class="with-gap" name="radio-darkmode" type="radio" value="false" />
+                            <span>OFF</span>
+                        </label>
+                    </p>
+                    <p>
+                        <label>
+                            <input class="with-gap" name="radio-darkmode" type="radio" value="auto" />
+                            <span>自動</span>
+                        </label>
+                    </p>
+                </form>
                 <p>ダークモードをオンにすると黒を基調とした配色に切り替わります。</p>
+                <p>自動を選択した場合はシステムの設定に従います。</p>
                 <hr>
                 <h6>サークル情報入力方式を変更する</h6>
                 <br>

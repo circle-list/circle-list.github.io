@@ -120,7 +120,7 @@ $(document).ready(function(){
     $('.sidenav').sidenav()
     disableMaterializeSelect()
     $('select').formSelect()
-    $('.modal').modal()
+    $('.modal').modal({dismissible: false})
     $('.collapsible').collapsible()
     var elem = document.querySelector('.collapsible.expandable')
     M.Collapsible.init(elem, {
@@ -361,7 +361,7 @@ function init() {
     $('#cc-setting-disableReset').prop('checked', config['disableReset'])
     $('#cc-setting-errorReport').prop('checked', config['errorReport'])
     $('#cc-setting-enableBrowserSelect').prop('checked', config['browser-select'])
-    $('#cc-setting-darkmode').prop('checked', config['darktheme'])
+    $('input[value="' + config['darktheme'] + '"]').prop('checked', true)
 }
 
 // StorageCheck
@@ -429,7 +429,7 @@ function ConfigCheck() {
         config['errorReport'] = true
     }
     if(config['darktheme'] === undefined) {
-        config['darktheme'] = false
+        config['darktheme'] = 'auto'
     }
     if(config['browser-select'] === undefined) {
         config['browser-select'] = false
@@ -1020,13 +1020,28 @@ $('[id=social-share]').on('click', function() {
 })
 
 // テーマ切り替え
-$('#cc-setting-darkmode').on('click', function() {
-    setConfig('darktheme', $(this).prop('checked'))
+$('input[name="radio-darkmode"]').on('change', function() {
+    var value_change = $(this).val()
+    if(value_change !== 'auto') {
+        if(value_change === 'true') {
+            var value_change = true
+        } else {
+            var value_change = false
+        }
+    }
+    setConfig('darktheme', value_change)
     changeTheme()
 })
 
 function changeTheme() {
-    if(getConfig('darktheme')) {
+
+    if(getConfig('darktheme') === 'auto') {
+        var automode = true
+    } else {
+        var automode = false
+    }
+
+    if(getConfig('darktheme') || automode) {
         var link = 'src/theme/dark.css'
         var header = '#323639'
     } else {
@@ -1377,4 +1392,8 @@ function updateNews() {
     if(unread_counter !== 0) {
         $('#cc-notification').append('<span>' + unread_counter + '</span>')
     }
+}
+
+function isDarkmode() {
+    return window.matchMedia('(prefers-color-scheme: dark)').matches
 }

@@ -1,0 +1,70 @@
+<!--
+    
+________   ___   ________   ________   ___        _______    ___        ___   ________   _________   
+|\   ____\ |\  \ |\   __  \ |\   ____\ |\  \      |\  ___ \  |\  \      |\  \ |\   ____\ |\___   ___\ 
+\ \  \___| \ \  \\ \  \|\  \\ \  \___| \ \  \     \ \   __/| \ \  \     \ \  \\ \  \___|_\|___ \  \_| 
+ \ \  \     \ \  \\ \   _  _\\ \  \     \ \  \     \ \  \_|/__\ \  \     \ \  \\ \_____  \    \ \  \  
+  \ \  \____ \ \  \\ \  \\  \|\ \  \____ \ \  \____ \ \  \_|\ \\ \  \____ \ \  \\|____|\  \    \ \  \ 
+   \ \_______\\ \__\\ \__\\ _\ \ \_______\\ \_______\\ \_______\\ \_______\\ \__\ ____\_\  \    \ \__\
+    \|_______| \|__| \|__|\|__| \|_______| \|_______| \|_______| \|_______| \|__||\_________\    \|__|
+                                                                                 \|_________|         
+                                                                                                                                                                                    
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>CircleList - サークル配置図印刷</title>
+        <meta name="theme-color" content="#c99987" id="header-theme-color">
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+        <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon-180x180.png">
+        <link rel="icon" type="image/png" sizes="192×192" href="assets/android-chrome-192x192.png">
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-115436840-4"></script>
+        <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'UA-115436840-4'); </script>
+        <meta property="og:url" content="https://hideki0403.github.io/comiket/" /> 
+        <meta property="og:title" content="CircleList" /> 
+        <meta property="og:site_name" content="CircleList">
+        <meta property="og:image" content="https://hideki0403.github.io/comiket/assets/card.png" /> 
+        <meta property="og:description" content="CircleListはコミックマーケット用の非公式ツールです。配置図の閲覧やお気に入りのサークルを登録してチェックリストを作成することが出来ます。" /> 
+        <meta name="twitter:card" content="summary_large_image"/> 
+        <meta name="twitter:site" content="@hideki_0403"/>
+        <meta name="keywords" content="circlelist,コミケ,c97,コミケマップ,コミックマーケット,配置図">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="white">
+        <meta name="apple-mobile-web-app-title" content="CircleList">
+        <link rel="apple-touch-icon" href="assets/apple-touch-icon-72x72.png" sizes="72x72">
+        <link rel="apple-touch-icon" href="assets/apple-touch-icon-114x114.png" sizes="114x114">
+        <link rel="apple-touch-icon" href="assets/apple-touch-icon-120x120.png" sizes="120x120">
+        <link rel="apple-touch-icon" href="assets/apple-touch-icon-144x144.png" sizes="144x144">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:300,400&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="src/style.css" rel="stylesheet">
+        <link href="src/map_style.css" rel="stylesheet" >
+        <link href="src/theme/light.css" rel="stylesheet" id="site-theme">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+        <nav class="nav-extended theme-color" style="box-shadow: none; -webkit-box-shadow: none;">
+            <div class="nav-wrapper">
+                <div class="img-container">
+                    <img src="assets/logo.png" class="brand-logo main-logo"></img>
+                </div>
+                <ul class="right">
+                    <li><a href="#" onclick="location.href = 'index.html'"><i class="material-icons">home</i></a></li>
+                    <li><a href="#" onclick="location.reload();"><i class="material-icons">refresh</i></a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="container">
+            <canvas id="map-hall-w1" width="1800px" height="1280px"></canvas>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <script src="https://d.line-scdn.net/r/web/social-plugin/js/thirdparty/loader.min.js" async="async" defer="defer"></script>
+        <script src="src/draw.js"></script>
+        <script src="src/print.js"></script>
+    </body>
+</html>

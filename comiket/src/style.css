@@ -105,7 +105,7 @@
     color: var(--normal-text) !important;
 }
 
-textarea, input[type=text] {
+textarea, input[type=text], input[type=password] {
     color: var(--normal-text) !important;
 }
 
@@ -145,7 +145,7 @@ textarea, input[type=text] {
 /* テーマカラーここまで */
 
 ::-webkit-scrollbar {
-    width: 10px;
+    width: 5px;
 }
 ::-webkit-scrollbar-track {
     background: var(--tab);
@@ -549,7 +549,7 @@ select.browser-default {
 
 .icon-fixed {
     line-height: 1.4rem;
-    margin-right: 10px !important;
+    margin-right: 0px !important;
 }
 
 .link-color {
@@ -559,4 +559,9 @@ select.browser-default {
 
 .pointer tr {
     cursor: pointer;
+}
+
+#takeover_qr canvas {
+    padding: 5px;
+    background: #FFF;
 }
