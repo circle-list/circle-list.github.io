@@ -1157,7 +1157,7 @@ $('#cl-restore-confirm-button').on('click', function() {
         localStorage.setItem('circles', JSON.stringify(circle_restore))
         M.toast({html: 'バックアップデータの復元に成功しました！データ反映のため5秒後に再読み込みをします。',  displayLength: 'stay'})
         setTimeout(function() {
-            location.reload()
+            location.href = 'index.html'
         }, 5000)
     }
 })
