@@ -1232,16 +1232,16 @@ function checkQuery() {
             
                 switch(importData['配置スペース'].substr(0, 3)) {
                     case '土曜日':
-                        im_date = 1
+                        im_date = '1'
                         break
                     case '日曜日':
-                        im_date = 2
+                        im_date = '2'
                         break
                     case '月曜日':
-                        im_date = 3
+                        im_date = '3'
                         break
                     case '火曜日':
-                        im_date = 4
+                        im_date = '4'
         
                 }
         
