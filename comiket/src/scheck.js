@@ -1245,9 +1245,9 @@ function checkQuery() {
         
                 }
         
-                im_island = importData['配置スペース'].substr(7, 1)
-                im_number = importData['配置スペース'].substr(8, 2)
-                im_ab = importData['配置スペース'].substr(10)
+                im_island = importData['配置スペース'].substr(5, 1)
+                im_number = importData['配置スペース'].substr(6, 2)
+                im_ab = importData['配置スペース'].substr(8)
         
                 var data = JSON.parse(localStorage.getItem('circles'))
     
