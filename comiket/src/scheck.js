@@ -1286,8 +1286,9 @@ function checkQuery() {
                 }
             
                 localStorage.setItem('circles', JSON.stringify(data))
-            } catch {
+            } catch(err) {
                 M.toast({html: '追加に失敗しました'})
+                console.log(err)
             }
             break
         
