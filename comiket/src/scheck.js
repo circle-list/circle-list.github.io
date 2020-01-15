@@ -1036,12 +1036,12 @@ $('input[name="radio-darkmode"]').on('change', function() {
 function changeTheme() {
 
     if(getConfig('darktheme') === 'auto') {
-        var automode = true
+        var automode = isDarkmode()
     } else {
         var automode = false
     }
 
-    if(getConfig('darktheme') || automode) {
+    if(getConfig('darktheme') === true || automode) {
         var link = 'src/theme/dark.css'
         var header = '#323639'
     } else {
@@ -1396,4 +1396,8 @@ function updateNews() {
 
 function isDarkmode() {
     return window.matchMedia('(prefers-color-scheme: dark)').matches
+}
+
+function height_resize() {
+    $('#dummy-height').css('height', $('#nav-bar').css('height'))
 }
