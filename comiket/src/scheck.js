@@ -1230,17 +1230,17 @@ function checkQuery() {
             try{
                 var importData = JSON.parse(decodeURIComponent(query['circlems']))
             
-                switch(importData['配置スペース']) {
-                    case /土曜日/:
+                switch(importData['配置スペース'].substr(0, 3)) {
+                    case '土曜日':
                         im_date = 1
                         break
-                    case /日曜日/:
+                    case '日曜日':
                         im_date = 2
                         break
-                    case /月曜日/:
+                    case '月曜日':
                         im_date = 3
                         break
-                    case /火曜日/:
+                    case '火曜日':
                         im_date = 4
         
                 }
