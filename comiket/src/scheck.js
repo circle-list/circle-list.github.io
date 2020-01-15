@@ -1288,7 +1288,7 @@ function checkQuery() {
                 localStorage.setItem('circles', JSON.stringify(data))
 
                 setTimeout(function() {
-                    location.reload()
+                    location.href = 'index.html'
                 }, 500)
             } catch(err) {
                 M.toast({html: '追加に失敗しました'})
