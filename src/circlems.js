@@ -11,14 +11,5 @@ for(var i = 0; items.length > i; i++) {
     }
 }
 
-const Base64 = {
-    encode: function(str) {
-        return btoa(unescape(encodeURIComponent(str)))
-    },
-    decode: function(str) {
-        return decodeURIComponent(escape(atob(str)))
-    }
-}
-
-location.href = 'https://hideki0403.github.io/comiket/?circlems=' + Base64.encode(JSON.stringify(data))
+location.href = 'https://hideki0403.github.io/comiket/?circlems=' + encodeURIComponent(JSON.stringify(data))
 })()
