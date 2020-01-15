@@ -1226,9 +1226,9 @@ function getUrlVars() {
 
 function checkQuery() {
     switch(query[0]) {
-        case 'circleData':
+        case 'circlems':
             try{
-                var importData = query['circleData']
+                var importData = JSON.parse(decodeURIComponent(query['circlems']))
             
                 switch(importData['配置スペース']) {
                     case /土曜日/:

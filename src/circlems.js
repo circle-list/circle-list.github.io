@@ -1,4 +1,4 @@
-// (function(d,j,s){s=d.createElement('script');s.src=j;d.body.appendChild(s);})(document,'//hideki0403.github.io/src/circlems.min.js')
+// (function(d,j,s){s=d.createElement('script');s.src=j;d.body.appendChild(s);})(document,'//hideki0403.github.io/src/circlems.js')
 
 (function(){
 var items = $('.item table tr')
