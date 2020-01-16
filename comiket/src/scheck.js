@@ -1,3 +1,9 @@
+var console_message_1 = 'CircleList %cVer.2'
+var console_message_2 = 'つくった人: ゆきねこ (https://twitter.com/hideki_0403)\nバグなどはサイトに設置されている不具合フォームよりお願いします～'
+var console_message_3 = '\n\n%c自分が何をしているのかわからなければこのウィンドウを閉じることを推奨します。\n%cわかるのであれば制作のお手伝いをしてください！！！\n\nあとソースコードは以下のリポジトリに公開しているのでそっちの方が見やすいですよ\nhttps://github.com/hideki0403/hideki0403.github.io/tree/master/comiket'
+
+console.log('%c ' + console_message_1 + '\n\n%c' + console_message_2 + console_message_3 + '\n', 'color: #c99987; font-size: 50px; text-shadow:3px 3px 0 #FFF, -3px -3px 0 #FFF, -3px 3px 0 #FFF, 3px -3px 0 #FFF, 0px 3px 0 #FFF,  0-3px 0 #FFF, -3px 0 0 #FFF, 3px 0 0 #FFF;', 'font-size: 15px; color: #41b0ff;', '', 'color: #ff5151;', '')
+
 /* 設定項目一覧 */
 
 // マスターアップ時に必ず変更すること！！
@@ -958,8 +964,6 @@ const sw = $('.logo_animation_container').width()
 const sh = $('.logo_animation_container').height()
 const pixelRatio = 2
 
-console.log(sh + ', ' + sw)
-
 function leon_init() {
     canvas = $('#logo_animation')[0]
     ctx = canvas.getContext("2d")
@@ -1399,6 +1403,19 @@ function updateNews() {
     }
 }
 
+$('#read-all-button').on('click', function() {
+    var news = news_cache
+    var news_keys = Object.keys(news)
+    var read_news = JSON.parse(localStorage.getItem('read_news'))
+    for(var i = 0; news_keys.length > i; i++) {
+        if(read_news.indexOf(news_keys[i]) === -1) {
+            read_news.push(news_keys[i])
+        }
+    }
+    localStorage.setItem('read_news', JSON.stringify(read_news))
+    updateNews()
+})
+
 function isDarkmode() {
     return window.matchMedia('(prefers-color-scheme: dark)').matches
 }
@@ -1406,3 +1423,15 @@ function isDarkmode() {
 function height_resize() {
     $('#dummy-height').css('height', $('#nav-bar').css('height'))
 }
+
+var tab_clicked = []
+
+$('[id=tab-click]').on('click', function() {
+    var tab_no = $(this).data('no')
+    if(tab_clicked[tab_no + ''] === undefined) {
+        setTimeout(function() {
+            $('li .active')[tab_no].click()
+        }, 200)
+        tab_clicked.push(tab_no + '')
+    }
+})

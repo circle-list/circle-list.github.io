@@ -346,7 +346,6 @@ function finalize() {
         for(var i = 0; Object.keys(map_array).length > i; i++) {
     
             var data = map_array[Object.keys(map_array)[i]][0]
-            console.log(circle_box)
             var num = Object.keys(circle_box[data.place.island]).find(d => {
                 return (d === data.place.number)
             })

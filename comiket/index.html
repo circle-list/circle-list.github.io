@@ -14,11 +14,11 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>CircleList - C97対応版</title>
+        <title>トップ | CircleList</title>
         <meta name="theme-color" content="#c99987" id="header-theme-color">
         <meta name="description" content="CircleListはコミックマーケット用の非公式ツールです。オフラインでサークル配置図を閲覧したり、お気に入りのサークルを登録してチェックリストを作成することが出来ます。">
         <link rel="manifest" href="manifest.json">
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+        <link rel="icon" type="image/x-icon" href="favicon.ico">
         <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon-180x180.png">
         <link rel="icon" type="image/png" sizes="192×192" href="assets/android-chrome-192x192.png">
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-115436840-4"></script>
@@ -98,9 +98,9 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
             <!-- MainTab -->
             <div class="nav-content" style="color: white !important;">
                 <ul class="tabs tabs-transparent">
-                    <li class="tab"><a class="active" href="#cc-top">トップ</a></li>
-                    <li class="tab"><a href="#cc-list">サークル</a></li>
-                    <li class="tab"><a href="#cc-map">マップ</a></li>
+                    <li class="tab" id="tab-click" data-no="1"><a class="active" href="#cc-top">トップ</a></li>
+                    <li class="tab" id="tab-click" data-no="2"><a href="#cc-list">サークル</a></li>
+                    <li class="tab" id="tab-click" data-no="3"><a href="#cc-map">マップ</a></li>
                 </ul>
             </div>
         </nav>
@@ -111,13 +111,13 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
         <div id="notification-modal" class="modal modal-fixed-footer">
             <div class="modal-content disableOverflowX" class="relative">
                 <h6 id="notification-modal-title" class="move">お知らせ</h6>
-                <hr style="margin-top: 15px !important;">
                 <div id="notification-modal-list" class="move">
                     <table>
                         <tbody class="pointer" id="notification-modal-inner"></tbody>
                     </table>
                 </div>
                 <div id="notification-modal-detail" class="move fadeout displayNone">
+                    <br>
                     <span><i class="material-icons left">date_range</i><span id="notification-modal-date">----/--/--</span></span>
                     <br>
                     <br>
@@ -145,11 +145,9 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
                 <!-- <h6 class="red-text">注意: これはデバッグ用のバージョンです。<a href="../index.html">安定版をお使いください。</a></h6> -->
                 <a href="https://forms.gle/My8KFCv3sUes1R9r8" target="_brank" class="share-btn waves-effect waves-light btn-small orange darken-1"><i class="material-icons left">bug_report</i>バグ報告</a>
                 <h5>CircleListとは？</h5>
-                <hr>
                 <p>CircleListはコミックマーケット用の非公式ツールです。</p>
                 <p>公式のカタログと合わせて使用することを想定して作られていますが、カタログが無くても無料で使用することができます。</p>
                 <h5>できること</h5>
-                <hr>
                 <p>・お気に入りのサークルをリスト化</p>
                 <p>・購入する予定のグッズをリスト化</p>
                 <p>・サークル配置図の閲覧</p>
@@ -158,14 +156,12 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
                 <p>・登録したデータをクラウドにバックアップして他の端末にコピー</p>
                 <p>などなど...</p>
                 <h5>使い方</h5>
-                <hr>
                 <a href="https://hideki0403.ml/archives/227" target="_blank">ブログの方に画像付きの使い方記事を公開しました。</a>
                 <p>「サークル」タブに移動して右下にある「お気に入り追加」を押すことでサークルをリスト化することが可能です。</p>
                 <p>また、購入リストはサークルを追加したのちに作成可能です。先にサークル追加を行うようにしてください。</p>
                 <p>「マップ」タブでは、ビックサイトの西12、34ホール・南12、34ホール・青海展示場のマップを閲覧することが出来ます。</p>
                 <p>お気に入りのサークルの場所（マス目）に自動的に色がつくようになっていますが、色が付かないor消えない場合は再読み込みをしてみてください。</p>
                 <h5>CircleListをインストールする (PWA)</h5>
-                <hr>
                 <p>例年、コミケではインターネットに繋がらない(または回線が極端に遅い)という声が多く上がっているため、CircleListはオフラインで使用できるように設計されています。</p>
                 <p>ブラウザからCircleListにアクセスしてもオフラインで利用することができますが、AndroidやiOS端末(iPhoneなど)にインストールすることでより快適に利用できるようになります。</p>
                 <p class="red-text">なお、オフライン版はWiFiやLTE(4G回線など)を切った状態でしかアクセスできません。それらを一旦OFFにして、オフラインな環境にしてからアクセスしてください。</p>
@@ -176,38 +172,27 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
                 <h6>・インストール方法 (iOS)</h6>
                 <p>画面の下にある「共有」アイコン（四角いアイコン）を押して、「ホーム画面に追加」を押すことでインストールすることが可能です。</p>
                 <h5>動作確認済みのブラウザ</h5>
-                <hr>
                 <p>・GoogleChrome</p>
                 <p>・Safari</p>
                 <p>(上記以外のブラウザでも使用できると思いますが、レイアウトが崩れたり正常に動かない場合があると思います。)</p>
-                <br>
                 <h6>つくったひと</h6>
-                <hr>
                 <p>ゆきねこ (@hideki_0403)</p>
                 <p>お問い合わせなどはTwitterのDM、またはメンションにてお願いします。</p>
-                <br>
                 <h6>投げ銭</h6>
-                <hr>
                 <p>以下のサービスで投げ銭を受け付けています。15円以上の任意の金額を投げ銭できます。（頂いた投げ銭は本サービスの維持費として使用させていただきます）</p>
                 <script src="https://kampa.me/t/tbe.js"></script>
-                <br>
                 <h6>ソースコード（開発者向け）</h6>
-                <hr>
                 <p>このサイトのソースコードはGithubですべて公開しています。以下のリポジトリにある"comiket"ディレクトリ内がこのサイトのソースコードです。</p>
                 <a class="github-button" href="https://github.com/hideki0403/hideki0403.github.io" data-show-count="true" aria-label="Star hideki0403/hideki0403.github.io on GitHub">Star</a>
-                <br>
                 <h6>使用ライブラリ</h6>
-                <hr>
                 <p>・materialize</p>
                 <p>・jQuery</p>
                 <p>・Tippy</p>
                 <p>・leon</p>
                 <h5>プライバシーポリシー</h5>
-                <hr>
                 <h6>アクセス解析ツールについて</h6>
                 CircleListでは、Googleによるアクセス解析ツール「Googleアナリティクス」を利用しています。
                 このGoogleアナリティクスはトラフィックデータの収集のためにCookieを使用しています。このトラフィックデータは匿名で収集されており、個人を特定するものではありません。この機能はCookieを無効にすることで収集を拒否することが出来ますので、お使いのブラウザの設定をご確認ください。この規約に関して、詳しくはここをクリックしてください。
-                <br>
                 <h6>免責事項</h6>
                 CircleListからリンクやバナーなどによって他のサイトに移動された場合、移動先サイトで提供される情報、サービス等について一切の責任を負いません。
                 CircleListのコンテンツ・情報につきまして、可能な限り正確な情報を掲載するよう努めておりますが、誤情報が入り込んだり、情報が古くなっていることもございます。
@@ -216,7 +201,6 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
             <div id="cc-top-memo" class="container text-color">
                 <h5>メモ</h5>
                 <p class="green-text" id="cc-memo-savetime">メモエリア以外の場所を押すと自動保存します</p>
-                <hr style="margin-bottom: 0px;">
                 <div class="row">
                     <form class="col s12">
                         <div class="row">
@@ -236,12 +220,10 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
             --> 
             <div id="cc-top-stat" class="container text-color">
                 <h5>情報</h5>
-                <hr>
                 <span>登録してあるサークル数: </span><span id="cc-stat-circles"></span><br>
                 <span>登録してあるグッズ数: </span><span id="cc-stat-goods"></span><br>
                 <span>グッズの合計金額: </span><span id="cc-stat-prices"></span>
                 <h5>過去のコミケ</h5>
-                <hr>
                 <table class="highlight">
                     <thead>
                         <tr>
@@ -266,7 +248,6 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
             </div>
             <div id="cc-top-info" class="container text-color" style="margin-bottom: 80px;">
                 <h5>設定</h5>
-                <hr>
                 <h6>ダークモード</h6>
                 <form action="#" id="cc-setting-darkmode">  
                     <p>
@@ -290,9 +271,7 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
                 </form>
                 <p>ダークモードをオンにすると黒を基調とした配色に切り替わります。</p>
                 <p>自動を選択した場合はシステムの設定に従います。</p>
-                <hr>
                 <h6>サークル情報入力方式を変更する</h6>
-                <br>
                 <div class="switch">
                     <label>
                     OFF
@@ -301,11 +280,8 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
                     ON
                     </label>
                 </div>
-                <br>
                 <p>Safariなどの一部ブラウザで、サークル情報入力時にタップした項目と選択された項目がズレてしまう場合に有効です。</p>
-                <hr>
                 <h6>サークル登録時に項目がリセットされるようにする</h6>
-                <br>
                 <div class="switch">
                     <label>
                     OFF
@@ -314,13 +290,10 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
                     ON
                     </label>
                 </div>
-                <br>
-                <hr>
                 <h6>CircleListをインストールする (Android/PC限定)</h6>
                 <br>
                 <a class="waves-effect waves-light btn blue lighten-1" disabled id="install_button"><i class="material-icons left">file_download</i>インストール</a>
                 <p>(上のボタンが押せない場合はインストールすることが出来ませんが、時間を置いて再度アクセスするとインストールできるようになるかもしれません。)</p>
-                <hr>
                 <h6>サークルデータのバックアップ/復元</h6>
                 <br>
                 <a class="waves-effect waves-light btn blue lighten-1" id="cc-cloud_backup"><i class="material-icons left">cloud_upload</i>バックアップ</a>
@@ -329,26 +302,21 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
                 <p>クラウド上にバックアップされているデータをこの端末に復元します。現在登録されているサークルリストと購入リストはすべて上書き（削除）されますのでご注意ください。</p>
                 <a class="waves-effect waves-light btn btn-small modal-trigger" id="cc-cloud_check" href="#backup-check"><i class="material-icons left">autorenew</i>バックアップ状況を確認</a>
                 <p>クラウド上にバックアップされているデータ、ID、パスワードを確認できます。</p>
-                <hr>
                 <h6>全データダウンロード/インポート</h6>
                 <br>
                 <a class="waves-effect waves-light btn blue lighten-1" id="cc-info-export" download="circlelist.db"><i class="material-icons left">file_download</i>ダウンロード</a>
                 <p>現在登録されているサークルリスト、購入リスト、メモなどをすべて書き出します。ほかの端末でインポートを行うことでデータを引き継げます。</p>
                 <a class="waves-effect waves-light btn blue lighten-1 modal-trigger" id="cc-info-import" href="#import-modal"><i class="material-icons left">file_upload</i>インポート</a>
                 <p>書き出したサークルリスト、購入リスト、メモなどを取り込みます。現在登録されているサークルリスト、購入リスト、メモなどはすべて削除されます。</p>
-                <hr>
                 <h6>キャッシュ</h6>
                 <br>
                 <a class="waves-effect waves-light btn yellow darken-3" id="cache-clear"><i class="material-icons left">delete</i>キャッシュクリア</a>
                 <p>キャッシュを削除してサーバーからデータを再取得します。正しく動作しない場合や、バージョンが新しくならない場合に使用してみてください。</p>
                 <div id="cc-info-cache_vers"></div>
-                <hr>
                 <h6>全データ削除</h6>
                 <p class="red-text">この機能を使用して、何か問題が発生したとしても開発者は責任を負いかねます。</p>
                 <p>画面左上のメニュー内にある「初期化ロック」をタップすることで下のボタンが押せるようになります。</p>
                 <a id="all_clear" class="waves-effect waves-light btn small-btn red" disabled onclick="localStorage.clear()">初期化</a>
-                <br>
-                <hr>
                 <h6>エラー情報送信</h6>
                 <p>エラーが発生した際に、自動的にエラーの内容を開発元のサーバーへ送信します。</p>
                 <p>送信されるデータには個人を特定できるものは含まれていません。</p>
@@ -388,7 +356,6 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
             <div id="backup-check" class="modal">
                 <div class="modal-content">
                     <h6>バックアップ状況</h6>
-                    <hr>
                     <p>状態: <span id="cl-bu-status">-----</span></p>
                     <p>最終バックアップ日時: <span id="cl-bu-date">-----</span></p>
                     <p>ID: <span id="cl-bu-id">-----</span><a class="copy-icon" onclick="copy($('#cl-bu-id').text())"><i class="material-icons">content_copy</i></a></p>
@@ -402,7 +369,6 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
             <div id="backup-restore" class="modal">
                 <div class="modal-content">
                     <h6>データの復元</h6>
-                    <hr>
                     <div id="cl-restore-loginform" class="restore_login">
                         <form class="col s12">
                             <div class="row">
@@ -492,7 +458,7 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
             </ul>            
 
             <!-- サークル@一覧 -->
-            <div id="cc-list-circle" class="col s12" style="margin-bottom: 80px;">
+            <div id="cc-list-circle" class="col s12" style="margin-bottom: 80px; margin-top: 20px;">
                 <ul id="cc-list-circle-wrapper" class="collapsible expandable" style="box-shadow: none; -webkit-box-shadow: none; margin: 0rem 0 1rem 0;"></ul>
                 <div id="remove-modal"></div>
 
@@ -549,7 +515,7 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
             </div>
 
             <!-- 購入リスト -->
-            <div id="cc-list-buy" style="display: none; margin-bottom: 80px;">
+            <div id="cc-list-buy" style="display: none; margin-bottom: 80px; margin-top: 20px;">
                 <div id="remove-item-modal"></div>
                 <ul id="cc-buylist-wrapper" class="collapsible expandable" style="box-shadow: none; -webkit-box-shadow: none; margin: 0rem 0 1rem 0;"></ul>  
                 <div class="row">
@@ -602,20 +568,6 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
                 <li class="tab"><a href="#cc-map-s2">南3・南4</a></li>
                 <li class="tab"><a href="#cc-map-k">青海A・青海B</a></li>
             </ul>
-
-            <!-- 画像生成進捗どうですか -->
-            <div id="map2img_prg" class="modal">
-                <div class="modal-content">
-                    <p id="progress_message"></p>
-                    <br>
-                    <a class="waves-effect waves-light btn-small theme-color" id="dl_m_img" disabled><i class="material-icons left">cloud_download</i>ダウンロード</a>
-                    <br>
-                    <img width="100%" id="output_img">
-                </div>
-                <div class="modal-footer">
-                    <a href="#!" class="modal-close waves-effect waves-light warning-color btn">この画面を閉じる</a>
-                </div>
-            </div>
 
             <!-- マップ一覧@w1 -->
             <div id="cc-map-w1" class="col s12 container">

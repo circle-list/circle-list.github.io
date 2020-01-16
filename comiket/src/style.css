@@ -72,6 +72,7 @@
 
 .tab2 {
     background: var(--tab) !important;
+    filter: drop-shadow(0px 10px 5px rgba(0, 0, 0, 0.1));
 }
 
 .modal-content, .modal-footer {
@@ -505,6 +506,12 @@ select.browser-default {
 
 .btn {
     border-radius: 10px !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+.btn:hover {
+    filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.3));
 }
 
 .notification-tag {
@@ -564,4 +571,28 @@ select.browser-default {
 #takeover_qr canvas {
     padding: 5px;
     background: #FFF;
+}
+
+.fixed-action-btn {
+    filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.3));
+}
+
+h5 {
+    background: var(--tab);
+    border-radius: 10px;
+    padding: 10px;
+    filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.2));
+}
+
+h6 {
+    padding-bottom: 3px;
+    margin-top: 20px !important;
+    filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.2));
+    padding: 7px 12px;
+    background: var(--tab);
+    border-radius: 10px;
+}
+
+.switch {
+    margin: 20px 0px;
 }
