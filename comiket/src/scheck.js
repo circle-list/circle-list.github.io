@@ -156,6 +156,10 @@ $(document).ready(function(){
     setTimeout(function() {
         find_old_data()
     }, 3500)
+
+    if(!navigator.onLine) {
+        M.toast({html: '現在オフラインのため、一部機能が利用できません。', displayLength: 10000})
+    }
 })
 
 // disableMaterializeSelect
@@ -1334,7 +1338,7 @@ function openNotification(id, flag) {
     $('#notification-modal-detail').removeClass('displayNone')
     $('#notification-modal-title').addClass('fadeout')
     setTimeout(function() {
-        $('#notification-modal-title').html('<span onclick="closeNotification()" class="link-color" style="margin-right: 15px;"><i class="material-icons left icon-fixed">keyboard_backspace</i>戻る</span>' + detail_title.title)
+        $('#notification-modal-title').html(detail_title.title)
         $('#notification-modal-list').addClass('displayNone')
         $('#notification-modal-detail').removeClass('fadeout')
         $('#notification-modal-title').removeClass('fadeout')
@@ -1433,5 +1437,17 @@ $('[id=tab-click]').on('click', function() {
             $('li .active')[tab_no].click()
         }, 200)
         tab_clicked.push(tab_no + '')
+    }
+
+    switch(tab_no) {
+        case 1:
+            $('title').text('トップ | CircleList')
+            break
+        case 2:
+            $('title').text('サークル | CircleList')
+            break
+        case 3:
+            $('title').text('マップ | CircleList')
+            break
     }
 })

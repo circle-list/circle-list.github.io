@@ -578,21 +578,39 @@ select.browser-default {
 }
 
 h5 {
-    background: var(--tab);
+    background: var(--h5);
     border-radius: 10px;
     padding: 10px;
-    filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.2));
 }
 
 h6 {
     padding-bottom: 3px;
     margin-top: 20px !important;
-    filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.2));
-    padding: 7px 12px;
-    background: var(--tab);
-    border-radius: 10px;
+    padding: 7px 0px;
+    /*border-left: 5px solid var(--h6);*/
+}
+
+h6::before {
+    content: '';
+    background: var(--h6);
+    padding: 5px 3px;
+    border-radius: 5px;
+    margin-right: 10px;
 }
 
 .switch {
     margin: 20px 0px;
+}
+
+form .switch {
+    margin: 0 !important;
+}
+
+.material-box {
+    line-height: 12px;
+    background: var(--info-box);
+    padding: 0px 10px;
+    border-radius: 15px;
+    filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.2));
+    margin: 20px auto !important;
 }
