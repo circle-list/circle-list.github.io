@@ -407,7 +407,7 @@ function ConfigCheck() {
         })
         .done(data => {
             console.log(data)
-            localStorage.setItem('errorStack', null)
+            localStorage.removeItem('errorStack')
         })
         .fail(data => {
             console.log(data)
@@ -748,7 +748,7 @@ function updateList(dc) {
     }
 
     if($('#cc-list-circle-wrapper li').length === 0) {
-        $('#cc-list-circle-wrapper').append('<p class="center-align not-registed">表示できるサークルがないようです...<br>表示する日付を変更するか、サークルを追加してみてください</p>')
+        $('#cc-list-circle-wrapper').append('<p class="center-align not-registed" style="margin-top: 45px !important;">表示できるサークルがないようです...<br>表示する日付を変更するか、サークルを追加してみてください</p>')
     }
 
     if($('#cc-buylist-wrapper li').length === 0) {

@@ -330,7 +330,7 @@ function calcCircle(obj) {
 // 着色
 function finalize() {
     var map_n = 0
-    var map_array = {}
+    map_array = {}
     var days_color = {"1": '#039be5', "2": '#d81b60', "3": '#ffb300', "4": '#43a047'}
     bug_send_coord = ''
 
