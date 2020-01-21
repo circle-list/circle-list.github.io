@@ -1061,7 +1061,7 @@ function changeTheme() {
     $('#header-theme-color').attr('content', header)
 }
 
-changeTheme() // Twitterのやつもあるので即時実行
+changeTheme()
 
 // データのサーバーバックアップ
 function serverBackup(u, d) {

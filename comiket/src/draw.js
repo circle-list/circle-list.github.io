@@ -389,7 +389,7 @@ function openDetails(place) {
     var ma_array = map_array[place]
     for(var i = 0; ma_array.length > i; i++) {
         var dat = ma_array[i]
-        $('#map_circle_info_list').append('<h6>・' + dat.name + '</h6><span style="color: ' + days_color[dat.place.date] + '">' + dat.place.date + '日目 - ' + dat.place.ab + '</span><br><span>' + dat.memo + '</span>')
+        $('#map_circle_info_list').append('<h6>' + dat.name + '</h6><span style="color: ' + days_color[dat.place.date] + '">' + dat.place.date + '日目 - ' + dat.place.ab + '</span><br><span>' + dat.memo + '</span>')
     }
     var instance = M.Modal.getInstance($('#map_circle_info'))
     instance.open()
