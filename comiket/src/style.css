@@ -223,6 +223,7 @@ body {
 .sub-logo {
     width: 70%;
     filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.2));
+    margin: 10px 15%;
 }
 
 .memo {

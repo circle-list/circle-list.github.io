@@ -4,6 +4,8 @@ var console_message_3 = '\n\n%c自分が何をしているのかわからなけ�
 
 console.log('%c ' + console_message_1 + '\n\n%c' + console_message_2 + console_message_3 + '\n', 'color: #c99987; font-size: 50px; text-shadow:3px 3px 0 #FFF, -3px -3px 0 #FFF, -3px 3px 0 #FFF, 3px -3px 0 #FFF, 0px 3px 0 #FFF,  0-3px 0 #FFF, -3px 0 0 #FFF, 3px 0 0 #FFF;', 'font-size: 15px; color: #41b0ff;', '', 'color: #ff5151;', '')
 
+var debug_ms = new Date()
+
 /* 設定項目一覧 */
 
 // マスターアップ時に必ず変更すること！！
@@ -160,6 +162,8 @@ $(document).ready(function(){
     if(!navigator.onLine) {
         M.toast({html: '現在オフラインのため、一部機能が利用できません。', displayLength: 10000})
     }
+
+    console.log(new Date - debug_ms + 'ms')
 })
 
 // disableMaterializeSelect
@@ -205,12 +209,9 @@ $('#install_button').on('click', () => {
 
 // CacheStorageのkey表示
 function cacheVers() {
-    caches.keys()
-    .then(function(keyList) {
-        return Promise.all(keyList.map(function(key) {
-            $('#cc-info-cache_vers').append('<p>・' + key.replace('-', ': ') + '</p>')
-        })
-    )})
+    fetchNowVer().then(item => {
+        $('#version').text(item)
+    })
 }
 
 // キャッシュクリア
@@ -1418,6 +1419,7 @@ $('#read-all-button').on('click', function() {
     }
     localStorage.setItem('read_news', JSON.stringify(read_news))
     updateNews()
+    M.toast({html: '全てのお知らせを既読にしました。'})
 })
 
 function isDarkmode() {
@@ -1451,3 +1453,15 @@ $('[id=tab-click]').on('click', function() {
             break
     }
 })
+
+function fetchNowVer() {
+    return new Promise(resolve => {
+        caches.keys().then(function(keyList) {
+            if(keyList.length !== 0) {
+                return resolve(keyList[0].replace(/dynamic-|static-/g, ''))
+            } else {
+                return resolve('')
+            }
+        })
+    })
+}
