@@ -1313,6 +1313,15 @@ function checkQuery() {
             })
             M.Modal.getInstance($('#backup-restore')).open()
             break
+        case 'enableDevTools':
+            if(query['enableDevTools'] === 'true') {
+                var enableDevTools = true
+            } else {
+                var enableDevTools = false
+            }
+            setConfig('enable-devtools', enableDevTools)
+            M.toast({html: 'Updated: ' + enableDevTools})
+            break
     }
 }
 
