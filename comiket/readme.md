@@ -9,8 +9,7 @@ hideki0403.github.ioリポジトリ内のcomiketディレクトリは[CircleList
 ## 使用ライブラリ
 このリポジトリでは、以下のライブラリを使用しています。  
 - [jQuery](https://github.com/jquery/jquery)
-- [materialize](https://github.com/Dogfalo/materialize)
-- [html2canvas](https://github.com/niklasvh/html2canvas)
+- [materialize](https://github.com/Dogfalo/materialize)]
 ## バグについて
 Stable版は極力バグをなくした状態でのリリースを目指していますが、もしバグがあった場合は[issues](https://github.com/hideki0403/hideki0403.github.io/issues)に投げていただけると助かります。  
 ## 連絡先
