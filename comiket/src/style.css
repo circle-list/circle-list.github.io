@@ -111,7 +111,7 @@ textarea, input[type=text], input[type=password], input[type=number] {
 }
 
 input::placeholder, textarea::placeholder {
-    color: var(--tab-a) !important;
+    color: var(--placeholder) !important;
 }
 
 .caret {
