@@ -1,0 +1,23 @@
+/* TweetDeck スマホ対応化パッチ */
+
+.column {
+    width: 100% !important;
+}
+
+.drawer {
+    width: 100% !important;
+    z-index: 10;
+}
+
+.is-open {
+    margin-right: 0px !important;
+}
+
+.js-modal-panel {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.app-header-inner .app-header {
+    width: 100% !important;
+}
