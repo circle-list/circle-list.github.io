@@ -1341,7 +1341,7 @@ function checkQuery() {
                     M.toast({html: 'データの引き継ぎに成功しました。5秒後に再読み込みします。'})
                     setTimeout(function() {
                         location.href = 'https://circlelist.ga/'
-                    })
+                    }, 5000)
                 }
             })
             .fail(data => {
