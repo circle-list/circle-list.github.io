@@ -9,7 +9,7 @@ CircleListでは、以下のことをすることができます。
 ## 使用ライブラリ
 このリポジトリでは、以下のライブラリを使用しています。  
 - [jQuery](https://github.com/jquery/jquery)
-- [materialize](https://github.com/Dogfalo/materialize)]
+- [materialize](https://github.com/Dogfalo/materialize)
 ## バグについて
 Stable版は極力バグをなくした状態でのリリースを目指していますが、もしバグがあった場合は[issues](https://github.com/circle-list/circle-list.github.io/issues)に投げていただけると助かります。  
 ## 連絡先
