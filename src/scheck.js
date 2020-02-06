@@ -1,6 +1,6 @@
 var console_message_1 = 'CircleList %cVer.2'
 var console_message_2 = 'つくった人: ゆきねこ (https://twitter.com/hideki_0403)\nバグなどはサイトに設置されている不具合フォームよりお願いします～'
-var console_message_3 = '\n\n%c自分が何をしているのかわからなければこのウィンドウを閉じることを推奨します。\n%cわかるのであれば制作のお手伝いをしてください！！！\n\nあとソースコードは以下のリポジトリに公開しているのでそっちの方が見やすいですよ\nhttps://github.com/hideki0403/hideki0403.github.io/tree/master/comiket'
+var console_message_3 = '\n\n%c自分が何をしているのかわからなければこのウィンドウを閉じることを推奨します。\n%cわかるのであれば制作のお手伝いをしてください！！！\n\nあとソースコードは以下のリポジトリに公開しているのでそっちの方が見やすいですよ\nhttps://github.com/circle-list/circle-list.github.io'
 
 console.log('%c ' + console_message_1 + '\n\n%c' + console_message_2 + console_message_3 + '\n', 'color: #c99987; font-size: 50px; text-shadow:3px 3px 0 #FFF, -3px -3px 0 #FFF, -3px 3px 0 #FFF, 3px -3px 0 #FFF, 0px 3px 0 #FFF,  0-3px 0 #FFF, -3px 0 0 #FFF, 3px 0 0 #FFF;', 'font-size: 15px; color: #41b0ff;', '', 'color: #ff5151;', '')
 
@@ -21,7 +21,7 @@ const comiketList = {
 }
 
 // コピーライト
-const COPYRIGHTS = 'Copyright © 2019 CircleList All Rights Reserved. (https://hideki0403.github.io/comiket)'
+const COPYRIGHTS = 'Copyright © 2019 CircleList All Rights Reserved. (https://circlelist.ga/)'
 
 // console.log @ デバッグ用
 function c(t) {
@@ -142,7 +142,7 @@ $(document).ready(function(){
     leon_init()
     checkQuery()
 
-    $.getJSON('https://hideki0403.github.io/comiket/data/news.json')
+    $.getJSON('https://circlelist.ga/data/news.json')
     .done(function(data) {
         news_cache = data.news
         updateNews()
@@ -1018,7 +1018,7 @@ $('[id=social-share]').on('click', function() {
         navigator.share({
           title: 'CircleList',
           text: 'コミケで行きたいサークルをリスト化できるサービス CircleList',
-          url: 'https://hideki0403.github.io/comiket/',
+          url: 'https://circlelist.ga/',
         })
         .then(() => {
           console.log('Successful share')
@@ -1115,7 +1115,7 @@ $('#cc-cloud_check').on('click', function() {
             $('#cl-bu-id').text(data.id)
             $('#cl-bu-pass').text(data.pass)
             $('#takeover_qr').empty()
-            $('#takeover_qr').qrcode({width: 128, height: 128, text: 'https://hideki0403.github.io/comiket/?takeover=' + Base64.encode(JSON.stringify({id: data.id, pass: data.pass}))})
+            $('#takeover_qr').qrcode({width: 128, height: 128, text: 'https://circlelist.ga/?takeover=' + Base64.encode(JSON.stringify({id: data.id, pass: data.pass}))})
             $('#takeover_qr').append('<p>(上記のQRコードをスマホなどで読み取ると簡単に復元ができます。)</p>')
         }
     })
@@ -1381,7 +1381,7 @@ function closeNotification() {
 // 情報取得
 $('#cc-notification').on('click', function() {
     if(news_cache === '') {
-        $.getJSON('https://hideki0403.github.io/comiket/data/news.json')
+        $.getJSON('https://circlelist.ga/data/news.json')
         .done(function(data) {
             news_cache = data.news
             updateNews()

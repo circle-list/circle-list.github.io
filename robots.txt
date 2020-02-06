@@ -1,4 +1,2 @@
 User-agent : *
-Disallow : /dev/
-Disallow : /old/
-Sitemap : https://hideki0403.github.io/comiket/sitemap.xml
+Sitemap : https://circlelist.ga/sitemap.xml

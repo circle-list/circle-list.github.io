@@ -18,16 +18,16 @@ self.addEventListener('install', function(event) {
       .then(function(cache) {
         console.log('[Service Worker] Precaching App...')
         cache.addAll([
-          '/comiket/',
-          '/comiket/index.html',
-          '/comiket/manifest.json',
-          '/comiket/src/style.css',
-          '/comiket/src/scheck.js',
-          '/comiket/src/reg_sw.js',
-          '/comiket/src/draw.js',
-          '/comiket/src/map_style.css',
-          '/comiket/src/theme/light.css',
-          '/comiket/src/theme/dark.css'
+          '/',
+          '/index.html',
+          '/manifest.json',
+          '/src/style.css',
+          '/src/scheck.js',
+          '/src/reg_sw.js',
+          '/src/draw.js',
+          '/src/map_style.css',
+          '/src/theme/light.css',
+          '/src/theme/dark.css'
         ])
       }).then(function() {
         skipWaiting()
