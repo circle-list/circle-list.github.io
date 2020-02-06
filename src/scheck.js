@@ -1313,6 +1313,7 @@ function checkQuery() {
             })
             M.Modal.getInstance($('#backup-restore')).open()
             break
+
         case 'enableDevTools':
             if(query['enableDevTools'] === 'true') {
                 var enableDevTools = true
@@ -1321,6 +1322,32 @@ function checkQuery() {
             }
             setConfig('enable-devtools', enableDevTools)
             M.toast({html: 'Updated: ' + enableDevTools})
+            break
+
+        case 'movedata':
+            $.ajax({
+                url:'https://sp-wtr-api.gq/api/v1/circlelist/move-data-get',
+                type:'POST',
+                data: {
+                    id: query['movedata']
+                }
+            })
+            .done(data => {
+                if(data.message !== 'err') {
+                    for(var i = 0; Object.keys(data).length > i; i++) {
+                        localStorage.setItem(Object.keys(data)[i], data[Object.keys(data)[i]])
+                    }
+
+                    M.toast({html: 'データの引き継ぎに成功しました。5秒後に再読み込みします。'})
+                    setTimeout(function() {
+                        location.href = 'https://circlelist.ga/'
+                    })
+                }
+            })
+            .fail(data => {
+                console.log(data)
+                M.toast({html: '<b class="red-text text-accent-1" style="font-weight: bold;">データの取得に失敗しました。時間を置いて再度お試しください。</b>'})
+            })
             break
     }
 }
