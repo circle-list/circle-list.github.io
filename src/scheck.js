@@ -163,6 +163,8 @@ $(document).ready(function(){
         M.toast({html: '現在オフラインのため、一部機能が利用できません。', displayLength: 10000})
     }
 
+    isExistManifest()
+
     console.log(new Date - debug_ms + 'ms')
 })
 
@@ -1500,4 +1502,11 @@ function fetchNowVer() {
             }
         })
     })
+}
+
+function isExistManifest() {
+    if($('[rel="manifest"]').length === 0) {
+        $('#cant_install_reason').text('manifest.jsonを読み込めませんでした。AdGuardやAdblockerを一時停止してから再度お試しください。')
+        $('#cant_install_reason').addClass('red-text')
+    }
 }
