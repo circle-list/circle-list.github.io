@@ -669,3 +669,28 @@ form .switch {
         padding: 20px 25px !important;
     }
 }
+
+.social-button {
+    border-radius: 20px;
+    padding: 15px;
+    filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.2));
+    background: #FFF;
+    width: 55px;
+    height: 55px;
+    display: inline-block;
+    margin: 0 3px;
+    vertical-align: top;
+    transition: all 1s ease;
+}
+
+.social-button:hover {
+    filter: drop-shadow(0 5px 5px rgba(0, 0, 0, 0.3));
+}
+
+.social-button a svg {
+    height: 100%;
+}
+
+.icon_twitter {fill: #55acee;}
+
+.icon_line {fill: #00c300;}
