@@ -1,3 +1,25 @@
+/* noto-sans-jp-300 - japanese_latin */
+@font-face {
+    font-family: 'Noto Sans JP';
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+    src: local('Noto Sans Japanese Light'), local('NotoSansJapanese-Light'),
+        url('./fonts/noto-sans-jp-v24-japanese_latin-300.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+        url('./fonts/noto-sans-jp-v24-japanese_latin-300.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* noto-sans-jp-regular - japanese_latin */
+@font-face {
+font-family: 'Noto Sans JP';
+font-style: normal;
+font-weight: 400;
+font-display: swap;
+src: local('Noto Sans Japanese Regular'), local('NotoSansJapanese-Regular'),
+    url('./fonts/noto-sans-jp-v24-japanese_latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+    url('./fonts/noto-sans-jp-v24-japanese_latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
 /*
     CircleList用テーマカラー
 
