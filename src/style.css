@@ -680,17 +680,30 @@ form .switch {
     display: inline-block;
     margin: 0 3px;
     vertical-align: top;
-    transition: all 1s ease;
+    transition: all 0.3s ease;
 }
 
 .social-button:hover {
-    filter: drop-shadow(0 5px 5px rgba(0, 0, 0, 0.3));
+    filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.4));
 }
 
-.social-button a svg {
+.social-button a {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-indent:-999px;
+}
+
+.social-button svg {
     height: 100%;
 }
 
 .icon_twitter {fill: #55acee;}
 
 .icon_line {fill: #00c300;}
+
+.cursor_click {
+    cursor: pointer;
+}
