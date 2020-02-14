@@ -8,7 +8,7 @@ var CACHE_STATIC_VERSION = 'static-v' + VERSION
 // フォント変更やmaterialize,jQueryなどの外部ライブラリ更新時のみ変更
 var CACHE_DYNAMIC_VERSION = 'dynamic-v' + VERSION
 
-importScripts("https://unpkg.com/service-worker-updatefound-refresh-dialog@1.1.0/dist/service-worker-updatefound-refresh-dialog.umd.js");
+importScripts('https://circlelist.ga/src/lib/sw-update-dialog.js')
 
 // 以下メイン処理
 self.addEventListener('install', function(event) {
