@@ -1,4 +1,4 @@
-VERSION = '2.58'
+VERSION = '2.59'
 
 // メインはこっちを変える
 // サービスに直接的に関わる変更など
@@ -20,10 +20,8 @@ self.addEventListener('install', function(event) {
         cache.addAll([
           '/',
           '/index.html',
-          '/manifest.json',
           '/src/style.css',
-          '/src/scheck.js',
-          '/src/reg_sw.js',
+          '/src/circlelist.js',
           '/src/draw.js',
           '/src/map_style.css',
           '/src/theme/light.css',

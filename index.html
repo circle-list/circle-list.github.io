@@ -38,13 +38,12 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
         <link rel="apple-touch-icon" href="assets/apple-touch-icon-114x114.png" sizes="114x114">
         <link rel="apple-touch-icon" href="assets/apple-touch-icon-120x120.png" sizes="120x120">
         <link rel="apple-touch-icon" href="assets/apple-touch-icon-144x144.png" sizes="144x144">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="src/ie_check.js"></script>
+        <script src="src/lib/jquery-3.4.1.min.js"></script>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons&display=swap" rel="stylesheet">
         <link href="src/style.css" rel="stylesheet">
         <link href="src/map_style.css" rel="stylesheet" >
         <link href="src/theme/light.css" rel="stylesheet" id="site-theme">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <link rel="stylesheet" href="src/lib/materialize.min.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
 
@@ -190,19 +189,14 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
                 <h6>投げ銭</h6>
                 <p>以下のサービスで投げ銭を受け付けています。15円以上の任意の金額を投げ銭できます。（頂いた投げ銭は本サービスの維持費として使用させていただきます）</p>
                 <a href="https://kampa.me/t/tbe">Kampa!で投げ銭をする</a>
-                <h6>使用ライブラリ</h6>
-                <p>・materialize</p>
-                <p>・jQuery</p>
-                <p>・Tippy</p>
-                <p>・leon</p>
                 <h5>プライバシーポリシー</h5>
                 <h6>アクセス解析ツールについて</h6>
-                CircleListでは、Googleによるアクセス解析ツール「Googleアナリティクス」を利用しています。
-                このGoogleアナリティクスはトラフィックデータの収集のためにCookieを使用しています。このトラフィックデータは匿名で収集されており、個人を特定するものではありません。この機能はCookieを無効にすることで収集を拒否することが出来ますので、お使いのブラウザの設定をご確認ください。この規約に関して、詳しくはここをクリックしてください。
+                <p>CircleListでは、Googleによるアクセス解析ツール「Googleアナリティクス」を利用しています。</p>
+                <p>このGoogleアナリティクスはトラフィックデータの収集のためにCookieを使用しています。このトラフィックデータは匿名で収集されており、個人を特定するものではありません。この機能はCookieを無効にすることで収集を拒否することが出来ますので、お使いのブラウザの設定をご確認ください。この規約に関して、詳しくはここをクリックしてください。</p>
                 <h6>免責事項</h6>
-                CircleListからリンクやバナーなどによって他のサイトに移動された場合、移動先サイトで提供される情報、サービス等について一切の責任を負いません。
-                CircleListのコンテンツ・情報につきまして、可能な限り正確な情報を掲載するよう努めておりますが、誤情報が入り込んだり、情報が古くなっていることもございます。
-                CircleListに掲載された内容によって生じた損害等の一切の責任を負いかねますのでご了承ください。
+                <p>CircleListからリンクやバナーなどによって他のサイトに移動された場合、移動先サイトで提供される情報、サービス等について一切の責任を負いません。</p>
+                <p>CircleListのコンテンツ・情報につきまして、可能な限り正確な情報を掲載するよう努めておりますが、誤情報が入り込んだり、情報が古くなっていることもございます。</p>
+                <p>CircleListに掲載された内容によって生じた損害等の一切の責任を負いかねますのでご了承ください。</p>
             </div/>
             <div id="cc-top-memo" class="container text-color">
                 <h5>メモ</h5>
@@ -638,18 +632,22 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
                 </div>
             </div>
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+
+        <!-- Libs -->
+        <script src="src/lib/eruda.js"></script>
         <script src="src/devtools.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-        <script src="https://d.line-scdn.net/r/web/social-plugin/js/thirdparty/loader.min.js" async="async" defer="defer"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
-        <script src="src/leon.js"></script>
-        <script src="src/scheck.js"></script>
-        <script src="https://unpkg.com/popper.js@1"></script>
-        <script src="https://unpkg.com/tippy.js@5"></script>
+        <script src="src/lib/materialize.min.js"></script>
+        <script src="src/lib/jquery.qrcode.min.js"></script>
+        <script src="src/lib/TweenMax.min.js"></script>
+        <script src="src/lib/popper.js"></script>
+        <script src="src/lib/tippy.js"></script>
+        <script src="src/lib/sw-update-dialog.js"></script>
+        <script src="src/lib/leon.js"></script>
+
+        <!-- Scripts -->
+        <script src="src/circlelist.js"></script>
         <script src="src/draw.js"></script>
-        <script src="https://unpkg.com/service-worker-updatefound-refresh-dialog@1.1.0/dist/service-worker-updatefound-refresh-dialog.umd.js"></script>
-        <script src="src/reg_sw.js"></script>
+        <script src="src/register_sw.js"></script>
+
     </body>
 </html>
