@@ -615,7 +615,8 @@ h6 {
     padding-bottom: 3px;
     margin-top: 20px !important;
     padding: 7px 0px;
-    /*border-left: 5px solid var(--h6);*/
+    position: relative;
+    padding-left: 15px;
 }
 
 h6::before {
@@ -623,7 +624,10 @@ h6::before {
     background: var(--h6);
     padding: 5px 3px;
     border-radius: 5px;
-    margin-right: 10px;
+    position: absolute;
+    height: 100%;
+    margin-left: -15px;
+    margin-top: -5px;
 }
 
 .switch {
@@ -706,4 +710,10 @@ form .switch {
 
 .cursor_click {
     cursor: pointer;
+}
+
+@media only screen and (max-width: 375px) {
+    .small_display, .caret {
+        display: none;
+    }
 }
