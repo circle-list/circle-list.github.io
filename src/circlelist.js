@@ -141,6 +141,7 @@ $(document).ready(function(){
     old_data_list()
     leon_init()
     checkQuery()
+    ifEnableDevtools()
 
     $.getJSON('https://circlelist.ga/data/news.json')
     .done(function(data) {
@@ -1508,5 +1509,11 @@ function isExistManifest() {
     if($('[rel="manifest"]').length === 0) {
         $('#cant_install_reason').text('manifest.jsonを読み込めませんでした。AdGuardやAdblockerを一時停止してから再度お試しください。')
         $('#cant_install_reason').addClass('red-text')
+    }
+}
+
+function ifEnableDevtools() {
+    if(getConfig('enable-devtools')) {
+        $('#cc-top-info').append('<h6>DevMenu</h6><button class="waves-effect waves-light btn btn-small" onclick="setConfig(\'enable-devtools\', false);location.reload()">Disable Dev Tools</button>')
     }
 }
