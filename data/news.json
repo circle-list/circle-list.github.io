@@ -1,6 +1,11 @@
 {
     "version": "1.0",
     "news": {
+        "000003": {
+            "date": "2020/02/16",
+            "title": "第1回 利用者アンケートのお知らせ",
+            "text": "GoogleFormにて「第1回 CircleList利用者アンケート」を行っています。/n数分で回答出来るアンケートですので、もしよろしければ<a href=\"https://forms.gle/Jhtks3DX8hbLPJvEA\" target=\"_brank\">こちらからご回答を宜しくお願いします。</a>"
+        },
         "000002": {
             "date": "2020/02/07",
             "title": "URL変更のお知らせ",
