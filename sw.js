@@ -1,4 +1,4 @@
-VERSION = '2.61'
+VERSION = '2.62'
 
 // メインはこっちを変える
 // サービスに直接的に関わる変更など
@@ -34,7 +34,6 @@ self.addEventListener('install', function(event) {
 })
 
 self.addEventListener('fetch', function(event) {
-  console.log('[Service Worker] Fetching something ...')
   event.respondWith(
     caches.match(event.request)
       .then(function(response) {

@@ -49,12 +49,17 @@ window.onerror = function(msg, url, line, col) {
     if(getConfig('errorReport') !== false) {
 
         var cache_version = []
-        caches.keys()
-        .then(function(keyList) {
-            return Promise.all(keyList.map(function(key) {
-                cache_version.push(key.replace('-', ': '))
-            })
-        )})
+        try {
+            caches.keys()
+            .then(function(keyList) {
+                return Promise.all(keyList.map(function(key) {
+                    cache_version.push(key.replace('-', ': '))
+                })
+            )})
+        } catch {
+            console.log('this browser not support caches.')
+            console.log(msg + ' : ' + url + ' : ' + line + ' : ' + col)
+        }
 
         var errorReport = {
             report: {
@@ -95,20 +100,24 @@ window.onerror = function(msg, url, line, col) {
             })
 
             // バグが発生するキャッシュが原因で起動しなくなる可能性もあるのでキャッシュを削除する
-            caches.keys()
-            .then(function(keyList) {
-                return Promise.all(keyList.map(function(key) {
-                    return caches.delete(key)
-                }));
-            }).then(function() {
-                // ServiceWorkerをいったん解除
-                navigator.serviceWorker.getRegistrations()
-                .then(registrations => {
-                    for (let registration of registrations) {
-                    registration.unregister()
-                    }
+            try {
+                caches.keys()
+                .then(function(keyList) {
+                    return Promise.all(keyList.map(function(key) {
+                        return caches.delete(key)
+                    }));
+                }).then(function() {
+                    // ServiceWorkerをいったん解除
+                    navigator.serviceWorker.getRegistrations()
+                    .then(registrations => {
+                        for (let registration of registrations) {
+                        registration.unregister()
+                        }
+                    })
                 })
-            })
+            } catch {
+                console.log('this browser not support caches.')
+            }
 
         } else {
             // オフラインだった場合はlocalStorageに保存して次回起動時に投げる
@@ -142,6 +151,7 @@ $(document).ready(function(){
     leon_init()
     checkQuery()
     ifEnableDevtools()
+    isEnableCache()
 
     $.getJSON('https://circlelist.ga/data/news.json')
     .done(function(data) {
@@ -166,7 +176,7 @@ $(document).ready(function(){
 
     isExistManifest()
 
-    console.log(new Date - debug_ms + 'ms')
+    console.log('[CircleList] ' + (new Date - debug_ms) + 'ms')
 })
 
 // disableMaterializeSelect
@@ -481,7 +491,7 @@ function find_old_data() {
             localStorage.setItem('config', JSON.stringify(config))
         } else {
             config['version'] = comiketName
-            console.log(comiketName)
+            console.log('[CircleList] Ver.' + comiketName)
             localStorage.setItem('config', JSON.stringify(config))
         }
     }
@@ -695,8 +705,8 @@ function updateList(dc) {
     var data = JSON.parse(localStorage.getItem('circles'))
     var config = JSON.parse(localStorage.getItem('config'))
     if(Object.keys(data).length === 0) {
-        $('#cc-list-circle-wrapper').append('<p class="center-align not-registed">お気に入りを追加してください！</p>')
-        $('#cc-buylist-wrapper').append('<p class="center-align not-registed">サークルが選択されていません。<br>まずはお気に入りのサークルを追加してください。</p>')
+        $('#cc-list-circle-wrapper').append('<p class="center-align not-registed" style="margin-top: 45px !important;">お気に入りを追加してください！</p>')
+        $('#cc-buylist-wrapper').append('<p class="center-align not-registed" style="margin-top: 25px !important;">サークルが選択されていません。<br>まずはお気に入りのサークルを追加してください。</p>')
         return
     } else {
         data = objectSort(data)
@@ -1495,13 +1505,18 @@ $('[id=tab-click]').on('click', function() {
 
 function fetchNowVer() {
     return new Promise(resolve => {
-        caches.keys().then(function(keyList) {
-            if(keyList.length !== 0) {
-                return resolve(keyList[0].replace(/dynamic-|static-/g, ''))
-            } else {
-                return resolve('')
-            }
-        })
+        try {
+            caches.keys().then(function(keyList) {
+                if(keyList.length !== 0) {
+                    return resolve(keyList[0].replace(/dynamic-|static-/g, ''))
+                } else {
+                    return resolve('')
+                }
+            })
+        } catch {
+            return resolve('')
+        }
+
     })
 }
 
@@ -1515,5 +1530,14 @@ function isExistManifest() {
 function ifEnableDevtools() {
     if(getConfig('enable-devtools')) {
         $('#cc-top-info').append('<h6>DevMenu</h6><button class="waves-effect waves-light btn btn-small" onclick="setConfig(\'enable-devtools\', false);location.reload()">Disable Dev Tools</button>')
+    }
+}
+
+function isEnableCache() {
+    try {
+        caches
+    } catch {
+        $('#settings-cache').remove()
+        console.log('[CircleList] Error: this browser not supported cache system.')
     }
 }

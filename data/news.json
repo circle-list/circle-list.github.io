@@ -9,7 +9,7 @@
         "000002": {
             "date": "2020/02/07",
             "title": "URL変更のお知らせ",
-            "text": "CircleListのURLが hideki0403.github.io/comiket から circlelist.ga に変更となりました。/n以前のコミケのデータや設定を引き継ぎたい場合は hideki0403.github.io/comiket へアクセスし「データを引き継いで移動する」ボタンをクリックしてください。/nお手数をおかけしますが、宜しくお願い致します。"
+            "text": "CircleListのURLが hideki0403.github.io/comiket から circlelist.ga に変更となりました。/n以前のコミケのデータや設定を引き継ぎたい場合は <a href=\"https://hideki0403.github.io/comiket\">hideki0403.github.io/comiket</a> へアクセスし「データを引き継いで移動する」ボタンをクリックしてください。/nお手数をおかけしますが、宜しくお願い致します。"
         },
         "000001": {
             "date": "2020/01/09",
