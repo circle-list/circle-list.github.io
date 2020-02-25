@@ -383,7 +383,6 @@ function finalize() {
 finalize()
 
 function openDetails(place) {
-    $('.modal').modal() // DEBUG
     $('#map_circle_info_place').text(place)
     $('#map_circle_info_list').html('')
     var ma_array = map_array[place]

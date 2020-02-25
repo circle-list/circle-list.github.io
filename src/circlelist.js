@@ -21,7 +21,7 @@ const comiketList = {
 }
 
 // コピーライト
-const COPYRIGHTS = 'Copyright © 2019 CircleList All Rights Reserved. (https://circlelist.ga/)'
+const COPYRIGHTS = 'Copyright © 2019-2020 CircleList All Rights Reserved. (https://circlelist.ga/)'
 
 // console.log @ デバッグ用
 function c(t) {
@@ -386,6 +386,12 @@ function init() {
     $('#cc-setting-errorReport').prop('checked', config['errorReport'])
     $('#cc-setting-enableBrowserSelect').prop('checked', config['browser-select'])
     $('input[value="' + config['darktheme'] + '"]').prop('checked', true)
+
+    var conf_tmp = Object.values(getConfig('checkbox'))
+    for(var i = 0; conf_tmp.length > i; i++) {
+        $('#cc-changedate-' + (i + 1)).prop('checked', conf_tmp[i])
+    }
+
 }
 
 // StorageCheck
@@ -767,7 +773,6 @@ function updateList(dc) {
 
     if($('#cc-buylist-wrapper li').length === 0) {
         $('#cc-buylist-wrapper').append('<p class="center-align not-registed">表示できるリストがないようです...<br>表示する日付を変更するか、購入するものを追加してみてください</p>')
-        //$('#cc-buylist-wrapper').append('<p class="center-align not-registed">現在、ブラウザがフリースするバグが発生しているためこの機能は無効化されています。ご迷惑をおかけしますが、修正をお待ちください。</p>')
     }
 
     $('#cc-list-buy-circle').formSelect()

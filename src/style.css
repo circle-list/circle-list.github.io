@@ -20,6 +20,44 @@ src: local('Noto Sans Japanese Regular'), local('NotoSansJapanese-Regular'),
     url('./fonts/noto-sans-jp-v24-japanese_latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 
+/* material-icons */
+@font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: local('Material Icons'),
+      local('MaterialIcons-Regular'),
+      url('./fonts/MaterialIcons-Regular.woff2') format('woff2'),
+      url('./fonts/MaterialIcons-Regular.woff') format('woff'),
+      url('./fonts/MaterialIcons-Regular.ttf') format('truetype');
+}
+
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;  /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+  
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+  
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+  
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+}
+
 /*
     CircleList用テーマカラー
 
@@ -244,7 +282,7 @@ body {
 
 .sub-logo {
     width: 70%;
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+    filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.2));
     margin: 10px 15%;
 }
 
@@ -724,4 +762,24 @@ form .switch {
     .small_display, .caret {
         display: none;
     }
+}
+
+@media (max-width: 990px) {
+    .nav-content .tab {
+        width: calc(100% / 3) !important;
+    }
+}
+
+@media (min-width: 990px) {
+    .nav-content .tab {
+        width: 150px !important;
+    }
+
+    .brand-logo {
+        margin-left: 30px;
+    }
+}
+
+#toast-container div:not(:last-child) {
+    display: none;
 }
