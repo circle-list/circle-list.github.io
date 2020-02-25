@@ -281,9 +281,9 @@ body {
 }
 
 .sub-logo {
-    width: 70%;
+    width: 40%;
     filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.2));
-    margin: 10px 15%;
+    margin: 10px;
 }
 
 .memo {
@@ -395,6 +395,8 @@ hr {
     transition: all  1s ease;
     opacity: 1;
     pointer-events: none;
+    background-size: cover !important;
+    background-position: center !important;
 }
 
 .loading-container {
@@ -782,4 +784,11 @@ form .switch {
 
 #toast-container div:not(:last-child) {
     display: none;
+}
+
+.logo-bg {
+    height: 150px;
+    background-size: cover !important;
+    margin-bottom: 15px;
+    background-position: center !important;
 }

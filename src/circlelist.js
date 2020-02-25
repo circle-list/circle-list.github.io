@@ -127,6 +127,16 @@ window.onerror = function(msg, url, line, col) {
 
 }
 
+// CoverImg
+var bg_img_url = getConfig('bg-url')
+if(bg_img_url !== undefined && bg_img_url !== '') {
+    $('#loading-div').css('background-image', 'url(' + bg_img_url + ')')
+    $('#loading-div').css('background-color', 'rgba(0, 0, 0, 0.15)')
+    $('#logo-bg').css('background', 'url(' + bg_img_url + ')')
+} else {
+    $('#logo-bg').remove()
+}
+
 // Initialize NewsCache
 news_cache = ''
 
@@ -390,6 +400,12 @@ function init() {
     var conf_tmp = Object.values(getConfig('checkbox'))
     for(var i = 0; conf_tmp.length > i; i++) {
         $('#cc-changedate-' + (i + 1)).prop('checked', conf_tmp[i])
+    }
+
+    var bg_img_url = getConfig('bg-url')
+    if(bg_img_url !== undefined && bg_img_url !== '') {
+        $('#cl-background-img').val(bg_img_url)
+        M.updateTextFields()
     }
 
 }
@@ -1546,3 +1562,8 @@ function isEnableCache() {
         console.log('[CircleList] Error: this browser not supported cache system.')
     }
 }
+
+// カバー画像
+$('#cl-background-img').on('change', function() {
+    setConfig('bg-url', $(this).val())
+})

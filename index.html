@@ -76,7 +76,9 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
                     <li><a href="#" onclick="location.reload();"><i class="material-icons">refresh</i></a></li>
                 </ul>
                 <ul id="slide-out" class="sidenav">
-                    <img src="assets/logo.png" class="sub-logo" alt="CircleList"></img>
+                    <div class="logo-bg" id="logo-bg">
+                        <img src="assets/logo.png" class="sub-logo" alt="CircleList"></img>
+                    </div>
                     <li><a id="social-share" class="blue-text">このサイトをシェア</a></li>
                     <li><a class="waves-effect normal-text" href="https://www.comiket.co.jp/" target="_blank">コミックマーケット公式サイト</a></li>
                     <li><a class="waves-effect normal-text" href="https://twitter.com/comiketofficial?lang=ja" target="_blank">コミックマーケット準備会 (Twitter)</a></li>
@@ -300,6 +302,16 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
                 <p>現在登録されているサークルリスト、購入リスト、メモなどをすべて書き出します。ほかの端末でインポートを行うことでデータを引き継げます。</p>
                 <a class="waves-effect waves-light btn blue lighten-1 modal-trigger" id="cc-info-import" href="#import-modal"><i class="material-icons left">file_upload</i>インポート</a>
                 <p>書き出したサークルリスト、購入リスト、メモなどを取り込みます。現在登録されているサークルリスト、購入リスト、メモなどはすべて削除されます。</p>
+                <h6>カバー画像設定</h6>
+                <p>読み込み時の背景を変更できます</p>
+                <form class="col s12">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="cl-background-img" type="text" class="validate">
+                            <label for="cl-background-img">URL</label>
+                        </div>
+                    </div>
+                </form>
                 <div id="settings-cache">
                     <h6>キャッシュ</h6>
                     <br>
