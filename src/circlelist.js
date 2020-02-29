@@ -219,9 +219,7 @@ $('#install_button').on('click', () => {
   
     installPromptEvent.userChoice.then((choice) => {
       if (choice.outcome === 'accepted') {
-        M.toast({html: 'CircleListがインストールされました。ホーム画面から起動できます。'})
-      } else {
-        M.toast({html: 'インストールをキャンセルしました'})
+        M.toast({html: 'CircleListのインストールに成功しました。ホーム画面から起動できます。'})
       }
 
       installPromptEvent = null
@@ -232,6 +230,7 @@ $('#install_button').on('click', () => {
 function cacheVers() {
     fetchNowVer().then(item => {
         $('#version').text(item)
+        console.log('[CircleList] ' + item + ' (' + comiketName + ')')
     })
 }
 
@@ -513,7 +512,6 @@ function find_old_data() {
             localStorage.setItem('config', JSON.stringify(config))
         } else {
             config['version'] = comiketName
-            console.log('[CircleList] Ver.' + comiketName)
             localStorage.setItem('config', JSON.stringify(config))
         }
     }
@@ -1522,7 +1520,11 @@ function fetchNowVer() {
         try {
             caches.keys().then(function(keyList) {
                 if(keyList.length !== 0) {
-                    return resolve(keyList[0].replace(/dynamic-|static-/g, ''))
+                    for(var i = 0; keyList.length > i; i++) {
+                        if(keyList[i].match(/static-/)) {
+                            return resolve(keyList[i].replace('static-', ''))
+                        }
+                    }
                 } else {
                     return resolve('')
                 }
