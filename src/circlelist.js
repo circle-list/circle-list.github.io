@@ -1,8 +1,4 @@
-var console_message_1 = 'CircleList %cVer.2'
-var console_message_2 = 'つくった人: ゆきねこ (https://twitter.com/hideki_0403)\nバグなどはサイトに設置されている不具合フォームよりお願いします～'
-var console_message_3 = '\n\n%c自分が何をしているのかわからなければこのウィンドウを閉じることを推奨します。\n%cわかるのであれば制作のお手伝いをしてください！！！\n\nあとソースコードは以下のリポジトリに公開しているのでそっちの方が見やすいですよ\nhttps://github.com/circle-list/circle-list.github.io'
-
-console.log('%c ' + console_message_1 + '\n\n%c' + console_message_2 + console_message_3 + '\n', 'color: #c99987; font-size: 50px; text-shadow:3px 3px 0 #FFF, -3px -3px 0 #FFF, -3px 3px 0 #FFF, 3px -3px 0 #FFF, 0px 3px 0 #FFF,  0-3px 0 #FFF, -3px 0 0 #FFF, 3px 0 0 #FFF;', 'font-size: 15px; color: #41b0ff;', '', 'color: #ff5151;', '')
+console.log('%c CircleList %cVer.2\n\n%cつくった人: ゆきねこ (https://twitter.com/hideki_0403)\nバグなどはサイトに設置されている不具合フォームよりお願いします～\n\n%c自分が何をしているのかわからなければこのウィンドウを閉じることを推奨します。\n%cわかるのであれば制作のお手伝いをしてください！！！\n\nあとソースコードは以下のリポジトリに公開しているのでそっちの方が見やすいですよ\nhttps://github.com/circle-list/circle-list.github.io\n', 'color: #c99987; font-size: 50px; text-shadow:3px 3px 0 #FFF, -3px -3px 0 #FFF, -3px 3px 0 #FFF, 3px -3px 0 #FFF, 0px 3px 0 #FFF,  0-3px 0 #FFF, -3px 0 0 #FFF, 3px 0 0 #FFF;', 'font-size: 15px; color: #41b0ff;', '', 'color: #ff5151;', '')
 
 var debug_ms = new Date()
 
@@ -104,7 +100,9 @@ window.onerror = function(msg, url, line, col) {
                 caches.keys()
                 .then(function(keyList) {
                     return Promise.all(keyList.map(function(key) {
-                        return caches.delete(key)
+                        if(!key.match(/fonts/)) {
+                            return caches.delete(key)
+                        }
                     }));
                 }).then(function() {
                     // ServiceWorkerをいったん解除
@@ -243,7 +241,9 @@ $('#cache-clear').on('click', function() {
     caches.keys()
     .then(function(keyList) {
         return Promise.all(keyList.map(function(key) {
-            return caches.delete(key);
+            if(!key.match(/fonts/)) {
+                return caches.delete(key)
+            }
         }));
     }).then(function() {
         // ServiceWorkerをいったん解除
@@ -776,7 +776,7 @@ function updateList(dc) {
                     tmp_box.push('<tr><td><i class="material-icons" id="check-box" data-id="' + tmp.id + '" data-item-id="' + _tmp.id + '">' + isBuyF(_tmp.buy) + '</i></td><td>' + _tmp.name + '</td><td>' + _tmp.price + '円</td><td class="del-button-wrapper"><a class="waves-effect waves-red btn-flat red-text buylist-delete" id="buy-delete-button" data-id="' + tmp.id + '" data-item-id="' + _tmp.id + '">削除</a></td></tr>')
                 }
 
-                $('#cc-buylist-wrapper').append('<li><div class="collapsible-header"><span>' + tmp.name + ' (' + place + ' / ' + tmp.place.date + '日目)</span></div><div class="collapsible-body"><table class="highlight"><tbody>' + tmp_box.join('') + '</tbody></table></div></li>')
+                $('#cc-buylist-wrapper').append('<li><div class="collapsible-header"><span>' + tmp.name + ' (' + place + ' / ' + tmp.place.date + '日目)</span></div><div class="collapsible-body"><table><tbody>' + tmp_box.join('') + '</tbody></table></div></li>')
             }
         }
 
@@ -843,8 +843,8 @@ $('#cc-buylist-wrapper').on('click', '#check-box', function() {
 $('#cc-list-circle-wrapper').on('click', '#remove-button', function() {
     var id =  $(this).data('id')
     var data = JSON.parse(localStorage.getItem('circles'))
-    $('#remove-modal').append('<div class="modal"><div class="modal-content"><p class="red-text warning-text">本当に削除しますか？</p><p>サークル「' + data[id].name + '」を削除しようとしています。<br>この操作は取り消せません。</p></div><div class="modal-footer"><a onclick="delete_modal_yes(\'' + id + '\')" class="modal-close waves-effect waves-red red-text btn-flat">消す</a><a onclick="delete_modal_no(\'' + id + '\')" class="modal-close waves-effect blue-text btn-flat">やめる</a></div></div>')
-    $('#remove-modal div').modal()
+    $('#remove-modal-name').text(data[id].name)
+    $('#remove-modal-remove').attr('onclick', 'delete_circle(\'' + id + '\')')
     M.Modal.getInstance($('#remove-modal div')).open()
 })
 
@@ -870,19 +870,13 @@ $('#cc-list-circle-wrapper').on('click', '#edit-button', function() {
     $('#cc-list-add-memo')[0].focus()
 })
 
-// 削除 -> no
-function delete_modal_no(id) {
-    $('#remove-modal').empty()
-    $('#remove-item-modal')
-}
-// 削除 -> yes
-function delete_modal_yes(id) {
+// サークル削除
+function delete_circle(id) {
     var data = JSON.parse(localStorage.getItem('circles'))
     M.toast({html: 'サークル「' + data[id].name + '」を削除しました'})
     delete data[id]
     localStorage.setItem('circles', JSON.stringify(data))
     updateList()
-    $('#remove-modal').empty()
 }
 
 // 表示日付変更
@@ -935,8 +929,8 @@ $('#cc-buy-add-button').on('click', function() {
     }
 })
 
-// グッズ削除 -> yes
-function delete_item_modal_yes(id, item_id, name) {
+// グッズ削除
+function delete_item(id, item_id, name) {
     var data = JSON.parse(localStorage.getItem('circles'))
     var newData = data[id].buy.filter(function(item, index){
         if (item.id !== item_id) return true
@@ -946,10 +940,9 @@ function delete_item_modal_yes(id, item_id, name) {
     data[id].buy = newData
     localStorage.setItem('circles', JSON.stringify(data))
     updateList()
-    $('#remove-item-modal').empty()
 }
 
-// グッズ削除
+// グッズ削除確認
 $('#cc-buylist-wrapper').on('click', '#buy-delete-button', function() {
     var id =  $(this).data('id')
     var item_id = $(this).data('item-id')
@@ -959,9 +952,9 @@ $('#cc-buylist-wrapper').on('click', '#buy-delete-button', function() {
         if (item.id === item_id) return true
     })
 
-    $('#remove-item-modal').append('<div class="modal"><div class="modal-content"><p class="red-text warning-text">本当に削除しますか？</p><p>サークル「' + data[id].name + '」の「' + item_object[0].name + '」を削除しようとしています。<br>この操作は取り消せません。</p></div><div class="modal-footer"><a onclick="delete_item_modal_yes(\'' + id + '\', \'' + item_id + '\', \'' + item_object[0].name + '\')" class="modal-close waves-effect waves-red red-text btn-flat">消す</a><a onclick="delete_modal_no(\'' + id + '\')" class="modal-close waves-effect blue-text btn-flat">やめる</a></div></div>')
-    $('#remove-item-modal div').modal()
-    M.Modal.getInstance($('#remove-item-modal div')).open()
+    $('#remove-modal-name').text(data[id].name + '」の「' + item_object[0].name)
+    $('#remove-modal-remove').attr('onclick', 'delete_item(\'' + id + '\', \'' + item_id + '\', \'' + item_object[0].name + '\')')
+    M.Modal.getInstance($('#remove-modal div')).open()
 })
 
 // フォーム初期化ON/OFF

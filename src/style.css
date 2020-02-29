@@ -132,8 +132,8 @@ src: local('Noto Sans Japanese Regular'), local('NotoSansJapanese-Regular'),
 
 .tab2 {
     background: var(--tab) !important;
-    box-shadow: 0px 10px 5px rgba(0, 0, 0, 0.1);
-    -webkit-box-shadow: 0px 10px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
 }
 
 .modal-content, .modal-footer {
@@ -150,7 +150,7 @@ src: local('Noto Sans Japanese Regular'), local('NotoSansJapanese-Regular'),
 
 .collapsible-body {
     border-bottom: var(--border) !important;
-    background: var(--second) !important;
+    background: rgba(0, 0, 0, 0.1) !important;
     color: var(--text-color);
 }
 
@@ -180,7 +180,7 @@ input::placeholder, textarea::placeholder {
 }
 
 .dropdown-content {
-    background-color: var();
+    border-radius: 15px;
 }
 
 .spinner-custom {
@@ -791,4 +791,13 @@ form .switch {
     background-size: cover !important;
     margin-bottom: 15px;
     background-position: center !important;
+}
+
+.disabled span {
+    color: var(--placeholder) !important;
+}
+
+.modal-footer a:hover, .modal-footer button:hover {
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
 }

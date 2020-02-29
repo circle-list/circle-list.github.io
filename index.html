@@ -284,10 +284,10 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
                     ON
                     </label>
                 </div>
-                <h6>CircleListをインストールする (Android/PC限定)</h6>
+                <h6>CircleListをインストールする</h6>
                 <br>
                 <a class="waves-effect waves-light btn blue lighten-1" disabled id="install_button"><i class="material-icons left">file_download</i>インストール</a>
-                <p id="cant_install_reason">(上のボタンが押せない場合はインストールすることが出来ませんが、時間を置いて再度アクセスするとインストールできるようになるかもしれません。)</p>
+                <p id="cant_install_reason">Safari(iOS)をお使いの方は共有ボタンから「ホーム画面に追加」を押してください。</p>
                 <h6>サークルデータのバックアップ/復元</h6>
                 <br>
                 <a class="waves-effect waves-light btn blue lighten-1" id="cc-cloud_backup"><i class="material-icons left">cloud_upload</i>バックアップ</a>
@@ -405,6 +405,19 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
             
         <!-- ListTab -->
         <div id="cc-list" class="col s12">
+            <!-- remove modal -->
+            <div id="remove-modal">
+                <div class="modal">
+                    <div class="modal-content">
+                        <p class="red-text warning-text">本当に削除しますか？</p>
+                        <p>サークル「<span id="remove-modal-name"></span>」を削除しようとしています。<br>この操作は取り消せません。</p>
+                    </div>
+                    <div class="modal-footer">
+                        <a id="remove-modal-remove" class="modal-close waves-effect waves-red red-text btn-flat">消す</a>
+                        <a class="modal-close waves-effect blue-text btn-flat">やめる</a>
+                    </div>
+                </div>
+            </div>
             <!-- Modal -->
             <div id="open-modal" class="modal">
                 <div class="modal-content">
@@ -460,8 +473,6 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
             <!-- サークル@一覧 -->
             <div id="cc-list-circle" class="col s12" style="margin-bottom: 80px; margin-top: 20px;">
                 <ul id="cc-list-circle-wrapper" class="collapsible expandable" style="box-shadow: none; -webkit-box-shadow: none; margin: 0rem 0 1rem 0;"></ul>
-                <div id="remove-modal"></div>
-
                 <!-- サークル@追加 -->
                 <div class="fixed-action-btn">
                     <a id="open-add-circle" class="waves-effect waves-light btn theme-color modal-trigger" href="#cc-list-add"><i class="material-icons left">playlist_add</i>お気に入り追加</a>
@@ -516,7 +527,6 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
 
             <!-- 購入リスト -->
             <div id="cc-list-buy" style="display: none; margin-bottom: 80px; margin-top: 20px;">
-                <div id="remove-item-modal"></div>
                 <ul id="cc-buylist-wrapper" class="collapsible expandable" style="box-shadow: none; -webkit-box-shadow: none; margin: 0rem 0 1rem 0;"></ul>  
                 <div class="row">
                     <div class="fixed-action-btn">
@@ -647,8 +657,6 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
         </div>
 
         <!-- Libs -->
-        <script src="src/lib/eruda.js"></script>
-        <script src="src/devtools.js"></script>
         <script src="src/lib/materialize.min.js"></script>
         <script src="src/lib/jquery.qrcode.min.js"></script>
         <script src="src/lib/TweenMax.min.js"></script>
@@ -661,6 +669,11 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
         <script src="src/circlelist.js"></script>
         <script src="src/draw.js"></script>
         <script src="src/register_sw.js"></script>
+
+        <!-- Disabled --
+        <script src="src/lib/eruda.js"></script>
+        <script src="src/devtools.js"></script>
+        -->
 
     </body>
 </html>
