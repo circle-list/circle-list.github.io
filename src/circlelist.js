@@ -1541,7 +1541,9 @@ function theme_init() {
         theme = data
 
         if(getConfig('theme') === undefined) {
-            setConfig('theme', 'auto-dark')
+            var config = JSON.parse(localStorage.getItem('config'))
+            config['theme'] = 'auto-dark'
+            localStorage.setItem('config', JSON.stringify(config))
         }
         
         for(var i = 0; Object.keys(data).length > i; i++) {
