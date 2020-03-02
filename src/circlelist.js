@@ -1541,7 +1541,7 @@ function theme_init() {
         theme = data
 
         if(getConfig('theme') === undefined) {
-            setConfig('theme') = 'auto-dark'
+            setConfig('theme', 'auto-dark')
         }
         
         for(var i = 0; Object.keys(data).length > i; i++) {
