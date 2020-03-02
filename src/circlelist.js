@@ -149,7 +149,6 @@ $(document).ready(function(){
     checkQuery()
     ifEnableDevtools()
     isEnableCache()
-    theme_init()
 
     // leon_init()
 
@@ -386,19 +385,11 @@ function init() {
     $('#cc-setting-disableReset').prop('checked', config['disableReset'])
     $('#cc-setting-errorReport').prop('checked', config['errorReport'])
     $('#cc-setting-enableBrowserSelect').prop('checked', config['browser-select'])
-    $('input[value="' + config['darktheme'] + '"]').prop('checked', true)
 
     var conf_tmp = Object.values(getConfig('checkbox'))
     for(var i = 0; conf_tmp.length > i; i++) {
         $('#cc-changedate-' + (i + 1)).prop('checked', conf_tmp[i])
     }
-
-    var bg_img_url = getConfig('bg-url')
-    if(bg_img_url !== undefined && bg_img_url !== '') {
-        $('#cl-background-img').val(bg_img_url)
-        M.updateTextFields()
-    }
-
 }
 
 // StorageCheck
@@ -466,7 +457,7 @@ function ConfigCheck() {
         config['errorReport'] = true
     }
     if(config['theme'] === undefined) {
-        config['theme'] = 'auto'
+        config['theme'] = 'auto-dark'
     }
     if(config['browser-select'] === undefined) {
         config['browser-select'] = false
@@ -1047,17 +1038,11 @@ $('[id=social-share]').on('click', function() {
 })
 
 // テーマ切り替え
-$('input[name="theme-selector"]').on('change', function() {
-    var value_change = $(this).val()
-    setConfig('theme', value_change)
-    changeTheme()
-})
 
 function changeTheme() {
 
     switch(getConfig('theme')) {
-        // オート
-        case 'auto':
+        case 'auto-dark':
             if(isDarkmode()) {
                 selected_theme = theme.dark
             } else {
@@ -1065,14 +1050,16 @@ function changeTheme() {
             }
             break
 
-        // light
-        case 'light':
-            selected_theme = theme.light
-            break
+        case 'auto-black':
+            if(isDarkmode()) {
+                selected_theme = theme.black
+            } else {
+                selected_theme = theme.light
+            }
+            break 
 
-        // dark
-        case 'dark': 
-            selected_theme = theme.dark
+        default:
+            selected_theme = theme[getConfig('theme')]
             break
     }
 
@@ -1080,7 +1067,7 @@ function changeTheme() {
     $('#header-theme-color').attr('content', selected_theme.color)
 }
 
-changeTheme()
+theme_init()
 
 // データのサーバーバックアップ
 function serverBackup(u, d) {
@@ -1555,7 +1542,20 @@ function theme_init() {
     $.getJSON('https://circlelist.ga/src/theme/themes.json')
     .done(data => {
         theme = data
-        console.log(data)
+        
+        for(var i = 0; Object.keys(data).length > i; i++) {
+            $('#cc-setting-darkmode').append('<p><label><input class="with-gap" name="theme-selector" type="radio" value="' + Object.keys(data)[i] + '" /><span>' + data[Object.keys(data)[i]].name + '</span></label></p>')
+        }
+
+        $('input[name="theme-selector"]').on('change', function() {
+            var value_change = $(this).val()
+            setConfig('theme', value_change)
+            changeTheme()
+        })
+
+        $('input[value="' + getConfig('theme') + '"]').prop('checked', true)
+        
+        changeTheme()
     })
     .fail(data => {
         console.log(data)

@@ -128,6 +128,8 @@ src: local('Noto Sans Japanese Regular'), local('NotoSansJapanese-Regular'),
 
 .tabs {
     background: var(--tabs) !important;
+    border-bottom: var(--border-bottom) !important;
+    box-sizing: border-box;
 }
 
 .tab2 {
@@ -160,6 +162,8 @@ src: local('Noto Sans Japanese Regular'), local('NotoSansJapanese-Regular'),
 
 .sidenav {
     background-color: var(--background) !important;
+    border-right: var(--border-bottom);
+    box-sizing: border-box;
 }
 
 .select-wrapper {
@@ -181,6 +185,8 @@ input::placeholder, textarea::placeholder {
 
 .dropdown-content {
     border-radius: 15px;
+    border: var(--border-bottom);
+    box-sizing: border-box;
 }
 
 .spinner-custom {
@@ -251,7 +257,7 @@ hr {
 }
 
 #check-box {
-    color: #c99987;
+    color: var(--theme-color);
 }
 
 #cc-list-buy {
@@ -565,6 +571,8 @@ select.browser-default {
 .modal {
     background-color: rgba(0, 0, 0, 0) !important;
     border-radius: 20px !important;
+    border: var(--border-bottom) !important;
+    box-sizing: border-box;
 }
 
 .btn {
@@ -793,4 +801,16 @@ form .switch {
 .modal-footer a:hover, .modal-footer button:hover {
     box-shadow: none !important;
     -webkit-box-shadow: none !important;
+}
+
+.modal-content h5, .modal-content h6 {
+    margin-top: 0 !important;
+}
+
+[type="radio"]:checked+span:after, [type="radio"].with-gap:checked+span:before, [type="radio"].with-gap:checked+span:after {
+    border: 2px solid var(--theme-color) !important;
+}
+
+[type="radio"]:checked+span:after, [type="radio"].with-gap:checked+span:after {
+    background-color: var(--theme-color) !important;
 }

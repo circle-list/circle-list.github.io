@@ -1,12 +1,12 @@
 :root {
     --theme-color: #70aaea;
-    --background: #202124;
+    --background: #000;
     --text-color: #D6D6D7;
-    --tabs: #323639;
-    --tab: #282C2F;
+    --tabs: #000;
+    --tab: #000;
     --tab-focus: rgba(214, 214, 215, 0.3);
     --tab-a-active: #D6D6D7;
-    --nav: #323639;
+    --nav: #000;
     --border: #323639;
     --normal-text: #D6D6D7;
     --first: #323639;
@@ -19,5 +19,5 @@
     --h6: #323639;
     --info-box: #323639;
     --placeholder: #555;
-    --border-bottom: none;
+    --border-bottom: 1px solid rgba(255, 255,255, 0.2);
 }
