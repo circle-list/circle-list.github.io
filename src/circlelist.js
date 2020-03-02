@@ -456,6 +456,9 @@ function ConfigCheck() {
     if(config['errorReport'] === undefined) {
         config['errorReport'] = true
     }
+    if(config['theme'] === undefined) {
+        config['theme'] = 'auto-dark'
+    }
     if(config['browser-select'] === undefined) {
         config['browser-select'] = false
     }
@@ -1060,6 +1063,15 @@ function changeTheme() {
             break
     }
 
+    // 初回アクセス用処理
+    if(selected_theme === undefined) {
+        if(isDarkmode()) {
+            selected_theme = theme.dark
+        } else {
+            selected_theme = theme.light
+        }
+    }
+
     $('#site-theme').attr('href', selected_theme.url)
     $('#header-theme-color').attr('content', selected_theme.color)
 }
@@ -1539,12 +1551,6 @@ function theme_init() {
     $.getJSON('https://circlelist.ga/src/theme/themes.json')
     .done(data => {
         theme = data
-
-        if(getConfig('theme') === undefined) {
-            var config = JSON.parse(localStorage.getItem('config'))
-            config['theme'] = 'auto-dark'
-            localStorage.setItem('config', JSON.stringify(config))
-        }
         
         for(var i = 0; Object.keys(data).length > i; i++) {
             $('#cc-setting-darkmode').append('<p><label><input class="with-gap" name="theme-selector" type="radio" value="' + Object.keys(data)[i] + '" /><span>' + data[Object.keys(data)[i]].name + '</span></label></p>')

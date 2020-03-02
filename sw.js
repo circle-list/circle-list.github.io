@@ -1,6 +1,6 @@
 // ServiceWorker
 
-VERSION = '2.1.68'
+VERSION = '2.1.69'
 
 /* =========================
 
