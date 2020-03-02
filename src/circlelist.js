@@ -456,9 +456,6 @@ function ConfigCheck() {
     if(config['errorReport'] === undefined) {
         config['errorReport'] = true
     }
-    if(config['theme'] === undefined) {
-        config['theme'] = 'auto-dark'
-    }
     if(config['browser-select'] === undefined) {
         config['browser-select'] = false
     }
@@ -1542,6 +1539,10 @@ function theme_init() {
     $.getJSON('https://circlelist.ga/src/theme/themes.json')
     .done(data => {
         theme = data
+
+        if(getConfig('theme') === undefined) {
+            setConfig('theme') = 'auto-dark'
+        }
         
         for(var i = 0; Object.keys(data).length > i; i++) {
             $('#cc-setting-darkmode').append('<p><label><input class="with-gap" name="theme-selector" type="radio" value="' + Object.keys(data)[i] + '" /><span>' + data[Object.keys(data)[i]].name + '</span></label></p>')
