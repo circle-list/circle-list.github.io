@@ -125,16 +125,6 @@ window.onerror = function(msg, url, line, col) {
 
 }
 
-// CoverImg
-var bg_img_url = getConfig('bg-url')
-if(bg_img_url !== undefined && bg_img_url !== '') {
-    $('#loading-div').css('background-image', 'url(' + bg_img_url + ')')
-    $('#loading-div').css('background-color', 'rgba(0, 0, 0, 0.15)')
-    $('#logo-bg').css('background', 'url(' + bg_img_url + ')')
-} else {
-    $('#logo-bg').remove()
-}
-
 // Initialize NewsCache
 news_cache = ''
 
@@ -156,10 +146,12 @@ $(document).ready(function(){
     init()
     cacheVers()
     old_data_list()
-    leon_init()
     checkQuery()
     ifEnableDevtools()
     isEnableCache()
+    theme_init()
+
+    // leon_init()
 
     $.getJSON('https://circlelist.ga/data/news.json')
     .done(function(data) {
@@ -172,7 +164,7 @@ $(document).ready(function(){
         setTimeout(function() {
             $('#loading-div').remove()
         }, 2000)
-    }, 2500)
+    }, 750)
 
     setTimeout(function() {
         find_old_data()
@@ -473,8 +465,8 @@ function ConfigCheck() {
     if(config['errorReport'] === undefined) {
         config['errorReport'] = true
     }
-    if(config['darktheme'] === undefined) {
-        config['darktheme'] = 'auto'
+    if(config['theme'] === undefined) {
+        config['theme'] = 'auto'
     }
     if(config['browser-select'] === undefined) {
         config['browser-select'] = false
@@ -988,7 +980,7 @@ $('#cc-memo-area').on('change', function() {
 })
 
 // ロード時のロゴアニメーション
-
+/*
 let leon, canvas, ctx
 const sw = $('.logo_animation_container').width()
 const sh = $('.logo_animation_container').height()
@@ -1036,6 +1028,7 @@ function animate() {
 
     leon.draw(ctx)
 }
+*/
 
 // シェアボタン
 $('[id=social-share]').on('click', function() {
@@ -1054,37 +1047,37 @@ $('[id=social-share]').on('click', function() {
 })
 
 // テーマ切り替え
-$('input[name="radio-darkmode"]').on('change', function() {
+$('input[name="theme-selector"]').on('change', function() {
     var value_change = $(this).val()
-    if(value_change !== 'auto') {
-        if(value_change === 'true') {
-            var value_change = true
-        } else {
-            var value_change = false
-        }
-    }
-    setConfig('darktheme', value_change)
+    setConfig('theme', value_change)
     changeTheme()
 })
 
 function changeTheme() {
 
-    if(getConfig('darktheme') === 'auto') {
-        var automode = isDarkmode()
-    } else {
-        var automode = false
+    switch(getConfig('theme')) {
+        // オート
+        case 'auto':
+            if(isDarkmode()) {
+                selected_theme = theme.dark
+            } else {
+                selected_theme = theme.light
+            }
+            break
+
+        // light
+        case 'light':
+            selected_theme = theme.light
+            break
+
+        // dark
+        case 'dark': 
+            selected_theme = theme.dark
+            break
     }
 
-    if(getConfig('darktheme') === true || automode) {
-        var link = 'src/theme/dark.css'
-        var header = '#323639'
-    } else {
-        var link = 'src/theme/light.css'
-        var header = '#c99987'
-    }
-
-    $('#site-theme').attr('href', link)
-    $('#header-theme-color').attr('content', header)
+    $('#site-theme').attr('href', selected_theme.url)
+    $('#header-theme-color').attr('content', selected_theme.color)
 }
 
 changeTheme()
@@ -1558,7 +1551,14 @@ function isEnableCache() {
     }
 }
 
-// カバー画像
-$('#cl-background-img').on('change', function() {
-    setConfig('bg-url', $(this).val())
-})
+function theme_init() {
+    $.getJSON('https://circlelist.ga/src/theme/themes.json')
+    .done(data => {
+        theme = data
+        console.log(data)
+    })
+    .fail(data => {
+        console.log(data)
+        M.toast({html: '<b class="red-text text-accent-1" style="font-weight: bold;">情報の取得に失敗しました</b>'})
+    })
+}

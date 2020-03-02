@@ -242,29 +242,10 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
             </div>
             <div id="cc-top-info" class="container text-color" style="margin-bottom: 80px;">
                 <h5>設定</h5>
-                <h6>ダークモード</h6>
-                <form action="#" id="cc-setting-darkmode">  
-                    <p>
-                        <label>
-                            <input class="with-gap" name="radio-darkmode" type="radio" value="true" />
-                            <span>ON</span>
-                        </label>
-                    </p>
-                    <p>
-                        <label>
-                            <input class="with-gap" name="radio-darkmode" type="radio" value="false" />
-                            <span>OFF</span>
-                        </label>
-                    </p>
-                    <p>
-                        <label>
-                            <input class="with-gap" name="radio-darkmode" type="radio" value="auto" />
-                            <span>自動</span>
-                        </label>
-                    </p>
-                </form>
-                <p>ダークモードをオンにすると黒を基調とした配色に切り替わります。</p>
-                <p>自動を選択した場合はシステムの設定に従います。</p>
+                <h6>テーマ</h6>
+                <br>
+                <a class="waves-effect waves-light btn blue lighten-1 modal-trigger" href="#cc-theme-change"><i class="material-icons left">brush</i>テーマ変更</a>
+                <p>配色を変更できます</p>
                 <h6>サークル情報入力方式を変更する</h6>
                 <div class="switch">
                     <label>
@@ -302,16 +283,6 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
                 <p>現在登録されているサークルリスト、購入リスト、メモなどをすべて書き出します。ほかの端末でインポートを行うことでデータを引き継げます。</p>
                 <a class="waves-effect waves-light btn blue lighten-1 modal-trigger" id="cc-info-import" href="#import-modal"><i class="material-icons left">file_upload</i>インポート</a>
                 <p>書き出したサークルリスト、購入リスト、メモなどを取り込みます。現在登録されているサークルリスト、購入リスト、メモなどはすべて削除されます。</p>
-                <h6>カバー画像設定</h6>
-                <p>読み込み時の背景を変更できます</p>
-                <form class="col s12">
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <input id="cl-background-img" type="text" class="validate">
-                            <label for="cl-background-img">URL</label>
-                        </div>
-                    </div>
-                </form>
                 <div id="settings-cache">
                     <h6>キャッシュ</h6>
                     <br>
@@ -396,6 +367,36 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
                         <p>登録してあるサークル数: <span id="cl-restore-confirm-circle"></span></p>
                         <a href="#!" class="modal-close waves-effect waves-light warning-color btn" id="cl-restore-confirm-button">このデータを復元する</a>
                     </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="#!" class="modal-close waves-effect waves-light info-color btn">閉じる</a>
+                </div>
+            </div>
+            <div id="cc-theme-change" class="modal">
+                <div class="modal-content">
+                    <h5>テーマ変更</h5>
+                    <form action="#" id="cc-setting-darkmode">  
+                        <p>
+                            <label>
+                                <input class="with-gap" name="radio-darkmode" type="radio" value="true" />
+                                <span>ON</span>
+                            </label>
+                        </p>
+                        <p>
+                            <label>
+                                <input class="with-gap" name="radio-darkmode" type="radio" value="false" />
+                                <span>OFF</span>
+                            </label>
+                        </p>
+                        <p>
+                            <label>
+                                <input class="with-gap" name="radio-darkmode" type="radio" value="auto" />
+                                <span>自動</span>
+                            </label>
+                        </p>
+                    </form>
+                    <p>ダークモードをオンにすると黒を基調とした配色に切り替わります。</p>
+                    <p>自動を選択した場合はシステムの設定に従います。</p>
                 </div>
                 <div class="modal-footer">
                     <a href="#!" class="modal-close waves-effect waves-light info-color btn">閉じる</a>
@@ -663,7 +664,6 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
         <script src="src/lib/popper.js"></script>
         <script src="src/lib/tippy.js"></script>
         <script src="src/lib/sw-update-dialog.js"></script>
-        <script src="src/lib/leon.js"></script>
 
         <!-- Scripts -->
         <script src="src/circlelist.js"></script>
@@ -673,6 +673,7 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
         <!-- Disabled --
         <script src="src/lib/eruda.js"></script>
         <script src="src/devtools.js"></script>
+        <script src="src/lib/leon.js"></script>
         -->
 
     </body>

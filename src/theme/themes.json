@@ -1,0 +1,12 @@
+{
+    "dark": {
+        "name": "ダーク",
+        "color": "#323639",
+        "url": "src/theme/dark.css"
+    },
+    "light": {
+        "name": "ライト",
+        "color": "#c99987",
+        "url": "src/theme/light.css"
+    }
+}

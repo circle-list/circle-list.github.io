@@ -287,7 +287,6 @@ body {
 }
 
 .memo {
-    -ms-user-select: text;
     -webkit-user-select: text;
     user-select: text;
 }
@@ -390,13 +389,9 @@ hr {
     background: #FFF;
     z-index: 1000;
     -webkit-transition: all 1s ease;
-    -moz-transition: all 1s ease;
-    -o-transition: all 1s ease;
     transition: all  1s ease;
     opacity: 1;
     pointer-events: none;
-    background-size: cover !important;
-    background-position: center !important;
 }
 
 .loading-container {
@@ -787,10 +782,8 @@ form .switch {
 }
 
 .logo-bg {
-    height: 150px;
-    background-size: cover !important;
-    margin-bottom: 15px;
-    background-position: center !important;
+    height: 50px;
+    margin: 20px;
 }
 
 .disabled span {
