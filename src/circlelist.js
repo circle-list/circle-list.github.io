@@ -5,7 +5,7 @@ var debug_ms = new Date()
 /* 設定項目一覧 */
 
 // マスターアップ時に必ず変更すること！！
-const comiketName = '2019_winter'
+const comiketName = '2020_summer'
 
 const comiketList = {
     '2019_summer': '2019年 夏コミ (C96)',
