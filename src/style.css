@@ -11,13 +11,13 @@
 
 /* noto-sans-jp-regular - japanese_latin */
 @font-face {
-font-family: 'Noto Sans JP';
-font-style: normal;
-font-weight: 400;
-font-display: swap;
-src: local('Noto Sans Japanese Regular'), local('NotoSansJapanese-Regular'),
-    url('./fonts/noto-sans-jp-v24-japanese_latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
-    url('./fonts/noto-sans-jp-v24-japanese_latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+    font-family: 'Noto Sans JP';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: local('Noto Sans Japanese Regular'), local('NotoSansJapanese-Regular'),
+        url('./fonts/noto-sans-jp-v24-japanese_latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+        url('./fonts/noto-sans-jp-v24-japanese_latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 
 /* material-icons */
@@ -813,4 +813,45 @@ form .switch {
 
 [type="radio"]:checked+span:after, [type="radio"].with-gap:checked+span:after {
     background-color: var(--theme-color) !important;
+}
+
+.ajax-spinner {
+    width: 32px;
+    height: 32px;
+    border: 4px rgba(189, 189, 189, 0.5) solid;
+    border-top: 4px var(--theme-color) solid;
+    border-radius: 50%;
+    animation: sp-anime 0.3s infinite linear;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 99999;
+    opacity: 0;
+    transition: all 0.15s ease;
+}
+
+@keyframes sp-anime {
+	100% { 
+		transform: rotate(360deg); 
+	}
+}
+
+.container>div:not(.disable-container):not(.fixed-action-btn) {
+    background: var(--div-transpart) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    padding: 10px 20px;
+    border-radius: 20px;
+    margin-top: 25px;
+}
+
+.container>div:not(.disable-container)>h5 {
+    margin-top: 5px !important;
+}
+
+.neko {
+    margin-top: 50px;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    -webkit-transform: translateY(-50%) translateX(-50%);
 }

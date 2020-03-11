@@ -20,4 +20,5 @@
     --info-box: #fff;
     --placeholder: #bbb;
     --border-bottom: none;
+    --div-transpart: rgba(255, 255, 255, 0.8);
 }

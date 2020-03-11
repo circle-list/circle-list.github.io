@@ -1571,3 +1571,33 @@ function theme_init() {
         M.toast({html: '<b class="red-text text-accent-1" style="font-weight: bold;">情報の取得に失敗しました</b>'})
     })
 }
+
+// ajaxspinner
+$(document).ajaxStart(function() {
+    $('.ajax-spinner').css('opacity', '1')
+})
+
+$(document).ajaxComplete(function() {
+    $('.ajax-spinner').css('opacity', '0')
+})
+
+$('#nyaan').on('click', function() {
+    var neko = [
+        '(=･ω･=)',
+        '(=^･ω･^=)',
+        '(ฅ^･ω･^ ฅ)',
+        '∩(=^･ω･^=)',
+        '~(=^･ω･^)_旦',
+        '(=^･^=)',
+        '~(=^･ω･^)ﾉ☆',
+        'o(=・ω・=o)=3=3=3=3=3=3',
+        '(Ф∀Ф)',
+        '^ↀᴥↀ^',
+        '(^･ｪ･^)',
+        '∩•ω•∩',
+        'o(^・x・^)o',
+        '(＊˃ᆺ˂)'
+    ]
+    
+    M.toast({html: neko[Math.floor(Math.random() * neko.length)] + ' にゃ～ん'})
+})

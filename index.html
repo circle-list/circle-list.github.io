@@ -30,7 +30,7 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
         <meta property="og:description" content="CircleListはコミックマーケット用の非公式ツールです。配置図の閲覧やお気に入りのサークルを登録してチェックリストを作成することが出来ます。" /> 
         <meta name="twitter:card" content="summary_large_image"/> 
         <meta name="twitter:site" content="@hideki_0403"/>
-        <meta name="keywords" content="circlelist,コミケ,c97,コミケマップ,コミックマーケット,配置図">
+        <meta name="keywords" content="circlelist,コミケ,c98,C98,コミケマップ,コミックマーケット,配置図">
         <meta name="mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="white">
         <meta name="apple-mobile-web-app-title" content="CircleList">
@@ -134,7 +134,7 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
             </ul>
             <div id="cc-top-about" class="container text-color" style="margin-bottom: 80px;">
                 <br>
-                <div style="margin-top: 15px;">
+                <div class="disable-container" style="margin-top: 15px;">
                     <div class="social-button cursor_click" id="social-share"><i class="material-icons">share</i></div>
                     <div class="social-button">
                         <a href="https://twitter.com/intent/tweet?hashtags=CircleList&ref_src=twsrc%5Etfw&related=circle_list%2Chideki_0403&text=%E3%82%B3%E3%83%9F%E3%82%B1%E3%81%A7%E8%A1%8C%E3%81%8D%E3%81%9F%E3%81%84%E3%82%B5%E3%83%BC%E3%82%AF%E3%83%AB%E3%82%92%E3%83%AA%E3%82%B9%E3%83%88%E5%8C%96%E3%81%A7%E3%81%8D%E3%82%8B%E3%82%B5%E3%83%BC%E3%83%93%E3%82%B9%20CircleList&tw_p=tweetbutton&url=https%3A%2F%2Fcirclelist.ga%2F&via=circle_list"></a>
@@ -153,81 +153,101 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
                         <p class="white-text" style="margin: 0;">バグ報告</p>
                     </div>
                 </div>
-                <h5>CircleListとは？</h5>
-                <p>CircleListはコミックマーケット用の非公式ツールです。</p>
-                <p>公式のカタログと合わせて使用することを想定して作られていますが、カタログが無くても無料で使用することができます。</p>
-                <h5>できること</h5>
-                <p>・お気に入りのサークルをリスト化</p>
-                <p>・購入する予定のグッズをリスト化</p>
-                <p>・サークル配置図の閲覧</p>
-                <p>・サークル配置図のお気に入りのサークルのマスに自動的に色をつける</p>
-                <p>・オフラインでも使用可能</p>
-                <p>・登録したデータをクラウドにバックアップして他の端末にコピー</p>
-                <p>などなど...</p>
-                <h5>使い方</h5>
-                <a href="https://hideki0403.ml/archives/227" target="_blank">ブログの方に画像付きの使い方記事を公開しました。</a>
-                <p>「サークル」タブに移動して右下にある「お気に入り追加」を押すことでサークルをリスト化することが可能です。</p>
-                <p>また、購入リストはサークルを追加したのちに作成可能です。先にサークル追加を行うようにしてください。</p>
-                <p>「マップ」タブでは、ビックサイトの西12、34ホール・南12、34ホール・青海展示場のマップを閲覧することが出来ます。</p>
-                <p>お気に入りのサークルの場所（マス目）に自動的に色がつくようになっていますが、色が付かないor消えない場合は再読み込みをしてみてください。</p>
-                <h5>CircleListをインストールする (PWA)</h5>
-                <p>例年、コミケではインターネットに繋がらない(または回線が極端に遅い)という声が多く上がっているため、CircleListはオフラインで使用できるように設計されています。</p>
-                <p>ブラウザからCircleListにアクセスしてもオフラインで利用することができますが、AndroidやiOS端末(iPhoneなど)にインストールすることでより快適に利用できるようになります。</p>
-                <p class="red-text">なお、オフライン版はWiFiやLTE(4G回線など)を切った状態でしかアクセスできません。それらを一旦OFFにして、オフラインな環境にしてからアクセスしてください。</p>
-                <h6>インストール方法 (Android)</h6>
-                <p>「設定」タブに移動して、「CircleListをインストールする」の項目のインストールボタンを押すことでインストールが可能です。</p>
-                <p>インストール後はホームのアプリ一覧に追加されているはずです。</p>
-                <p>ボタンが押せない(グレーアウトしている)場合は時間をあけて再アクセスしてみるといいかもしれません（Chromeの仕様）</p>
-                <h6>インストール方法 (iOS)</h6>
-                <p>画面の下にある「共有」アイコン（四角いアイコン）を押して、「ホーム画面に追加」を押すことでインストールすることが可能です。</p>
-                <h5>動作確認済みのブラウザ</h5>
-                <p>GoogleChrome (Windows/Android)</p>
-                <p>(上記以外のブラウザでも使用できると思いますが、レイアウトが崩れたり正常に動かない場合があると思います。)</p>
-                <h5>その他</h5>
-                <h6>つくったひと</h6>
-                <p>ゆきねこ (<a href="https://twitter.com/hideki_0403" target="_brank">@hideki_0403</a>)</p>
-                <p>お問い合わせなどはTwitterのDM、またはメンションにてお願いします。</p>
-                <h6>投げ銭</h6>
-                <p>以下のサービスで投げ銭を受け付けています。15円以上の任意の金額を投げ銭できます。（頂いた投げ銭は本サービスの維持費として使用させていただきます）</p>
-                <a href="https://kampa.me/t/tbe">Kampa!で投げ銭をする</a>
-                <h5>プライバシーポリシー</h5>
-                <h6>アクセス解析ツールについて</h6>
-                <p>CircleListでは、Googleによるアクセス解析ツール「Googleアナリティクス」を利用しています。</p>
-                <p>このGoogleアナリティクスはトラフィックデータの収集のためにCookieを使用しています。このトラフィックデータは匿名で収集されており、個人を特定するものではありません。この機能はCookieを無効にすることで収集を拒否することが出来ますので、お使いのブラウザの設定をご確認ください。この規約に関して、詳しくはここをクリックしてください。</p>
-                <h6>免責事項</h6>
-                <p>CircleListからリンクやバナーなどによって他のサイトに移動された場合、移動先サイトで提供される情報、サービス等について一切の責任を負いません。</p>
-                <p>CircleListのコンテンツ・情報につきまして、可能な限り正確な情報を掲載するよう努めておりますが、誤情報が入り込んだり、情報が古くなっていることもございます。</p>
-                <p>CircleListに掲載された内容によって生じた損害等の一切の責任を負いかねますのでご了承ください。</p>
-            </div/>
+                <div>
+                    <h5>CircleListとは？</h5>
+                    <p>CircleListはコミックマーケット用の非公式ツールです。</p>
+                    <p>公式のカタログと合わせて使用することを想定して作られていますが、カタログが無くても無料で使用することができます。</p>
+                </div>
+                <div>
+                    <h5>できること</h5>
+                    <p>・お気に入りのサークルをリスト化</p>
+                    <p>・購入する予定のグッズをリスト化</p>
+                    <p>・サークル配置図の閲覧</p>
+                    <p>・サークル配置図のお気に入りのサークルのマスに自動的に色をつける</p>
+                    <p>・オフラインでも使用可能</p>
+                    <p>・登録したデータをクラウドにバックアップして他の端末にコピー</p>
+                    <p>などなど...</p>
+                </div>
+                <div>
+                    <h5>使い方</h5>
+                    <a href="https://hideki0403.ml/archives/227" target="_blank">ブログの方に画像付きの使い方記事を公開しました。</a>
+                    <p>「サークル」タブに移動して右下にある「お気に入り追加」を押すことでサークルをリスト化することが可能です。</p>
+                    <p>また、購入リストはサークルを追加したのちに作成可能です。先にサークル追加を行うようにしてください。</p>
+                    <p>「マップ」タブでは、ビックサイトの西12、34ホール・南12、34ホール・青海展示場のマップを閲覧することが出来ます。</p>
+                    <p>お気に入りのサークルの場所（マス目）に自動的に色がつくようになっていますが、色が付かないor消えない場合は再読み込みをしてみてください。</p>
+                </div>
+                <div>
+                    <h5>CircleListをインストールする (PWA)</h5>
+                    <p>例年、コミケではインターネットに繋がらない(または回線が極端に遅い)という声が多く上がっているため、CircleListはオフラインで使用できるように設計されています。</p>
+                    <p>ブラウザからCircleListにアクセスしてもオフラインで利用することができますが、AndroidやiOS端末(iPhoneなど)にインストールすることでより快適に利用できるようになります。</p>
+                    <p class="red-text">なお、オフライン版はWiFiやLTE(4G回線など)を切った状態でしかアクセスできません。それらを一旦OFFにして、オフラインな環境にしてからアクセスしてください。</p>
+                    <h6>インストール方法 (Android)</h6>
+                    <p>「設定」タブに移動して、「CircleListをインストールする」の項目のインストールボタンを押すことでインストールが可能です。</p>
+                    <p>インストール後はホームのアプリ一覧に追加されているはずです。</p>
+                    <p>ボタンが押せない(グレーアウトしている)場合は時間をあけて再アクセスしてみるといいかもしれません（Chromeの仕様）</p>
+                    <h6>インストール方法 (iOS)</h6>
+                    <p>画面の下にある「共有」アイコン（四角いアイコン）を押して、「ホーム画面に追加」を押すことでインストールすることが可能です。</p>
+                </div>
+                <div>
+                    <h5>動作確認済みのブラウザ</h5>
+                    <p>GoogleChrome (Windows/Android)</p>
+                    <p>(上記以外のブラウザでも使用できると思いますが、レイアウトが崩れたり正常に動かない場合があると思います。)</p>
+                </div>
+                <div>
+                    <h5>その他</h5>
+                    <h6>つくったひと</h6>
+                    <p>ゆきねこ (<a href="https://twitter.com/hideki_0403" target="_brank">@hideki_0403</a>)</p>
+                    <p>お問い合わせなどはTwitterのDM、またはメンションにてお願いします。</p>
+                    <h6>投げ銭</h6>
+                    <p>以下のサービスで投げ銭を受け付けています。15円以上の任意の金額を投げ銭できます。（頂いた投げ銭は本サービスの維持費として使用させていただきます）</p>
+                    <a href="https://kampa.me/t/tbe">Kampa!で投げ銭をする</a>
+                </div>
+                <div>
+                    <h5>プライバシーポリシー</h5>
+                    <h6>アクセス解析ツールについて</h6>
+                    <p>CircleListでは、Googleによるアクセス解析ツール「Googleアナリティクス」を利用しています。</p>
+                    <p>このGoogleアナリティクスはトラフィックデータの収集のためにCookieを使用しています。このトラフィックデータは匿名で収集されており、個人を特定するものではありません。この機能はCookieを無効にすることで収集を拒否することが出来ますので、お使いのブラウザの設定をご確認ください。この規約に関して、詳しくはここをクリックしてください。</p>
+                    <h6>免責事項</h6>
+                    <p>CircleListからリンクやバナーなどによって他のサイトに移動された場合、移動先サイトで提供される情報、サービス等について一切の責任を負いません。</p>
+                    <p>CircleListのコンテンツ・情報につきまして、可能な限り正確な情報を掲載するよう努めておりますが、誤情報が入り込んだり、情報が古くなっていることもございます。</p>
+                    <p>CircleListに掲載された内容によって生じた損害等の一切の責任を負いかねますのでご了承ください。</p>
+                </div>
+            </div>
             <div id="cc-top-memo" class="container text-color">
-                <h5>メモ</h5>
-                <p class="green-text" id="cc-memo-savetime">メモエリア以外の場所を押すと自動保存します</p>
-                <div class="row">
-                    <form class="col s12">
-                        <div class="row">
-                            <div class="input-field col s12" style="margin-top: 0px;">
-                                <textarea id="cc-memo-area" class="materialize-textarea" placeholder="ここをタップしてメモを入力（改行に対応しています）"></textarea>
+                <div>
+                    <h5>メモ</h5>
+                    <p class="green-text" id="cc-memo-savetime">メモエリア以外の場所を押すと自動保存します</p>
+                    <div class="row">
+                        <form class="col s12">
+                            <div class="row">
+                                <div class="input-field col s12" style="margin-top: 0px;">
+                                    <textarea id="cc-memo-area" class="materialize-textarea" placeholder="ここをタップしてメモを入力（改行に対応しています）"></textarea>
+                                </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
             <div id="cc-top-stat" class="container text-color">
-                <h5>情報</h5>
-                <span>登録してあるサークル数: </span><span id="cc-stat-circles"></span><br>
-                <span>登録してあるグッズ数: </span><span id="cc-stat-goods"></span><br>
-                <span>グッズの合計金額: </span><span id="cc-stat-prices"></span>
-                <h5>過去のコミケ</h5>
-                <table class="highlight">
-                    <thead>
-                        <tr>
-                            <th>名称</th>
-                            <th>登録してあるサークル数</th>
-                        </tr>
-                    </thead>
-            
-                    <tbody id="cc-top-stat-old"></tbody>
-                </table>
+                <div>
+                    <h5>情報</h5>
+                    <span>登録してあるサークル数: </span><span id="cc-stat-circles"></span><br>
+                    <span>登録してあるグッズ数: </span><span id="cc-stat-goods"></span><br>
+                    <span>グッズの合計金額: </span><span id="cc-stat-prices"></span>
+                </div>
+                <div>
+                    <h5>過去のコミケ</h5>
+                    <table class="highlight">
+                        <thead>
+                            <tr>
+                                <th>名称</th>
+                                <th>登録してあるサークル数</th>
+                            </tr>
+                        </thead>
+                
+                        <tbody id="cc-top-stat-old"></tbody>
+                    </table>
+                </div>
                 <img id="result">
             </div>
             <div id="cc-stat-modal" class="modal">
@@ -242,47 +262,59 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
             </div>
             <div id="cc-top-info" class="container text-color" style="margin-bottom: 80px;">
                 <h5>設定</h5>
-                <h6>テーマ</h6>
-                <br>
-                <a class="waves-effect waves-light btn blue lighten-1 modal-trigger" href="#cc-theme-change"><i class="material-icons left">brush</i>テーマ変更</a>
-                <p>配色を変更できます</p>
-                <h6>サークル情報入力方式を変更する</h6>
-                <div class="switch">
-                    <label>
-                    OFF
-                    <input type="checkbox" id="cc-setting-enableBrowserSelect">
-                    <span class="lever"></span>
-                    ON
-                    </label>
+                <div>
+                    <h6>テーマ</h6>
+                    <br>
+                    <a class="waves-effect waves-light btn blue lighten-1 modal-trigger" href="#cc-theme-change"><i class="material-icons left">brush</i>テーマ変更</a>
+                    <p>配色を変更できます</p>
                 </div>
-                <p>Safariなどの一部ブラウザで、サークル情報入力時にタップした項目と選択された項目がズレてしまう場合に有効です。</p>
-                <h6>サークル登録時に項目がリセットされるようにする</h6>
-                <div class="switch">
-                    <label>
-                    OFF
-                    <input type="checkbox" id="cc-setting-disableReset">
-                    <span class="lever"></span>
-                    ON
-                    </label>
+                <div>
+                    <h6>サークル情報入力方式を変更する</h6>
+                    <div class="switch">
+                        <label>
+                        OFF
+                        <input type="checkbox" id="cc-setting-enableBrowserSelect">
+                        <span class="lever"></span>
+                        ON
+                        </label>
+                    </div>
+                    <p>Safariなどの一部ブラウザで、サークル情報入力時にタップした項目と選択された項目がズレてしまう場合に有効です。</p>
                 </div>
-                <h6>CircleListをインストールする</h6>
-                <br>
-                <a class="waves-effect waves-light btn blue lighten-1" disabled id="install_button"><i class="material-icons left">file_download</i>インストール</a>
-                <p id="cant_install_reason">Safari(iOS)をお使いの方は共有ボタンから「ホーム画面に追加」を押してください。</p>
-                <h6>サークルデータのバックアップ/復元</h6>
-                <br>
-                <a class="waves-effect waves-light btn blue lighten-1" id="cc-cloud_backup"><i class="material-icons left">cloud_upload</i>バックアップ</a>
-                <p>現在登録されているサークルリストと購入リストをクラウド上にバックアップします。</p>
-                <a class="waves-effect waves-light btn blue lighten-1 modal-trigger" id="cc-cloud_restore" href="#backup-restore"><i class="material-icons left">cloud_download</i>復元</a>
-                <p>クラウド上にバックアップされているデータをこの端末に復元します。現在登録されているサークルリストと購入リストはすべて上書き（削除）されますのでご注意ください。</p>
-                <a class="waves-effect waves-light btn btn-small modal-trigger" id="cc-cloud_check" href="#backup-check"><i class="material-icons left">autorenew</i>バックアップ状況を確認</a>
-                <p>クラウド上にバックアップされているデータ、ID、パスワードを確認できます。</p>
-                <h6>全データダウンロード/インポート</h6>
-                <br>
-                <a class="waves-effect waves-light btn blue lighten-1" id="cc-info-export" download="circlelist.db"><i class="material-icons left">file_download</i>ダウンロード</a>
-                <p>現在登録されているサークルリスト、購入リスト、メモなどをすべて書き出します。ほかの端末でインポートを行うことでデータを引き継げます。</p>
-                <a class="waves-effect waves-light btn blue lighten-1 modal-trigger" id="cc-info-import" href="#import-modal"><i class="material-icons left">file_upload</i>インポート</a>
-                <p>書き出したサークルリスト、購入リスト、メモなどを取り込みます。現在登録されているサークルリスト、購入リスト、メモなどはすべて削除されます。</p>
+                <div>
+                    <h6>サークル登録時に項目がリセットされるようにする</h6>
+                    <div class="switch">
+                        <label>
+                        OFF
+                        <input type="checkbox" id="cc-setting-disableReset">
+                        <span class="lever"></span>
+                        ON
+                        </label>
+                    </div>
+                </div>
+                <div>
+                    <h6>CircleListをインストールする</h6>
+                    <br>
+                    <a class="waves-effect waves-light btn blue lighten-1" disabled id="install_button"><i class="material-icons left">file_download</i>インストール</a>
+                    <p id="cant_install_reason">Safari(iOS)をお使いの方は共有ボタンから「ホーム画面に追加」を押してください。</p>
+                </div>
+                <div>
+                    <h6>サークルデータのバックアップ/復元</h6>
+                    <br>
+                    <a class="waves-effect waves-light btn blue lighten-1" id="cc-cloud_backup"><i class="material-icons left">cloud_upload</i>バックアップ</a>
+                    <p>現在登録されているサークルリストと購入リストをクラウド上にバックアップします。</p>
+                    <a class="waves-effect waves-light btn blue lighten-1 modal-trigger" id="cc-cloud_restore" href="#backup-restore"><i class="material-icons left">cloud_download</i>復元</a>
+                    <p>クラウド上にバックアップされているデータをこの端末に復元します。現在登録されているサークルリストと購入リストはすべて上書き（削除）されますのでご注意ください。</p>
+                    <a class="waves-effect waves-light btn btn-small modal-trigger" id="cc-cloud_check" href="#backup-check"><i class="material-icons left">autorenew</i>バックアップ状況を確認</a>
+                    <p>クラウド上にバックアップされているデータ、ID、パスワードを確認できます。</p>
+                </div>
+                <div>
+                    <h6>全データダウンロード/インポート</h6>
+                    <br>
+                    <a class="waves-effect waves-light btn blue lighten-1" id="cc-info-export" download="circlelist.db"><i class="material-icons left">file_download</i>ダウンロード</a>
+                    <p>現在登録されているサークルリスト、購入リスト、メモなどをすべて書き出します。ほかの端末でインポートを行うことでデータを引き継げます。</p>
+                    <a class="waves-effect waves-light btn blue lighten-1 modal-trigger" id="cc-info-import" href="#import-modal"><i class="material-icons left">file_upload</i>インポート</a>
+                    <p>書き出したサークルリスト、購入リスト、メモなどを取り込みます。現在登録されているサークルリスト、購入リスト、メモなどはすべて削除されます。</p>
+                </div>
                 <div id="settings-cache">
                     <h6>キャッシュ</h6>
                     <br>
@@ -290,23 +322,29 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
                     <p>キャッシュを削除してサーバーからデータを再取得します。正しく動作しない場合や、バージョンが新しくならない場合に使用してみてください。</p>
                     <div id="cc-info-cache_vers"></div>
                 </div>
-                <h6>全データ削除</h6>
-                <p class="red-text">この機能を使用して、何か問題が発生したとしても開発者は責任を負いかねます。</p>
-                <p>画面左上のメニュー内にある「初期化ロック」をタップすることで下のボタンが押せるようになります。</p>
-                <a id="all_clear" class="waves-effect waves-light btn small-btn red" disabled onclick="localStorage.clear()">初期化</a>
-                <h6>エラー情報送信</h6>
-                <p>エラーが発生した際に、自動的にエラーの内容を開発元のサーバーへ送信します。</p>
-                <p>送信されるデータには個人を特定できるものは含まれていません。</p>
-                <p>このデータはバグの修正やシステムの安定化のために使用します。</p>
-                <div class="switch">
-                    <label>
-                    OFF
-                    <input type="checkbox" id="cc-setting-errorReport">
-                    <span class="lever"></span>
-                    ON
-                    </label>
+                <div>
+                    <h6>全データ削除</h6>
+                    <p class="red-text">この機能を使用して、何か問題が発生したとしても開発者は責任を負いかねます。</p>
+                    <p>画面左上のメニュー内にある「初期化ロック」をタップすることで下のボタンが押せるようになります。</p>
+                    <a id="all_clear" class="waves-effect waves-light btn small-btn red" disabled onclick="localStorage.clear()">初期化</a>
                 </div>
-
+                <div>
+                    <h6>エラー情報送信</h6>
+                    <p>エラーが発生した際に、自動的にエラーの内容を開発元のサーバーへ送信します。</p>
+                    <p>送信されるデータには個人を特定できるものは含まれていません。</p>
+                    <p>このデータはバグの修正やシステムの安定化のために使用します。</p>
+                    <div class="switch">
+                        <label>
+                        OFF
+                        <input type="checkbox" id="cc-setting-errorReport">
+                        <span class="lever"></span>
+                        ON
+                        </label>
+                    </div>
+                </div>
+                <div class="disable-container">
+                    <a id="nyaan" class="waves-effect waves-light btn-small btn neko yellow darken-3">？</a>
+                </div>
             </div>
             <div id="import-modal" class="modal">
                 <div class="modal-content">
@@ -650,6 +688,9 @@ ________   ___   ________   ________   ___        _______    ___        ___   __
                 </div>
             </div>
         </div>
+
+        <!-- ajax spinner -->
+        <div class="ajax-spinner"></div>
 
         <!-- Libs -->
         <script src="src/lib/materialize.min.js"></script>
