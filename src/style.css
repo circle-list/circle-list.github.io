@@ -61,8 +61,8 @@
 /*
     CircleList用テーマカラー
 
-    C96: #ee6e73
-    C97: #c99987
+    C96  : #ee6e73
+    C97~ : #c99987
 */
 
 .theme-color {
@@ -218,6 +218,7 @@ input::placeholder, textarea::placeholder {
 
 ::-webkit-scrollbar {
     width: 5px;
+    height: 5px;
 }
 ::-webkit-scrollbar-track {
     background: var(--tab);
@@ -854,4 +855,12 @@ form .switch {
     left: 50%;
     transform: translateY(-50%) translateX(-50%);
     -webkit-transform: translateY(-50%) translateX(-50%);
+}
+
+.buylist-wrapper td:nth-child(1) {
+    width: 10% !important;
+}
+
+.buylist-wrapper td:nth-child(3) {
+    width: 30% !important;
 }
