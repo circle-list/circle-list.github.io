@@ -1,6 +1,8 @@
 # CircleList
-[![GitHub issues](https://img.shields.io/github/issues/circle-list/circle-list.github.io?style=flat-square)](https://github.com/circle-list/circle-list.github.io/issues)
+![GitHub deployments](https://img.shields.io/github/deployments/circle-list/circle-list.github.io/github-pages?label=deploy&style=flat-square)
 ![GitHub last commit](https://img.shields.io/github/last-commit/circle-list/circle-list.github.io?style=flat-square)
+![Uptime Robot ratio (30 days)](https://img.shields.io/uptimerobot/ratio/m784777490-bc51bf4041cea31044af8aed?style=flat-square)
+[![GitHub issues](https://img.shields.io/github/issues/circle-list/circle-list.github.io?style=flat-square)](https://github.com/circle-list/circle-list.github.io/issues)
 
 コミックマーケット用のWebアプリケーション制作プロジェクト
 ## これは何？
