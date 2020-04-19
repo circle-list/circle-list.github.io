@@ -1,4 +1,7 @@
 # CircleList
+[![GitHub issues](https://img.shields.io/github/issues/circle-list/circle-list.github.io?style=flat-square)](https://github.com/circle-list/circle-list.github.io/issues)
+![GitHub last commit](https://img.shields.io/github/last-commit/circle-list/circle-list.github.io?style=flat-square)
+
 コミックマーケット用のWebアプリケーション制作プロジェクト
 ## これは何？
 このリポジトリはWebアプリケーション「[CircleList](https://circlelist.ga/)」のソースコードです  
