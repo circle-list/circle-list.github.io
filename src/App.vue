@@ -1,7 +1,7 @@
 <template>
-    <v-app>
+    <v-app dark>
         <AppBar />
-        <v-main color="#F2F4F7">
+        <v-main>
             <router-view />
         </v-main>
         <NavigationBar />
@@ -30,5 +30,19 @@ export default {
 <style>
 h1, .v-subheader {
     padding-left: 4vw;
+}
+
+.v-application {
+    font-family: "Noto Sans JP";
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #C7CBDC;
+    border-radius: 5px;
 }
 </style>

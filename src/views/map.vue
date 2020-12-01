@@ -1,5 +1,5 @@
 <template>
     <v-container>
-        <h3>Map</h3>
+        <h1>Map</h1>
     </v-container>
 </template>
