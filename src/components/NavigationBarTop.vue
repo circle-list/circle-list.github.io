@@ -15,7 +15,7 @@
               CircleList
             </v-list-item-title>
             <v-list-item-subtitle>
-              Pre-Alpha v1.1.0
+              Pre-Alpha v1.2.0
             </v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>

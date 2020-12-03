@@ -1,5 +1,7 @@
 <template>
-    <v-dialog v-model="dialog" max-width="400">
+<div>
+    <v-subheader v-if="data.header">{{ data.header }}</v-subheader>
+    <v-dialog  v-if="!data.header" v-model="dialog" max-width="400">
         <template v-slot:activator="{ on }">
             <v-list-item>
                 <v-list-item-action>
@@ -7,8 +9,8 @@
                 </v-list-item-action>
                 
                 <v-list-item-content v-on="on">
-                    <v-list-item-title>サークル1</v-list-item-title>
-                    <v-list-item-subtitle>西4 C01a</v-list-item-subtitle>
+                    <v-list-item-title>{{ data.name }}</v-list-item-title>
+                    <v-list-item-subtitle>{{ data.place }}</v-list-item-subtitle>
                 </v-list-item-content>
 
                 <v-list-item-action v-on="on">
@@ -19,7 +21,7 @@
             </v-list-item>
         </template>
         <v-card>
-            <v-card-title>サークル1</v-card-title>
+            <v-card-title>{{ data.name }}</v-card-title>
             <v-card-text>テキスト</v-card-text>
             <v-card-actions>
             <v-spacer></v-spacer>
@@ -27,13 +29,23 @@
             </v-card-actions>
         </v-card>
     </v-dialog>
+</div>
 </template>
 
 <script>
 
-// 絶賛つくりかけ どこにどの値を挿入したりするか検討中
-
 export default {
+    props: {
+        data: {
+            type: Object,
+            default: function() {
+                return {
+                    header: false
+                }
+            }
+        }
+    },
+
     data() {
         return {
             dialog: false
