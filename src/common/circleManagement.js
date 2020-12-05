@@ -7,19 +7,19 @@ db.version(1).stores({
 })
 
 export default {
-    add: () => {
-        
+    add: (type, data) => {
+        db[type].add(data)
     },
 
-    delete: () => {
-
+    delete: (type, uid) => {
+        db[type].delete(uid)
     },
 
-    update: () => {
-
+    update: (type, uid, data) => {
+        db[type].update(uid, data)
     },
 
-    list: () => {
-
+    list: async (type) => {
+        return await db[type].toArray()
     }
 }

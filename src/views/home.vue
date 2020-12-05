@@ -42,11 +42,7 @@ export default {
 }
 </script>
 
-<style scoped>
-
-.v-subheader {
-    height: 24px;
-}
+<style scoped lang="scss">
 
 .v-sheet.v-card {
     border-radius: 12px;
@@ -54,7 +50,16 @@ export default {
 }
 
 .v-card {
+
     margin: 12px 3vw;
+
+    @media (min-width: 960px) {
+        margin: 12px 2vw;
+    }
+
+    @media (min-width: 1264px) {
+        margin: 12px 1vw;
+    }
 }
 
 .v-card__text {
