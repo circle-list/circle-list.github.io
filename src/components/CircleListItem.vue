@@ -1,7 +1,6 @@
 <template>
 <div>
-    <v-divider inset v-if="data.header"></v-divider>
-    <v-subheader inset v-if="data.header">{{ data.header }}</v-subheader>
+    <v-subheader v-if="data.header">{{ data.header }}</v-subheader>
     <v-dialog  v-if="!data.header" v-model="dialog" max-width="400">
         <template v-slot:activator="{ on }">
             <v-list-item>

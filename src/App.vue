@@ -29,7 +29,7 @@ export default {
 
 </script>
 
-<style>
+<style lang="scss">
 main {
     overflow: hidden;
 }
@@ -46,6 +46,14 @@ h1, .v-subheader {
     font-family: "Noto Sans JP";
 }
 
+
+
+// ios用に慣性スクロールを有効にする
+.v-menu__content {
+    -webkit-overflow-scrolling: touch
+}
+
+// スクロールバー変更
 ::-webkit-scrollbar {
     width: 10px;
     height: 10px;
@@ -58,6 +66,7 @@ h1, .v-subheader {
     background-clip: content-box;
 }
 
+// ページトランジション
 .router-transition-enter-active {
     animation: fadeIn 0.2s;
     animation-delay: 0.15s;

@@ -3,5 +3,10 @@ module.exports = {
     "vuetify"
   ],
   publicPath: './',
-  outputDir: 'docs'
+  outputDir: 'docs',
+  configureWebpack:{
+    performance: {
+      hints: false
+    }
+  }
 }

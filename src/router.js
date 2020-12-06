@@ -7,6 +7,7 @@ import Settings from './views/settings'
 import Memo from './views/memo'
 import Backup from './views/backup'
 import Status from './views/status'
+import Debug from './views/debug'
 
 Vue.use(Router)
 
@@ -40,6 +41,10 @@ export default new Router({
       path: '/backup',
       name: 'Backup',
       component: Backup
+    }, {
+      path: '/debug-menu',
+      name: 'DebugMenu',
+      component: Debug
     }
   ]
 })
