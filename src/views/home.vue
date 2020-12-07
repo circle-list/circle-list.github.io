@@ -61,8 +61,4 @@ export default {
         margin: 12px 1vw;
     }
 }
-
-.v-card__text {
-    white-space: pre-wrap;
-}
 </style>

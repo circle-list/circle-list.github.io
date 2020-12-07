@@ -10,19 +10,21 @@
         </v-row>
         
         <v-list subheader>
-            <ListItem v-for="(circleItem, index) in circleList" :key="index" :data="circleItem"></ListItem>
+            <ListItem v-for="(circleItem, index) in circleList" :key="index" :data="circleItem" @openInfoModal="openInfoModal"></ListItem>
         </v-list>
 
         <CircleModal ref="circleModal" @submitData="submitData"></CircleModal>
+        <InfoModal ref="infoModal"></InfoModal>
     </v-container>
 </template>
 
 <script>
 import ListItem from '../components/CircleListItem'
-import CircleModal from '../components/CircleModal'
+import CircleModal from '../components/CircleModalEditor'
 import db from '../common/circleManagement'
 import constants from '../common/constants'
 import config from '../common/systemConfig'
+import InfoModal from '../components/CircleModalInfo'
 
 // TODO: サークル追加・削除・編集機能の追加
 
@@ -111,7 +113,8 @@ function getHall(e, n) {
 export default {
     components: {
         ListItem,
-        CircleModal
+        CircleModal,
+        InfoModal
     },
 
     data() {
@@ -134,6 +137,13 @@ export default {
             db.get('circles', uid).then(data => {
                 this.$refs.circleModal.modeChange(true, data)
                 this.$refs.circleModal.dialog = true
+            })
+        },
+
+        openInfoModal(uid) {
+            db.get('circles', uid).then(data => {
+                this.$refs.infoModal.data = data[0]
+                this.$refs.infoModal.dialog = true
             })
         },
 

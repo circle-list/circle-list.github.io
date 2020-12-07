@@ -30,6 +30,12 @@ export default {
 </script>
 
 <style lang="scss">
+
+body {
+    -webkit-touch-callout:none;
+    -webkit-user-select:none;
+}
+
 main {
     overflow: hidden;
 }
@@ -46,7 +52,9 @@ h1, .v-subheader {
     font-family: "Noto Sans JP";
 }
 
-
+.v-card__text {
+    white-space: pre-wrap;
+}
 
 // ios用に慣性スクロールを有効にする
 .v-menu__content {
