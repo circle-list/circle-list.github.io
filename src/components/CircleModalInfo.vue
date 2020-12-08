@@ -6,7 +6,7 @@
             <v-card-actions>
             <v-btn color="red" text @click="dialog = false">削除</v-btn>
             <v-spacer></v-spacer>
-            <v-btn color="primary" text @click="dialog = false">編集</v-btn>
+            <v-btn color="primary" text @click="openEditModal">編集</v-btn>
             <v-btn color="primary" text @click="dialog = false">マップ</v-btn>
             </v-card-actions>
         </v-card>
@@ -20,6 +20,13 @@ export default {
         return {
             data: {},
             dialog: false
+        }
+    },
+
+    methods: {
+        openEditModal() {
+            this.dialog = false
+            this.$emit('openEditModal', this.data.uid)
         }
     }
 }

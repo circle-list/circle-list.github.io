@@ -4,8 +4,8 @@
         <v-subheader>サークル一覧</v-subheader>
         <v-row>
             <v-col class="text-right">
-                <v-btn depressed large rounded>並び替え</v-btn>
-                <v-btn depressed large rounded color="primary" class="ml-3" @click="openAddModal">追加</v-btn>
+                <v-btn depressed rounded @click="openSortModal"><v-icon>mdi-sort</v-icon>並び替え</v-btn>
+                <v-btn depressed rounded color="primary" class="ml-3" @click="openAddModal"><v-icon>mdi-plus</v-icon>追加</v-btn>
             </v-col>
         </v-row>
         
@@ -14,7 +14,8 @@
         </v-list>
 
         <CircleModal ref="circleModal" @submitData="submitData"></CircleModal>
-        <InfoModal ref="infoModal"></InfoModal>
+        <InfoModal ref="infoModal" @openEditModal="openEditModal"></InfoModal>
+        <SortModal ref="sortModal"></SortModal>
     </v-container>
 </template>
 
@@ -25,34 +26,27 @@ import db from '../common/circleManagement'
 import constants from '../common/constants'
 import config from '../common/systemConfig'
 import InfoModal from '../components/CircleModalInfo'
+import SortModal from '../components/CircleModalSort'
 
 // TODO: サークル追加・削除・編集機能の追加
 
 function objectSort(a, b) {
-    var sort_key = config.get('sort')
+    var _config = config.get('sort')
+    var sort_key = _config['key']
+    var sort_asc = _config['asc']
 
-    var obj_A = a[sort_key]
-    var obj_B = b[sort_key]
+    var sortlist = [sort_key, 'block', 'number', 'table']
 
-    if(obj_A !== obj_B) {
-        if(obj_A < obj_B) return -1
-        if(obj_A > obj_B) return 1
+    for(var i = 0; sortlist.length > i; i++) {
+        var key = sortlist[i]
+        
+        if(a[key] !== b[key]) {
+            if(a[key] < b[key]) return sort_asc ? -1 : 1
+            if(a[key] > b[key]) return sort_asc ? 1 : -1
+        }
     }
 
-    if(a.block !== b.block) {
-        if(a.block < b.block) return -1
-        if(a.block > b.block) return 1
-    }
-
-    if(a.number !== b.number) {
-        if(a.number < b.number) return -1
-        if(a.number > b.number) return 1
-    }
-
-    if(a.table !== b.table) {
-        if(a.table < b.table) return -1
-        if(a.table > b.table) return 1
-    }
+    return 0
 }
 
 function getHall(e, n) {
@@ -114,7 +108,8 @@ export default {
     components: {
         ListItem,
         CircleModal,
-        InfoModal
+        InfoModal,
+        SortModal
     },
 
     data() {
@@ -135,7 +130,7 @@ export default {
 
         openEditModal(uid) {
             db.get('circles', uid).then(data => {
-                this.$refs.circleModal.modeChange(true, data)
+                this.$refs.circleModal.modeChange(true, data[0])
                 this.$refs.circleModal.dialog = true
             })
         },
@@ -146,6 +141,10 @@ export default {
                 this.$refs.infoModal.dialog = true
             })
         },
+        
+        openSortModal() {
+            this.$refs.sortModal.dialog = true
+        },
 
         submitData(data) {
             data.hall = getHall(data.block, data.number)
@@ -153,7 +152,7 @@ export default {
             if(!data.uid) {
                 db.add('circles', data)
             } else {
-                db.update(data.uid, data)
+                db.update('circles', data.uid, data)
             }
 
             this.updateList()
@@ -164,7 +163,7 @@ export default {
                 // TODO: 日付別非表示機能を実装する
                 circledata.sort(objectSort)
                 var hidden = config.get('hiddenDate')
-                var sortKey = config.get('sort')
+                var sortKey = config.get('sort')['key']
 
                 // 非表示にしている日を取り除く
                 var inject = circledata.filter(item => {
@@ -196,3 +195,11 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+.row .v-icon {
+    margin-right: 10px;
+    font-size: 20px;
+    display: block;
+}
+</style>

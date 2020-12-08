@@ -10,7 +10,10 @@ if(!current_config) {
     // Default
     store.set(config_name, {
         config: {
-            sort: 'date',
+            sort: {
+                key: 'date',
+                asc: true
+            },
             hiddenDate: []
         },
         version: config_version

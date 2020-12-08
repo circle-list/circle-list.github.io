@@ -67,6 +67,7 @@ export default {
             comiketBlocks: comiketBlocks,
             comiketNumbers: constants.comiketData.numbers,
             comiketTables: constants.comiketData.tables,
+            circleUid: '',
             formValidation: {
                 select: v => !!v || '選択してください',
                 text: v => !!v || '入力してください'
@@ -83,7 +84,8 @@ export default {
                     block: this.circleBlock,
                     number: this.circleNumber,
                     table: this.circleTable,
-                    memo: this.circleMemo ? this.circleMemo : ''
+                    memo: this.circleMemo ? this.circleMemo : '',
+                    uid: this.circleUid
                 })
 
                 this.dialog = false
@@ -101,17 +103,15 @@ export default {
                 // 追加モード
                 this.modalTitle = 'サークル追加'
                 this.modalBtn = '追加'
+                this.circleUid = ''
             } else {
                 // 編集モード
                 this.modalTitle = 'サークル編集'
                 this.modalBtn = '編集'
 
-                this.circleName = data.name
-                this.circleDate = data.date
-                this.circleBlock = data.block
-                this.circleNumber = data.bumber
-                this.circleTable = data.table
-                this.circleMemo = data.memo
+                Object.keys(data).forEach(key => {
+                    this['circle' + key.charAt(0).toUpperCase() + key.slice(1)] = data[key]
+                })
             }
         }
     }

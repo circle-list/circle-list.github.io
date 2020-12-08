@@ -1,6 +1,5 @@
 <template>
 <div>
-
     <v-subheader v-if="data.header">{{ data.header }}</v-subheader>
     <v-list-item v-if="!data.header">
         <v-list-item-action>
