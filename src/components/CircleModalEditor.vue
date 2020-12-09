@@ -45,6 +45,7 @@
 
 <script>
 import constants from '../common/constants'
+import db from '../common/circleManagement'
 
 var comiketDate = [], comiketBlocks = []
 
@@ -55,6 +56,61 @@ constants.comiketData.date.forEach(day => {
 Object.values(constants.comiketData.blocks).forEach(block => {
     comiketBlocks = comiketBlocks.concat(block)
 })
+
+function getHall(e, n) {
+    if(e === 'あ') {
+        return '西2壁'
+    }
+    if(e === 'れ') {
+        return '西1壁'
+    }
+    if(e === 'A') {
+        if(n >= 43) {
+            return '西3壁'
+        } else {
+            return '西4壁'
+        }
+    }
+    if(e === 'ア') {
+        if(n >= 34) {
+            return '南1壁'
+        } else {
+            return '南2壁'
+        }
+    }
+    if(constants.comiketData.blocks['1'].indexOf(e) !== -1) {
+        if('BCDEF'.indexOf(e) !== -1) {
+            return '西4'
+        } else {
+            if('GHIJKL'.indexOf(e) !== -1) {
+                return '西3・4'
+            } else {
+                return '西3'
+            }
+        }
+    }
+    if(constants.comiketData.blocks['2'].indexOf(e) !== -1) {
+        if('いうえおかきくけこさしすせそたちつてと'.indexOf(e) !== -1) {
+            return '西2'
+        } else {
+            return '西1'
+        }
+    }
+    if(constants.comiketData.blocks['3'].indexOf(e) !== -1) {
+        if('アイウエオカキクケコ'.indexOf(e) !== -1) {
+            return '南2'
+        } else {
+            return '南1'
+        }
+    }
+    if(constants.comiketData.blocks['4'].indexOf(e) !== -1 ) {
+        if('ナニヌネノハヒフヘホ'.indexOf(e) !== -1) {
+            return '南4'
+        } else {
+            return '南3'
+        }
+    }
+}
 
 export default {
     data() {
@@ -78,15 +134,24 @@ export default {
     methods: {
         submit() {
             if (this.$refs.circleData.validate()) {
-                this.$emit('submitData', {
+                var data = {
                     name: this.circleName,
                     date: this.circleDate,
                     block: this.circleBlock,
                     number: this.circleNumber,
                     table: this.circleTable,
                     memo: this.circleMemo ? this.circleMemo : '',
-                    uid: this.circleUid
-                })
+                    uid: this.circleUid,
+                    hall: getHall(this.circleBlock, this.circleNumber)
+                }
+
+                if(!this.circleUid) {
+                    db.add('circles', data)
+                } else {
+                    db.update('circles', this.circleUid, data)
+                }
+
+                this.$emit('update')
 
                 this.dialog = false
                 this.$refs.circleData.reset()

@@ -52,7 +52,7 @@ h1, .v-subheader {
     font-family: "Noto Sans JP";
 }
 
-.v-card__text {
+.v-card__text, .v-subheader {
     white-space: pre-wrap;
 }
 

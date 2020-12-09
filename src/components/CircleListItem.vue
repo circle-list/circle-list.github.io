@@ -48,3 +48,11 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+.v-subheader {
+    height: auto;
+    margin-top: 20px;
+    margin-bottom: 0px;
+}
+</style>

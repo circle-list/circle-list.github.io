@@ -28,5 +28,8 @@ if(!current_config) {
 export default {
     get: (key) => {
         return store.get(config_name).config[key]
-    }
+    },
+
+    __store: store,
+    __configname: config_name
 }
