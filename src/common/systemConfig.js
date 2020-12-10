@@ -30,6 +30,13 @@ export default {
         return store.get(config_name).config[key]
     },
 
+    set: (key, value) => {
+        var base = store.get(config_name).config
+        base[key] = value
+
+        store.set(config_name, {config: base})
+    },
+
     __store: store,
     __configname: config_name
 }

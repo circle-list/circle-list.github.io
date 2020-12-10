@@ -1,7 +1,7 @@
 <template>
     <v-container>
-        <h1>Home</h1>
-        <v-subheader>{{ today }}</v-subheader>
+        <h1>CircleList</h1>
+        <v-subheader>{{ today }} - {{ version }}</v-subheader>
 
         <v-row>
             <v-col cols="12" md="6" lg="4" v-for="(item, index) in cardItems" :key="index">
@@ -22,6 +22,7 @@ export default {
     data() {
         return {
             today: moment().format('MM月DD日 dddd'),
+            version: this.$version,
             cardItems: [
                 {
                     title: 'コミックマーケット99',

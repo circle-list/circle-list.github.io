@@ -11,6 +11,7 @@
 </template>
 
 <script>
+
 import NavigationBar from './components/NavigationBarBottom'
 import AppBar from './components/NavigationBarTop'
 
@@ -54,6 +55,10 @@ h1, .v-subheader {
 
 .v-card__text, .v-subheader {
     white-space: pre-wrap;
+}
+
+.v-dialog:not(.v-dialog--fullscreen) {
+    border-radius: 15px;
 }
 
 // ios用に慣性スクロールを有効にする

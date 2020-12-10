@@ -1,5 +1,5 @@
 <template>
-    <v-dialog v-model="dialog" max-width="400">
+    <v-dialog v-model="dialog" max-width="400" @click:outside="reveal = false">
         <v-card>
             <v-card-title>{{ data.name }}</v-card-title>
             <v-card-text>{{ data.date }}</v-card-text>

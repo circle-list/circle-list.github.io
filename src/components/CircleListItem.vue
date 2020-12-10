@@ -23,6 +23,9 @@
 
 <script>
 
+// TODO: 購入チェックを実装
+// TODO: 購入していた場合に色を薄くする機能を追加
+
 export default {
     props: {
         data: {

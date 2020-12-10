@@ -15,7 +15,7 @@
 
         <CircleModal ref="circleModal" @update="updateList"></CircleModal>
         <InfoModal ref="infoModal" @openEditModal="openEditModal" @update="updateList"></InfoModal>
-        <SortModal ref="sortModal"></SortModal>
+        <SortModal ref="sortModal" @update="updateList"></SortModal>
     </v-container>
 </template>
 
@@ -27,7 +27,6 @@ import config from '../common/systemConfig'
 import InfoModal from '../components/CircleModalInfo'
 import SortModal from '../components/CircleModalSort'
 
-// TODO: サークル追加・削除・編集機能の追加
 // TODO: 色選択機能の追加
 
 function objectSort(a, b) {
@@ -93,14 +92,13 @@ export default {
 
         updateList() {
             db.list('circles').then(circledata => {
-                // TODO: 日付別非表示機能を実装する
                 circledata.sort(objectSort)
                 var hidden = config.get('hiddenDate')
                 var sortKey = config.get('sort')['key']
 
                 // 非表示にしている日を取り除く
                 var inject = circledata.filter(item => {
-                    return !hidden.includes(item.date.substr(0, 1))
+                    return !hidden.includes(item.date.substr(0, 1) * 1)
                 })
 
                 var headers = []

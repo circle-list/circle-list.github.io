@@ -11,16 +11,10 @@
     <v-navigation-drawer app v-model="drawer" fixed temporary right>
         <v-list-item>
           <v-list-item-content>
-            <v-list-item-title class="title">
-              CircleList
-            </v-list-item-title>
-            <v-list-item-subtitle>
-              Pre-Alpha v1.7.0
-            </v-list-item-subtitle>
+            <v-list-item-title>CircleList</v-list-item-title>
+            <v-list-item-subtitle>{{ version }}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
-
-        <v-divider></v-divider>
 
         <v-list nav dense rounded>
           <v-list-item v-for="(menuItem, index) in menuItems" :key="index" v-bind:to="menuItem.url" color="primary">
@@ -38,16 +32,21 @@
 </template>
 
 <script>
+//TODO: サイドメニューのバージョン表記がなんかダサい
+
   import constants from '../common/constants'
 
   export default {
-    data: () => ({
-      drawer: false,
-      group: null,
-      menuItems: constants.menu,
-      PageTitle: '',
-      isShow: false
-    }),
+    data() {
+      return {
+        drawer: false,
+        group: null,
+        menuItems: constants.menu,
+        PageTitle: '',
+        isShow: false,
+        version: this.$version
+      }
+    },
 
     created() {
       this.PageTitle = this.$route.name

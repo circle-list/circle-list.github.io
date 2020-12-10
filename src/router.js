@@ -15,7 +15,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Home',
+      name: 'CircleList',
       component: Home
     }, {
       path: '/map',
