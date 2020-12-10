@@ -2,8 +2,8 @@
 <div>
     <v-subheader v-if="data.header">{{ data.header }}</v-subheader>
     <v-list-item v-if="!data.header">
-        <v-list-item-action>
-            <v-checkbox color="primary"></v-checkbox>
+        <v-list-item-action @click="toggleButton">
+            <v-checkbox v-model="data.bought" color="primary"></v-checkbox>
         </v-list-item-action>
         
         <v-list-item-content @click="openInfoModal">
@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import db from '../common/circleManagement'
 
 // TODO: 購入チェックを実装
 // TODO: 購入していた場合に色を薄くする機能を追加
@@ -32,7 +33,8 @@ export default {
             type: Object,
             default: function() {
                 return {
-                    header: false
+                    header: false,
+                    uid: 0
                 }
             }
         }
@@ -40,13 +42,17 @@ export default {
 
     data() {
         return {
-            //
+            checkbox: false
         }
     },
 
     methods: {
         openInfoModal() {
             this.$emit('openInfoModal', this.data.uid)
+        },
+
+        toggleButton() {
+            //db.update(this.data.uid, )
         }
     }
 }

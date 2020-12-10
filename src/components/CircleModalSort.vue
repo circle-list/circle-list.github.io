@@ -23,8 +23,6 @@
 import constants from '../common/constants'
 import config from '../common/systemConfig'
 
-// TODO: 日付別非表示機能を実装する
-
 export default {
     data() {
         return {
@@ -45,7 +43,6 @@ export default {
             config.set('sort', base)
             config.set('hiddenDate', this.hiddenDate)
 
-            this.$emit('update')
             this.dialog = false
         }
     }
