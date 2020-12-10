@@ -1,14 +1,14 @@
 {
   "name": "circle-list.github.io",
-  "version": "1.7.11",
+  "version": "1.8.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "lint": "vue-cli-service lint",
     "vue-build": "vue-cli-service build",
     "commit": "git add -A & git commit -F version & git push origin v3",
-    "build": "npm run lint & npm version patch --no-git-tag-version > version & npm run vue-build",
-    "release": "npm version minor --no-git-tag-version > version & npm run vue-build & npm run commit"
+    "build": "npm version patch --no-git-tag-version > version & npm run vue-build",
+    "release": "npm run lint & npm version minor --no-git-tag-version > version & npm run vue-build & npm run commit"
   },
   "dependencies": {
     "core-js": "^3.6.5",

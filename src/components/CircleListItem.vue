@@ -6,7 +6,7 @@
             <v-checkbox v-model="data.bought" color="primary"></v-checkbox>
         </v-list-item-action>
         
-        <v-list-item-content @click="openInfoModal">
+        <v-list-item-content @click="openInfoModal" :class="{'primary--text': data.bought}">
             <v-list-item-title>{{ data.name }}</v-list-item-title>
             <v-list-item-subtitle>{{ data.place }}</v-list-item-subtitle>
         </v-list-item-content>
@@ -24,9 +24,6 @@
 <script>
 import db from '../common/circleManagement'
 
-// TODO: 購入チェックを実装
-// TODO: 購入していた場合に色を薄くする機能を追加
-
 export default {
     props: {
         data: {
@@ -34,7 +31,8 @@ export default {
             default: function() {
                 return {
                     header: false,
-                    uid: 0
+                    uid: 0,
+                    bought: false
                 }
             }
         }
@@ -42,7 +40,7 @@ export default {
 
     data() {
         return {
-            checkbox: false
+            // 
         }
     },
 
@@ -52,7 +50,7 @@ export default {
         },
 
         toggleButton() {
-            //db.update(this.data.uid, )
+            db.update('circles', this.data.uid, {bought: this.data.bought})
         }
     }
 }

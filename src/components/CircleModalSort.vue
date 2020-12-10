@@ -7,6 +7,7 @@
                 <v-radio-group v-model="sort" column>
                     <v-radio v-for="(key, index) in sortKeys" :label="key.label" :value="key.value" :key="index"></v-radio>
                 </v-radio-group>
+                <v-switch v-model="asc" inset :label="asc ? '昇順' : '降順'"></v-switch>
                 <p>非表示にする日付を選択してください</p>
                 <v-checkbox v-model="hiddenDate" v-for="(key, index) in hidden" :label="`${key}日目 (${hidden_jp[index]})`" :value="key" :key="index"></v-checkbox>
             </v-card-text>
@@ -28,6 +29,7 @@ export default {
         return {
             dialog: false,
             sort: config.get('sort')['key'],
+            asc: config.get('sort')['asc'],
             sortKeys: constants.sortKey,
             hidden: constants.comiketData.date,
             hidden_jp: constants.comiketData.date_jp,
@@ -39,10 +41,12 @@ export default {
         save() {
             var base = config.get('sort')
             base.key = this.sort
+            base.asc = this.asc
 
             config.set('sort', base)
             config.set('hiddenDate', this.hiddenDate)
 
+            this.$emit('update')
             this.dialog = false
         }
     }
