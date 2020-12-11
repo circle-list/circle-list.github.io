@@ -32,7 +32,6 @@
 </template>
 
 <script>
-//TODO: サイドメニューのバージョン表記がなんかダサい
 
   import constants from '../common/constants'
 

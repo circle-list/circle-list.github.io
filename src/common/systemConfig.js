@@ -14,7 +14,11 @@ if(!current_config) {
                 key: 'date',
                 asc: true
             },
-            hiddenDate: []
+            hiddenDate: [],
+            memo: {
+                text: '',
+                lastupdate: 'なし'
+            }
         },
         version: config_version
     })

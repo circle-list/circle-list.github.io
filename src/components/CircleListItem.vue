@@ -11,9 +11,9 @@
             <v-list-item-subtitle>{{ data.place }}</v-list-item-subtitle>
         </v-list-item-content>
 
-        <v-list-item-action @click="openInfoModal">
+        <v-list-item-action @click="openAddItemModal">
             <v-btn icon>
-                <v-icon color="grey lighten-1">mdi-information</v-icon>
+                <v-icon color="primary">mdi-plus</v-icon>
             </v-btn>
         </v-list-item-action>
     </v-list-item>
@@ -51,6 +51,10 @@ export default {
 
         toggleButton() {
             db.update('circles', this.data.uid, {bought: this.data.bought})
+        },
+
+        openAddItemModal() {
+            
         }
     }
 }
