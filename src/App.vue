@@ -33,8 +33,11 @@ export default {
 <style lang="scss">
 
 body {
-    -webkit-touch-callout:none;
     -webkit-user-select:none;
+}
+
+body:not(.v-list-group) {
+    -webkit-touch-callout:none;
 }
 
 main {

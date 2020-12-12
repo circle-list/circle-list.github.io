@@ -9,8 +9,7 @@
 
 <script>
 import config from '../common/systemConfig'
-import moment from "moment"
-moment.locale('ja')
+import dayjs from 'dayjs'
 
 export default {
     data() {
@@ -25,7 +24,7 @@ export default {
         save() {
             config.set('memo', {
                 text: this.memo,
-                lastupdate: moment().format('MM月DD日 HH:mm:ss')
+                lastupdate: dayjs().format('MM月DD日 HH:mm:ss')
             })
 
             this.memo_label = '保存しました'

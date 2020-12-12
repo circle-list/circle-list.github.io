@@ -10,11 +10,11 @@
         </v-row>
         
         <v-list subheader>
-            <ListItem v-for="(circleItem, index) in circleList" :key="index" :data="circleItem" @openInfoModal="openInfoModal"></ListItem>
+            <ListItem v-for="(circleItem, index) in circleList" :key="index" :data="circleItem" @openInfoModal="openInfoModal" @openEditModal="openEditModal"></ListItem>
         </v-list>
 
         <CircleModal ref="circleModal" @update="updateList"></CircleModal>
-        <InfoModal ref="infoModal" @openEditModal="openEditModal" @update="updateList"></InfoModal>
+        <InfoModal ref="infoModal"  @update="updateList"></InfoModal>
         <SortModal ref="sortModal" @update="updateList"></SortModal>
     </v-container>
 </template>

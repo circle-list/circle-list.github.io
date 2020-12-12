@@ -15,13 +15,15 @@
 </template>
 
 <script>
-import moment from "moment"
-moment.locale('ja')
+import dayjs from 'dayjs'
+import 'dayjs/locale/ja'
+
+dayjs.locale('ja')
 
 export default {
     data() {
         return {
-            today: moment().format('MM月DD日 dddd'),
+            today: dayjs().format('MM月DD日 dddd'),
             version: this.$version,
             cardItems: [
                 {
