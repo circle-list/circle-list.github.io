@@ -19,6 +19,9 @@ module.exports = {
     }])
   },
   pluginOptions: {
+    webpackBundleAnalyzer: {
+      openAnalyzer: false
+    },
     compression:{
       brotli: {
         filename: '[path].br[query]',

@@ -3,7 +3,7 @@
     <v-subheader v-if="data.header">{{ data.header }}</v-subheader>
 
     <!-- Parent -->
-    <v-list-item v-if="!data.header">
+    <v-list-item v-if="!data.header" @click.right.prevent="toggleClick">
         <v-list-item-action @click="toggleButton">
             <v-checkbox v-model="data.bought" color="primary"></v-checkbox>
         </v-list-item-action>
@@ -22,17 +22,32 @@
 
     <!-- Children -->
     <v-list-group v-if="!data.header" :value="childGroup" sub-group eager>
-        <v-list-item>
+        <v-list-item v-if="data.memo">
+            <v-list-item-icon>
+                <v-icon>mdi-pen</v-icon>
+            </v-list-item-icon>
             <v-list-item-content>
-                <v-list-item-title>テスト</v-list-item-title>
+                <v-list-item-title>メモ</v-list-item-title>
+                <v-list-item-subtitle>{{ data.memo }}</v-list-item-subtitle>
             </v-list-item-content>
         </v-list-item>
+
+        <v-divider class="mx-4" v-if="!!data.memo && !!data.buylist.length"></v-divider>
+
+        <v-list-item v-for="(buyitem, index) in buylist" :key="index">
+            <v-list-item-content>
+                <v-list-item-title>買うやつのタイトル</v-list-item-title>
+                <v-list-item-subtitle>買うやつの値段とか</v-list-item-subtitle>
+            </v-list-item-content>
+        </v-list-item>
+
+        <v-divider class="mx-4" v-if="!!data.memo || !!data.buylist.length"></v-divider>
 
         <v-list-item>
             <v-list-item-content class="buttons">
                 <v-row>
                     <v-col>
-                        <v-btn color="red" text @click="reveal = true">削除</v-btn>
+                        <v-btn color="red" text @click="openDeleteModal">削除</v-btn>
                     </v-col>
                     <v-col class="text-right">
                         <v-btn color="primary" text @click="openEditModal">編集</v-btn>
@@ -57,7 +72,8 @@ export default {
                 return {
                     header: false,
                     uid: 0,
-                    bought: false
+                    bought: false,
+                    buylist: []
                 }
             }
         }
@@ -70,8 +86,8 @@ export default {
     },
 
     methods: {
-        openInfoModal() {
-            this.$emit('openInfoModal', this.data.uid)
+        openDeleteModal() {
+            this.$emit('openDeleteModal', this.data.uid)
         },
 
         openEditModal() {
@@ -80,6 +96,11 @@ export default {
         },
 
         toggleButton() {
+            db.update('circles', this.data.uid, {bought: this.data.bought})
+        },
+
+        toggleClick() {
+            this.data.bought = !this.data.bought
             db.update('circles', this.data.uid, {bought: this.data.bought})
         }
     }
@@ -113,5 +134,18 @@ export default {
 
 .col {
     padding: 0 12px;
+}
+
+.v-list-group__items > .v-list-item {
+    padding-left: 16px !important;
+}
+
+.v-list-item__subtitle {
+    white-space: pre-line;
+    word-break: break-all;
+}
+
+.v-list-group__items {
+    width: 0;
 }
 </style>

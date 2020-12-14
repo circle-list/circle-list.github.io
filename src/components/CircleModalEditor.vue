@@ -2,20 +2,23 @@
     <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
         <v-card>
             <v-toolbar flat color="white">
+                <v-toolbar-title>{{ modalTitle }}</v-toolbar-title>
+                <v-spacer></v-spacer>
                 <v-btn icon @click="exit">
                     <v-icon>mdi-close</v-icon>
                 </v-btn>
-
-                <v-spacer></v-spacer>
-                <v-toolbar-title>{{ modalTitle }}</v-toolbar-title>
-                <v-spacer></v-spacer>
-                
-                <v-toolbar-items>
-                    <v-btn text color="primary" @click="submit">{{ modalBtn }}</v-btn>
-                </v-toolbar-items>
             </v-toolbar>
 
             <v-container>
+                <v-row class="nopadding">
+                    <v-col cols="6">
+                        <v-checkbox v-if="!editmode" v-model="if_continue" label="続けて追加する"></v-checkbox>
+                    </v-col>
+                    <v-col class="text-right" cols="6">
+                        <v-btn rounded depressed color="primary" @click="submit">{{ modalBtn }}</v-btn>
+                    </v-col>
+                </v-row>
+
                 <v-form ref="circleData">
                     <v-row>
                         <v-col cols="12">
@@ -40,6 +43,8 @@
                 </v-form>
             </v-container>
         </v-card>
+
+        <v-snackbar v-model="snackbar">サークル「{{ addCircleName }}」を追加しました</v-snackbar>
     </v-dialog>
 </template>
 
@@ -124,6 +129,9 @@ export default {
             comiketNumbers: constants.comiketData.numbers,
             comiketTables: constants.comiketData.tables,
             circleUid: '',
+            if_continue: false,
+            snackbar: false,
+            addCircleName: '',
             formValidation: {
                 select: v => !!v || '選択してください',
                 text: v => !!v || '入力してください'
@@ -151,19 +159,33 @@ export default {
                     db.update('circles', this.circleUid, data)
                 }
 
-                this.$emit('update')
+                if(this.if_continue && !this.editmode) {
+                    this.addCircleName = this.circleName
+                    this.snackbar = true
+                } else {
+                    setTimeout(() => {
+                        this.dialog = false
+                    }, 50)
 
-                this.dialog = false
+                    this.$emit('update')
+                }
+
                 this.$refs.circleData.reset()
             }
         },
 
         exit() {
-            this.dialog = false
             this.$refs.circleData.reset()
+
+            setTimeout(() => {
+                this.dialog = false
+            }, 50)
         },
 
         modeChange(editmode, data) {
+
+            this.editmode = editmode
+
             if(!editmode) {
                 // 追加モード
                 this.modalTitle = 'サークル追加'
@@ -204,5 +226,13 @@ export default {
 
 .container {
     margin-top: 20px;
+}
+
+.nopadding > .col {
+    padding: 0 12px 12px;
+}
+
+.v-input--checkbox {
+    margin: 0;
 }
 </style>

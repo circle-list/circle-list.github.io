@@ -22,8 +22,12 @@ export default {
         db[type].update(uid, data)
     },
 
-    list: async (type) => {
-        return await db[type].toArray()
+    list: async (type, where) => {
+        if(!where) {
+            return await db[type].toArray()
+        } else {
+            return await db[type].where(where).toArray()
+        }
     },
 
     get: async (type, uid) => {

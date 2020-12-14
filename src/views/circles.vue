@@ -10,11 +10,11 @@
         </v-row>
         
         <v-list subheader>
-            <ListItem v-for="(circleItem, index) in circleList" :key="index" :data="circleItem" @openInfoModal="openInfoModal" @openEditModal="openEditModal"></ListItem>
+            <ListItem v-for="(circleItem, index) in circleList" :key="index" :data="circleItem" @openDeleteModal="openDeleteModal" @openEditModal="openEditModal"></ListItem>
         </v-list>
 
         <CircleModal ref="circleModal" @update="updateList"></CircleModal>
-        <InfoModal ref="infoModal"  @update="updateList"></InfoModal>
+        <DeleteModal ref="deleteModal"  @update="updateList"></DeleteModal>
         <SortModal ref="sortModal" @update="updateList"></SortModal>
     </v-container>
 </template>
@@ -24,7 +24,7 @@ import ListItem from '../components/CircleListItem'
 import CircleModal from '../components/CircleModalEditor'
 import db from '../common/circleManagement'
 import config from '../common/systemConfig'
-import InfoModal from '../components/CircleModalInfo'
+import DeleteModal from '../components/CircleModalDelete'
 import SortModal from '../components/CircleModalSort'
 
 // TODO: 色選択機能の追加
@@ -52,7 +52,7 @@ export default {
     components: {
         ListItem,
         CircleModal,
-        InfoModal,
+        DeleteModal,
         SortModal
     },
 
@@ -79,10 +79,10 @@ export default {
             })
         },
 
-        openInfoModal(uid) {
+        openDeleteModal(uid) {
             db.get('circles', uid).then(data => {
-                this.$refs.infoModal.data = data[0]
-                this.$refs.infoModal.dialog = true
+                this.$refs.deleteModal.data = data[0]
+                this.$refs.deleteModal.dialog = true
             })
         },
         
@@ -90,43 +90,46 @@ export default {
             this.$refs.sortModal.dialog = true
         },
 
-        updateList() {
-            db.list('circles').then(circledata => {
-                circledata.sort(objectSort)
-                var hidden = config.get('hiddenDate')
-                var sortKey = config.get('sort')['key']
+        async updateList() {
+            var circledata = await db.list('circles')
 
-                // 非表示にしている日を取り除く
-                var inject = circledata.filter(item => {
-                    return !hidden.includes(item.date.substr(0, 1) * 1)
-                })
+            circledata.sort(objectSort)
+            var hidden = config.get('hiddenDate')
+            var sortKey = config.get('sort')['key']
 
-                var headers = []
-
-                for(var i = 0; inject.length > i; i++) {
-                    var obj = inject[i]
-
-                    // サークル配置番号定義 ＆ ソート基準になっているキーは削除して整形
-                    inject[i]['place'] = `${obj['date']} ${obj['hall']} ${obj['block']} - ${obj['number']}${obj['table']}`.replace(inject[i][sortKey], '').replace(/ {2}/, '')
-
-                    // ヘッダ追加予定リストに追加（無限ループになるので）
-                    if(inject[i - 1] === undefined || inject[i][sortKey] !== inject[i - 1][sortKey]) {
-                        headers.push({num: i, header: inject[i][sortKey]})
-                    }
-                }
-
-                // ヘッダ追加
-                for(var o = 0; headers.length > o; o++) {
-                    inject.splice(headers[o].num + o, 0, {header: headers[o].header})
-                }
-
-                // 表示できるサークルがなかった場合にメッセージを表示
-                if(inject.length === 0) {
-                    inject.push({header: '表示できるサークルがありません。\nサークルを追加するか、"並び替え"から表示条件を変更してみてください。'})
-                }
-
-                this.circleList = inject
+            // 非表示にしている日を取り除く
+            var inject = circledata.filter(item => {
+                return !hidden.includes(item.date.substr(0, 1) * 1)
             })
+
+            var headers = []
+
+            for(var i = 0; inject.length > i; i++) {
+                var obj = inject[i]
+
+                // サークル配置番号定義 ＆ ソート基準になっているキーは削除して整形
+                inject[i]['place'] = `${obj['date']} ${obj['hall']} ${obj['block']} - ${obj['number']}${obj['table']}`.replace(inject[i][sortKey], '').replace(/ {2}/, ' ')
+
+                // データベースからグッズを取得して定義
+                inject[i]['buylist'] = await db.list('buylist', {'parent': inject[i]['uid']})
+
+                // ヘッダ追加予定リストに追加（無限ループになるので）
+                if(inject[i - 1] === undefined || inject[i][sortKey] !== inject[i - 1][sortKey]) {
+                    headers.push({num: i, header: inject[i][sortKey]})
+                }
+            }
+
+            // ヘッダ追加
+            for(var o = 0; headers.length > o; o++) {
+                inject.splice(headers[o].num + o, 0, {header: headers[o].header})
+            }
+
+            // 表示できるサークルがなかった場合にメッセージを表示
+            if(inject.length === 0) {
+                inject.push({header: '表示できるサークルがありません。\nサークルを追加するか、"並び替え"から表示条件を変更してみてください。'})
+            }
+
+            this.circleList = inject
         }
     }
 }
