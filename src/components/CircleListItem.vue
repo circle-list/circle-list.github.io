@@ -4,8 +4,10 @@
 
     <!-- Parent -->
     <v-list-item v-if="!data.header" @click.right.prevent="toggleClick">
-        <v-list-item-action @click="toggleButton">
-            <v-checkbox v-model="data.bought" color="primary"></v-checkbox>
+        <v-list-item-action @click="toggleClick">
+            <v-btn icon :class="{'primary--text': data.bought}">
+                <v-icon v-text="data.bought ? 'mdi-check-circle' : 'mdi-checkbox-blank-circle-outline'"></v-icon>
+            </v-btn>
         </v-list-item-action>
         
         <v-list-item-content @click="childGroup = !childGroup" :class="{'primary--text': data.bought}">
@@ -93,10 +95,6 @@ export default {
         openEditModal() {
             this.childGroup = false
             this.$emit('openEditModal', this.data.uid)
-        },
-
-        toggleButton() {
-            db.update('circles', this.data.uid, {bought: this.data.bought})
         },
 
         toggleClick() {

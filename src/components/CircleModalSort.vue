@@ -1,6 +1,6 @@
 <template>
-    <v-dialog v-model="dialog" max-width="400">
-        <v-card>
+    <v-bottom-sheet v-model="dialog" scrollable>
+        <v-card style="max-height: 75%" :style="{transform: `translateY(${distance}px)`}" @touchstart="touchStart($event)" @touchmove="touchMove($event)" @touchend="touchEnd" :class="{ease: !touch}">
             <v-card-title>ソート/絞り込み</v-card-title>
             <v-card-text>
                 <p>サークルの並び順を変えることができます</p>
@@ -12,17 +12,16 @@
                 <v-checkbox v-model="hiddenDate" v-for="(key, index) in hidden" :label="`${key}日目 (${hidden_jp[index]})`" :value="key" :key="index"></v-checkbox>
             </v-card-text>
             <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="primary" text @click="dialog = false">キャンセル</v-btn>
-            <v-btn color="primary" text @click="save">OK</v-btn>
+                <v-btn depressed rounded large block color="primary" @click="save">OK</v-btn>
             </v-card-actions>
         </v-card>
-    </v-dialog>
+    </v-bottom-sheet>
 </template>
 
 <script>
 import constants from '../common/constants'
 import config from '../common/systemConfig'
+import swipe from '../common/bottomSheetSwiper'
 
 export default {
     data() {
@@ -33,7 +32,9 @@ export default {
             sortKeys: constants.sortKey,
             hidden: constants.comiketData.date,
             hidden_jp: constants.comiketData.date_jp,
-            hiddenDate: config.get('hiddenDate')
+            hiddenDate: config.get('hiddenDate'),
+            distance: 0,
+            touch: false
         }
     },
 
@@ -48,6 +49,25 @@ export default {
 
             this.$emit('update')
             this.dialog = false
+        },
+
+        touchStart(e) {
+            this.touch = true
+            swipe.start(e)
+        },
+
+        touchMove(e) {
+            this.distance =  swipe.move(e)
+        },
+
+        touchEnd() {
+            var status = !swipe.end()
+            this.dialog = status
+            this.touch = false
+
+            setTimeout(() => {
+                this.distance = 0
+            }, status ? 1 : 500)
         }
     }
 }
@@ -56,5 +76,9 @@ export default {
 <style scoped>
 .v-input--selection-controls {
     margin-top: 0;
+}
+
+.v-bottom-sheet > .v-card > .v-card__text {
+    padding: 0 24px;
 }
 </style>

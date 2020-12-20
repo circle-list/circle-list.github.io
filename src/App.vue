@@ -64,6 +64,40 @@ h1, .v-subheader {
     border-radius: 15px;
 }
 
+.v-bottom-sheet > .v-card {
+    border-radius: 26px 26px 0 0;
+}
+
+.v-bottom-sheet > .v-card > .v-card__actions {
+    padding: 6px 24px 24px;
+}
+
+.ease {
+    transition: all 0.1s ease;
+}
+
+.v-bottom-sheet {
+    box-shadow: none;
+}
+
+.v-bottom-sheet > .v-card {
+    box-shadow: 0 11px 15px -7px rgba(0,0,0,.2), 0 24px 38px 3px rgba(0,0,0,.14), 0 9px 46px 8px rgba(0,0,0,.12);
+    padding-top: 18px;
+}
+
+.v-bottom-sheet > .v-card:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    width: 36px;
+    height: 6px;
+    background: #aaa;
+    border-radius: 6px;
+    transform: translateX(-50%);
+}
+
 // ios用に慣性スクロールを有効にする
 .v-menu__content {
     -webkit-overflow-scrolling: touch
