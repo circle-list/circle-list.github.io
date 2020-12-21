@@ -13,9 +13,9 @@
             <ListItem v-for="(circleItem, index) in circleList" :key="index" :data="circleItem" @openDeleteModal="openDeleteModal" @openEditModal="openEditModal"></ListItem>
         </v-list>
 
-        <CircleModal ref="circleModal" @update="updateList"></CircleModal>
-        <DeleteModal ref="deleteModal"  @update="updateList"></DeleteModal>
-        <SortModal ref="sortModal" @update="updateList"></SortModal>
+        <CircleModal ref="circleModal"></CircleModal>
+        <DeleteModal ref="deleteModal"></DeleteModal>
+        <SortModal ref="sortModal"></SortModal>
     </v-container>
 </template>
 

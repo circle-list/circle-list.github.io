@@ -8,7 +8,7 @@ import Package from '../package.json'
 Vue.config.productionTip = false
 Vue.config.devtools = true
 
-Vue.prototype.$version = `Pre-Alpha v${Package.version}`
+Vue.prototype.$version = `v${Package.version}`
 
 new Vue({
   vuetify,

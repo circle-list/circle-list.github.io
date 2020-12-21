@@ -167,7 +167,7 @@ export default {
                         this.dialog = false
                     }, 50)
 
-                    this.$emit('update')
+                    this.$parent.updateList()
                 }
 
                 this.$refs.circleData.reset()
