@@ -43,18 +43,21 @@ export default {
         },
 
         touchMove(e) {
-            swipe.scrollFlag = this.isScroll ? true : swipe.scrollFlag
+            swipe.scrollFlag = this.isScroll || swipe.scrollFlag
+
+            console.log(swipe)
 
             var distance = !swipe.scrollFlag ? e.touches[0].pageY - swipe.start : 0
-            swipe.distance =  distance
+            swipe.distance = distance
 
-            this.distance =  distance >= 0 ? distance : 0
+            this.distance = distance >= 0 ? distance : 0
         },
 
         touchEnd() {
             var status = !(swipe.distance >= swipe.window)
             this.dialog = status
             this.$parent.dialog = status
+            this.$parent.isScroll = false
             this.touch = false
             swipe.scrollFlag = false
 

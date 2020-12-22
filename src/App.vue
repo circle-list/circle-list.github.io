@@ -125,6 +125,10 @@ h1, .v-subheader {
 
 .router-transition-leave-active {
     animation: fadeOut 0.15s;
+
+    .v-speed-dial {
+        display: none;
+    }
 }
 
 @keyframes fadeIn {

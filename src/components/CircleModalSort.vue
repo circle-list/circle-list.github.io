@@ -1,7 +1,7 @@
 <template>
     <BottomSheets :dialog="dialog" :isScroll="isScroll">
         <v-card-title>ソート/絞り込み</v-card-title>
-        <v-card-text @scroll="onScroll">
+        <v-card-text @scroll="isScroll = true" @click="save">
             <p>サークルの並び順を変えることができます</p>
             <v-radio-group v-model="sort" column>
                 <v-radio v-for="(key, index) in sortKeys" :label="key.label" :value="key.value" :key="index"></v-radio>
@@ -11,7 +11,7 @@
             <v-checkbox v-model="hiddenDate" v-for="(key, index) in hidden" :label="`${key}日目 (${hidden_jp[index]})`" :value="key" :key="index"></v-checkbox>
         </v-card-text>
         <v-card-actions>
-            <v-btn depressed rounded large block color="primary" @click="save">OK</v-btn>
+            <v-btn depressed rounded large block color="primary" @click="dialog = false">OK</v-btn>
         </v-card-actions>
     </BottomSheets>
 </template>
@@ -20,8 +20,6 @@
 import constants from '../common/constants'
 import config from '../common/systemConfig'
 import BottomSheets from '../components/BottomSheets'
-
-var scrollTimer
 
 export default {
     components: {
@@ -51,15 +49,6 @@ export default {
             config.set('hiddenDate', this.hiddenDate)
 
             this.$parent.updateList()
-            this.dialog = false
-        },
-
-        onScroll() {
-            this.isScroll = true
-            clearTimeout(scrollTimer)
-            scrollTimer = setTimeout(() => {
-                this.isScroll = false
-            }, 100)
         }
     }
 }

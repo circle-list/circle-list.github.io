@@ -89,12 +89,12 @@ export default {
 
     methods: {
         openDeleteModal() {
-            this.$emit('openDeleteModal', this.data.uid)
+            this.$parent.openDeleteModal(this.data.uid)
         },
 
         openEditModal() {
             this.childGroup = false
-            this.$emit('openEditModal', this.data.uid)
+            this.$parent.openEditModal(this.data.uid)
         },
 
         toggleClick() {

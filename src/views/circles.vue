@@ -2,16 +2,23 @@
     <v-container>
         <h1>Circles</h1>
         <v-subheader>サークル一覧</v-subheader>
-        <v-row>
-            <v-col class="text-right">
-                <v-btn depressed rounded @click="openSortModal"><v-icon>mdi-sort</v-icon>並び替え</v-btn>
-                <v-btn depressed rounded color="primary" class="ml-3" @click="openAddModal"><v-icon>mdi-plus</v-icon>追加</v-btn>
-            </v-col>
-        </v-row>
         
         <v-list subheader>
-            <ListItem v-for="(circleItem, index) in circleList" :key="index" :data="circleItem" @openDeleteModal="openDeleteModal" @openEditModal="openEditModal"></ListItem>
+            <ListItem v-for="(circleItem, index) in circleList" :key="index" :data="circleItem"></ListItem>
         </v-list>
+
+        <v-fab-transition>
+            <v-speed-dial v-model="fab" v-if="rendered" transition="slide-y-reverse-transition" elevation="20">
+                <template v-slot:activator>
+                    <v-btn v-model="fab" fab color="primary">
+                        <v-icon :style="{transform: `rotate(${fab ? 135:0}deg)`}">mdi-plus</v-icon>
+                    </v-btn>
+                </template>
+                    <v-btn depressed rounded color="secondary" @click="openSortModal"><v-icon>mdi-sort</v-icon>並び替え</v-btn>
+                    <v-btn depressed rounded color="primary" @click="openAddModal"><v-icon>mdi-plus</v-icon>アイテム追加</v-btn>
+                    <v-btn depressed rounded color="primary" @click="openAddModal"><v-icon>mdi-plus</v-icon>サークル追加</v-btn>
+            </v-speed-dial>
+        </v-fab-transition>
 
         <CircleModal ref="circleModal"></CircleModal>
         <DeleteModal ref="deleteModal"></DeleteModal>
@@ -58,12 +65,24 @@ export default {
 
     data() {
         return {
-            circleList: []
+            circleList: [],
+            fab: false,
+            rendered: false
         }
     },
 
-    mounted () {
+    mounted() {
         this.updateList()
+        setTimeout(() => {
+            this.rendered = true
+        }, 500)
+    },
+
+    beforeRouteLeave(to, from, next) {
+        this.rendered = false
+        setTimeout(() => {
+            next()
+        }, 150)
     },
 
     methods: {
@@ -135,10 +154,33 @@ export default {
 }
 </script>
 
-<style scoped>
-.row .v-icon {
-    margin-right: 10px;
-    font-size: 20px;
+<style scoped lang="scss">
+
+.v-speed-dial >>> .v-speed-dial__list {
     display: block;
+    min-width: 100%;
+    right: 0;
+    width: unset;
+    left: unset;
+    text-align: right;
+}
+
+.v-speed-dial button:not(.v-btn--fab) {
+    width: 100%;
+    margin: 6px 0;
+
+    .v-icon {
+        margin-right: 10px;
+        font-size: 20px;
+        display: block;
+    }
+}
+
+.v-speed-dial {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin-right: 5vw;
+    margin-bottom: calc(56px + 4vh);
 }
 </style>

@@ -75,7 +75,16 @@
 
 <style>
 .v-sheet.v-app-bar.v-toolbar:not(.v-sheet--outlined) {
-  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 6px 32px rgba(0,0,0,.1);
+}
+
+.v-toolbar__title {
+    font-size: 1rem;
+    line-height: 1.5;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #777;
 }
 
 nav {
