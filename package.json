@@ -1,6 +1,6 @@
 {
   "name": "circle-list.github.io",
-  "version": "1.14.0",
+  "version": "1.14.2",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -11,27 +11,27 @@
     "release": "npm run lint & npm version minor --no-git-tag-version > version & npm run vue-build & npm run commit"
   },
   "dependencies": {
-    "core-js": "^3.6.5",
+    "core-js": "^3.8.1",
     "dayjs": "^1.9.7",
     "dexie": "^3.0.3",
     "store-js": "^2.0.4",
-    "uuid": "^8.3.1",
+    "uuid": "^8.3.2",
     "vue": "^2.6.11",
     "vue-router": "^3.4.9",
-    "vuetify": "^2.2.11"
+    "vuetify": "^2.3.22"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
     "babel-eslint": "^10.1.0",
-    "compression-webpack-plugin": "^7.0.0",
+    "compression-webpack-plugin": "^7.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
-    "sass": "^1.19.0",
+    "sass": "^1.30.0",
     "sass-loader": "^8.0.2",
     "vue-cli-plugin-compression": "~1.0.3",
-    "vue-cli-plugin-vuetify": "~2.0.7",
+    "vue-cli-plugin-vuetify": "^2.0.8",
     "vue-cli-plugin-webpack-bundle-analyzer": "~4.0.0",
     "vue-template-compiler": "^2.6.11",
     "vuetify-loader": "^1.6.0"
