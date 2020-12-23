@@ -4,31 +4,34 @@
         <v-subheader>サークル一覧</v-subheader>
         
         <v-list subheader>
-            <ListItem v-for="(circleItem, index) in circleList" :key="index" :data="circleItem"></ListItem>
+            <ListItem v-for="(circleItem, index) in circleList" :key="index" :data="circleItem" @openDeleteModal="openDeleteModal" @openEditModal="openEditCircleModal"></ListItem>
         </v-list>
 
+        <v-overlay :value="fab"></v-overlay>
         <v-fab-transition>
-            <v-speed-dial v-model="fab" v-if="rendered" transition="slide-y-reverse-transition" elevation="20">
+            <v-speed-dial v-model="fab" transition="slide-y-reverse-transition" elevation="20">
                 <template v-slot:activator>
                     <v-btn v-model="fab" fab color="primary">
                         <v-icon :style="{transform: `rotate(${fab ? 135:0}deg)`}">mdi-plus</v-icon>
                     </v-btn>
                 </template>
-                    <v-btn depressed rounded color="secondary" @click="openSortModal"><v-icon>mdi-sort</v-icon>並び替え</v-btn>
-                    <v-btn depressed rounded color="primary" @click="openAddModal"><v-icon>mdi-plus</v-icon>アイテム追加</v-btn>
-                    <v-btn depressed rounded color="primary" @click="openAddModal"><v-icon>mdi-plus</v-icon>サークル追加</v-btn>
+                    <v-btn rounded color="secondary" @click="openSortModal"><v-icon>mdi-sort</v-icon>並び替え</v-btn>
+                    <v-btn rounded color="primary" @click="openItemModal"><v-icon>mdi-plus</v-icon>アイテム追加</v-btn>
+                    <v-btn rounded color="primary" @click="openCircleModal"><v-icon>mdi-plus</v-icon>サークル追加</v-btn>
             </v-speed-dial>
         </v-fab-transition>
 
         <CircleModal ref="circleModal"></CircleModal>
         <DeleteModal ref="deleteModal"></DeleteModal>
         <SortModal ref="sortModal"></SortModal>
+        <ItemModal ref="itemModal"></ItemModal>
     </v-container>
 </template>
 
 <script>
 import ListItem from '../components/CircleListItem'
-import CircleModal from '../components/CircleModalEditor'
+import CircleModal from '../components/CircleModalEditorCircle'
+import ItemModal from '../components/CircleModalEditorItem'
 import db from '../common/circleManagement'
 import config from '../common/systemConfig'
 import DeleteModal from '../components/CircleModalDelete'
@@ -60,41 +63,43 @@ export default {
         ListItem,
         CircleModal,
         DeleteModal,
-        SortModal
+        SortModal,
+        ItemModal
     },
 
     data() {
         return {
             circleList: [],
-            fab: false,
-            rendered: false
+            fab: false
         }
     },
 
     mounted() {
         this.updateList()
-        setTimeout(() => {
-            this.rendered = true
-        }, 500)
-    },
-
-    beforeRouteLeave(to, from, next) {
-        this.rendered = false
-        setTimeout(() => {
-            next()
-        }, 150)
     },
 
     methods: {
-        openAddModal() {
+        openCircleModal() {
             this.$refs.circleModal.modeChange(false)
             this.$refs.circleModal.dialog = true
         },
 
-        openEditModal(uid) {
+        openItemModal() {
+            this.$refs.itemModal.modeChange(false)
+            this.$refs.itemModal.dialog = true
+        },
+
+        openEditCircleModal(uid) {
             db.get('circles', uid).then(data => {
                 this.$refs.circleModal.modeChange(true, data[0])
                 this.$refs.circleModal.dialog = true
+            })
+        },
+
+        openEditItemModal(uid) {
+            db.get('buylist', uid).then(data => {
+                this.$refs.itemModal.modeChange(true, data[0])
+                this.$refs.itemModal.dialog = true
             })
         },
 
@@ -145,7 +150,7 @@ export default {
 
             // 表示できるサークルがなかった場合にメッセージを表示
             if(inject.length === 0) {
-                inject.push({header: '表示できるサークルがありません。\nサークルを追加するか、"並び替え"から表示条件を変更してみてください。'})
+                inject.push({header: '表示できるサークルがありません。\n右下のボタンからサークルを追加するか、"並び替え"から表示条件を変更してみてください。'})
             }
 
             this.circleList = inject
@@ -178,9 +183,8 @@ export default {
 
 .v-speed-dial {
     position: fixed;
-    bottom: 0;
-    right: 0;
-    margin-right: 5vw;
-    margin-bottom: calc(56px + 4vh);
+    bottom: calc(3.5vh + 56px);
+    right: calc(2.5vw + 15px);
+    z-index: 5;
 }
 </style>

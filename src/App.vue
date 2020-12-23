@@ -125,29 +125,25 @@ h1, .v-subheader {
 
 .router-transition-leave-active {
     animation: fadeOut 0.15s;
-
-    .v-speed-dial {
-        display: none;
-    }
 }
 
 @keyframes fadeIn {
     from {
-        transform: scale(0.95);
+        //transform: scale(0.95);
         opacity: 0;
     }
     to {
-        transform: scale(1);
+        //transform: scale(1);
         opacity: 1;
     }
 }
 
 @keyframes fadeOut {
     from {
-        transform: scale(1);
+        //transform: scale(1);
     }
     to {
-        transform: scale(1.05);
+        //transform: scale(1.05);
         opacity: 0;
     }
 }
