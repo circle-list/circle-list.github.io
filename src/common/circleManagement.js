@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid'
 var db = new Dexie('AppDatabase')
 db.version(1).stores({
     circles: '&uid, name, memo, date, hall, block, number, table, bought',
-    buylist: 'parent, &uid, name, price, bought'
+    buylist: '&uid, parent, name, price, bought'
 })
 
 export default {

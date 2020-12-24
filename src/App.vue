@@ -80,8 +80,12 @@ h1, .v-subheader {
     box-shadow: none;
 }
 
-.v-bottom-sheet > .v-card {
+// 独自シャドウ
+.v-bottom-sheet > .v-card, .v-menu__content, .v-item-group.v-bottom-navigation {
     box-shadow: 0 11px 15px -7px rgba(0,0,0,.2), 0 24px 38px 3px rgba(0,0,0,.14), 0 9px 46px 8px rgba(0,0,0,.12);
+}
+
+.v-bottom-sheet > .v-card {
     padding-top: 18px;
 }
 
@@ -100,7 +104,8 @@ h1, .v-subheader {
 
 // ios用に慣性スクロールを有効にする
 .v-menu__content {
-    -webkit-overflow-scrolling: touch
+    -webkit-overflow-scrolling: touch;
+    border-radius: 10px;
 }
 
 // スクロールバー変更

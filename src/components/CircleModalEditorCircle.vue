@@ -162,6 +162,8 @@ export default {
                 if(this.if_continue && !this.editmode) {
                     this.addCircleName = this.circleName
                     this.snackbar = true
+
+                    this.$parent.updateList()
                 } else {
                     setTimeout(() => {
                         this.dialog = false

@@ -1,7 +1,7 @@
 <template>
     <BottomSheets :dialog="dialog">
         <v-card-title color="red">本当に削除しますか？</v-card-title>
-        <v-card-text>この操作を取り消すことはできません。<br>このサークルのデータを削除しますか？</v-card-text>
+        <v-card-text>この操作を取り消すことはできません。<br>この{{ type === 'circles' ? 'サークル' : 'アイテム' }}のデータを削除しますか？</v-card-text>
         <v-card-actions>
             <v-btn depressed rounded large color="primary" @click="dialog = false">やめる</v-btn>
             <v-spacer></v-spacer>
@@ -24,7 +24,8 @@ export default {
             data: {},
             dialog: false,
             touch: false,
-            distance: 0
+            distance: 0,
+            type: 'circles'
         }
     },
 
@@ -32,7 +33,7 @@ export default {
         deleteCircle() {
             this.dialog = false
             
-            db.delete('circles', this.data.uid)
+            db.delete(this.type, this.data.uid)
             this.$parent.updateList()
         }
     }

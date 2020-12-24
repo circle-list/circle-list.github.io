@@ -22,7 +22,7 @@
                 <v-form ref="itemData">
                     <v-row>
                         <v-col cols="12">
-                            <v-select v-model="circleData" :items="circleList" label="サークル選択" item-text="circleName" item-value="uid" filled dense rounded :rules="[formValidation.select]"></v-select>
+                            <v-select v-model="itemParent" :items="circleList" label="サークル選択" item-text="circleName" item-value="uid" filled dense rounded :rules="[formValidation.select]"></v-select>
                         </v-col>
                         <v-col cols="12">
                             <v-text-field v-model="itemName" label="アイテム名" filled dense rounded :rules="[formValidation.text]"></v-text-field>
@@ -42,16 +42,6 @@
 <script>
 import db from '../common/circleManagement'
 
-var currentCircleList = []
-db.list('circles').then(data => {
-    data.forEach(item => {
-        currentCircleList.push({
-            circleName: item.name,
-            uid: item.uid
-        })
-    })
-})
-
 export default {
     data() {
         return {
@@ -63,7 +53,7 @@ export default {
             snackbar: false,
             itemUid: '',
             addItemName: '',
-            circleList: currentCircleList,
+            circleList: [],
             formValidation: {
                 select: v => !!v || '選択してください',
                 text: v => !!v || '入力してください',
@@ -86,7 +76,9 @@ export default {
         submit() {
             if (this.$refs.itemData.validate()) {
                 var data = {
-                    //TODO: ここもつくりかけ
+                    parent: this.itemParent,
+                    name: this.itemName,
+                    price: this.itemPrice
                 }
 
                 if(!this.itemUid) {
@@ -98,6 +90,8 @@ export default {
                 if(this.if_continue && !this.editmode) {
                     this.addItemName = this.itemName
                     this.snackbar = true
+
+                    this.$parent.updateList()
                 } else {
                     setTimeout(() => {
                         this.dialog = false
@@ -120,6 +114,7 @@ export default {
 
         modeChange(editmode, data) {
             this.editmode = editmode
+            this.updateCircleList()
 
             if(!editmode) {
                 // 追加モード
@@ -131,9 +126,22 @@ export default {
                 this.modalTitle = 'アイテム編集'
                 this.modalBtn = '編集'
 
-                this.circleData = data['parent']
-                //TODO: ここつくりかけ  データとフォームを結びつける処理
+                Object.keys(data).forEach(key => {
+                    this['item' + key.charAt(0).toUpperCase() + key.slice(1)] = data[key]
+                })
             }
+        },
+
+        updateCircleList() {
+            this.circleList = []
+            db.list('circles').then(data => {
+                data.forEach(item => {
+                    this.circleList.push({
+                        circleName: item.name,
+                        uid: item.uid
+                    })
+                })
+            })
         }
     }
 }
@@ -155,6 +163,10 @@ export default {
 
     textarea {
         margin: 10px 0;
+    }
+
+    .v-text-field__suffix {
+        margin-top: 0px;
     }
 }
 

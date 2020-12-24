@@ -4,7 +4,7 @@
         <v-subheader>サークル一覧</v-subheader>
         
         <v-list subheader>
-            <ListItem v-for="(circleItem, index) in circleList" :key="index" :data="circleItem" @openDeleteModal="openDeleteModal" @openEditModal="openEditCircleModal"></ListItem>
+            <ListItem v-for="(circleItem, index) in circleList" :key="index" :data="circleItem" @openDeleteModal="openDeleteModal" @openEditModal="openEditCircleModal" @openEditItemModal="openEditItemModal"></ListItem>
         </v-list>
 
         <v-overlay :value="fab"></v-overlay>
@@ -15,8 +15,8 @@
                         <v-icon :style="{transform: `rotate(${fab ? 135:0}deg)`}">mdi-plus</v-icon>
                     </v-btn>
                 </template>
-                    <v-btn rounded color="secondary" @click="openSortModal"><v-icon>mdi-sort</v-icon>並び替え</v-btn>
-                    <v-btn rounded color="primary" @click="openItemModal"><v-icon>mdi-plus</v-icon>アイテム追加</v-btn>
+                    <v-btn rounded color="success" @click="openSortModal" :disabled="isEnableButton"><v-icon>mdi-sort</v-icon>並び替え</v-btn>
+                    <v-btn rounded color="primary" @click="openItemModal" :disabled="isEnableButton"><v-icon>mdi-plus</v-icon>アイテム追加</v-btn>
                     <v-btn rounded color="primary" @click="openCircleModal"><v-icon>mdi-plus</v-icon>サークル追加</v-btn>
             </v-speed-dial>
         </v-fab-transition>
@@ -70,7 +70,8 @@ export default {
     data() {
         return {
             circleList: [],
-            fab: false
+            fab: false,
+            isEnableButton: false
         }
     },
 
@@ -103,10 +104,11 @@ export default {
             })
         },
 
-        openDeleteModal(uid) {
-            db.get('circles', uid).then(data => {
+        openDeleteModal(uid, type) {
+            db.get(type, uid).then(data => {
                 this.$refs.deleteModal.data = data[0]
                 this.$refs.deleteModal.dialog = true
+                this.$refs.deleteModal.type = type
             })
         },
         
@@ -116,6 +118,8 @@ export default {
 
         async updateList() {
             var circledata = await db.list('circles')
+
+            this.isEnableButton = !circledata.length
 
             circledata.sort(objectSort)
             var hidden = config.get('hiddenDate')
@@ -132,10 +136,10 @@ export default {
                 var obj = inject[i]
 
                 // サークル配置番号定義 ＆ ソート基準になっているキーは削除して整形
-                inject[i]['place'] = `${obj['date']} ${obj['hall']} ${obj['block']} - ${obj['number']}${obj['table']}`.replace(inject[i][sortKey], '').replace(/ {2}/, ' ')
+                inject[i]['place'] = `${obj['date']} ${obj['hall']} ${obj['block']} - ${obj['number']}${obj['table']}`.replace(obj[sortKey], '').replace(/ {2}/, ' ')
 
                 // データベースからグッズを取得して定義
-                inject[i]['buylist'] = await db.list('buylist', {'parent': inject[i]['uid']})
+                inject[i]['buylist'] = await db.list('buylist', {'parent': obj['uid']})
 
                 // ヘッダ追加予定リストに追加（無限ループになるので）
                 if(inject[i - 1] === undefined || inject[i][sortKey] !== inject[i - 1][sortKey]) {

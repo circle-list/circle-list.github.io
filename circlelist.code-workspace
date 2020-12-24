@@ -7,7 +7,7 @@
 	"settings": {
 		"git.ignoreLimitWarning": true,
 		"liveServer.settings.multiRootWorkspaceName": "circle-list.github.io",
-		"todo-tree.tree.showBadges": false,
+		"todo-tree.tree.showBadges": true,
 		"todo-tree.tree.showCountsInTree": true
 	}
 }

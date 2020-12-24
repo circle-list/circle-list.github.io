@@ -24,6 +24,7 @@
 
     <!-- Children -->
     <v-list-group v-if="!data.header" :value="childGroup" sub-group eager>
+        <!-- メモ -->
         <v-list-item v-if="data.memo">
             <v-list-item-icon>
                 <v-icon>mdi-pen</v-icon>
@@ -36,15 +37,45 @@
 
         <v-divider class="mx-4" v-if="!!data.memo && !!data.buylist.length"></v-divider>
 
-        <v-list-item v-for="(buyitem, index) in buylist" :key="index">
-            <v-list-item-content>
-                <v-list-item-title>買うやつのタイトル</v-list-item-title>
-                <v-list-item-subtitle>買うやつの値段とか</v-list-item-subtitle>
+        <!-- アイテム一覧 -->
+        <v-list-item v-for="(buyitem, index) in data.buylist" :key="index">
+            <!-- Checkbox -->
+            <v-list-item-action @click="toggleItem(index, buyitem.uid)">
+                <v-btn icon :class="{'primary--text': data.buylist[index].bought}">
+                    <v-icon v-text="data.buylist[index].bought ? 'mdi-check-circle' : 'mdi-checkbox-blank-circle-outline'"></v-icon>
+                </v-btn>
+            </v-list-item-action>
+
+            <!-- 名称と価格 -->
+            <v-list-item-content @click.right.prevent="toggleItem(index, buyitem.uid)">
+                <v-list-item-title>{{ buyitem.name }}</v-list-item-title>
+                <v-list-item-subtitle v-if="buyitem.price">{{ buyitem.price }}円</v-list-item-subtitle>
             </v-list-item-content>
+
+            <!-- サブメニュー -->
+            <v-list-item-action>
+                <v-menu bottom left>
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-btn icon v-bind="attrs" v-on="on">
+                            <v-icon>mdi-dots-vertical</v-icon>
+                        </v-btn>
+                    </template>
+
+                    <v-list>
+                        <v-list-item>
+                            <v-list-item-title @click="openEditModalItem(buyitem.uid)" class="primary--text">編集</v-list-item-title>
+                        </v-list-item>
+                        <v-list-item>
+                            <v-list-item-title @click="openDeleteModalItem(buyitem.uid)" class="red--text">削除</v-list-item-title>
+                        </v-list-item>
+                    </v-list>
+                </v-menu>
+            </v-list-item-action>
         </v-list-item>
 
         <v-divider class="mx-4" v-if="!!data.memo || !!data.buylist.length"></v-divider>
 
+        <!-- メニュー -->
         <v-list-item>
             <v-list-item-content class="buttons">
                 <v-row>
@@ -89,7 +120,7 @@ export default {
 
     methods: {
         openDeleteModal() {
-            this.$emit('openDeleteModal', this.data.uid)
+            this.$emit('openDeleteModal', this.data.uid, 'circles')
         },
 
         openEditModal() {
@@ -100,6 +131,19 @@ export default {
         toggleClick() {
             this.data.bought = !this.data.bought
             db.update('circles', this.data.uid, {bought: this.data.bought})
+        },
+
+        toggleItem(index, uid) {
+            this.data.buylist[index].bought = !this.data.buylist[index].bought
+            db.update('buylist', uid, {bought: this.data.buylist[index].bought})
+        },
+
+        openEditModalItem(uid) {
+            this.$emit('openEditItemModal', uid)
+        },
+
+        openDeleteModalItem(uid) {
+            this.$emit('openDeleteModal', uid, 'buylist')
         }
     }
 }
