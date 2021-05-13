@@ -82,7 +82,7 @@ window.onerror = function(msg, url, line, col) {
 
         if(window.navigator.onLine) {
             $.ajax({
-                url:'https://sp-wtr-api.gq/api/v1/circlelist/error',
+                url:'https://api.yukineko.me/circlelist/v1/error',
                 type:'POST',
                 data: errorReport
             })
@@ -419,7 +419,7 @@ function ConfigCheck() {
 
     if(localStorage.getItem('errorStack') !== null) {
         $.ajax({
-            url:'https://sp-wtr-api.gq/api/v1/circlelist/error',
+            url:'https://api.yukineko.me/circlelist/v1/error',
             type:'POST',
             data: JSON.parse(localStorage.getItem('errorStack'))
         })
@@ -1081,7 +1081,7 @@ theme_init()
 // データのサーバーバックアップ
 function serverBackup(u, d) {
     $.ajax({
-        url:'https://sp-wtr-api.gq/api/v1/circlelist/backup-create',
+        url:'https://api.yukineko.me/circlelist/v1/backup/create',
         type:'POST',
         data: {
             uuid: u,
@@ -1112,7 +1112,7 @@ circle_restore = undefined
 
 $('#cc-cloud_check').on('click', function() {
     $.ajax({
-        url:'https://sp-wtr-api.gq/api/v1/circlelist/backup-check',
+        url:'https://api.yukineko.me/circlelist/v1/backup/check',
         type:'POST',
         data: {
             uuid: getConfig('uuid')
@@ -1141,7 +1141,7 @@ $('#cc-cloud_check').on('click', function() {
 
 function ajax_login(dt) {
     $.ajax({
-        url:'https://sp-wtr-api.gq/api/v1/circlelist/backup-restore',
+        url:'https://api.yukineko.me/circlelist/v1/backup/restore',
         type:'POST',
         data: dt
     })
@@ -1340,7 +1340,7 @@ function checkQuery() {
 
         case 'movedata':
             $.ajax({
-                url:'https://sp-wtr-api.gq/api/v1/circlelist/move-data-get',
+                url:'https://api.yukineko.me/circlelist/v1/move/get',
                 type:'POST',
                 data: {
                     id: query['movedata']
